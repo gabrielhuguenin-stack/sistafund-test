@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "n8n-mcp": {
+      "type": "http",
+      "url": "https://gabrielhuguenin.app.n8n.cloud/mcp-server/http",
+      "headers": {
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjViZDE4ZjA3LTEyN2ItNDE3YS05MmQ3LTMxNDU3NDU3NmYwNiIsImlhdCI6MTc4NDU0MzM5OX0.5GzABlqA3fo5y3GP1Wo3xmzEylb40MfJ5392aw8gqwA"
+      }
+    }
+  }
+}

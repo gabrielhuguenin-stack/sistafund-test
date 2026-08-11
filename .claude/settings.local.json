@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:sistafund.com)",
+      "Bash(curl -s https://sistafund.com/limited_partners/ -o \"/private/tmp/claude-502/-Users-gabrielhuguenin-Site-web/56d4d2b0-9987-4b9a-9cdb-9efcc00cc2c0/scratchpad/lp.html\")",
+      "Bash(curl -s http://localhost:8090/)",
+      "Bash(curl -sI http://localhost:8090/)",
+      "Bash(curl -s https://sistafund.com/limited_partners/ -o \"/private/tmp/claude-502/-Users-gabrielhuguenin-Site-web/56d4d2b0-9987-4b9a-9cdb-9efcc00cc2c0/scratchpad/lp2.html\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -)",
+      "mcp__mcp-registry__list_connectors",
+      "mcp__mcp-registry__search_mcp_registry",
+      "Bash(claude mcp *)",
+      "Bash(cat ~/.claude/settings.json 2>/dev/null || echo \"No settings file\")",
+      "Bash(cat ~/.claude/settings.local.json 2>/dev/null || echo \"No local settings file\")",
+      "Bash(command -v claude)",
+      "Read(//usr/local/bin/**)",
+      "Read(//Users/gabrielhuguenin/bin/**)",
+      "Bash(python3 -c \"import sys,json; print\\(json.dumps\\(json.load\\(sys.stdin\\), indent=2\\)\\)\")",
+      "Bash(grep -q 'N8N_API_KEY' ~/.zshrc 2>/dev/null && echo \"EXISTS\" || echo \"NOT_FOUND\")",
+      "Bash(echo '')",
+      "Bash(echo '# n8n MCP server API key')",
+      "Bash(echo 'export N8N_API_KEY=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg\"')",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://gabrielhuguenin.app.n8n.cloud/mcp-server/sse\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://gabrielhuguenin.app.n8n.cloud/mcp-server/http\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg\")",
+      "Bash(curl -s -N --max-time 5 \"https://gabrielhuguenin.app.n8n.cloud/mcp-server/sse\" -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg\")",
+      "Bash(curl -s -w '\\\\n%{http_code}' https://gabrielhuguenin.app.n8n.cloud/mcp-server/http -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"test\",\"version\":\"1.0\"}}}')",
+      "Bash(curl -s -w '\\\\n%{http_code}' https://gabrielhuguenin.app.n8n.cloud/mcp-server/http -X POST -H 'x-n8n-api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"test\",\"version\":\"1.0\"}}}')",
+      "Bash(curl -s -w '\\\\n%{http_code}' https://gabrielhuguenin.app.n8n.cloud/mcp-server/http -X POST -H 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMGI2ZGJmZi02MTI4LTQ2OWUtYWVjMS04YmIwZTM0MDhiYTciLCJpc3MiOiJuOG4iLCJhdWQiOiJtY3Atc2VydmVyLWFwaSIsImp0aSI6IjE0ZjY3MDEzLTkwYmQtNDI0YS05NTA2LTJhZWI4YjdlOGRlMiIsImlhdCI6MTc4NDU0MDkwOH0.zBddxakWbvCWoH_ZI23HtnuLSbDZXYVJlcytuMY6xzg' -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -d '{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"initialize\",\"params\":{\"protocolVersion\":\"2024-11-05\",\"capabilities\":{},\"clientInfo\":{\"name\":\"test\",\"version\":\"1.0\"}}}')",
+      "Bash(awk '/\\\\/\\\\* ============ Hero \\\\\\(yellow\\\\\\)/,/\\\\/\\\\* ============ Section commons/' style.css)",
+      "Bash(awk '/Hero title: word-by-word masked rise/,/Section h2s: wrap each line/' script.js)",
+      "Bash(node -c script.js)",
+      "Bash(awk '/\\\\/\\\\* ============ Intro/,/\\\\/\\\\* ============ Custom cursor/' style.css)",
+      "Bash(awk '/\\\\/\\\\* ============ Hero \\\\\\(yellow/,/\\\\/\\\\* ============ Section commons/' style.css)",
+      "Bash(awk '/======== TEAM/,/======== COMMUNITY/' index.html)",
+      "Bash(awk '/\\\\/\\\\* ============ Portfolio/,/\\\\/\\\\* ============ Team/' style.css)",
+      "Bash(awk '/\\\\/\\\\* ============ Team/,/\\\\/\\\\* ============ Community/' style.css)",
+      "Bash(awk '/\\\\.orbit-item/,/\\\\.orbit-center h2/' style.css)"
+    ]
+  }
+}
