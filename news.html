@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SISTAFUND | News</title>
+<meta name="description" content="The latest from SISTAFUND and our portfolio companies — funding rounds, milestones and press.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
+<link rel="stylesheet" href="style.css?v=13">
+</head>
+<body class="loaded nav-ready">
+
+<!-- ======== NAV ======== -->
+<header class="nav" id="nav">
+  <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SISTAFUND"></a>
+  <nav class="nav-links">
+    <a href="index.html#about">About</a>
+    <a href="index.html#portfolio">Portfolio</a>
+    <a href="team.html">Team</a>
+    <a href="index.html#community">Community</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="news.html">News</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#about">About</a>
+  <a href="index.html#portfolio">Portfolio</a>
+  <a href="team.html">Team</a>
+  <a href="index.html#community">Community</a>
+  <a href="index.html#faq">FAQ</a>
+  <a href="news.html">News</a>
+</div>
+
+<main class="page">
+
+  <header class="page-hero page-hero-slim">
+    <a href="index.html" class="page-back">← Back to home</a>
+    <p class="page-hero-kicker">News</p>
+  </header>
+
+  <section class="news-page-grid" id="news">
+    <div class="news-grid">
+      <a class="news-card" href="https://sistafund.com/news/">
+        <div class="news-img"><img src="img/news/pave.webp" alt="PAVE Space"></div>
+        <div class="news-date">25/03/2026, Pave Space</div>
+        <h3>Redefining the last mile of space: PAVE Space raises $40M!</h3>
+        <span class="news-more">Read more →</span>
+      </a>
+      <a class="news-card" href="https://sistafund.com/news/">
+        <div class="news-img"><img src="img/news/waiv.jpg" alt="Waiv founders"></div>
+        <div class="news-date">12/03/2026, Waiv</div>
+        <h3>Waiv secures $33 million to scale AI precision testing</h3>
+        <span class="news-more">Read more →</span>
+      </a>
+      <a class="news-card" href="https://sistafund.com/news/">
+        <div class="news-img"><img src="img/news/recupere.jpg" alt="Recupere Metals"></div>
+        <div class="news-date">02/02/2026, Maddyness</div>
+        <h3>Circular industrial tech meets Europe's strategic autonomy: Recupere Metals raises €5m!</h3>
+        <span class="news-more">Read more →</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======== FOOTER ======== -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-legal-block">
+      <p class="footer-legal">SISTA Fund I is a French Private Equity Professional Fund (FPCI) managed by its Management Company, SUNSHINE, a SAS with a registered office at 81 rue Réaumur, 75002 Paris, RCS Paris n°983 158 023, approved by the Autorité des Marchés Financiers as a portfolio management company under the number GP-20240015 since July 23rd, 2024.</p>
+      <span class="footer-copy">© 2026 SISTAFUND</span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <span class="footer-head">Visit</span>
+        <p>81 rue Réaumur<br>75002 Paris, France</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Contact</span>
+        <a href="mailto:contact@sistafund.com">contact@sistafund.com</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-head">Follow</span>
+        <a href="https://www.linkedin.com/company/sistafund/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://twitter.com/wearesista" target="_blank" rel="noopener">Twitter / X</a>
+        <a href="https://www.wearesista.com/" target="_blank" rel="noopener">SISTA NGO</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div><a href="https://sistafund.com/mentions-legales/">Mentions légales</a><a href="https://sistafund.com/esg-policy/">ESG Policy</a><span>Trademark SISTAFUND</span></div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), { passive: true });
+
+  const burger = document.getElementById('burger');
+  const mm = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
+
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('in-view'); io.unobserve(e.target); });
+  }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.news-card').forEach((el, i) => {
+    el.style.transitionDelay = ((i % 3) * 90) + 'ms';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>

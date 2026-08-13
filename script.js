@@ -43,27 +43,35 @@ if (faqToggle && faqMore) {
   });
 }
 
-// ---------- Team carousel: portraits auto-advance; click for next; link → team.html ----------
+// ---------- Team carousel: filmstrip slides horizontally, next portrait peeking; seamless loop ----------
 const teamSlider = document.getElementById('teamSlider');
 if (teamSlider) {
-  const slides = [...teamSlider.querySelectorAll('.team-slide')];
+  const track = document.getElementById('teamTrack');
+  const real = [...track.querySelectorAll('.team-slide')];
   const capEl = document.getElementById('teamCap');
   const countEl = document.getElementById('teamCount');
-  let ti = 0, timer = null;
-  const show = n => {
-    ti = (n + slides.length) % slides.length;
-    slides.forEach((s, k) => s.classList.toggle('is-active', k === ti));
-    capEl.textContent = slides[ti].dataset.cap;
-    countEl.textContent = ti + 1;
+  const len = real.length;
+  track.appendChild(real[0].cloneNode(true));   // trailing clone for a seamless wrap
+  let ti = 0, timer = null, animating = false;
+  const step = () => track.children[1].getBoundingClientRect().left - track.children[0].getBoundingClientRect().left;
+  const place = animate => {
+    track.style.transition = animate ? '' : 'none';
+    track.style.transform = `translateX(${-ti * step()}px)`;
+    if (!animate) void track.offsetWidth;         // commit the jump before re-enabling transitions
   };
-  const next = () => show(ti + 1);
-  const start = () => { stop(); timer = setInterval(next, 3800); };
+  const sync = () => { const r = ti % len; capEl.textContent = real[r].dataset.cap; countEl.textContent = r + 1; };
+  const next = () => { if (animating) return; animating = true; ti++; place(true); sync(); };
+  track.addEventListener('transitionend', () => {
+    animating = false;
+    if (ti >= len) { ti = 0; place(false); sync(); }
+  });
+  const start = () => { stop(); timer = setInterval(next, 3600); };
   const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
   teamSlider.addEventListener('click', () => { next(); start(); });
   teamSlider.addEventListener('mouseenter', stop);
   teamSlider.addEventListener('mouseleave', start);
-  show(0);
-  start();
+  window.addEventListener('resize', () => place(false));
+  place(false); sync(); start();
 }
 
 // ---------- In-view observer (reveals, hl marker, CTA lines) ----------

@@ -373,12 +373,13 @@ main section[id] { scroll-margin-top: 60px; }
   padding-bottom: 7px; border-bottom: 2px solid var(--ink);
 }
 .team-slider { cursor: pointer; }
-.team-stage {
-  position: relative; aspect-ratio: 4 / 4.4; overflow: hidden;
+.team-stage { position: relative; overflow: hidden; }
+/* horizontal filmstrip: active portrait large, next one peeking on the right */
+.team-track { display: flex; gap: 18px; will-change: transform; transition: transform .85s var(--ease); }
+.team-slide {
+  position: relative; flex: 0 0 80%; aspect-ratio: 4 / 4.4; overflow: hidden;
   border: 1.5px solid var(--ink); background: var(--yellow);
 }
-.team-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s var(--ease); }
-.team-slide.is-active { opacity: 1; }
 .team-slide img {
   width: 100%; height: 100%; object-fit: cover; object-position: center 14%;
   filter: grayscale(1) contrast(1.05);
@@ -768,6 +769,8 @@ main section[id] { scroll-margin-top: 60px; }
 
 /* ============ Sub-page (team.html) ============ */
 .page-hero { padding: 26vh 4vw 6vh; max-width: 1260px; margin: 0 auto; }
+.page-hero-slim { padding: 20vh 4vw 5vh; display: flex; flex-direction: column; gap: 22px; }
+.page-hero-slim .page-back { margin-top: 0; }
 .page-hero-kicker {
   font-family: var(--display); text-transform: uppercase;
   letter-spacing: .16em; font-size: .9rem; color: var(--grey); margin-bottom: 22px;
@@ -793,13 +796,16 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .team-page-grid { max-width: 1260px; margin: 0 auto; padding: 0 4vw 16vh; }
 .team-page-grid .team-grid { max-width: none; }
+.news-all-cta { margin-top: 8vh; }
+.news-page-grid { max-width: 1260px; margin: 0 auto; padding: 0 4vw 16vh; }
+.news-page-grid .news-grid { grid-template-columns: repeat(3, 1fr); }
 
 /* ============ Responsive ============ */
 @media (max-width: 1024px) {
   .team-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
   .team-intro { grid-template-columns: 1fr; gap: 6vh; }
   .team-intro-text { order: -1; }
-  .team-stage { aspect-ratio: 4 / 3.4; }
+  .team-slide { flex-basis: 86%; aspect-ratio: 4 / 3.8; }
   .team-slide img { object-position: center 20%; }
   .about-grid { grid-template-columns: 1fr; }
   .about-col { border-right: none; border-bottom: 1.5px solid var(--ink); }
