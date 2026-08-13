@@ -35,7 +35,14 @@
       "Bash(awk '/======== TEAM/,/======== COMMUNITY/' index.html)",
       "Bash(awk '/\\\\/\\\\* ============ Portfolio/,/\\\\/\\\\* ============ Team/' style.css)",
       "Bash(awk '/\\\\/\\\\* ============ Team/,/\\\\/\\\\* ============ Community/' style.css)",
-      "Bash(awk '/\\\\.orbit-item/,/\\\\.orbit-center h2/' style.css)"
+      "Bash(awk '/\\\\.orbit-item/,/\\\\.orbit-center h2/' style.css)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(git ls-tree *)",
+      "WebFetch(domain:www.indexventures.com)",
+      "WebFetch(domain:www.curaclimate.com)",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Hero: masked line reveal \\(drop code cipher\\), remove Pitch us CTA, rebalance headline, tighten portrait framing *)"
     ]
   }
 }

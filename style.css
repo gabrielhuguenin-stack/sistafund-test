@@ -192,13 +192,12 @@ body.cursor-on .cursor { transform: translate(-50%, -50%) scale(1); }
   font-family: var(--display); text-transform: uppercase;
   font-weight: normal; line-height: .94;
   font-size: clamp(2.6rem, 9vw, 9.4rem);
-  opacity: 0; pointer-events: none;
-  will-change: opacity;
+  pointer-events: none;
 }
+/* each line is a mask; its inner slab slides up from behind as you scroll */
 .hstmt > span { display: block; white-space: nowrap; }
-/* letters still encrypted: dimmed, they flicker until the scroll resolves them */
-.hstmt .ch { display: inline; transition: opacity .1s linear; }
-.hstmt .ch.scr { opacity: .32; }
+.hstmt .hmask { display: block; overflow: hidden; padding-bottom: .02em; }
+.hstmt .hln { display: block; font-style: normal; transform: translateY(102%); will-change: transform; }
 
 /* discreet scroll cue: a thin line drawing downward, fades out as you scroll */
 .hero-cue {
@@ -382,7 +381,7 @@ main section[id] { scroll-margin-top: 60px; }
   background: var(--yellow);
 }
 .member-photo img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
   filter: grayscale(1) contrast(1.05);
   transition: transform .6s var(--ease);
 }
@@ -427,7 +426,7 @@ main section[id] { scroll-margin-top: 60px; }
   border: 1.5px solid var(--yellow);
 }
 .orbit-photo img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 22%;
   filter: grayscale(1) contrast(1.05);
 }
 /* the company each investor stands for, right under the portrait */
@@ -477,7 +476,7 @@ main section[id] { scroll-margin-top: 60px; }
   border: 1.5px solid var(--ink); margin-bottom: 20px;
 }
 .news-img img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 28%;
   filter: grayscale(1);
   transition: transform .6s var(--ease), filter .6s;
 }
@@ -672,7 +671,7 @@ main section[id] { scroll-margin-top: 60px; }
   margin-bottom: 12px;
 }
 .lp-photo img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
   filter: grayscale(1) contrast(1.05);
   transition: transform .5s var(--ease);
 }

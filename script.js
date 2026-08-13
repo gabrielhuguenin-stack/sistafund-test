@@ -56,50 +56,45 @@ const io = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.15, rootMargin: '0px 0px -5% 0px' });
 
-// ---------- Hero: scroll decrypts the statements, letter by letter ----------
+// ---------- Hero: scroll wipes each line up from behind a mask ----------
 const heroPin = document.getElementById('heroPin');
 const heroSection = document.getElementById('hero');
 const heroItems = [...document.querySelectorAll('#heroStack .hstmt')];
-const CRYPT = '01{}[]<>/=+*_:;01010110';   // code-like cipher, binary-heavy
-const heroState = { active: 0, resolve: 1 };
 
-heroItems.forEach(item => {
+// wrap each line's text in an inner element we can translate behind an overflow mask,
+// and hand each line an enter/exit window along the scroll (staggered per line)
+const heroLines = [];
+heroItems.forEach((item, si) => {
   item.setAttribute('aria-label', item.textContent.trim().replace(/\s+/g, ' '));
-  item._chars = [];
-  item.querySelectorAll('span').forEach(line => {
+  const spans = [...item.querySelectorAll('span')];
+  spans.forEach((line, li) => {
     const text = line.textContent;
-    line.textContent = '';
     line.setAttribute('aria-hidden', 'true');
-    [...text].forEach(ch => {
-      if (ch === ' ') { line.appendChild(document.createTextNode(' ')); return; }
-      const s = document.createElement('span');
-      s.className = 'ch';
-      s.textContent = ch;
-      line.appendChild(s);
-      item._chars.push({ el: s, target: ch });
-    });
+    line.classList.add('hmask');
+    line.innerHTML = `<i class="hln">${text}</i>`;
+    const inner = line.firstChild;
+    // statement 0 (headline): shown at rest, wipes up as you scroll.
+    // statement 1 (gender-lens): wipes in later and stays.
+    const enter0 = si === 0 ? -0.2 : 0.54 + li * 0.07;
+    const enter1 = si === 0 ? -0.1 : enter0 + 0.12;
+    const exit0  = si === 0 ? 0.40 + li * 0.05 : 2;   // >1 = never exits
+    const exit1  = exit0 + 0.12;
+    heroLines.push({ inner, enter0, enter1, exit0, exit1 });
   });
 });
 
-function renderHero() {
-  const { active, resolve } = heroState;
-  heroItems.forEach((item, i) => {
-    item.style.opacity = i === active ? 1 : 0;
-    if (i !== active) return;
-    const n = Math.round(resolve * item._chars.length);
-    item._chars.forEach((c, k) => {
-      if (k < n) {
-        if (c.el.textContent !== c.target) c.el.textContent = c.target;
-        c.el.classList.remove('scr');
-      } else {
-        c.el.textContent = CRYPT[Math.floor(Math.random() * CRYPT.length)];
-        c.el.classList.add('scr');
-      }
-    });
-  });
+const lerp = (a, b, t) => a + (b - a) * t;
+function lineY(l, p) {
+  if (p < l.enter0) return 102;                              // still below the mask
+  if (p < l.enter1) return lerp(102, 0, (p - l.enter0) / (l.enter1 - l.enter0));
+  if (p < l.exit0)  return 0;                                // fully shown
+  if (p < l.exit1)  return lerp(0, -108, (p - l.exit0) / (l.exit1 - l.exit0));
+  return -108;                                               // wiped up and gone
 }
-// while letters are still encrypted they keep flickering, even between scrolls
-setInterval(() => { if (heroState.resolve < 1) renderHero(); }, 75);
+function renderHero(p) {
+  heroItems.forEach(it => { it.style.opacity = 1; });
+  heroLines.forEach(l => { l.inner.style.transform = `translateY(${lineY(l, p)}%)`; });
+}
 
 // Section h2s: wrap each line (split on <br>) for the masked line reveal
 document.querySelectorAll('.sec-head h2').forEach(h2 => {
@@ -270,15 +265,11 @@ function onScroll() {
   nav.classList.toggle('scrolled', y > 60);
   lastY = y;
 
-  // hero: scrolling dials the decryption — letters resolve toward each statement
-  if (heroPin && heroItems.length) {
+  // hero: scrolling wipes each headline line up from behind its mask
+  if (heroPin && heroLines.length) {
     const total = heroPin.offsetHeight - vh;
     const p = clamp(y / total, 0, 1);
-    const pos = p * (heroItems.length - 1);
-    const active = clamp(Math.round(pos), 0, heroItems.length - 1);
-    heroState.active = active;
-    heroState.resolve = clamp(1 - Math.abs(pos - active) * 3.2, 0, 1);
-    renderHero();
+    renderHero(p);
     heroSection.classList.toggle('scrolled-past', p > 0.02);
   }
 
