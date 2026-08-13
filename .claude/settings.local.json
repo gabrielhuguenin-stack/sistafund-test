@@ -51,7 +51,9 @@
       "Bash(git commit -q -m 'Team page slimmed to portraits only; home carousel = sliding filmstrip w/ peek + seamless loop; add News dedicated page + View all button *)",
       "Bash(git commit -q -m 'Portfolio & Community: dedicated filterable pages \\(portfolio.html, community.html\\); extract shared data.js; replace home overlays with page links *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=14/style.css?v=15/' index.html team.html news.html portfolio.html community.html)",
-      "Bash(git commit -q -m 'Nav categories link to dedicated pages; full editorial headers on portfolio & community pages *)"
+      "Bash(git commit -q -m 'Nav categories link to dedicated pages; full editorial headers on portfolio & community pages *)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=15/style.css?v=16/; s/data\\\\.js\\\\?v=1\"/data.js?v=2\"/' index.html team.html portfolio.html community.html)",
+      "Bash(git commit -q -m 'Dedicated pages polish: full 59-item press index on News; one-line titles \\(drop width caps\\); remove Back-to-home links; dash-free intros *)"
     ]
   }
 }

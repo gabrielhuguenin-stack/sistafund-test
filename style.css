@@ -777,12 +777,12 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .page-hero-title {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.6rem, 8vw, 7rem); line-height: .92; max-width: 15ch;
+  font-size: clamp(2.6rem, 8vw, 7rem); line-height: .92;
 }
 .page-hero-title .yw { color: var(--yellow); -webkit-text-stroke: 2px var(--ink); }
 .page-hero-sub {
   font-family: var(--serif); font-size: 1.4rem; line-height: 1.5;
-  max-width: 46ch; margin-top: 4vh; color: var(--ink);
+  max-width: 70ch; margin-top: 4vh; color: var(--ink);
 }
 .page-back {
   display: inline-flex; align-items: center; gap: 10px; margin-top: 5vh;
@@ -815,8 +815,27 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .subpage-hero { max-width: 1400px; margin: 0 auto; padding: 22vh 6vw 7vh; display: flex; flex-direction: column; gap: 16px; }
 .subpage-hero .page-back { margin: 0 0 10px; }
 .subpage-hero .page-hero-title { margin: 4px 0 0; }
-.subpage-hero .page-hero-sub { margin: 12px 0 0; max-width: 52ch; }
+.subpage-hero .page-hero-sub { margin: 12px 0 0; max-width: 70ch; }
 .subpage-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 15vh; }
+
+/* News page: editorial press index */
+.news-list { border-top: 1px solid rgba(250, 248, 240, .22); }
+.news-item {
+  display: grid; grid-template-columns: 108px 190px 1fr 24px;
+  gap: 28px; align-items: baseline;
+  padding: 26px 6px; border-bottom: 1px solid rgba(250, 248, 240, .22);
+  transition: background .3s var(--ease), padding .3s var(--ease);
+}
+.news-item:hover { background: rgba(250, 248, 240, .05); padding-left: 20px; }
+.ni-date { font-family: var(--display); font-size: .85rem; letter-spacing: .06em; color: rgba(250, 248, 240, .5); }
+.ni-source { font-family: var(--display); text-transform: uppercase; font-size: .78rem; letter-spacing: .1em; color: var(--yellow); }
+.ni-title { font-size: 1.15rem; line-height: 1.35; color: var(--paper); }
+.ni-arrow { color: rgba(250, 248, 240, .45); transition: transform .3s var(--ease), color .3s; }
+.news-item:hover .ni-arrow { color: var(--yellow); transform: translate(3px, -3px); }
+@media (max-width: 780px) {
+  .news-item { grid-template-columns: 1fr; gap: 6px; padding: 20px 4px; }
+  .news-item .ni-arrow { display: none; }
+}
 /* on the dedicated page LP portraits are visible by default (no scroll-reveal gate) */
 .subpage-grid .lp { opacity: 1; transform: none; }
 
