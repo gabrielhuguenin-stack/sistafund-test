@@ -43,7 +43,9 @@
       "WebFetch(domain:www.curaclimate.com)",
       "Bash(git add *)",
       "Bash(git commit -q -m 'Hero: masked line reveal \\(drop code cipher\\), remove Pitch us CTA, rebalance headline, tighten portrait framing *)",
-      "Bash(git commit -q -m 'Photos: mask \\(clip-path\\) reveal + internal parallax on team & news *)"
+      "Bash(git commit -q -m 'Photos: mask \\(clip-path\\) reveal + internal parallax on team & news *)",
+      "Bash(curl -s \"https://sistafund-test.vercel.app/?cb=$\\(date +%s\\)\")",
+      "Bash(curl -s \"https://sistafund-test.vercel.app/style.css?v=9&cb=$\\(date +%s\\)\")"
     ]
   }
 }

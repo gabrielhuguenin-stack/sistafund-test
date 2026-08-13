@@ -14,19 +14,6 @@ function endIntro() {
 window.addEventListener('load', () => setTimeout(endIntro, 1700));
 setTimeout(endIntro, 3400); // fallback
 
-// ---------- Custom cursor (dot on interactive elements) ----------
-const cursor = document.getElementById('cursor');
-if (window.matchMedia('(pointer: fine)').matches) {
-  let cx = -100, cy = -100;
-  document.addEventListener('mousemove', e => {
-    cx = e.clientX; cy = e.clientY;
-    cursor.style.left = cx + 'px';
-    cursor.style.top = cy + 'px';
-    const hot = e.target.closest('a, button, summary, .sector');
-    document.body.classList.toggle('cursor-on', !!hot);
-  }, { passive: true });
-}
-
 // ---------- Nav ----------
 const nav = document.getElementById('nav');
 let lastY = 0;
@@ -42,6 +29,19 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
   burger.classList.remove('open');
   mobileMenu.classList.remove('open');
 }));
+
+// ---------- FAQ: reveal the rest of the questions on demand ----------
+const faqToggle = document.getElementById('faqToggle');
+const faqMore = document.getElementById('faqMore');
+if (faqToggle && faqMore) {
+  const label = faqToggle.querySelector('.faq-toggle-label');
+  faqToggle.addEventListener('click', () => {
+    const open = faqMore.classList.toggle('open');
+    faqToggle.classList.toggle('open', open);
+    faqToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    label.textContent = open ? 'Show fewer questions' : 'Show all questions';
+  });
+}
 
 // ---------- In-view observer (reveals, hl marker, CTA lines) ----------
 const io = new IntersectionObserver(entries => {
