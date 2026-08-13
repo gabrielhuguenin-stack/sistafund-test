@@ -255,6 +255,7 @@ function layoutOrbit(rotation, appear = 1) {
 // ---------- Scroll loop ----------
 const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 const aboutImg = document.getElementById('aboutImg');
+const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const communitySec = document.getElementById('community');
 const commPinEl = document.getElementById('commPin');
 
@@ -291,6 +292,14 @@ function onScroll() {
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
     const x = i % 2 === 0 ? -overflow * p : -overflow * (1 - p);
     track.style.transform = `translateX(${x}px)`;
+  });
+
+  // photos: image drifts slower than its frame (internal parallax), staying within the overflow
+  parPhotos.forEach(img => {
+    const r = img.parentElement.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+    img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
 
   // community: held on screen while the orbit assembles, then keeps turning
