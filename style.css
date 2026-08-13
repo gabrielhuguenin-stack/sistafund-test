@@ -808,6 +808,14 @@ body.subpage-dark .nav.scrolled { background: rgba(16, 16, 16, .9); box-shadow: 
 body.subpage-dark .burger span { background: var(--paper); }
 body.subpage-dark .page-hero-kicker { color: rgba(250, 248, 240, .6); }
 body.subpage-dark .page-back { color: var(--paper); border-color: var(--paper); }
+body.subpage-dark .page-hero-title { color: var(--paper); }
+body.subpage-dark .page-hero-title .yw { -webkit-text-stroke: 0; }
+body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
+/* full editorial header for the dedicated dark pages */
+.subpage-hero { max-width: 1400px; margin: 0 auto; padding: 22vh 6vw 7vh; display: flex; flex-direction: column; gap: 16px; }
+.subpage-hero .page-back { margin: 0 0 10px; }
+.subpage-hero .page-hero-title { margin: 4px 0 0; }
+.subpage-hero .page-hero-sub { margin: 12px 0 0; max-width: 52ch; }
 .subpage-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 15vh; }
 /* on the dedicated page LP portraits are visible by default (no scroll-reveal gate) */
 .subpage-grid .lp { opacity: 1; transform: none; }
