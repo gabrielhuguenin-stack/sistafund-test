@@ -215,35 +215,7 @@ pfRows.forEach(row => {
 
 
 // ---------- Community orbit ----------
-const LPS = [
-  ['Steve Anavi', 'Qonto', 'steve-anavi.jpg', 'fintech'],
-  ['Rémi Aubert', 'AB Tasty', 'remi-aubert.png', 'saas'],
-  ['Nathalie Balla', 'La Redoute', 'nathalie-balla.jpg', 'consumer'],
-  ['Jonathan Benhamou', 'Resilience, PeopleDoc', 'jon-benhamou.jpg', 'health'],
-  ['Amélie Berthier', 'Zadig & Voltaire', 'amelie-berthier.jpg', 'consumer'],
-  ['Clément Buyse', 'PeopleDoc', 'clement-buyse.jpg', 'saas'],
-  ['Nicolas Chartier', 'Aramis Group', 'nicolas-chartier.jpg', 'consumer'],
-  ['Michael Chekroun', 'Carenity', 'michael-chekroun.jpg', 'health'],
-  ['Valentine de Lasteyrie', 'Albingia, Fiblac', 'valentine-de-lasteyrie.jpg', 'fintech'],
-  ['Alix de Sagazan', 'AB Tasty', 'alix-de-sagazan.jpg', 'saas'],
-  ['Marine de Waziers', 'Pool', 'marine-de-waziers.png', 'consumer'],
-  ['Alice Default', 'Double', 'alice-default.png', 'saas'],
-  ['Laurent Delaporte', 'Qapa, Microsoft', 'laurent-delaporte.jpg', 'saas'],
-  ['Xavier Durand', 'Aircall', 'xavier-durand.jpg', 'saas'],
-  ['Fabien Grenier', 'DataDome', 'fabien-grenier.jpg', 'frontier'],
-  ['Jean-Daniel Guyot', 'Memo Bank, Captain Train', 'jd-guyot.jpg', 'fintech'],
-  ['Nicolas Hernandez', '360Learning', 'nicolas-hernandez.jpg', 'saas'],
-  ['Céline Lazorthes', 'Resilience, Leetchi', 'celine-lazorthes.jpg', 'fintech'],
-  ['Constance Nevoret', 'LittleBig Connection', 'constance-nevoret.jpg', 'saas'],
-  ['Xavier Niel', 'Free', 'xavier-niel.png', 'frontier'],
-  ['Adrien Nussenbaum', 'Mirakl', 'adrien-nussenbaum.jpg', 'saas'],
-  ['Philippe Oddo', 'ODDO BHF', 'phillippe-oddo.jpg', 'fintech'],
-  ['Stéphane Pallez', 'Française des Jeux', 'stephane-pallez.jpg', 'consumer'],
-  ['Nicolas Reboud', 'Shine', 'nicolas-reboud.jpg', 'fintech'],
-  ['Cédric Sellin', 'Yogiplay, Oracle', 'cedric-sellin.jpg', 'saas'],
-  ['Xavier Zeitoun', 'Zenchef', 'xavier-zeitoun.png', 'saas'],
-  ['Frank Zorn', 'Deskeo', 'frank-zorn.jpg', 'consumer'],
-];
+const LPS = window.LPS || [];
 
 const ringA = document.getElementById('ringA');
 const ringB = document.getElementById('ringB');
@@ -374,58 +346,9 @@ document.addEventListener('keydown', e => {
 document.getElementById('openManifesto').addEventListener('click', () =>
   openOverlay(document.getElementById('manifestoOverlay')));
 
-// Community overlay: build full LP grid once
-const lpGrid = document.getElementById('lpGrid');
-LPS.forEach(([name, org, file, sector], i) => {
-  const d = document.createElement('div');
-  d.className = 'lp';
-  d.dataset.sector = sector;
-  d.style.transitionDelay = (i * 30) + 'ms';
-  d.innerHTML = `<div class="lp-photo"><img src="img/community/${file}" alt="${name}" loading="lazy"></div>
-    <span class="lp-name">${name}</span><span class="lp-org">${org}</span>`;
-  lpGrid.appendChild(d);
-});
-document.getElementById('openCommunity').addEventListener('click', () =>
-  openOverlay(document.getElementById('communityOverlay')));
-
-// Community filters (sectors + institutions)
-const lpInstitutions = document.getElementById('lpInstitutions');
-document.getElementById('lpFilters').addEventListener('click', e => {
-  const btn = e.target.closest('.filter');
-  if (!btn) return;
-  document.querySelectorAll('#lpFilters .filter').forEach(f => f.classList.remove('active'));
-  btn.classList.add('active');
-  const f = btn.dataset.filter;
-  lpInstitutions.hidden = f !== 'institutions';
-  lpGrid.style.display = f === 'institutions' ? 'none' : '';
-  if (f !== 'institutions') {
-    lpGrid.querySelectorAll('.lp').forEach((d, i) => {
-      const show = f === 'all' || d.dataset.sector === f;
-      d.style.display = show ? '' : 'none';
-      d.style.transitionDelay = '0ms';
-    });
-  }
-});
-
 
 // ---------- Portfolio modal ----------
-const COMPANIES = {
-  pave: ['Pave Space', 'Frontier Tech', 'pave.png', 'Heavy kickstage to unlock orbital logistics.', 'Julie Böhning, Jérémy Marciacq', 'Vaud (CH), 2023'],
-  waiv: ['Waiv', 'HealthTech', 'waiv.png', 'Accelerating AI-enabled precision oncology testing.', 'Meriem Sefta, Lionel Guillou', 'Paris, 2025'],
-  recupere: ['Recupere Metals', 'Sustainability', 'recupere.png', 'Patented mechanical process producing electrical-grade copper wire from 100% recycled scrap.', 'Katie Marsh, Julien Vaïssette', 'Paris, 2025'],
-  tec: ['The Exploration Company', 'Frontier Tech', 'tec.png', 'Democratizing space exploration, making it affordable, sustainable and open, for space & non-space industries.', 'Hélène Huby & co-founders', 'Bordeaux, 2021'],
-  numi: ['Nūmi', 'HealthTech', 'numi.jpg', 'Developing in vivo breast milk, in vitro.', 'Eden Banon-Lagrange, Eugénie Pezé-Heidsieck', 'Paris, 2023'],
-  orakl: ['Orakl Oncology', 'HealthTech', 'orakl.png', 'Accelerating drug discovery in oncology.', 'Fanny Jaulin, Diane-Laure Pagès, Gustave Ronteix', 'Paris, 2023'],
-  femaleinvest: ['Female Invest', 'Fintech', 'femaleinvest.webp', 'On a mission to close the financial gender gap, democratizing investing for everyone, globally.', 'A.-S. Hartvigsen, C. Falkenberg, E. Due Bitz', 'Copenhagen, 2021'],
-  underdog: ['Underdog', 'Sustainability', 'underdog.png', 'Full-stack solution for refurbished household appliances, structuring the circular economy in Europe.', 'Claire Bretton, Laura Chavigny, Mathieu Maure', 'Nantes / Paris, 2022'],
-  astran: ['Astran', 'Frontier Tech', 'astran.png', 'Zero Trust cloud storage solution for sensitive data.', 'Yosra Jarraya, Gilles Seghaier, Yahya Jarraya', 'Paris, 2021'],
-  mallow: ['Mallow', 'Frontier Tech', 'mallow.png', 'Educational toys for children at the intersection of cognitive science and AI.', 'Flore Cousin, Cédric O', 'Paris, 2024'],
-  vizzia: ['Vizzia', 'Sustainability', 'vizzia.png', 'Leveraging computer vision and AI to detect illegal waste dumping.', 'Katrin de Proyart, Alexandre Leboucher', 'Paris, 2022'],
-  optimiz: ['Optimiz Construction', 'Sustainability', 'optimiz.png', 'Helping construction firms optimize materials to save time, money and CO₂.', 'Marion Malandain', 'Paris, 2020'],
-  notom: ['NOTOM', 'Frontier Tech', 'notom.png', 'Bridging OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris, 2025'],
-  stealth: ['Stealth', 'Frontier Tech', 'stealth.png', 'Unlocking Ocean Intelligence.', '', 'UK, 2022'],
-  stealth2: ['Stealth 2', 'HealthTech', 'stealth2.png', 'Gut Health Monitoring.', '', 'UK, 2026'],
-};
+const COMPANIES = window.COMPANIES || {};
 
 const pfModal = document.getElementById('pfModal');
 const pfDetail = document.getElementById('pfDetail');
@@ -445,30 +368,3 @@ function showCompany(key) {
 document.querySelectorAll('.pf-card').forEach(card =>
   card.addEventListener('click', () => showCompany(card.dataset.co)));
 
-// ---------- Portfolio overlay: full filterable grid ----------
-const pfAllGrid = document.getElementById('pfAllGrid');
-Object.entries(COMPANIES).forEach(([key, c]) => {
-  const b = document.createElement('button');
-  b.className = 'pf-all-card';
-  b.dataset.sector = c[1];
-  b.dataset.co = key;
-  b.innerHTML = `<span class="pf-logo"><img src="img/logos/${c[2]}" alt="${c[0]}" loading="lazy"></span>
-    <span class="pf-name">${c[0]}</span><span class="pf-sector">${c[1]}</span>`;
-  pfAllGrid.appendChild(b);
-});
-document.getElementById('openPortfolio').addEventListener('click', () =>
-  openOverlay(document.getElementById('portfolioOverlay')));
-document.getElementById('pfFilters').addEventListener('click', e => {
-  const btn = e.target.closest('.filter');
-  if (!btn) return;
-  document.querySelectorAll('#pfFilters .filter').forEach(f => f.classList.remove('active'));
-  btn.classList.add('active');
-  const f = btn.dataset.filter;
-  pfAllGrid.querySelectorAll('.pf-all-card').forEach(card => {
-    card.style.display = (f === 'all' || card.dataset.sector === f) ? '' : 'none';
-  });
-});
-pfAllGrid.addEventListener('click', e => {
-  const card = e.target.closest('.pf-all-card');
-  if (card) showCompany(card.dataset.co);
-});

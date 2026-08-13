@@ -6,7 +6,7 @@
 <title>SISTAFUND | Investing in the next generation of European tech leaders</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=13">
+<link rel="stylesheet" href="style.css?v=14">
 </head>
 <body>
 
@@ -146,7 +146,7 @@
         <button class="pf-card" data-co="stealth2"><span class="pf-logo"><img src="img/logos/stealth2.png" alt="Stealth company 2"></span><span class="pf-name">Stealth 2</span><span class="pf-sector">HealthTech</span></button>
       </div>
     </div>
-    <div class="pf-all-cta"><button class="btn btn-big" id="openPortfolio">View all companies <span class="btn-arrow">→</span></button></div>
+    <div class="pf-all-cta"><a class="btn btn-big" href="portfolio.html">View all companies <span class="btn-arrow">→</span></a></div>
   </div>
 
   <!-- ======== TEAM (Index-style: text + auto-advancing portrait carousel → team.html) ======== -->
@@ -187,7 +187,7 @@
       <div class="orbit-center">
         <h2>A committed<br><span class="yw">community</span></h2>
         <p>Recognized entrepreneurs, operators and institutional investors stand alongside us and open their networks to our founders.</p>
-        <button class="btn btn-light" id="openCommunity">Meet the community <span class="btn-arrow">→</span></button>
+        <a class="btn btn-light" href="community.html">Meet the community <span class="btn-arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -334,48 +334,13 @@
 </div>
 
 <!-- ======== COMMUNITY OVERLAY ======== -->
-<div class="overlay" id="communityOverlay" aria-hidden="true">
-  <button class="overlay-close" data-close>Close ✕</button>
-  <div class="community-all">
-    <span class="manifesto-kicker">The community</span>
-    <div class="filters" id="lpFilters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="consumer">Consumer</button>
-      <button class="filter" data-filter="fintech">Fintech</button>
-      <button class="filter" data-filter="frontier">Frontier Tech</button>
-      <button class="filter" data-filter="health">HealthTech</button>
-      <button class="filter" data-filter="saas">SaaS</button>
-      <button class="filter" data-filter="institutions">Institutions</button>
-    </div>
-    <div class="lp-grid" id="lpGrid"></div>
-    <div class="lp-institutions" id="lpInstitutions" hidden>
-      <p>Alongside these entrepreneurs and operators, SISTAFUND is backed by leading institutional investors.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ======== PORTFOLIO OVERLAY ======== -->
-<div class="overlay" id="portfolioOverlay" aria-hidden="true">
-  <button class="overlay-close" data-close>Close ✕</button>
-  <div class="community-all">
-    <span class="manifesto-kicker">The portfolio</span>
-    <div class="filters" id="pfFilters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="HealthTech">HealthTech</button>
-      <button class="filter" data-filter="Frontier Tech">Frontier Tech</button>
-      <button class="filter" data-filter="Sustainability">Sustainability</button>
-      <button class="filter" data-filter="Fintech">Fintech</button>
-    </div>
-    <div class="pf-all-grid" id="pfAllGrid"></div>
-  </div>
-</div>
-
-<!-- ======== PORTFOLIO MODAL ======== -->
+<!-- ======== PORTFOLIO MODAL (home cards → detail) ======== -->
 <div class="overlay overlay-modal" id="pfModal" aria-hidden="true">
   <button class="overlay-close" data-close>Close ✕</button>
   <div class="pf-detail" id="pfDetail"></div>
 </div>
 
-<script src="script.js?v=10"></script>
+<script src="data.js?v=1"></script>
+<script src="script.js?v=11"></script>
 </body>
 </html>

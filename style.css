@@ -800,6 +800,18 @@ main section[id] { scroll-margin-top: 60px; }
 .news-page-grid { max-width: 1260px; margin: 0 auto; padding: 0 4vw 16vh; }
 .news-page-grid .news-grid { grid-template-columns: repeat(3, 1fr); }
 
+/* dark sub-pages (portfolio.html, community.html) reuse the overlay card styling */
+body.subpage-dark { background: var(--ink); color: var(--paper); }
+body.subpage-dark .nav-logo img { filter: invert(1); }
+body.subpage-dark .nav-links a { color: var(--paper); }
+body.subpage-dark .nav.scrolled { background: rgba(16, 16, 16, .9); box-shadow: 0 1.5px 0 rgba(250, 248, 240, .25); }
+body.subpage-dark .burger span { background: var(--paper); }
+body.subpage-dark .page-hero-kicker { color: rgba(250, 248, 240, .6); }
+body.subpage-dark .page-back { color: var(--paper); border-color: var(--paper); }
+.subpage-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 15vh; }
+/* on the dedicated page LP portraits are visible by default (no scroll-reveal gate) */
+.subpage-grid .lp { opacity: 1; transform: none; }
+
 /* ============ Responsive ============ */
 @media (max-width: 1024px) {
   .team-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
