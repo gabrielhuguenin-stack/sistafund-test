@@ -343,10 +343,6 @@ document.addEventListener('keydown', e => {
   if (open.length) closeOverlay(open[open.length - 1]);
 });
 
-document.getElementById('openManifesto').addEventListener('click', () =>
-  openOverlay(document.getElementById('manifestoOverlay')));
-
-
 // ---------- Portfolio modal ----------
 const COMPANIES = window.COMPANIES || {};
 

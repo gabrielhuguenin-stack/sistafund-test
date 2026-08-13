@@ -6,7 +6,7 @@
 <title>SISTAFUND | News</title>
 <meta name="description" content="The latest from SISTAFUND and our portfolio companies — funding rounds, milestones and press.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=18">
+<link rel="stylesheet" href="style.css?v=19">
 </head>
 <body class="loaded nav-ready subpage-dark">
 
@@ -14,29 +14,29 @@
 <header class="nav" id="nav">
   <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SISTAFUND"></a>
   <nav class="nav-links">
-    <a href="index.html#about">About</a>
+    <a href="about.html">About</a>
     <a href="portfolio.html">Portfolio</a>
     <a href="team.html">Team</a>
     <a href="community.html">Community</a>
-    <a href="index.html#faq">FAQ</a>
     <a href="news.html">News</a>
+    <a href="index.html#faq">FAQ</a>
   </nav>
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span></button>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html#about">About</a>
+  <a href="about.html">About</a>
   <a href="portfolio.html">Portfolio</a>
   <a href="team.html">Team</a>
   <a href="community.html">Community</a>
-  <a href="index.html#faq">FAQ</a>
   <a href="news.html">News</a>
+  <a href="index.html#faq">FAQ</a>
 </div>
 
 <main class="page">
   <header class="page-hero subpage-hero">
-    <h1 class="page-hero-title">In the <span class="yw">press</span></h1>
-    <p class="page-hero-sub">SISTAFUND and our portfolio companies in the media. Funding rounds, milestones and coverage.</p>
+    <h1 class="page-hero-title">The <span class="yw">latest</span></h1>
+    <p class="page-hero-sub page-hero-sub--wide">SISTAFUND and our portfolio companies in the media. Funding rounds, milestones and coverage.</p>
   </header>
 
   <section class="subpage-grid" id="news">
@@ -81,19 +81,39 @@
   burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 
+  // pick a visual for each item: the relevant portfolio logo, else the SISTAFUND mark
+  const LOGO_MAP = [
+    [/pave/i, 'pave.png'], [/waiv/i, 'waiv.png'], [/recupere/i, 'recupere.png'],
+    [/notom/i, 'notom.png'], [/n[uū]mi/i, 'numi.jpg'], [/underdog|claire bretton/i, 'underdog.png'],
+    [/astran/i, 'astran.png'], [/vizzia/i, 'vizzia.png'], [/optimiz/i, 'optimiz.png'],
+    [/orakl/i, 'orakl.png'], [/mallow/i, 'mallow.png'], [/female invest/i, 'femaleinvest.webp'],
+    [/exploration company|bikini|starlab|\besa\b|spacetech/i, 'tec.png'],
+  ];
+  const visualFor = title => {
+    for (const [re, f] of LOGO_MAP) if (re.test(title)) return { src: 'img/logos/' + f, brand: false };
+    return { src: 'img/logo.svg', brand: true };
+  };
+
   // render the full press mosaic from shared data
   const list = document.getElementById('newsList');
   (window.NEWS || []).forEach(([date, source, title, url]) => {
     const a = document.createElement('a');
     a.className = 'news-tile';
     a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    const v = visualFor(title);
+    const fig = document.createElement('span');
+    fig.className = 'nt-logo' + (v.brand ? ' nt-logo--brand' : '');
+    const img = document.createElement('img'); img.src = v.src; img.alt = ''; img.loading = 'lazy';
+    fig.appendChild(img);
+    const body = document.createElement('div'); body.className = 'nt-body';
     const top = document.createElement('div'); top.className = 'nt-top';
     const s = document.createElement('span'); s.className = 'nt-source'; s.textContent = source;
     const d = document.createElement('span'); d.className = 'nt-date'; d.textContent = date;
     top.append(s, d);
     const t = document.createElement('span'); t.className = 'nt-title'; t.textContent = title;
     const m = document.createElement('span'); m.className = 'nt-more'; m.textContent = 'Read more ↗';
-    a.append(top, t, m);
+    body.append(top, t, m);
+    a.append(fig, body);
     list.appendChild(a);
   });
 </script>
