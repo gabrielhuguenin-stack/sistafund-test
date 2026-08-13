@@ -46,7 +46,8 @@
       "Bash(git commit -q -m 'Photos: mask \\(clip-path\\) reveal + internal parallax on team & news *)",
       "Bash(curl -s \"https://sistafund-test.vercel.app/?cb=$\\(date +%s\\)\")",
       "Bash(curl -s \"https://sistafund-test.vercel.app/style.css?v=9&cb=$\\(date +%s\\)\")",
-      "Bash(git commit -q -m 'Footer: drop redundant logo, lift legal + copyright level with the columns, slimmer padding *)"
+      "Bash(git commit -q -m 'Footer: drop redundant logo, lift legal + copyright level with the columns, slimmer padding *)",
+      "Bash(git commit -q -m 'Team: Index-style intro \\(text + auto-advancing portrait carousel\\) linking to new dedicated team.html page *)"
     ]
   }
 }

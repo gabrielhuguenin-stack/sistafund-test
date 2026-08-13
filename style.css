@@ -354,8 +354,47 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .pf-sector { color: var(--grey); font-size: .9rem; padding: 0 18px 18px; }
 
-/* ============ Team (classic grid, modest cards) ============ */
+/* ============ Team ============ */
 .team { padding: 20vh 4vw 18vh; }
+
+/* home: Index-style intro — text + link left, auto-advancing portrait carousel right */
+.team-intro {
+  display: grid; grid-template-columns: 1.05fr 1fr; gap: 6vw;
+  align-items: center; max-width: 1260px; margin: 0 auto;
+}
+.team-intro-text .sec-head { padding-bottom: 3vh; }
+.team-intro-sub {
+  font-family: var(--serif); font-size: 1.3rem; line-height: 1.5;
+  color: var(--ink); max-width: 34ch; margin: 0 0 5vh;
+}
+.team-intro-link {
+  font-family: var(--display); text-transform: uppercase; letter-spacing: .05em;
+  font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px;
+  padding-bottom: 7px; border-bottom: 2px solid var(--ink);
+}
+.team-slider { cursor: pointer; }
+.team-stage {
+  position: relative; aspect-ratio: 4 / 4.4; overflow: hidden;
+  border: 1.5px solid var(--ink); background: var(--yellow);
+}
+.team-slide { position: absolute; inset: 0; opacity: 0; transition: opacity .8s var(--ease); }
+.team-slide.is-active { opacity: 1; }
+.team-slide img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center 14%;
+  filter: grayscale(1) contrast(1.05);
+}
+.team-slider-foot {
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 16px; margin-top: 16px;
+}
+.team-slide-cap { font-family: var(--serif); font-size: 1rem; color: var(--ink); }
+.team-slide-count {
+  font-family: var(--display); font-size: .95rem; letter-spacing: .12em;
+  color: var(--grey); flex-shrink: 0;
+}
+.team-slide-count b { color: var(--ink); font-weight: normal; }
+
+/* dedicated team.html: classic grid, modest cards */
 .team-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
   max-width: 1060px;
@@ -727,9 +766,41 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: .95rem; color: var(--grey);
 }
 
+/* ============ Sub-page (team.html) ============ */
+.page-hero { padding: 26vh 4vw 6vh; max-width: 1260px; margin: 0 auto; }
+.page-hero-kicker {
+  font-family: var(--display); text-transform: uppercase;
+  letter-spacing: .16em; font-size: .9rem; color: var(--grey); margin-bottom: 22px;
+}
+.page-hero-title {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(2.6rem, 8vw, 7rem); line-height: .92; max-width: 15ch;
+}
+.page-hero-title .yw { color: var(--yellow); -webkit-text-stroke: 2px var(--ink); }
+.page-hero-sub {
+  font-family: var(--serif); font-size: 1.4rem; line-height: 1.5;
+  max-width: 46ch; margin-top: 4vh; color: var(--ink);
+}
+.page-back {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 5vh;
+  font-family: var(--display); text-transform: uppercase; letter-spacing: .05em;
+  border-bottom: 2px solid var(--ink); padding-bottom: 6px;
+}
+.team-page-photo { max-width: 1260px; margin: 2vh auto 14vh; padding: 0 4vw; }
+.team-page-photo img {
+  width: 100%; height: 62vh; object-fit: cover; object-position: center 42%;
+  border: 1.5px solid var(--ink);
+}
+.team-page-grid { max-width: 1260px; margin: 0 auto; padding: 0 4vw 16vh; }
+.team-page-grid .team-grid { max-width: none; }
+
 /* ============ Responsive ============ */
 @media (max-width: 1024px) {
   .team-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
+  .team-intro { grid-template-columns: 1fr; gap: 6vh; }
+  .team-intro-text { order: -1; }
+  .team-stage { aspect-ratio: 4 / 3.4; }
+  .team-slide img { object-position: center 20%; }
   .about-grid { grid-template-columns: 1fr; }
   .about-col { border-right: none; border-bottom: 1.5px solid var(--ink); }
   .about-col:last-child { border-bottom: none; }

@@ -6,7 +6,7 @@
 <title>SISTAFUND | Investing in the next generation of European tech leaders</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
@@ -149,48 +149,30 @@
     <div class="pf-all-cta"><button class="btn btn-big" id="openPortfolio">View all companies <span class="btn-arrow">→</span></button></div>
   </div>
 
-  <!-- ======== TEAM (b&w) ======== -->
+  <!-- ======== TEAM (Index-style: text + auto-advancing portrait carousel → team.html) ======== -->
   <section class="team" id="team">
-    <div class="sec-head">
-      <h2>The <span class="yw">people</span> behind<br>the conviction</h2>
-    </div>
-    <div class="team-grid">
-      <article class="member">
-        <div class="member-photo"><img src="img/team/tatiana.jpg" alt="Tatiana Jama">
-          <div class="member-bio"><p>Serial tech entrepreneur for 15+ years. Co-founded Dealissime (exit to Amazon), Selectionnist and Levia.ai. Business Angel in 30+ companies. Co-founded SISTA in 2018, then SISTAFUND to go one step further.</p><span class="member-fun">Openly passionate about theater &amp; champagne</span></div>
+    <div class="team-intro">
+      <div class="team-intro-text">
+        <div class="sec-head">
+          <h2>The <span class="yw">people</span> behind<br>the conviction</h2>
         </div>
-        <h3>Tatiana Jama</h3><span class="member-role">Founder &amp; General Manager</span>
-      </article>
-      <article class="member">
-        <div class="member-photo"><img src="img/team/marie.jpg" alt="Marie Geneste">
-          <div class="member-bio"><p>15+ years of international investing across Europe, the UK and the US, from early stage through Series B. Formerly Investment Director at Educapital and Principal at Edenred Ventures.</p><span class="member-fun">Rarely too far from the ocean or a sports field</span></div>
+        <p class="team-intro-sub">Entrepreneurs, operators and investors — building alongside the founders we back, from day one.</p>
+        <a href="team.html" class="team-intro-link">Meet the team <span class="btn-arrow">→</span></a>
+      </div>
+      <div class="team-slider" id="teamSlider" role="group" aria-label="The SISTAFUND team">
+        <div class="team-stage">
+          <figure class="team-slide is-active" data-cap="Tatiana Jama — Founder &amp; General Manager"><img src="img/team/tatiana.jpg" alt="Tatiana Jama"></figure>
+          <figure class="team-slide" data-cap="Marie Geneste — Partner"><img src="img/team/marie.jpg" alt="Marie Geneste"></figure>
+          <figure class="team-slide" data-cap="Natacha Brami — Principal"><img src="img/team/natacha.jpg" alt="Natacha Brami"></figure>
+          <figure class="team-slide" data-cap="Arthur Hay — Chief Financial Officer"><img src="img/team/arthur.png" alt="Arthur Hay"></figure>
+          <figure class="team-slide" data-cap="Timothée Ricour-Dumas — Analyst"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas"></figure>
+          <figure class="team-slide" data-cap="Gabriel Huguenin — Analyst"><img src="img/team/gabriel.png" alt="Gabriel Huguenin"></figure>
         </div>
-        <h3>Marie Geneste</h3><span class="member-role">Partner</span>
-      </article>
-      <article class="member">
-        <div class="member-photo"><img src="img/team/natacha.jpg" alt="Natacha Brami">
-          <div class="member-bio"><p>In the tech ecosystem since 2018, with VC investment and operations at Alliance Ventures, Alven and Target Global, with an entrepreneurial detour at UC Berkeley. Backing founders at SISTAFUND since 2022.</p><span class="member-fun">50% scouting restaurants, 50% watching rockets take off</span></div>
+        <div class="team-slider-foot">
+          <span class="team-slide-cap" id="teamCap">Tatiana Jama — Founder &amp; General Manager</span>
+          <span class="team-slide-count"><b id="teamCount">1</b> / 6</span>
         </div>
-        <h3>Natacha Brami</h3><span class="member-role">Principal</span>
-      </article>
-      <article class="member">
-        <div class="member-photo"><img src="img/team/arthur.png" alt="Arthur Hay">
-          <div class="member-bio"><p>Finance and fund-administration operator with 7+ years across France, Belgium and Luxembourg. Formerly Finance Director at Astanor Ventures, started at PwC Luxembourg.</p><span class="member-fun">Happiest on a ski slope or a sunny terrace, house music on</span></div>
-        </div>
-        <h3>Arthur Hay</h3><span class="member-role">Chief Financial Officer</span>
-      </article>
-      <article class="member">
-        <div class="member-photo"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas">
-          <div class="member-bio"><p>Experience across HealthTech, DeepTech and ClimateTech investing from Seed to Series B at Crédit Mutuel Innovation and BNP Paribas Développement. ESSEC × Bocconi.</p><span class="member-fun">Juggling between a rugby pitch, running shoes and a sailboat</span></div>
-        </div>
-        <h3>Timothée Ricour-Dumas</h3><span class="member-role">Analyst</span>
-      </article>
-      <article class="member">
-        <div class="member-photo"><img src="img/team/gabriel.png" alt="Gabriel Huguenin">
-          <div class="member-bio"><p>Started at Via ID supporting mobility founders and running the Moove Lab at Station F, then Chief of Staff to a startup CEO before moving into VC at SISTAFUND. EDHEC MSc.</p><span class="member-fun">On the judo tatami, training for a race, or deep in a novel</span></div>
-        </div>
-        <h3>Gabriel Huguenin</h3><span class="member-role">Analyst</span>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -391,6 +373,6 @@
   <div class="pf-detail" id="pfDetail"></div>
 </div>
 
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 </body>
 </html>

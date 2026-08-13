@@ -43,6 +43,29 @@ if (faqToggle && faqMore) {
   });
 }
 
+// ---------- Team carousel: portraits auto-advance; click for next; link → team.html ----------
+const teamSlider = document.getElementById('teamSlider');
+if (teamSlider) {
+  const slides = [...teamSlider.querySelectorAll('.team-slide')];
+  const capEl = document.getElementById('teamCap');
+  const countEl = document.getElementById('teamCount');
+  let ti = 0, timer = null;
+  const show = n => {
+    ti = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle('is-active', k === ti));
+    capEl.textContent = slides[ti].dataset.cap;
+    countEl.textContent = ti + 1;
+  };
+  const next = () => show(ti + 1);
+  const start = () => { stop(); timer = setInterval(next, 3800); };
+  const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+  teamSlider.addEventListener('click', () => { next(); start(); });
+  teamSlider.addEventListener('mouseenter', stop);
+  teamSlider.addEventListener('mouseleave', start);
+  show(0);
+  start();
+}
+
 // ---------- In-view observer (reveals, hl marker, CTA lines) ----------
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
