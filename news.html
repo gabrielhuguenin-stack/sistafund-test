@@ -6,7 +6,7 @@
 <title>SISTAFUND | News</title>
 <meta name="description" content="The latest from SISTAFUND and our portfolio companies — funding rounds, milestones and press.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=16">
+<link rel="stylesheet" href="style.css?v=18">
 </head>
 <body class="loaded nav-ready subpage-dark">
 
@@ -35,13 +35,12 @@
 
 <main class="page">
   <header class="page-hero subpage-hero">
-    <p class="page-hero-kicker">News</p>
     <h1 class="page-hero-title">In the <span class="yw">press</span></h1>
     <p class="page-hero-sub">SISTAFUND and our portfolio companies in the media. Funding rounds, milestones and coverage.</p>
   </header>
 
   <section class="subpage-grid" id="news">
-    <div class="news-list" id="newsList"></div>
+    <div class="news-mosaic" id="newsList"></div>
   </section>
 </main>
 
@@ -82,17 +81,19 @@
   burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 
-  // render the full press list from shared data
+  // render the full press mosaic from shared data
   const list = document.getElementById('newsList');
   (window.NEWS || []).forEach(([date, source, title, url]) => {
     const a = document.createElement('a');
-    a.className = 'news-item';
+    a.className = 'news-tile';
     a.href = url; a.target = '_blank'; a.rel = 'noopener';
-    const d = document.createElement('span'); d.className = 'ni-date'; d.textContent = date;
-    const s = document.createElement('span'); s.className = 'ni-source'; s.textContent = source;
-    const t = document.createElement('span'); t.className = 'ni-title'; t.textContent = title;
-    const x = document.createElement('span'); x.className = 'ni-arrow'; x.textContent = '↗';
-    a.append(d, s, t, x);
+    const top = document.createElement('div'); top.className = 'nt-top';
+    const s = document.createElement('span'); s.className = 'nt-source'; s.textContent = source;
+    const d = document.createElement('span'); d.className = 'nt-date'; d.textContent = date;
+    top.append(s, d);
+    const t = document.createElement('span'); t.className = 'nt-title'; t.textContent = title;
+    const m = document.createElement('span'); m.className = 'nt-more'; m.textContent = 'Read more ↗';
+    a.append(top, t, m);
     list.appendChild(a);
   });
 </script>
