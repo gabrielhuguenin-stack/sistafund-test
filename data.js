@@ -111,3 +111,6 @@ window.NEWS = [
   ["04/10/2022", "Sifted", "France's SISTA announces first close of €100m VC fund", "https://sifted.eu/articles/sista-vc-fund-raise-france/"],
   ["24/03/2022", "SISTAFUND", "SISTA x Mirova Forward study: what if we asked women and men the same questions?", "https://sistafund.com/news/et-si-on-posait-les-memes-questions-aux-femmes-et-aux-hommes-etude-sista-x-mirova-forward/"],
 ];
+
+/* per-article thumbnails pulled from sistafund.com/news, same order as NEWS */
+window.NEWS_IMG = ["n01.webp", "n02.jpg", "n03.jpg", "n04.jpg", "n05.jpeg", "n06.jpeg", "n07.jpeg", "n08.jpeg", "n09.jpeg", "n10.jpeg", "n11.jpeg", "n12.jpeg", "n13.jpeg", "n14.jpeg", "n15.jpeg", "n16.jpeg", "n17.jpeg", "n18.png", "n19.jpg", "n20.jpeg", "n21.jpg", "n22.webp", "n23.jpeg", "n24.png", "n25.jpeg", "n26.jpg", "n27.png", "n28.jpeg", "n29.png", "n30.png", "n31.png", "n32.webp", "n33.jpg", "n34.jpeg", "n35.webp", "n36.jpg", "n37.png", "n38.webp", "n39.png", "n40.webp", "n41.webp", "n42.png", "n43.jpeg", "n44.jpg", "n45.webp", "n46.webp", "n47.png", "n48.webp", "n49.png", "n50.jpg", "n51.png", "n52.jpg", "n53.jpg", "n54.png", "n55.png", "n56.webp", "n57.jpg", "n58.jpg", "n59.png"];
