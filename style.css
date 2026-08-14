@@ -165,10 +165,24 @@ em { font-style: normal; }
   background: var(--yellow);
   height: 100vh; overflow: hidden;
 }
+/* living background: soft blurred streaks drift horizontally, blackwood-style, in brand tones */
+.hero-flow { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.hero-flow i {
+  position: absolute; left: 0; width: 200%;
+  background-size: 50% 100%;
+  filter: blur(55px); will-change: transform;
+}
+.hero-flow i:nth-child(1) { top: 4%;  height: 26vh; opacity: .85; background: linear-gradient(90deg, #FFF868, #fff7b4, #ffe64a, #FFF868); animation: heroFlow 17s linear infinite; }
+.hero-flow i:nth-child(2) { top: 26%; height: 20vh; opacity: .16; background: linear-gradient(90deg, #FFF868, #101010, #FFF868, #101010); animation: heroFlow 29s linear infinite reverse; }
+.hero-flow i:nth-child(3) { top: 46%; height: 30vh; opacity: .8;  background: linear-gradient(90deg, #ffe64a, #FAF8F0, #fff7b4, #ffe64a); animation: heroFlow 21s linear infinite; }
+.hero-flow i:nth-child(4) { top: 68%; height: 22vh; opacity: .5;  background: linear-gradient(90deg, #FAF8F0, #FFF868, #FAF8F0, #FFF868); animation: heroFlow 25s linear infinite reverse; }
+.hero-flow i:nth-child(5) { top: 84%; height: 24vh; opacity: .7;  background: linear-gradient(90deg, #FFF868, #ffe64a, #fff7b4, #FFF868); animation: heroFlow 19s linear infinite; }
+@keyframes heroFlow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .hero-flow i { animation: none; } }
 
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
 .hero-stack {
-  position: absolute; inset: 0;
+  position: absolute; inset: 0; z-index: 2;
   display: grid; align-items: center; justify-items: start;
   padding: 0 4vw;
 }

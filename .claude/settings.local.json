@@ -62,7 +62,10 @@
       "Bash(git commit -q -m 'About & Manifesto become full dedicated pages; nav reordered \\(News before FAQ\\) + FAQ moved after News on home; News page: '\\\\''The latest'\\\\'', one-line intro, logo visuals in mosaic tiles *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=19/style.css?v=20/; s/data\\\\.js\\\\?v=2\"/data.js?v=3\"/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=20/style.css?v=21/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
-      "Bash(git commit -q -m 'Fixes: drop intro tagline; repair About/Manifesto \\(stats & sectors were invisible off-home\\); Stealth 2 -> Stealth; re-center Marie & Arthur portraits *)"
+      "Bash(git commit -q -m 'Fixes: drop intro tagline; repair About/Manifesto \\(stats & sectors were invisible off-home\\); Stealth 2 -> Stealth; re-center Marie & Arthur portraits *)",
+      "WebFetch(domain:blackwood.vc)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=21/style.css?v=22/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
+      "Bash(git commit -q -m 'Hero: living blurred streak field drifting behind the headline \\(blackwood-inspired, brand tones\\) *)"
     ]
   }
 }
