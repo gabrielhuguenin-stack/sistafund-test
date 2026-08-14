@@ -6,9 +6,11 @@
 <title>SISTAFUND | About</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body class="loaded nav-ready doc-page">
+
+<div class="col-guides" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <!-- ======== NAV ======== -->
 <header class="nav" id="nav">
@@ -35,67 +37,67 @@
 
 <main class="page">
   <header class="doc-hero">
-    <h1 class="doc-title">A new generation of <span class="yw">venture capital</span></h1>
-    <p class="doc-lead">We back exceptional female founders and gender-balanced teams building the companies of tomorrow, from Pre-Seed to Seed, mainly across Europe.</p>
+    <h1 class="doc-title" data-reveal="mask">A new generation of <span class="yw">venture capital</span></h1>
+    <p class="doc-lead" data-reveal>We back exceptional female founders and gender-balanced teams building the companies of tomorrow, from Pre-Seed to Seed, mainly across Europe.</p>
   </header>
 
-  <figure class="doc-photo">
+  <figure class="doc-photo" data-reveal="image" data-parallax>
     <img src="img/hero.jpg" alt="The SISTAFUND community gathered in Paris">
   </figure>
 
   <section class="doc-body">
-    <div class="about-grid">
-      <div class="about-col">
+    <div class="about-grid" data-stagger>
+      <div class="about-col" data-reveal>
         <h3 class="about-col-title">Hands-on partners</h3>
         <p>As entrepreneurs ourselves, we know the energy and support needed to shift the paradigm. We work with our community of founders and advisors to help companies get further and faster, from the very beginning.</p>
       </div>
-      <div class="about-col">
+      <div class="about-col" data-reveal>
         <h3 class="about-col-title">Driven by conviction</h3>
         <p>Companies with women in their founding teams perform better, up to 2.5× more profitable. We reveal founders who overcome adversity, shake up conventions and summon the future to challenge the present.</p>
       </div>
-      <div class="about-col">
+      <div class="about-col" data-reveal>
         <h3 class="about-col-title">Our thesis</h3>
         <p>We lead Pre-Seed and Seed rounds with tickets from €700k to €3m, mainly across Europe with select opportunities in the US, backing teams with at least 30% of founders' equity held by women.</p>
       </div>
     </div>
   </section>
 
-  <section class="stats">
-    <div class="stat-cell">
+  <section class="stats" data-stagger>
+    <div class="stat-cell" data-reveal>
       <span class="stat-num">€70m</span>
       <span class="stat-label">under management, deployed across France &amp; Europe</span>
     </div>
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal>
       <span class="stat-num">15</span>
       <span class="stat-label">portfolio companies, and counting</span>
     </div>
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal>
       <span class="stat-num">€1.5m</span>
       <span class="stat-label">average first ticket, from €700k to €3m</span>
     </div>
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal>
       <span class="stat-num">Pre-Seed &amp; Seed</span>
       <span class="stat-label">we support early-stage startups and follow on as they grow</span>
     </div>
   </section>
 
   <section class="doc-body">
-    <div class="sectors">
+    <div class="sectors" data-stagger>
       <p class="sectors-kicker">Four broad areas of interest</p>
-      <div class="sector"><span>HealthTech</span></div>
-      <div class="sector"><span>Frontier Tech</span></div>
-      <div class="sector"><span>Sustainability</span></div>
-      <div class="sector"><span>Fintech</span></div>
+      <div class="sector" data-reveal><span>HealthTech</span></div>
+      <div class="sector" data-reveal><span>Frontier Tech</span></div>
+      <div class="sector" data-reveal><span>Sustainability</span></div>
+      <div class="sector" data-reveal><span>Fintech</span></div>
     </div>
 
-    <div class="doc-facts">
-      <div class="doc-fact"><span class="doc-fact-k">Stage</span><span class="doc-fact-v">Pre-Seed &amp; Seed, leading rounds with follow-on capacity</span></div>
-      <div class="doc-fact"><span class="doc-fact-k">Ticket</span><span class="doc-fact-v">€700k to €3m, €1.5m on average</span></div>
-      <div class="doc-fact"><span class="doc-fact-k">Geography</span><span class="doc-fact-v">France, the rest of Europe and select US opportunities</span></div>
-      <div class="doc-fact"><span class="doc-fact-k">Criterion</span><span class="doc-fact-v">At least 30% of founders' equity held by women</span></div>
+    <div class="doc-facts" data-stagger>
+      <div class="doc-fact" data-reveal><span class="doc-fact-k">Stage</span><span class="doc-fact-v">Pre-Seed &amp; Seed, leading rounds with follow-on capacity</span></div>
+      <div class="doc-fact" data-reveal><span class="doc-fact-k">Ticket</span><span class="doc-fact-v">€700k to €3m, €1.5m on average</span></div>
+      <div class="doc-fact" data-reveal><span class="doc-fact-k">Geography</span><span class="doc-fact-v">France, the rest of Europe and select US opportunities</span></div>
+      <div class="doc-fact" data-reveal><span class="doc-fact-k">Criterion</span><span class="doc-fact-v">At least 30% of founders' equity held by women</span></div>
     </div>
 
-    <div class="doc-cta">
+    <div class="doc-cta" data-reveal>
       <a class="btn btn-big" href="manifesto.html">Read the manifesto <span class="btn-arrow">→</span></a>
     </div>
   </section>
@@ -137,6 +139,7 @@
   burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 </script>
+<script src="reveal.js?v=1"></script>
 
 </body>
 </html>

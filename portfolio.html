@@ -6,9 +6,11 @@
 <title>SISTAFUND | Portfolio</title>
 <meta name="description" content="The SISTAFUND portfolio — companies founded or co-founded by women across HealthTech, Frontier Tech, Sustainability and Fintech.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body class="loaded nav-ready subpage-dark">
+
+<div class="col-guides" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <!-- ======== NAV ======== -->
 <header class="nav" id="nav">
@@ -35,18 +37,18 @@
 
 <main class="page">
   <header class="page-hero subpage-hero">
-    <h1 class="page-hero-title">The companies <span class="yw">we back</span></h1>
+    <h1 class="page-hero-title" data-reveal="mask">The companies <span class="yw">we back</span></h1>
   </header>
 
   <section class="subpage-grid" id="portfolio">
-    <div class="filters" id="pfFilters">
+    <div class="filters" data-reveal id="pfFilters">
       <button class="filter active" data-filter="all">All</button>
       <button class="filter" data-filter="HealthTech">HealthTech</button>
       <button class="filter" data-filter="Frontier Tech">Frontier Tech</button>
       <button class="filter" data-filter="Sustainability">Sustainability</button>
       <button class="filter" data-filter="Fintech">Fintech</button>
     </div>
-    <div class="pf-all-grid" id="pfAllGrid"></div>
+    <div class="pf-all-grid" id="pfAllGrid" data-stagger></div>
   </section>
 </main>
 
@@ -99,6 +101,7 @@
   Object.entries(window.COMPANIES).forEach(([key, c]) => {
     const b = document.createElement('button');
     b.className = 'pf-all-card';
+    b.setAttribute('data-reveal', '');
     b.dataset.sector = c[1];
     b.dataset.co = key;
     b.innerHTML = `<span class="pf-logo"><img src="img/logos/${c[2]}" alt="${c[0]}" loading="lazy"></span>
@@ -143,6 +146,7 @@
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
+<script src="reveal.js?v=1"></script>
 
 </body>
 </html>

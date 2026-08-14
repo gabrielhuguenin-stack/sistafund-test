@@ -869,6 +869,42 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .news-tile:hover .nt-more { color: var(--yellow); }
 .page-hero-sub--wide { max-width: none; }
 
+/* ============ Scroll reveals (dedicated pages) ============ */
+/* Hidden states are armed only once reveal.js runs, so content can never get stuck. */
+html.anim [data-reveal]:not(.shown) {
+  opacity: 0; transform: translateY(28px);
+}
+html.anim [data-reveal] {
+  transition: opacity .9s var(--ease) var(--rd, 0ms), transform .9s var(--ease) var(--rd, 0ms),
+              clip-path 1.1s var(--ease) var(--rd, 0ms);
+}
+/* headline wipe: the type is uncovered from the top down */
+html.anim [data-reveal="mask"]:not(.shown) {
+  opacity: 1; transform: translateY(.12em);
+  clip-path: inset(-.16em 0 100% 0);
+}
+html.anim [data-reveal="mask"] { clip-path: inset(-.16em 0 -.16em 0); }
+/* image reveal: frame opens while the picture eases back from a slight zoom */
+html.anim [data-reveal="image"]:not(.shown) { opacity: 1; transform: none; clip-path: inset(0 0 100% 0); }
+html.anim [data-reveal="image"] { clip-path: inset(0 0 0 0); }
+html.anim [data-reveal="image"] img { transition: transform 1.4s var(--ease) var(--rd, 0ms); }
+html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
+/* parallax drift set by reveal.js */
+[data-parallax] { overflow: hidden; }
+[data-parallax] img { transform: translateY(var(--py, 0)); }
+
+/* faint column guides in the background, curaclimate-style */
+.col-guides {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  max-width: 1400px; margin: 0 auto; padding: 0 6vw;
+}
+.col-guides span { border-left: 1px solid rgba(16, 16, 16, .07); }
+.col-guides span:last-child { border-right: 1px solid rgba(16, 16, 16, .07); }
+body.subpage-dark .col-guides span { border-color: rgba(250, 248, 240, .08); }
+body > main, body > footer { position: relative; z-index: 1; }
+@media (max-width: 720px) { .col-guides { display: none; } }
+
 /* ============ Doc pages (about.html, manifesto.html) ============ */
 /* these pages have no scroll-reveal engine: show gated home components by default */
 .doc-page .stat-cell { opacity: 1; transform: none; }
@@ -881,6 +917,11 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .doc-lead {
   font-family: var(--serif); font-size: 1.5rem; line-height: 1.5;
   max-width: 48ch; margin-top: 4vh; color: var(--ink);
+}
+/* at body size a yellow outline is unreadable: mark the words instead */
+.doc-lead .yw, .m-stmt p .yw {
+  color: var(--ink); background: var(--yellow);
+  -webkit-text-stroke: 0; padding: 0 .14em;
 }
 .doc-photo { max-width: 1400px; margin: 0 auto 4vh; padding: 0 6vw; }
 .doc-photo img { width: 100%; height: 62vh; object-fit: cover; object-position: center 42%; border: 1.5px solid var(--ink); }

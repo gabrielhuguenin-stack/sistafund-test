@@ -6,9 +6,11 @@
 <title>SISTAFUND | Community</title>
 <meta name="description" content="The SISTAFUND community — recognized entrepreneurs, operators and institutional investors who stand alongside us and open their networks to our founders.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body class="loaded nav-ready subpage-dark">
+
+<div class="col-guides" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <!-- ======== NAV ======== -->
 <header class="nav" id="nav">
@@ -35,12 +37,12 @@
 
 <main class="page">
   <header class="page-hero subpage-hero">
-    <h1 class="page-hero-title">A committed <span class="yw">community</span></h1>
-    <p class="page-hero-sub">Recognized entrepreneurs, operators and institutional investors who stand alongside us and open their networks to our founders.</p>
+    <h1 class="page-hero-title" data-reveal="mask">A committed <span class="yw">community</span></h1>
+    <p class="page-hero-sub" data-reveal>Recognized entrepreneurs, operators and institutional investors who stand alongside us and open their networks to our founders.</p>
   </header>
 
   <section class="subpage-grid" id="community">
-    <div class="filters" id="lpFilters">
+    <div class="filters" data-reveal id="lpFilters">
       <button class="filter active" data-filter="all">All</button>
       <button class="filter" data-filter="consumer">Consumer</button>
       <button class="filter" data-filter="fintech">Fintech</button>
@@ -49,7 +51,7 @@
       <button class="filter" data-filter="saas">SaaS</button>
       <button class="filter" data-filter="institutions">Institutions</button>
     </div>
-    <div class="lp-grid" id="lpGrid"></div>
+    <div class="lp-grid" id="lpGrid" data-stagger></div>
     <div class="lp-institutions" id="lpInstitutions" hidden>
       <p>Alongside these entrepreneurs and operators, SISTAFUND is backed by leading institutional investors.</p>
     </div>
@@ -98,6 +100,7 @@
   window.LPS.forEach(([name, org, file, sector], i) => {
     const d = document.createElement('div');
     d.className = 'lp';
+    d.setAttribute('data-reveal', '');
     d.dataset.sector = sector;
     d.innerHTML = `<div class="lp-photo"><img src="img/community/${file}" alt="${name}" loading="lazy"></div>
       <span class="lp-name">${name}</span><span class="lp-org">${org}</span>`;
@@ -121,6 +124,7 @@
     }
   });
 </script>
+<script src="reveal.js?v=1"></script>
 
 </body>
 </html>

@@ -6,9 +6,11 @@
 <title>SISTAFUND | Manifesto</title>
 <meta name="description" content="The SISTAFUND manifesto — why gender-balanced teams are a performance strategy, and our commitment to backing exceptional female founders across Europe.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body class="loaded nav-ready doc-page">
+
+<div class="col-guides" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <!-- ======== NAV ======== -->
 <header class="nav" id="nav">
@@ -35,42 +37,42 @@
 
 <main class="page">
   <header class="doc-hero">
-    <h1 class="doc-title">The <span class="yw">manifesto</span></h1>
-    <p class="doc-lead">Time has come to free the potential of women entrepreneurs on their journey to build the companies of tomorrow. Gender-balanced teams are not a cause. They are a <span class="yw">performance strategy</span>.</p>
+    <h1 class="doc-title" data-reveal="mask">The <span class="yw">manifesto</span></h1>
+    <p class="doc-lead" data-reveal>Time has come to free the potential of women entrepreneurs on their journey to build the companies of tomorrow. Gender-balanced teams are not a cause. They are a <span class="yw">performance strategy</span>.</p>
   </header>
 
-  <figure class="doc-photo">
+  <figure class="doc-photo" data-reveal="image" data-parallax>
     <img src="img/manifesto.jpg" alt="The SISTAFUND community">
   </figure>
 
-  <section class="doc-statements">
-    <article class="m-stmt">
+  <section class="doc-statements" data-stagger>
+    <article class="m-stmt" data-reveal>
       <h2>The game is changing</h2>
       <p>Gender equality is everywhere in the conversation. Awareness is the first step, and it is finally happening.</p>
     </article>
-    <article class="m-stmt">
+    <article class="m-stmt" data-reveal>
       <h2>We need more female founders</h2>
       <p>Gender-balanced teams perform better. Companies with women in the founding team can be up to 2.5× more profitable. They are bold, they overcome adversity and they challenge conventions.</p>
     </article>
-    <article class="m-stmt">
+    <article class="m-stmt" data-reveal>
       <h2>The time has come for SISTAFUND</h2>
       <p>€70m to back companies founded by women and gender-balanced teams across France, Europe and the US, from the very first round through scaling.</p>
     </article>
-    <article class="m-stmt">
+    <article class="m-stmt" data-reveal>
       <h2>We are a new generation of venture capital founders</h2>
       <p>Entrepreneurs, operators and sector experts who came together to shift the paradigm, across HealthTech, Fintech, Sustainability and Frontier Tech.</p>
     </article>
-    <article class="m-stmt">
+    <article class="m-stmt" data-reveal>
       <h2>Women don't need to be shown the way. They need to be given resources</h2>
       <p>Our mission is to tell new stories and create value by giving founders the capital and the support to bring their vision to life.</p>
     </article>
-    <article class="m-stmt">
+    <article class="m-stmt" data-reveal>
       <h2>Our legacy will be <span class="yw">equality</span></h2>
       <p>A long-term commitment to gender parity in venture capital and in entrepreneurship.</p>
     </article>
   </section>
 
-  <section class="doc-cta">
+  <section class="doc-cta" data-reveal>
     <a class="btn btn-big" href="about.html">More about us <span class="btn-arrow">→</span></a>
   </section>
 </main>
@@ -111,6 +113,7 @@
   burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 </script>
+<script src="reveal.js?v=1"></script>
 
 </body>
 </html>

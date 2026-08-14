@@ -6,9 +6,11 @@
 <title>SISTAFUND | News</title>
 <meta name="description" content="The latest from SISTAFUND and our portfolio companies — funding rounds, milestones and press.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body class="loaded nav-ready subpage-dark">
+
+<div class="col-guides" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <!-- ======== NAV ======== -->
 <header class="nav" id="nav">
@@ -35,12 +37,12 @@
 
 <main class="page">
   <header class="page-hero subpage-hero">
-    <h1 class="page-hero-title">The <span class="yw">latest</span></h1>
-    <p class="page-hero-sub page-hero-sub--wide">SISTAFUND and our portfolio companies in the media. Funding rounds, milestones and coverage.</p>
+    <h1 class="page-hero-title" data-reveal="mask">The <span class="yw">latest</span></h1>
+    <p class="page-hero-sub page-hero-sub--wide" data-reveal>SISTAFUND and our portfolio companies in the media. Funding rounds, milestones and coverage.</p>
   </header>
 
   <section class="subpage-grid" id="news">
-    <div class="news-mosaic" id="newsList"></div>
+    <div class="news-mosaic" id="newsList" data-stagger></div>
   </section>
 </main>
 
@@ -87,6 +89,7 @@
   (window.NEWS || []).forEach(([date, source, title, url], i) => {
     const a = document.createElement('a');
     a.className = 'news-tile';
+    a.setAttribute('data-reveal', '');
     a.href = url; a.target = '_blank'; a.rel = 'noopener';
     const fig = document.createElement('span');
     fig.className = 'nt-photo';
@@ -106,6 +109,7 @@
     list.appendChild(a);
   });
 </script>
+<script src="reveal.js?v=1"></script>
 
 </body>
 </html>
