@@ -16,7 +16,7 @@ window.COMPANIES = {
   optimiz: ['Optimiz Construction', 'Sustainability', 'optimiz.png', 'Helping construction firms optimize materials to save time, money and CO₂.', 'Marion Malandain', 'Paris, 2020'],
   notom: ['NOTOM', 'Frontier Tech', 'notom.png', 'Bridging OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris, 2025'],
   stealth: ['Stealth', 'Frontier Tech', 'stealth.png', 'Unlocking Ocean Intelligence.', '', 'UK, 2022'],
-  stealth2: ['Stealth 2', 'HealthTech', 'stealth2.png', 'Gut Health Monitoring.', '', 'UK, 2026'],
+  stealth2: ['Stealth', 'HealthTech', 'stealth2.png', 'Gut Health Monitoring.', '', 'UK, 2026'],
 };
 
 window.LPS = [

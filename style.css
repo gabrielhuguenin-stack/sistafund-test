@@ -417,6 +417,9 @@ main section[id] { scroll-margin-top: 60px; }
   transition: transform .28s var(--ease);
 }
 .member:hover .member-photo img { --sc: 1.05; }
+/* per-portrait framing tweaks (also applied in the home carousel) */
+.member-photo img[src*="marie"], .team-slide img[src*="marie"] { object-position: center 30%; }
+.member-photo img[src*="arthur"], .team-slide img[src*="arthur"] { object-position: center 28%; }
 .member-bio {
   position: absolute; inset: 0;
   background: rgba(16, 16, 16, .9); color: var(--paper);
@@ -850,6 +853,9 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .page-hero-sub--wide { max-width: none; }
 
 /* ============ Doc pages (about.html, manifesto.html) ============ */
+/* these pages have no scroll-reveal engine: show gated home components by default */
+.doc-page .stat-cell { opacity: 1; transform: none; }
+.doc-page .sector > span { transform: none; }
 .doc-hero { max-width: 1100px; margin: 0 auto; padding: 24vh 6vw 5vh; }
 .doc-title {
   font-family: var(--display); text-transform: uppercase;
