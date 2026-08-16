@@ -811,7 +811,7 @@ main section[id] { scroll-margin-top: 60px; }
   width: 100%; height: 62vh; object-fit: cover; object-position: center 42%;
   border: 1.5px solid var(--ink);
 }
-.team-page-grid { max-width: 1260px; margin: 0 auto; padding: 0 4vw 16vh; }
+.team-page-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 16vh; }
 .team-page-grid--top { padding-top: 22vh; }
 .team-page-grid .team-grid { max-width: none; }
 /* portraits visible by default on the dedicated page (no scroll-reveal gate) */
@@ -909,14 +909,14 @@ body > main, body > footer { position: relative; z-index: 1; }
 /* these pages have no scroll-reveal engine: show gated home components by default */
 .doc-page .stat-cell { opacity: 1; transform: none; }
 .doc-page .sector > span { transform: none; }
-.doc-hero { max-width: 1100px; margin: 0 auto; padding: 24vh 6vw 5vh; }
+.doc-hero { max-width: 1400px; margin: 0 auto; padding: 22vh 6vw 5vh; }
 .doc-title {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.8rem, 8vw, 6.6rem); line-height: .92; max-width: 16ch;
+  font-size: clamp(2.8rem, 8vw, 6.6rem); line-height: .92;
 }
 .doc-lead {
   font-family: var(--serif); font-size: 1.5rem; line-height: 1.5;
-  max-width: 48ch; margin-top: 4vh; color: var(--ink);
+  max-width: 62ch; margin-top: 4vh; color: var(--ink);
 }
 /* at body size a yellow outline is unreadable: mark the words instead */
 .doc-lead .yw, .m-stmt p .yw {
@@ -925,10 +925,10 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 .doc-photo { max-width: 1400px; margin: 0 auto 4vh; padding: 0 6vw; }
 .doc-photo img { width: 100%; height: 62vh; object-fit: cover; object-position: center 42%; border: 1.5px solid var(--ink); }
-.doc-body { max-width: 1100px; margin: 0 auto; padding: 7vh 6vw; }
+.doc-body { max-width: 1400px; margin: 0 auto; padding: 7vh 6vw; }
 .doc-cta { margin-top: 7vh; }
 /* manifesto statements */
-.doc-statements { max-width: 1100px; margin: 0 auto; padding: 4vh 6vw 6vh; }
+.doc-statements { max-width: 1400px; margin: 0 auto; padding: 4vh 6vw 6vh; }
 .m-stmt { padding: 6vh 0; border-top: 1.5px solid var(--ink); }
 .m-stmt:first-child { border-top: none; padding-top: 2vh; }
 .m-stmt h2 {

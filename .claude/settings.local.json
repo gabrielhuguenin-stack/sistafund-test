@@ -68,7 +68,9 @@
       "Bash(git commit -q -m 'Hero: living blurred streak field drifting behind the headline \\(blackwood-inspired, brand tones\\) *)",
       "Bash(curl -sL \"https://sistafund.com/news/\" -o news.html)",
       "Bash(perl -pi -e 's/data\\\\.js\\\\?v=3\"/data.js?v=4\"/; s/style\\\\.css\\\\?v=22/style.css?v=23/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
-      "Bash(git commit -q -m 'News: real per-article photos \\(59 thumbnails pulled from sistafund.com\\) replace logos in the mosaic; B&W to color on hover *)"
+      "Bash(git commit -q -m 'News: real per-article photos \\(59 thumbnails pulled from sistafund.com\\) replace logos in the mosaic; B&W to color on hover *)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=25/style.css?v=26/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
+      "Bash(git commit -q -m 'Unify page width: About, Manifesto and Team now share the 1400px/6vw grid used by Portfolio, Community and News *)"
     ]
   }
 }
