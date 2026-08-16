@@ -132,6 +132,17 @@ em { font-style: normal; }
   transition: transform .35s var(--ease);
 }
 .nav-links a:hover::after { transform: skewX(-8deg) scaleX(1); transform-origin: left; }
+/* small slanted tag on the lower-right corner, carrying the count */
+.nav-count {
+  position: absolute; right: -1.5em; bottom: -.55em;
+  font-family: var(--display); font-size: .66rem; letter-spacing: .04em;
+  line-height: 1; padding: 3px 5px;
+  background: var(--ink); color: var(--yellow);   /* reads on paper and on the yellow hero */
+  transform: rotate(-14deg); transform-origin: bottom left;
+  pointer-events: none;
+}
+body.subpage-dark .nav-count { background: var(--yellow); color: var(--ink); }
+.mobile-menu .nav-count { position: static; display: inline-block; margin-left: .5em; vertical-align: super; font-size: .9rem; }
 
 .btn {
   font-family: var(--display); text-transform: uppercase;
