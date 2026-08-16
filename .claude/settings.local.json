@@ -70,7 +70,10 @@
       "Bash(perl -pi -e 's/data\\\\.js\\\\?v=3\"/data.js?v=4\"/; s/style\\\\.css\\\\?v=22/style.css?v=23/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
       "Bash(git commit -q -m 'News: real per-article photos \\(59 thumbnails pulled from sistafund.com\\) replace logos in the mosaic; B&W to color on hover *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=25/style.css?v=26/' index.html team.html news.html portfolio.html community.html about.html manifesto.html)",
-      "Bash(git commit -q -m 'Unify page width: About, Manifesto and Team now share the 1400px/6vw grid used by Portfolio, Community and News *)"
+      "Bash(git commit -q -m 'Unify page width: About, Manifesto and Team now share the 1400px/6vw grid used by Portfolio, Community and News *)",
+      "Bash(git rm *)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=26/style.css?v=27/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(git commit -q -m 'Drop redundant About page \\(home already covers it\\), add Manifesto to the nav; manifesto & doc pages laid out across the full width in a two-column editorial rhythm with staggered claim/argument reveals *)"
     ]
   }
 }
