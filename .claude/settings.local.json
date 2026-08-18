@@ -78,7 +78,9 @@
       "Bash(git commit -q -m 'Remove About from the nav: Manifesto, Portfolio, Team, Community, News, FAQ *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=28/style.css?v=29/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=29/style.css?v=30/' index.html team.html news.html portfolio.html community.html manifesto.html)",
-      "Bash(git commit -q -m 'Nav: slanted corner tag on Portfolio \\(15\\) and Team \\(6\\), inverted on dark pages *)"
+      "Bash(git commit -q -m 'Nav: slanted corner tag on Portfolio \\(15\\) and Team \\(6\\), inverted on dark pages *)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=30/style.css?v=31/; s/script\\\\.js\\\\?v=12/script.js?v=13/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(git commit -q -m 'Home: oversized lemon drifting through the hero \\(curaclimate-style\\). News page turns light so it does not follow black Community. Manifesto: alternating left/right rhythm + full-width closing statement. Drop More-about-us CTA and FAQ from the nav *)"
     ]
   }
 }

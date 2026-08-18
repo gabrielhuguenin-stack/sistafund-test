@@ -259,6 +259,7 @@ function layoutOrbit(rotation, appear = 1) {
 const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 const aboutImg = document.getElementById('aboutImg');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
+const heroLemon = document.getElementById('heroLemon');
 const communitySec = document.getElementById('community');
 const commPinEl = document.getElementById('commPin');
 
@@ -275,6 +276,11 @@ function onScroll() {
     const p = clamp(y / total, 0, 1);
     renderHero(p);
     heroSection.classList.toggle('scrolled-past', p > 0.02);
+    // the lemon rises and turns across the hero's scroll
+    if (heroLemon) {
+      heroLemon.style.transform =
+        `translate3d(${(-p * 6).toFixed(2)}vw, ${(-p * 26).toFixed(2)}vh, 0) rotate(${(-14 + p * 46).toFixed(1)}deg)`;
+    }
   }
 
   // about photo parallax
