@@ -6,7 +6,7 @@
 <title>SISTAFUND | Investing in the next generation of European tech leaders</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=36">
+<link rel="stylesheet" href="style.css?v=37">
 </head>
 <body>
 
@@ -49,8 +49,9 @@
 
       <!-- oversized lemon drifting with the scroll, like curaclimate's stones -->
       <div class="hero-lemon" id="heroLemon" aria-hidden="true">
-        <img src="img/lemon-single.png" alt="">
+        <img src="img/lemon-group.png" alt="">
       </div>
+      <div class="hero-progress" aria-hidden="true"><span></span><b id="heroPct">0</b>&nbsp;%</div>
       <div class="hero-stack" id="heroStack">
         <h1 class="hstmt"><span>Investing in the</span><span>next generation of</span><span>european tech leaders</span></h1>
         <p class="hstmt"><span>Europe's largest</span><span>gender-lens fund</span></p>
@@ -67,7 +68,7 @@
 
     <figure class="about-photo">
       <div class="about-photo-frame"><img src="img/hero.jpg" alt="The SISTAFUND community gathered in Paris" id="aboutImg"></div>
-      <div class="lemon-accent lemon-accent--about" data-lspeed="7" aria-hidden="true"><img src="img/lemon-group.png" alt=""></div>
+      <div class="lemon-accent lemon-accent--about" data-lspeed="7" aria-hidden="true"><img src="img/lemon-single.png" alt=""></div>
     </figure>
 
     <div class="about-grid">
@@ -165,19 +166,13 @@
         <p class="team-intro-sub">Entrepreneurs, operators and investors — building alongside the founders we back, from day one.</p>
         <a href="team.html" class="team-intro-link">Meet the team <span class="btn-arrow">→</span></a>
       </div>
-      <div class="team-slider" id="teamSlider" role="group" aria-label="The SISTAFUND team">
-        <div class="team-stage" id="teamDeck">
-          <figure class="team-slide" data-cap="Tatiana Jama — Founder &amp; General Manager"><img src="img/team/tatiana.jpg" alt="Tatiana Jama"></figure>
-          <figure class="team-slide" data-cap="Marie Geneste — Partner"><img src="img/team/marie.jpg" alt="Marie Geneste"></figure>
-          <figure class="team-slide" data-cap="Natacha Brami — Principal"><img src="img/team/natacha.jpg" alt="Natacha Brami"></figure>
-          <figure class="team-slide" data-cap="Arthur Hay — Chief Financial Officer"><img src="img/team/arthur.png" alt="Arthur Hay"></figure>
-          <figure class="team-slide" data-cap="Timothée Ricour-Dumas — Analyst"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas"></figure>
-          <figure class="team-slide" data-cap="Gabriel Huguenin — Analyst"><img src="img/team/gabriel.png" alt="Gabriel Huguenin"></figure>
-        </div>
-        <div class="team-slider-foot">
-          <span class="team-slide-cap" id="teamCap">Tatiana Jama — Founder &amp; General Manager</span>
-          <span class="team-slide-count"><b id="teamCount">1</b> / 6</span>
-        </div>
+      <div class="team-scatter" id="teamScatter" role="group" aria-label="The SISTAFUND team">
+        <figure class="ts-print"><img src="img/team/tatiana.jpg" alt="Tatiana Jama"><figcaption>Tatiana</figcaption></figure>
+        <figure class="ts-print"><img src="img/team/marie.jpg" alt="Marie Geneste"><figcaption>Marie</figcaption></figure>
+        <figure class="ts-print"><img src="img/team/natacha.jpg" alt="Natacha Brami"><figcaption>Natacha</figcaption></figure>
+        <figure class="ts-print"><img src="img/team/arthur.png" alt="Arthur Hay"><figcaption>Arthur</figcaption></figure>
+        <figure class="ts-print"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas"><figcaption>Timothée</figcaption></figure>
+        <figure class="ts-print"><img src="img/team/gabriel.png" alt="Gabriel Huguenin"><figcaption>Gabriel</figcaption></figure>
       </div>
     </div>
   </section>
@@ -326,6 +321,7 @@
 </div>
 
 <script src="data.js?v=4"></script>
-<script src="script.js?v=16"></script>
+<script src="script.js?v=17"></script>
+<script src="reveal.js?v=4"></script>
 </body>
 </html>

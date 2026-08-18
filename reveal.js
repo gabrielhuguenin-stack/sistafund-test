@@ -1,4 +1,37 @@
-/* SISTAFUND — scroll reveal engine for the dedicated pages
+/* SISTAFUND — scroll engine shared by every page */
+
+/* Inertial scroll: the wheel eases the page instead of jumping it (Lenis-style).
+   Real window scrolling is preserved, so sticky sections and scroll-driven
+   animations keep working; trackpads on touch devices are left alone. */
+(function () {
+  if (matchMedia('(pointer: coarse)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+  let target = scrollY, current = scrollY, raf = null;
+  const loop = () => {
+    current += (target - current) * 0.12;
+    if (Math.abs(target - current) < 0.5) {
+      current = target; raf = null;
+      scrollTo({ top: current, behavior: 'instant' });
+      return;
+    }
+    scrollTo({ top: current, behavior: 'instant' });
+    raf = requestAnimationFrame(loop);
+  };
+  addEventListener('wheel', e => {
+    if (e.ctrlKey || e.metaKey) return;                          // pinch zoom
+    if (document.body.classList.contains('locked')) return;      // modal open
+    if (e.target.closest('.overlay.open, .mobile-menu.open')) return;
+    e.preventDefault();
+    const delta = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;  // Firefox line mode
+    target = clamp(target + delta, 0, document.documentElement.scrollHeight - innerHeight);
+    if (raf === null) raf = requestAnimationFrame(loop);
+  }, { passive: false });
+  // keys, scrollbar drags and anchor jumps move the page without us: stay in sync
+  addEventListener('scroll', () => { if (raf === null) target = current = scrollY; }, { passive: true });
+})();
+
+/* Scroll reveal engine for the dedicated pages
    Elements are visible by default; the hidden state is only armed once this
    script runs (html.anim), and three safety nets guarantee nothing stays hidden. */
 (function () {
@@ -51,7 +84,8 @@
   setTimeout(() => { if (targets.some(el => !el.classList.contains('shown'))) sweep(); }, 2500);
 })();
 
-/* Team stack: each card eases back as the next print slides over it */
+/* Team stack: each card dims as the next print slides over it
+   (no scale change: every print keeps exactly the same size) */
 (function () {
   const cards = [...document.querySelectorAll('.tcard')];
   if (!cards.length) return;
@@ -59,11 +93,10 @@
   const run = () => {
     cards.forEach((c, i) => {
       const next = cards[i + 1];
-      if (!next) { c.style.transform = ''; c.style.filter = ''; return; }
+      if (!next) { c.style.filter = ''; return; }
       const r = next.getBoundingClientRect();
       const p = Math.min(Math.max((innerHeight - r.top) / (innerHeight * 0.85), 0), 1);
-      c.style.transform = `scale(${(1 - p * 0.055).toFixed(3)})`;
-      c.style.filter = `brightness(${(1 - p * 0.07).toFixed(3)})`;
+      c.style.filter = `brightness(${(1 - p * 0.09).toFixed(3)})`;
     });
     ticking = false;
   };

@@ -43,57 +43,23 @@ if (faqToggle && faqMore) {
   });
 }
 
-// ---------- Team deck: the top print lifts away to uncover the next one ----------
-const teamSlider = document.getElementById('teamSlider');
-if (teamSlider) {
-  const deck = document.getElementById('teamDeck');
-  const slides = [...deck.querySelectorAll('.team-slide')];
-  const capEl = document.getElementById('teamCap');
-  const countEl = document.getElementById('teamCount');
-  const len = slides.length;
-  let ti = 0, timer = null, leaving = null;
-
-  const TAIL = 'translate(22px, 17px) rotate(2.6deg) scale(.95)';
-  const layout = () => {
-    slides.forEach((s, i) => {
-      const off = (i - ti + len) % len;
-      if (s === leaving) return;                       // mid-flight, leave it alone
-      if (off === 0) {
-        s.style.transform = 'none'; s.style.opacity = 1; s.style.zIndex = 30;
-      } else if (off <= 2) {                            // just the corner of the next prints
-        s.style.transform = `translate(${off * 8}px, ${off * 6}px) rotate(${off * 1.3}deg) scale(${1 - off * 0.025})`;
-        s.style.opacity = 1; s.style.zIndex = 30 - off;
-      } else {
-        s.style.transform = TAIL;
-        s.style.opacity = 0; s.style.zIndex = 1;
-      }
-    });
-    capEl.textContent = slides[ti].dataset.cap;
-    countEl.textContent = ti + 1;
-  };
-
-  // the top print slips underneath the pile — quieter than flying off screen
-  const next = () => {
-    if (leaving) return;
-    const top = slides[ti];
-    leaving = top;
-    top.style.zIndex = 4;                              // beneath the others: it slides under
-    top.style.transform = TAIL;
-    setTimeout(() => {
-      top.style.opacity = 0;
-      leaving = null;
-      ti = (ti + 1) % len;
-      layout();
-    }, 860);
-  };
-
-  const start = () => { stop(); timer = setInterval(next, 3800); };
-  const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
-  teamSlider.addEventListener('click', () => { next(); start(); });
-  teamSlider.addEventListener('mouseenter', stop);
-  teamSlider.addEventListener('mouseleave', start);
-  layout(); start();
-}
+// ---------- Team scatter: prints fan out of a pile onto the table as you scroll ----------
+const teamScatter = document.getElementById('teamScatter');
+const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print')] : [];
+// resting place of each print on the table: left/top in %, rotation, width, layer
+const SCATTER = [
+  { x:  1, y:  1, r: -7, w: 46, z: 6 },
+  { x: 51, y:  4, r:  5, w: 43, z: 5 },
+  { x:  9, y: 33, r:  3, w: 42, z: 7 },
+  { x: 53, y: 37, r: -5, w: 44, z: 8 },
+  { x:  0, y: 63, r:  6, w: 41, z: 9 },
+  { x: 46, y: 61, r: -3, w: 44, z: 10 },
+];
+scatterPrints.forEach((p, i) => {
+  const t = SCATTER[i];
+  p.style.left = t.x + '%'; p.style.top = t.y + '%';
+  p.style.width = t.w + '%'; p.style.zIndex = t.z;
+});
 
 // ---------- In-view observer (reveals, hl marker, CTA lines) ----------
 const io = new IntersectionObserver(entries => {
@@ -113,39 +79,77 @@ const heroPin = document.getElementById('heroPin');
 const heroSection = document.getElementById('hero');
 const heroItems = [...document.querySelectorAll('#heroStack .hstmt')];
 
-// wrap each line's text in an inner element we can translate behind an overflow mask,
-// and hand each line an enter/exit window along the scroll (staggered per line)
-const heroLines = [];
+// every WORD gets its own mask; scrolling folds the headline away word by word
+// while the second statement assembles itself the same way, each word settling
+// from a slight tilt — a cascade rather than a block wipe
+const heroWords = [];
 heroItems.forEach((item, si) => {
   item.setAttribute('aria-label', item.textContent.trim().replace(/\s+/g, ' '));
-  const spans = [...item.querySelectorAll('span')];
-  spans.forEach((line, li) => {
-    const text = line.textContent;
+  const words = [];
+  [...item.querySelectorAll('span')].forEach(line => {
+    const parts = line.textContent.split(' ');
+    line.textContent = '';
     line.setAttribute('aria-hidden', 'true');
-    line.classList.add('hmask');
-    line.innerHTML = `<i class="hln">${text}</i>`;
-    const inner = line.firstChild;
-    // statement 0 (headline): shown at rest, wipes up as you scroll.
-    // statement 1 (gender-lens): wipes in later and stays.
-    const enter0 = si === 0 ? -0.2 : 0.54 + li * 0.07;
+    parts.forEach((w, k) => {
+      if (k) line.appendChild(document.createTextNode(' '));
+      const m = document.createElement('span'); m.className = 'hmask';
+      const inner = document.createElement('i'); inner.className = 'hln';
+      inner.textContent = w;
+      m.appendChild(inner); line.appendChild(m);
+      words.push(inner);
+    });
+  });
+  const W = Math.max(words.length - 1, 1);
+  words.forEach((inner, j) => {
+    const f = j / W;
+    // statement 0: on show at rest, folds away 0.30 → 0.56 in cascade.
+    // statement 1: assembles 0.58 → 0.90, then stays.
+    const enter0 = si === 0 ? -0.2 : 0.58 + f * 0.18;
     const enter1 = si === 0 ? -0.1 : enter0 + 0.12;
-    const exit0  = si === 0 ? 0.40 + li * 0.05 : 2;   // >1 = never exits
-    const exit1  = exit0 + 0.12;
-    heroLines.push({ inner, enter0, enter1, exit0, exit1 });
+    const exit0  = si === 0 ? 0.30 + f * 0.16 : 2;
+    const exit1  = exit0 + 0.10;
+    heroWords.push({ inner, enter0, enter1, exit0, exit1 });
   });
 });
 
+// on arrival (once the intro clears) the headline assembles itself word by word
+let heroEntranceDone = false;
+const s0Words = heroWords.filter(w => w.exit0 < 2);
+s0Words.forEach(w => { w.inner.style.transform = 'translateY(108%) rotate(5deg)'; });
+setTimeout(() => {
+  s0Words.forEach((w, j) => {
+    w.inner.style.transition = `transform .9s cubic-bezier(.22,1,.36,1) ${j * 75}ms`;
+    w.inner.style.transform = 'translateY(0%) rotate(0deg)';
+  });
+  setTimeout(() => {
+    s0Words.forEach(w => { w.inner.style.transition = ''; });
+    heroEntranceDone = true;
+    onScroll();
+  }, 950 + s0Words.length * 75);
+}, 1900);
+
 const lerp = (a, b, t) => a + (b - a) * t;
-function lineY(l, p) {
-  if (p < l.enter0) return 102;                              // still below the mask
-  if (p < l.enter1) return lerp(102, 0, (p - l.enter0) / (l.enter1 - l.enter0));
-  if (p < l.exit0)  return 0;                                // fully shown
-  if (p < l.exit1)  return lerp(0, -108, (p - l.exit0) / (l.exit1 - l.exit0));
-  return -108;                                               // wiped up and gone
+const easeOut = t => 1 - Math.pow(1 - t, 3);
+function wordPose(w, p) {
+  if (p < w.enter0) return { y: 108, r: 5 };                 // still below the mask
+  if (p < w.enter1) {
+    const t = easeOut((p - w.enter0) / (w.enter1 - w.enter0));
+    return { y: 108 * (1 - t), r: 5 * (1 - t) };             // rises and settles straight
+  }
+  if (p < w.exit0) return { y: 0, r: 0 };
+  if (p < w.exit1) {
+    const t = (p - w.exit0) / (w.exit1 - w.exit0);
+    return { y: -112 * t, r: -4 * t };                        // folds up and away
+  }
+  return { y: -112, r: -4 };
 }
 function renderHero(p) {
   heroItems.forEach(it => { it.style.opacity = 1; });
-  heroLines.forEach(l => { l.inner.style.transform = `translateY(${lineY(l, p)}%)`; });
+  heroWords.forEach(w => {
+    if (!heroEntranceDone && w.exit0 < 2) return;   // arrival cascade owns these words
+    const s = wordPose(w, p);
+    w.inner.style.transform = `translateY(${s.y.toFixed(2)}%) rotate(${s.r.toFixed(2)}deg)`;
+  });
 }
 
 // Section h2s: wrap each line (split on <br>) for the masked line reveal
@@ -298,16 +302,35 @@ function onScroll() {
   nav.classList.toggle('scrolled', y > 60);
   lastY = y;
 
-  // hero: scrolling wipes each headline line up from behind its mask
-  if (heroPin && heroLines.length) {
+  // hero: scrolling folds the headline away word by word
+  if (heroPin && heroWords.length) {
     const total = heroPin.offsetHeight - vh;
     const p = clamp(y / total, 0, 1);
     renderHero(p);
     heroSection.classList.toggle('scrolled-past', p > 0.02);
-    // the lemon rises and turns across the hero's scroll
+    // the lemons rise and turn gently across the hero's scroll
     if (heroLemon) {
       heroLemon.style.transform =
-        `translate3d(${(-p * 6).toFixed(2)}vw, ${(-p * 26).toFixed(2)}vh, 0) rotate(${(-14 + p * 46).toFixed(1)}deg)`;
+        `translate3d(${(-p * 4).toFixed(2)}vw, ${(-p * 18).toFixed(2)}vh, 0) rotate(${(-6 + p * 16).toFixed(1)}deg)`;
+    }
+    const pct = document.getElementById('heroPct');
+    if (pct) pct.textContent = Math.round(y / (document.documentElement.scrollHeight - vh) * 100);
+  }
+
+  // team prints fan out of the pile onto the table
+  if (teamScatter && scatterPrints.length) {
+    const r = teamScatter.getBoundingClientRect();
+    if (r.bottom > -100 && r.top < vh + 100) {
+      const p = clamp((vh - r.top) / (vh * 0.9), 0, 1);
+      const ease = t => t * t * (3 - 2 * t);
+      scatterPrints.forEach((el, i) => {
+        const t = ease(clamp(p * 1.6 - i * 0.09, 0, 1));
+        const tg = SCATTER[i];
+        const dx = r.width * ((26 - tg.x) / 100) * (1 - t);
+        const dy = r.height * ((28 - tg.y) / 100) * (1 - t);
+        el.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) rotate(${(tg.r * t).toFixed(2)}deg)`;
+        el.style.opacity = Math.min(1, t * 2.2);
+      });
     }
   }
 
