@@ -134,12 +134,14 @@ em { font-style: normal; }
 .nav-links a:hover::after { transform: skewX(-8deg) scaleX(1); transform-origin: left; }
 /* count as a parenthesised superscript, in brand yellow with a hairline so it
    stays legible on paper, on the yellow hero and on the dark pages alike */
+/* pure yellow disappears on the yellow hero and on paper, so the count is inked
+   on light backgrounds and yellow where the page is dark */
 .nav-count {
   font-family: var(--display); font-size: .58em; letter-spacing: .02em;
-  margin-left: .18em; top: -.5em; position: relative;
-  color: var(--yellow); -webkit-text-stroke: .7px var(--ink); paint-order: stroke fill;
+  margin-left: .16em; top: -.5em; position: relative;
+  color: var(--ink);
 }
-body.subpage-dark .nav-count { -webkit-text-stroke: 0; }
+body.subpage-dark .nav-count { color: var(--yellow); }
 .mobile-menu .nav-count { font-size: .5em; }
 
 .btn {
@@ -198,7 +200,7 @@ body.subpage-dark .nav-count { -webkit-text-stroke: 0; }
   filter: drop-shadow(0 26px 34px rgba(16, 16, 16, .18));
   pointer-events: none;
 }
-.hero-lemon svg { width: 100%; height: auto; display: block; }
+.hero-lemon img { width: 100%; height: auto; display: block; }
 @media (max-width: 900px) { .hero-lemon { width: 44vw; right: -6vw; bottom: -4vh; opacity: .85; } }
 
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
@@ -360,9 +362,9 @@ main section[id] { scroll-margin-top: 60px; }
   color: var(--yellow);
 }
 .stat-label {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-size: clamp(.9rem, 1.15vw, 1.1rem);
   color: rgba(250, 248, 240, .7);
-  max-width: 380px;
+  max-width: none;              /* these labels are meant to hold one line */
 }
 
 /* ============ Portfolio ============ */
@@ -415,12 +417,15 @@ main section[id] { scroll-margin-top: 60px; }
   padding-bottom: 7px; border-bottom: 2px solid var(--ink);
 }
 .team-slider { cursor: pointer; }
-.team-stage { position: relative; overflow: hidden; }
-/* horizontal filmstrip: active portrait large, next one peeking on the right */
-.team-track { display: flex; gap: 18px; will-change: transform; transition: transform .85s var(--ease); }
+/* a contained deck on the right: only the top print is readable, the ones
+   underneath just peek out at the corner */
+.team-stage { position: relative; aspect-ratio: 4 / 4.4; }
 .team-slide {
-  position: relative; flex: 0 0 80%; aspect-ratio: 4 / 4.4; overflow: hidden;
+  position: absolute; inset: 0; overflow: hidden;
   border: 1.5px solid var(--ink); background: var(--yellow);
+  transform-origin: 50% 100%;
+  transition: transform .85s var(--ease), opacity .6s var(--ease);
+  will-change: transform, opacity;
 }
 .team-slide img {
   width: 100%; height: 100%; object-fit: cover; object-position: center 14%;
@@ -873,6 +878,14 @@ main section[id] { scroll-margin-top: 60px; }
   .tcard-body { padding: 4vh 6vw 5vh; }
 }
 
+/* gallery closing the team page: the whole crew at a glance after the stack */
+.team-gallery { max-width: 1400px; margin: 0 auto; padding: 6vh 6vw 18vh; }
+.team-gallery-title { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.6rem); margin-bottom: 5vh; }
+.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(3, 1fr); }
+/* this page has no in-view engine: portraits are shown, reveal.js animates them */
+.team-gallery .member { opacity: 1; transform: none; }
+.team-gallery .member-photo { clip-path: inset(0 0 0 0); }
+
 .team-page-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 16vh; }
 .team-page-grid--top { padding-top: 22vh; }
 .team-page-grid .team-grid { max-width: none; }
@@ -1048,7 +1061,7 @@ body > main, body > footer { position: relative; z-index: 1; }
   .team-grid, .news-grid { grid-template-columns: repeat(2, 1fr); }
   .team-intro { grid-template-columns: 1fr; gap: 6vh; }
   .team-intro-text { order: -1; }
-  .team-slide { flex-basis: 86%; aspect-ratio: 4 / 3.8; }
+  .team-stage { aspect-ratio: 4 / 3.6; }
   .team-slide img { object-position: center 20%; }
   .about-grid { grid-template-columns: 1fr; }
   .about-col { border-right: none; border-bottom: 1.5px solid var(--ink); }

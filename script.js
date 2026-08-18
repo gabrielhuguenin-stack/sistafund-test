@@ -43,35 +43,58 @@ if (faqToggle && faqMore) {
   });
 }
 
-// ---------- Team carousel: filmstrip slides horizontally, next portrait peeking; seamless loop ----------
+// ---------- Team deck: the top print lifts away to uncover the next one ----------
 const teamSlider = document.getElementById('teamSlider');
 if (teamSlider) {
-  const track = document.getElementById('teamTrack');
-  const real = [...track.querySelectorAll('.team-slide')];
+  const deck = document.getElementById('teamDeck');
+  const slides = [...deck.querySelectorAll('.team-slide')];
   const capEl = document.getElementById('teamCap');
   const countEl = document.getElementById('teamCount');
-  const len = real.length;
-  track.appendChild(real[0].cloneNode(true));   // trailing clone for a seamless wrap
-  let ti = 0, timer = null, animating = false;
-  const step = () => track.children[1].getBoundingClientRect().left - track.children[0].getBoundingClientRect().left;
-  const place = animate => {
-    track.style.transition = animate ? '' : 'none';
-    track.style.transform = `translateX(${-ti * step()}px)`;
-    if (!animate) void track.offsetWidth;         // commit the jump before re-enabling transitions
+  const len = slides.length;
+  let ti = 0, timer = null, leaving = null;
+
+  const layout = () => {
+    slides.forEach((s, i) => {
+      const off = (i - ti + len) % len;
+      if (s === leaving) return;                       // mid-flight, leave it alone
+      if (off === 0) {
+        s.style.transform = 'none'; s.style.opacity = 1; s.style.zIndex = 30;
+      } else if (off <= 2) {                            // just the corner of the next prints
+        s.style.transform = `translate(${off * 9}px, ${off * 7}px) rotate(${off * 1.6}deg) scale(${1 - off * 0.03})`;
+        s.style.opacity = 1; s.style.zIndex = 30 - off;
+      } else {
+        s.style.transform = 'translate(18px, 14px) rotate(3deg) scale(.94)';
+        s.style.opacity = 0; s.style.zIndex = 1;
+      }
+    });
+    capEl.textContent = slides[ti].dataset.cap;
+    countEl.textContent = ti + 1;
   };
-  const sync = () => { const r = ti % len; capEl.textContent = real[r].dataset.cap; countEl.textContent = r + 1; };
-  const next = () => { if (animating) return; animating = true; ti++; place(true); sync(); };
-  track.addEventListener('transitionend', () => {
-    animating = false;
-    if (ti >= len) { ti = 0; place(false); sync(); }
-  });
-  const start = () => { stop(); timer = setInterval(next, 3600); };
+
+  const next = () => {
+    if (leaving) return;
+    const top = slides[ti];
+    leaving = top;
+    top.style.zIndex = 40;
+    top.style.transform = 'translate(-16%, -6%) rotate(-9deg) scale(1.02)';
+    top.style.opacity = 0;
+    setTimeout(() => {
+      top.style.transition = 'none';                   // drop it silently to the bottom
+      top.style.transform = 'translate(18px, 14px) rotate(3deg) scale(.94)';
+      void top.offsetWidth;
+      top.style.transition = '';
+      leaving = null;
+      ti = (ti + 1) % len;
+      layout();
+    }, 620);
+  };
+
+  const start = () => { stop(); timer = setInterval(next, 3800); };
   const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
   teamSlider.addEventListener('click', () => { next(); start(); });
   teamSlider.addEventListener('mouseenter', stop);
   teamSlider.addEventListener('mouseleave', start);
-  window.addEventListener('resize', () => place(false));
-  place(false); sync(); start();
+  layout(); start();
 }
 
 // ---------- In-view observer (reveals, hl marker, CTA lines) ----------

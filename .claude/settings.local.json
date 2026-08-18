@@ -87,7 +87,14 @@
       "Bash(perl -0777 -pi -e \"s{, \\\\.team-intro-text, \\\\.team-slider'\\\\\\)}{, .team-intro-text'\\)}\" script.js)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=31/style.css?v=32/; s/script\\\\.js\\\\?v=13/script.js?v=14/; s/reveal\\\\.js\\\\?v=1/reveal.js?v=2/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=32/style.css?v=33/' index.html team.html news.html portfolio.html community.html manifesto.html)",
-      "Bash(git commit -q -m 'Team page becomes a stack of prints you leaf through \\(sticky cards, each easing back as the next slides over\\); nav counts become parenthesised superscripts; manifesto claims/texts share a baseline; News standfirst holds one line; longer hero pin and staggered pillars slow the home scroll *)"
+      "Bash(git commit -q -m 'Team page becomes a stack of prints you leaf through \\(sticky cards, each easing back as the next slides over\\); nav counts become parenthesised superscripts; manifesto claims/texts share a baseline; News standfirst holds one line; longer hero pin and staggered pillars slow the home scroll *)",
+      "Bash(mv img/lemon.png/Lemon-1.png img/lemon-single.png)",
+      "Bash(mv img/lemon.png/Lemon-2.png img/lemon-group.png)",
+      "Bash(rm -rf img/lemon.png)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=33/style.css?v=34/; s/script\\\\.js\\\\?v=14/script.js?v=15/; s/reveal\\\\.js\\\\?v=2/reveal.js?v=3/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=34/style.css?v=35/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(git commit -q -m 'Real lemon photo replaces the drawn one; nav counts inked on light backgrounds so they actually read; stat labels hold one line; home team block becomes a contained deck on the right; team page ends with the full gallery, which also gives the last cards room to unstick *)",
+      "Bash(git ls-files *)"
     ]
   }
 }
