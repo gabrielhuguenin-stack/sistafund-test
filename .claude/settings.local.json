@@ -80,7 +80,14 @@
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=29/style.css?v=30/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(git commit -q -m 'Nav: slanted corner tag on Portfolio \\(15\\) and Team \\(6\\), inverted on dark pages *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=30/style.css?v=31/; s/script\\\\.js\\\\?v=12/script.js?v=13/' index.html team.html news.html portfolio.html community.html manifesto.html)",
-      "Bash(git commit -q -m 'Home: oversized lemon drifting through the hero \\(curaclimate-style\\). News page turns light so it does not follow black Community. Manifesto: alternating left/right rhythm + full-width closing statement. Drop More-about-us CTA and FAQ from the nav *)"
+      "Bash(git commit -q -m 'Home: oversized lemon drifting through the hero \\(curaclimate-style\\). News page turns light so it does not follow black Community. Manifesto: alternating left/right rhythm + full-width closing statement. Drop More-about-us CTA and FAQ from the nav *)",
+      "Bash(perl -pi -e 's/\\\\.hero-pin \\\\{ position: relative; height: 200vh; \\\\}/.hero-pin { position: relative; height: 280vh; }/' style.css)",
+      "Bash(perl -0777 -pi -e \"s{document\\\\.querySelectorAll\\\\\\('\\\\.stat-cell, \\\\.about-photo, \\\\.about-head, \\\\.cta, \\\\.sec-head, \\\\.sector, \\\\.orbit-center'\\\\\\)}{document.querySelectorAll\\('.stat-cell, .about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center, .team-intro-text, .team-slider'\\)}\" script.js)",
+      "Bash(perl -0777 -pi -e \"s{\\(document\\\\.querySelectorAll\\\\\\('\\\\.member'\\\\\\)\\\\.forEach.*?\\\\n\\)}{\\\\$1document.querySelectorAll\\('.about-col'\\).forEach\\(el => { el.dataset.grp = 'about-col'; io.observe\\(el\\); watched.push\\(el\\); }\\);\\\\n}s\" script.js)",
+      "Bash(perl -0777 -pi -e \"s{, \\\\.team-intro-text, \\\\.team-slider'\\\\\\)}{, .team-intro-text'\\)}\" script.js)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=31/style.css?v=32/; s/script\\\\.js\\\\?v=13/script.js?v=14/; s/reveal\\\\.js\\\\?v=1/reveal.js?v=2/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=32/style.css?v=33/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(git commit -q -m 'Team page becomes a stack of prints you leaf through \\(sticky cards, each easing back as the next slides over\\); nav counts become parenthesised superscripts; manifesto claims/texts share a baseline; News standfirst holds one line; longer hero pin and staggered pillars slow the home scroll *)"
     ]
   }
 }

@@ -134,9 +134,10 @@ document.querySelectorAll('.sec-head h2').forEach(h2 => {
 });
 
 const watched = [];
-document.querySelectorAll('.stat-cell, .about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center')
+document.querySelectorAll('.stat-cell, .about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center, .team-intro-text')
   .forEach(el => { io.observe(el); watched.push(el); });
 document.querySelectorAll('.member').forEach(el => { el.dataset.grp = 'member'; io.observe(el); watched.push(el); });
+document.querySelectorAll('.about-col').forEach(el => { el.dataset.grp = 'about-col'; io.observe(el); watched.push(el); });
 document.querySelectorAll('.news-card').forEach(el => { el.dataset.grp = 'news-card'; io.observe(el); watched.push(el); });
 
 // Fallback: elements jumped past (fast scroll, anchor links) still reveal

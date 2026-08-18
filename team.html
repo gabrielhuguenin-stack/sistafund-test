@@ -6,7 +6,7 @@
 <title>SISTAFUND | The team</title>
 <meta name="description" content="Meet the SISTAFUND team — entrepreneurs, operators and investors backing exceptional female founders and gender-balanced teams across Europe.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=31">
+<link rel="stylesheet" href="style.css?v=33">
 </head>
 <body class="loaded nav-ready">
 
@@ -17,8 +17,8 @@
   <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SISTAFUND"></a>
   <nav class="nav-links">
     <a href="manifesto.html">Manifesto</a>
-    <a href="portfolio.html">Portfolio<span class="nav-count">15</span></a>
-    <a href="team.html">Team<span class="nav-count">6</span></a>
+    <a href="portfolio.html">Portfolio<sup class="nav-count">(15)</sup></a>
+    <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
     <a href="community.html">Community</a>
     <a href="news.html">News</a>
   </nav>
@@ -27,53 +27,80 @@
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="manifesto.html">Manifesto</a>
-  <a href="portfolio.html">Portfolio<span class="nav-count">15</span></a>
-  <a href="team.html">Team<span class="nav-count">6</span></a>
+  <a href="portfolio.html">Portfolio<sup class="nav-count">(15)</sup></a>
+  <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
   <a href="community.html">Community</a>
   <a href="news.html">News</a>
 </div>
 
 <main class="page">
 
-  <section class="team-page-grid team-page-grid--top" id="team">
-    <div class="team-grid" data-stagger>
-      <article class="member" data-reveal>
-        <div class="member-photo"><img src="img/team/tatiana.jpg" alt="Tatiana Jama">
-          <div class="member-bio"><p>Serial tech entrepreneur for 15+ years. Co-founded Dealissime (exit to Amazon), Selectionnist and Levia.ai. Business Angel in 30+ companies. Co-founded SISTA in 2018, then SISTAFUND to go one step further.</p><span class="member-fun">Openly passionate about theater &amp; champagne</span></div>
+  <header class="team-intro-head">
+    <h1 class="team-intro-title" data-reveal="mask">The <span class="yw">people</span></h1>
+    <p class="team-intro-hint" aria-hidden="true">Scroll to leaf through</p>
+  </header>
+
+  <section class="team-stack" id="team">
+      <article class="tcard" style="--i:0">
+        <div class="tcard-photo"><img src="img/team/tatiana.jpg" alt="Tatiana Jama"></div>
+        <div class="tcard-body">
+          <span class="tcard-index">1 / 6</span>
+          <h2 class="tcard-name">Tatiana Jama</h2>
+          <span class="tcard-role">Founder &amp; General Manager</span>
+          <p class="tcard-bio">Serial tech entrepreneur for 15+ years. Co-founded Dealissime (exit to Amazon), Selectionnist and Levia.ai. Business Angel in 30+ companies. Co-founded SISTA in 2018, then SISTAFUND to go one step further.</p>
+          <span class="tcard-fun">Openly passionate about theater &amp; champagne</span>
         </div>
-        <h3>Tatiana Jama</h3><span class="member-role">Founder &amp; General Manager</span>
       </article>
-      <article class="member" data-reveal>
-        <div class="member-photo"><img src="img/team/marie.jpg" alt="Marie Geneste">
-          <div class="member-bio"><p>15+ years of international investing across Europe, the UK and the US, from early stage through Series B. Formerly Investment Director at Educapital and Principal at Edenred Ventures.</p><span class="member-fun">Rarely too far from the ocean or a sports field</span></div>
+      <article class="tcard" style="--i:1">
+        <div class="tcard-photo"><img src="img/team/marie.jpg" alt="Marie Geneste"></div>
+        <div class="tcard-body">
+          <span class="tcard-index">2 / 6</span>
+          <h2 class="tcard-name">Marie Geneste</h2>
+          <span class="tcard-role">Partner</span>
+          <p class="tcard-bio">15+ years of international investing across Europe, the UK and the US, from early stage through Series B. Formerly Investment Director at Educapital and Principal at Edenred Ventures.</p>
+          <span class="tcard-fun">Rarely too far from the ocean or a sports field</span>
         </div>
-        <h3>Marie Geneste</h3><span class="member-role">Partner</span>
       </article>
-      <article class="member" data-reveal>
-        <div class="member-photo"><img src="img/team/natacha.jpg" alt="Natacha Brami">
-          <div class="member-bio"><p>In the tech ecosystem since 2018, with VC investment and operations at Alliance Ventures, Alven and Target Global, with an entrepreneurial detour at UC Berkeley. Backing founders at SISTAFUND since 2022.</p><span class="member-fun">50% scouting restaurants, 50% watching rockets take off</span></div>
+      <article class="tcard" style="--i:2">
+        <div class="tcard-photo"><img src="img/team/natacha.jpg" alt="Natacha Brami"></div>
+        <div class="tcard-body">
+          <span class="tcard-index">3 / 6</span>
+          <h2 class="tcard-name">Natacha Brami</h2>
+          <span class="tcard-role">Principal</span>
+          <p class="tcard-bio">In the tech ecosystem since 2018, with VC investment and operations at Alliance Ventures, Alven and Target Global, with an entrepreneurial detour at UC Berkeley. Backing founders at SISTAFUND since 2022.</p>
+          <span class="tcard-fun">50% scouting restaurants, 50% watching rockets take off</span>
         </div>
-        <h3>Natacha Brami</h3><span class="member-role">Principal</span>
       </article>
-      <article class="member" data-reveal>
-        <div class="member-photo"><img src="img/team/arthur.png" alt="Arthur Hay">
-          <div class="member-bio"><p>Finance and fund-administration operator with 7+ years across France, Belgium and Luxembourg. Formerly Finance Director at Astanor Ventures, started at PwC Luxembourg.</p><span class="member-fun">Happiest on a ski slope or a sunny terrace, house music on</span></div>
+      <article class="tcard" style="--i:3">
+        <div class="tcard-photo"><img src="img/team/arthur.png" alt="Arthur Hay"></div>
+        <div class="tcard-body">
+          <span class="tcard-index">4 / 6</span>
+          <h2 class="tcard-name">Arthur Hay</h2>
+          <span class="tcard-role">Chief Financial Officer</span>
+          <p class="tcard-bio">Finance and fund-administration operator with 7+ years across France, Belgium and Luxembourg. Formerly Finance Director at Astanor Ventures, started at PwC Luxembourg.</p>
+          <span class="tcard-fun">Happiest on a ski slope or a sunny terrace, house music on</span>
         </div>
-        <h3>Arthur Hay</h3><span class="member-role">Chief Financial Officer</span>
       </article>
-      <article class="member" data-reveal>
-        <div class="member-photo"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas">
-          <div class="member-bio"><p>Experience across HealthTech, DeepTech and ClimateTech investing from Seed to Series B at Crédit Mutuel Innovation and BNP Paribas Développement. ESSEC × Bocconi.</p><span class="member-fun">Juggling between a rugby pitch, running shoes and a sailboat</span></div>
+      <article class="tcard" style="--i:4">
+        <div class="tcard-photo"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas"></div>
+        <div class="tcard-body">
+          <span class="tcard-index">5 / 6</span>
+          <h2 class="tcard-name">Timothée Ricour-Dumas</h2>
+          <span class="tcard-role">Analyst</span>
+          <p class="tcard-bio">Experience across HealthTech, DeepTech and ClimateTech investing from Seed to Series B at Crédit Mutuel Innovation and BNP Paribas Développement. ESSEC × Bocconi.</p>
+          <span class="tcard-fun">Juggling between a rugby pitch, running shoes and a sailboat</span>
         </div>
-        <h3>Timothée Ricour-Dumas</h3><span class="member-role">Analyst</span>
       </article>
-      <article class="member" data-reveal>
-        <div class="member-photo"><img src="img/team/gabriel.png" alt="Gabriel Huguenin">
-          <div class="member-bio"><p>Started at Via ID supporting mobility founders and running the Moove Lab at Station F, then Chief of Staff to a startup CEO before moving into VC at SISTAFUND. EDHEC MSc.</p><span class="member-fun">On the judo tatami, training for a race, or deep in a novel</span></div>
+      <article class="tcard" style="--i:5">
+        <div class="tcard-photo"><img src="img/team/gabriel.png" alt="Gabriel Huguenin"></div>
+        <div class="tcard-body">
+          <span class="tcard-index">6 / 6</span>
+          <h2 class="tcard-name">Gabriel Huguenin</h2>
+          <span class="tcard-role">Analyst</span>
+          <p class="tcard-bio">Started at Via ID supporting mobility founders and running the Moove Lab at Station F, then Chief of Staff to a startup CEO before moving into VC at SISTAFUND. EDHEC MSc.</p>
+          <span class="tcard-fun">On the judo tatami, training for a race, or deep in a novel</span>
         </div>
-        <h3>Gabriel Huguenin</h3><span class="member-role">Analyst</span>
       </article>
-    </div>
   </section>
 
 </main>
@@ -119,7 +146,7 @@
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 
 </script>
-<script src="reveal.js?v=1"></script>
+<script src="reveal.js?v=2"></script>
 
 </body>
 </html>

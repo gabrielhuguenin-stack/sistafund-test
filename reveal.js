@@ -51,6 +51,28 @@
   setTimeout(() => { if (targets.some(el => !el.classList.contains('shown'))) sweep(); }, 2500);
 })();
 
+/* Team stack: each card eases back as the next print slides over it */
+(function () {
+  const cards = [...document.querySelectorAll('.tcard')];
+  if (!cards.length) return;
+  let ticking = false;
+  const run = () => {
+    cards.forEach((c, i) => {
+      const next = cards[i + 1];
+      if (!next) { c.style.transform = ''; c.style.filter = ''; return; }
+      const r = next.getBoundingClientRect();
+      const p = Math.min(Math.max((innerHeight - r.top) / (innerHeight * 0.85), 0), 1);
+      c.style.transform = `scale(${(1 - p * 0.055).toFixed(3)})`;
+      c.style.filter = `brightness(${(1 - p * 0.07).toFixed(3)})`;
+    });
+    ticking = false;
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  run();
+})();
+
 /* Gentle parallax: images drift slower than their frame while in view */
 (function () {
   const items = [...document.querySelectorAll('[data-parallax] img')];
