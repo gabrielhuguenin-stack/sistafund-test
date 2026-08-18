@@ -945,6 +945,13 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .nt-title { font-size: 1.15rem; line-height: 1.32; color: var(--ink); flex: 1; }
 .nt-more { font-family: var(--display); text-transform: uppercase; font-size: .78rem; letter-spacing: .08em; color: var(--grey); }
 .news-tile:hover .nt-more { color: var(--ink); }
+/* everything past row 5 folds away until asked for, FAQ-style */
+.news-fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .65s var(--ease); }
+.news-fold.open { grid-template-rows: 1fr; }
+.news-fold-inner { overflow: hidden; min-height: 0; }
+.news-fold .news-mosaic { padding-top: 20px; }
+.news-toggle { max-width: none; margin-top: 26px; border-top: 1.5px solid var(--ink); border-bottom: none; }
+
 /* dark variant kept for any page that opts into subpage-dark */
 body.subpage-dark .news-tile { border-color: rgba(250, 248, 240, .25); }
 body.subpage-dark .news-tile:hover { box-shadow: none; border-color: var(--yellow); background: rgba(250, 248, 240, .04); transform: translateY(-6px); }
@@ -980,6 +987,27 @@ html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
 /* parallax drift set by reveal.js */
 [data-parallax] { overflow: hidden; }
 [data-parallax] img { transform: translateY(var(--py, 0)); }
+
+/* scattered lemons drifting through the home scroll, like curaclimate's stones */
+.lemon-accent {
+  position: absolute; z-index: 3; pointer-events: none;
+  will-change: transform;
+  filter: drop-shadow(0 20px 26px rgba(16, 16, 16, .16));
+}
+.lemon-accent img { width: 100%; height: auto; display: block; }
+.about-photo { position: relative; }
+.lemon-accent--about {
+  width: clamp(180px, 22vw, 360px);
+  right: 7vw; bottom: -9vh;
+}
+.lemon-accent--about img { transform: rotate(-6deg); }
+.faq { position: relative; }
+.lemon-accent--faq {
+  width: clamp(110px, 13vw, 210px);
+  right: 6vw; top: 4vh;
+}
+.lemon-accent--faq img { transform: rotate(14deg); }
+@media (max-width: 900px) { .lemon-accent { display: none; } }
 
 /* faint column guides in the background, curaclimate-style */
 .col-guides {

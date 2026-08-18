@@ -53,6 +53,7 @@ if (teamSlider) {
   const len = slides.length;
   let ti = 0, timer = null, leaving = null;
 
+  const TAIL = 'translate(22px, 17px) rotate(2.6deg) scale(.95)';
   const layout = () => {
     slides.forEach((s, i) => {
       const off = (i - ti + len) % len;
@@ -60,10 +61,10 @@ if (teamSlider) {
       if (off === 0) {
         s.style.transform = 'none'; s.style.opacity = 1; s.style.zIndex = 30;
       } else if (off <= 2) {                            // just the corner of the next prints
-        s.style.transform = `translate(${off * 9}px, ${off * 7}px) rotate(${off * 1.6}deg) scale(${1 - off * 0.03})`;
+        s.style.transform = `translate(${off * 8}px, ${off * 6}px) rotate(${off * 1.3}deg) scale(${1 - off * 0.025})`;
         s.style.opacity = 1; s.style.zIndex = 30 - off;
       } else {
-        s.style.transform = 'translate(18px, 14px) rotate(3deg) scale(.94)';
+        s.style.transform = TAIL;
         s.style.opacity = 0; s.style.zIndex = 1;
       }
     });
@@ -71,22 +72,19 @@ if (teamSlider) {
     countEl.textContent = ti + 1;
   };
 
+  // the top print slips underneath the pile — quieter than flying off screen
   const next = () => {
     if (leaving) return;
     const top = slides[ti];
     leaving = top;
-    top.style.zIndex = 40;
-    top.style.transform = 'translate(-16%, -6%) rotate(-9deg) scale(1.02)';
-    top.style.opacity = 0;
+    top.style.zIndex = 4;                              // beneath the others: it slides under
+    top.style.transform = TAIL;
     setTimeout(() => {
-      top.style.transition = 'none';                   // drop it silently to the bottom
-      top.style.transform = 'translate(18px, 14px) rotate(3deg) scale(.94)';
-      void top.offsetWidth;
-      top.style.transition = '';
+      top.style.opacity = 0;
       leaving = null;
       ti = (ti + 1) % len;
       layout();
-    }, 620);
+    }, 860);
   };
 
   const start = () => { stop(); timer = setInterval(next, 3800); };
@@ -264,18 +262,23 @@ function layoutOrbit(rotation, appear = 1) {
   // outer ring fits inside the section, leaving room for the company caption below
   const rB = Math.min(W, H) / 2 - size * 0.8 - 26;
   const rA = rB * 0.62;
-  const pop = i => clamp(appear * 3.2 - i * 0.14, 0, 1);   // portraits fade in one by one
+  // portraits ease in one by one and settle onto their ring; the whole
+  // constellation then keeps drifting, slowly, with the scroll
+  const ease = t => t * t * (3 - 2 * t);
+  const pop = i => ease(clamp(appear * 2.6 - i * 0.11, 0, 1));
   ringAItems.forEach((el, i) => {
     const a = rotation + (i / ringAItems.length) * 360;
+    const t = pop(i);
     el.style.setProperty('--size', size + 'px');
-    el.style.opacity = pop(i);
-    el.style.transform = `rotate(${a}deg) translateX(${rA}px) rotate(${-a}deg)`;
+    el.style.opacity = t;
+    el.style.transform = `rotate(${a}deg) translateX(${rA * (0.92 + 0.08 * t)}px) rotate(${-a}deg)`;
   });
   ringBItems.forEach((el, i) => {
-    const a = -rotation * 0.7 + (i / ringBItems.length) * 360 + 15;
+    const a = -rotation * 0.6 + (i / ringBItems.length) * 360 + 15;
+    const t = pop(i + 4);
     el.style.setProperty('--size', size * 0.85 + 'px');
-    el.style.opacity = pop(i + 4);
-    el.style.transform = `rotate(${a}deg) translateX(${rB}px) rotate(${-a}deg)`;
+    el.style.opacity = t;
+    el.style.transform = `rotate(${a}deg) translateX(${rB * (0.92 + 0.08 * t)}px) rotate(${-a}deg)`;
   });
 }
 
@@ -284,6 +287,7 @@ const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 const aboutImg = document.getElementById('aboutImg');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const heroLemon = document.getElementById('heroLemon');
+const lemonAccents = [...document.querySelectorAll('.lemon-accent')];
 const communitySec = document.getElementById('community');
 const commPinEl = document.getElementById('commPin');
 
@@ -316,6 +320,14 @@ function onScroll() {
     }
   }
 
+  // scattered lemons drift a touch out of step with the page
+  lemonAccents.forEach(a => {
+    const r = a.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const p = (vh - r.top) / (vh + r.height);
+    a.style.transform = `translateY(${((p - 0.5) * +a.dataset.lspeed).toFixed(2)}vh)`;
+  });
+
   // portfolio crossing rows
   pfRows.forEach((row, i) => {
     const r = row.getBoundingClientRect();
@@ -341,7 +353,7 @@ function onScroll() {
     if (r.bottom > 0 && r.top < vh) {
       const total = commPinEl.offsetHeight - vh;
       const p = total > 0 ? clamp(-r.top / total, 0, 1) : 0;
-      layoutOrbit(p * 300, p);
+      layoutOrbit(p * 26, p);
     }
   }
 
