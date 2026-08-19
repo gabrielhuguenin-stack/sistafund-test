@@ -94,7 +94,8 @@
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=33/style.css?v=34/; s/script\\\\.js\\\\?v=14/script.js?v=15/; s/reveal\\\\.js\\\\?v=2/reveal.js?v=3/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=34/style.css?v=35/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(git commit -q -m 'Real lemon photo replaces the drawn one; nav counts inked on light backgrounds so they actually read; stat labels hold one line; home team block becomes a contained deck on the right; team page ends with the full gallery, which also gives the last cards room to unstick *)",
-      "Bash(git ls-files *)"
+      "Bash(git ls-files *)",
+      "Bash(perl -ni -e 'print unless /^\\\\s*\\\\.footer-cols \\\\{ gap: 40px; \\\\}$/' style.css)"
     ]
   }
 }
