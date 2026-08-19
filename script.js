@@ -122,7 +122,7 @@ heroItems.forEach((item, si) => {
 // on arrival (once the intro clears) the headline assembles itself word by word
 let heroEntranceDone = false;
 const s0Words = heroWords.filter(w => w.exit0 < 2);
-s0Words.forEach(w => { w.inner.style.transform = 'translateY(108%) rotate(5deg)'; });
+s0Words.forEach(w => { w.inner.style.transform = 'translateY(150%) rotate(5deg)'; });
 setTimeout(() => {
   s0Words.forEach((w, j) => {
     w.inner.style.transition = `transform .9s cubic-bezier(.22,1,.36,1) ${j * 75}ms`;
@@ -138,17 +138,17 @@ setTimeout(() => {
 const lerp = (a, b, t) => a + (b - a) * t;
 const easeOut = t => 1 - Math.pow(1 - t, 3);
 function wordPose(w, p) {
-  if (p < w.enter0) return { y: 108, r: 5 };                 // still below the mask
+  if (p < w.enter0) return { y: 150, r: 5 };                 // still below the mask
   if (p < w.enter1) {
     const t = easeOut((p - w.enter0) / (w.enter1 - w.enter0));
-    return { y: 108 * (1 - t), r: 5 * (1 - t) };             // rises and settles straight
+    return { y: 150 * (1 - t), r: 5 * (1 - t) };             // rises and settles straight
   }
   if (p < w.exit0) return { y: 0, r: 0 };
   if (p < w.exit1) {
     const t = (p - w.exit0) / (w.exit1 - w.exit0);
-    return { y: -112 * t, r: -4 * t };                        // folds up and away
+    return { y: -150 * t, r: -4 * t };                        // folds up and away
   }
-  return { y: -112, r: -4 };
+  return { y: -150, r: -4 };
 }
 function renderHero(p) {
   heroItems.forEach(it => { it.style.opacity = 1; });
