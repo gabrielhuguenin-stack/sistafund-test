@@ -30,7 +30,24 @@ mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => 
   mobileMenu.classList.remove('open');
 }));
 
-// ---------- FAQ: reveal the rest of the questions on demand ----------
+// ---------- FAQ: built from the site's own wording, first four then a fold ----------
+const faqList = document.getElementById('faqList');
+const faqListMore = document.getElementById('faqListMore');
+if (faqList && window.FAQ) {
+  const FAQ_VISIBLE = 4;
+  window.FAQ.forEach(([q, a], i) => {
+    const d = document.createElement('details');
+    d.className = 'faq-item';
+    const s = document.createElement('summary');
+    s.append(document.createTextNode(q));
+    const x = document.createElement('span'); x.className = 'faq-x'; x.textContent = '+';
+    s.appendChild(x);
+    const p = document.createElement('p'); p.textContent = a;
+    d.append(s, p);
+    (i < FAQ_VISIBLE ? faqList : faqListMore).appendChild(d);
+  });
+}
+
 const faqToggle = document.getElementById('faqToggle');
 const faqMore = document.getElementById('faqMore');
 if (faqToggle && faqMore) {
@@ -436,9 +453,6 @@ const pfDetail = document.getElementById('pfDetail');
 function showCompany(key) {
   const c = COMPANIES[key];
   if (!c) return;
-  const m = String(c[5]).match(/^(.*),\s*([^,]+)$/);
-  const place = m ? m[1].trim() : c[5];
-  const year = m ? m[2].trim() : '';
   pfDetail.innerHTML = `
     <div class="pf-detail-logo"><img src="img/logos/${c[2]}" alt="${c[0]}"></div>
     <div class="pf-detail-body">
@@ -446,9 +460,10 @@ function showCompany(key) {
       <h3>${c[0]}</h3>
       <p>${c[3]}</p>
       <div class="pf-detail-meta">
-        ${c[4] ? `<div class="pf-fact"><span class="pf-fact-k">Founders</span><span class="pf-fact-v">${c[4]}</span></div>` : ''}
-        <div class="pf-fact"><span class="pf-fact-k">Based in</span><span class="pf-fact-v">${place}</span></div>
-        <div class="pf-fact"><span class="pf-fact-k">Founded</span><span class="pf-fact-v">${year}</span></div>
+        ${c[4] ? `<div class="pf-fact"><span class="pf-fact-k">Founder(s)</span><span class="pf-fact-v">${c[4]}</span></div>` : ''}
+        ${c[5] ? `<div class="pf-fact"><span class="pf-fact-k">Location(s)</span><span class="pf-fact-v">${c[5]}</span></div>` : ''}
+        ${c[6] ? `<div class="pf-fact"><span class="pf-fact-k">Founded</span><span class="pf-fact-v">${c[6]}</span></div>` : ''}
+        ${c[7] ? `<div class="pf-fact"><span class="pf-fact-k">Partnered</span><span class="pf-fact-v">${c[7]}</span></div>` : ''}
       </div>
     </div>`;
   openOverlay(pfModal);
