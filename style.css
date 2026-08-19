@@ -332,7 +332,9 @@ main section[id] { scroll-margin-top: 60px; }
 .sec-sub { max-width: 560px; margin-top: 26px; font-size: 1.12rem; color: var(--grey); }
 
 /* ============ About ============ */
-.about { padding: 20vh 4vw 16vh; }
+/* the intro closes into the growing photo, the sectors pick up after it */
+.about { padding: 20vh 4vw 14vh; }
+.about--sectors { padding: 14vh 4vw 16vh; }
 .about-head { max-width: 1250px; }
 .about-intro {
   font-family: var(--display); text-transform: uppercase;
