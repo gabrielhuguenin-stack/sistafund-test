@@ -52,12 +52,12 @@ const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print'
 // Rows are spaced so prints only ever overlap on their blank top margin —
 // never on a face — while the layering keeps the reading order.
 const SCATTER = [
-  { x:  0, y:  0, r: -6, w: 42, z: 10 },   // Tatiana
-  { x: 55, y:  3, r:  5, w: 41, z:  9 },   // Marie
-  { x:  3, y: 34, r:  3, w: 41, z:  8 },   // Natacha
-  { x: 56, y: 37, r: -5, w: 40, z:  7 },   // Arthur
-  { x:  1, y: 66, r:  6, w: 40, z:  6 },   // Timothée
-  { x: 55, y: 68, r: -3, w: 40, z:  5 },   // Gabriel
+  { x:  0, y:  0, r: -6, w: 43, z: 10 },   // Tatiana
+  { x: 53, y:  4, r:  5, w: 42, z:  9 },   // Marie
+  { x:  4, y: 30, r:  3, w: 42, z:  8 },   // Natacha
+  { x: 55, y: 34, r: -5, w: 41, z:  7 },   // Arthur
+  { x:  1, y: 60, r:  6, w: 41, z:  6 },   // Timothée
+  { x: 54, y: 64, r: -3, w: 41, z:  5 },   // Gabriel
 ];
 scatterPrints.forEach((p, i) => {
   const t = SCATTER[i];
@@ -321,19 +321,24 @@ function onScroll() {
     if (pct) pct.textContent = Math.round(y / (document.documentElement.scrollHeight - vh) * 100);
   }
 
-  // team prints fan out of the pile onto the table
+  // team prints: dealt out of a single pile one by one, then left drifting gently
   if (teamScatter && scatterPrints.length) {
     const r = teamScatter.getBoundingClientRect();
-    if (r.bottom > -100 && r.top < vh + 100) {
-      const p = clamp((vh - r.top) / (vh * 0.9), 0, 1);
+    if (r.bottom > -120 && r.top < vh + 120) {
+      const p = clamp((vh - r.top) / (vh * 0.95), 0, 1);
       const ease = t => t * t * (3 - 2 * t);
       scatterPrints.forEach((el, i) => {
-        const t = ease(clamp(p * 1.6 - i * 0.09, 0, 1));
         const tg = SCATTER[i];
+        const t = ease(clamp(p * 1.75 - i * 0.1, 0, 1));       // dealt in order
+        // travel from the middle of the pile to its place on the table
         const dx = r.width * ((26 - tg.x) / 100) * (1 - t);
-        const dy = r.height * ((28 - tg.y) / 100) * (1 - t);
-        el.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) rotate(${(tg.r * t).toFixed(2)}deg)`;
-        el.style.opacity = Math.min(1, t * 2.2);
+        const dy = r.height * ((26 - tg.y) / 100) * (1 - t);
+        // once settled, each print keeps breathing at its own pace
+        const drift = (p - 0.5) * (i % 2 ? -9 : 7) * t;
+        const rot = tg.r * t + (1 - t) * (i % 2 ? 9 : -9);      // untwists as it lands
+        el.style.transform =
+          `translate(${dx.toFixed(1)}px, ${(dy + drift).toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(0.86 + 0.14 * t).toFixed(3)})`;
+        el.style.opacity = Math.min(1, t * 2.4);
       });
     }
   }
