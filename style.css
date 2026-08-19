@@ -247,14 +247,13 @@ body.loaded .hero-progress { opacity: 1; }
 .hstmt .l-sm { font-size: clamp(1.05rem, 2.4vw, 2.4rem); letter-spacing: .16em; }
 .hstmt .l-kicker {
   font-family: var(--serif); text-transform: none;
-  font-size: clamp(1.1rem, 2.1vw, 2.1rem); letter-spacing: .01em;
-  font-style: normal;
+  letter-spacing: .01em; line-height: 1.06;   /* size comes from its l-md / l-lg step */
 }
 .hstmt .l-kicker .hmask { padding-bottom: .2em; margin-bottom: -.2em; }
 .hstmt .l-md { font-size: clamp(2rem, 5.4vw, 5.6rem); }
 .hstmt .l-lg { font-size: clamp(2.6rem, 7.2vw, 7.5rem); }
 .hstmt .l-xl { font-size: clamp(3.2rem, 10vw, 10.6rem); }
-.hstmt .l-sm { margin-bottom: .55em; }         /* the kicker breathes above the mass */
+.hstmt .l-kicker { margin-bottom: .12em; }         /* the kicker breathes above the mass */
 .hline--in1 { padding-left: .06em; }
 .hline--in2 { padding-left: 1.1em; }           /* stepped in, so the block has rhythm */
 /* Portrait carries the connecting lines: its texture against the narrow display
@@ -977,16 +976,27 @@ main section[id] { scroll-margin-top: 60px; }
 .tcard-body { padding: 4.5vh 3.2vw; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
 .tcard-index { font-family: var(--display); letter-spacing: .16em; font-size: .78rem; color: var(--grey); }
 .tcard-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.7rem); line-height: .98; }
-.tcard-role { font-family: var(--serif); font-size: 1.05rem; color: var(--grey); }
+/* the role is what people scan for: give it the display face and room */
+.tcard-role {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(.92rem, 1.25vw, 1.15rem); letter-spacing: .12em;
+  color: var(--ink); padding-bottom: 14px; margin-bottom: 4px;
+  border-bottom: 1.5px solid var(--ink); align-self: stretch;
+}
 /* full bio: several paragraphs, so it is set smaller and given the room to breathe */
 .tcard-bio { font-family: var(--serif); font-size: .92rem; line-height: 1.5; max-width: 62ch; margin-top: 6px; }
 .tcard-bio p + p { margin-top: .7em; }
-/* the closing "About" line, marked in brand yellow */
+/* the closing "About" line, marked in brand yellow, label kept */
 .tcard-about {
-  align-self: flex-start; margin-top: 12px;
+  align-self: flex-start; margin-top: 14px;
   font-family: var(--serif); font-size: .92rem; line-height: 1.45;
   background: var(--yellow); color: var(--ink);
-  padding: 6px 10px; max-width: 62ch;
+  padding: 8px 12px; max-width: 62ch;
+}
+.tcard-about b {
+  display: block; font-family: var(--display); font-weight: normal;
+  text-transform: uppercase; letter-spacing: .14em; font-size: .68rem;
+  margin-bottom: 3px;
 }
 @media (max-width: 860px) {
   .tcard { grid-template-columns: 1fr; height: auto; top: calc(12vh + var(--i) * 10px); }

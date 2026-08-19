@@ -6,7 +6,7 @@
 <title>SISTAFUND | The team</title>
 <meta name="description" content="Meet the SISTAFUND team — entrepreneurs, operators and investors backing exceptional female founders and gender-balanced teams across Europe.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=53">
+<link rel="stylesheet" href="style.css?v=54">
 </head>
 <body class="loaded nav-ready">
 
@@ -42,9 +42,6 @@
 
   <section class="team-stack" id="teamStack"></section>
 
-  <section class="team-gallery">
-    <div class="team-grid" id="teamGallery" data-stagger></div>
-  </section>
 
 </main>
 
@@ -87,8 +84,7 @@
 
   // cards and gallery are built from the bios as published on sistafund.com
   const stack = document.getElementById('teamStack');
-  const gallery = document.getElementById('teamGallery');
-  (window.TEAM || []).forEach(([name, role, file, paras, about], i) => {
+  const makeCard = ([name, role, file, paras, about], i) => {
     const card = document.createElement('article');
     card.className = 'tcard'; card.style.setProperty('--i', i);
     card.innerHTML = `<div class="tcard-photo"><img src="img/team/${file}" alt="${name}"></div>
@@ -96,16 +92,14 @@
         <h2 class="tcard-name">${name}</h2>
         <span class="tcard-role">${role}</span>
         <div class="tcard-bio">${paras.map(p => `<p>${p}</p>`).join('')}</div>
-        ${about ? `<span class="tcard-about">${about}</span>` : ''}
+        ${about ? `<span class="tcard-about"><b>About</b>${about}</span>` : ''}
       </div>`;
-    stack.appendChild(card);
-
-    const g = document.createElement('article');
-    g.className = 'member'; g.setAttribute('data-reveal', '');
-    g.innerHTML = `<div class="member-photo"><img src="img/team/${file}" alt="${name}" loading="lazy"></div>
-      <h3>${name}</h3><span class="member-role">${role}</span>`;
-    gallery.appendChild(g);
-  });
+    return card;
+  };
+  const TEAM = window.TEAM || [];
+  TEAM.forEach((m, i) => stack.appendChild(makeCard(m, i)));
+  // the pile comes full circle: after the last card, the first returns
+  if (TEAM.length) stack.appendChild(makeCard(TEAM[0], TEAM.length));
 
   // nav condensed state on scroll
   const nav = document.getElementById('nav');
