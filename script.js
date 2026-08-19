@@ -52,12 +52,12 @@ const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print'
 // Rows are spaced so prints only ever overlap on their blank top margin —
 // never on a face — while the layering keeps the reading order.
 const SCATTER = [
-  { x:  0, y:  0, r: -6, w: 43, z: 10 },   // Tatiana
-  { x: 53, y:  4, r:  5, w: 42, z:  9 },   // Marie
-  { x:  4, y: 30, r:  3, w: 42, z:  8 },   // Natacha
-  { x: 55, y: 34, r: -5, w: 41, z:  7 },   // Arthur
-  { x:  1, y: 60, r:  6, w: 41, z:  6 },   // Timothée
-  { x: 54, y: 64, r: -3, w: 41, z:  5 },   // Gabriel
+  { x:  0, y:  0, r: -6, w: 46, z: 10 },   // Tatiana
+  { x: 40, y:  7, r:  5, w: 45, z:  9 },   // Marie
+  { x:  3, y: 31, r:  3, w: 45, z:  8 },   // Natacha
+  { x: 43, y: 38, r: -5, w: 44, z:  7 },   // Arthur
+  { x:  1, y: 63, r:  6, w: 44, z:  6 },   // Timothée
+  { x: 42, y: 69, r: -3, w: 44, z:  5 },   // Gabriel
 ];
 scatterPrints.forEach((p, i) => {
   const t = SCATTER[i];
