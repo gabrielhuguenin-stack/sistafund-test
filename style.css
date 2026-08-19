@@ -1001,11 +1001,12 @@ html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
 }
 .lemon-accent img { width: 100%; height: auto; display: block; }
 .about-photo { position: relative; }
+/* small, straddling the bottom edge of the frame rather than landing on someone */
 .lemon-accent--about {
-  width: clamp(130px, 15vw, 250px);
-  right: 7vw; bottom: -8vh;
+  width: clamp(76px, 8vw, 132px);
+  right: 5vw; bottom: -6vh;
 }
-.lemon-accent--about img { transform: rotate(-8deg); }
+.lemon-accent--about img { transform: rotate(-10deg); }
 .faq { position: relative; }
 .lemon-accent--faq {
   width: clamp(110px, 13vw, 210px);
