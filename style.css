@@ -1262,8 +1262,10 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-legacy { max-width: 1400px; margin: 0 auto; padding: 12vh 6vw 16vh; border-top: 1.5px solid var(--ink); }
 .m-legacy-title {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.6rem, 8vw, 7rem); line-height: .95;
+  font-size: clamp(1.5rem, 6.1vw, 6.4rem); line-height: .95;
+  white-space: nowrap;                    /* the closing line holds together */
 }
+@media (max-width: 620px) { .m-legacy-title { white-space: normal; } }
 @media (max-width: 900px) {
   .m-stmt { grid-template-columns: 1fr; gap: 18px; padding: 6vh 0; }
   .m-body { max-width: none; }
