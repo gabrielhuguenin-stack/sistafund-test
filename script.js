@@ -90,14 +90,17 @@ const heroWords = [];
 heroItems.forEach((item, si) => {
   item.setAttribute('aria-label', item.textContent.trim().replace(/\s+/g, ' '));
   const words = [];
-  [...item.querySelectorAll('span')].forEach(line => {
-    const parts = line.textContent.split(' ');
+  [...item.querySelectorAll('.hline')].forEach(line => {
+    const hi = (line.dataset.hi || '').toLowerCase();
+    const parts = line.textContent.trim().split(/\s+/);
     line.textContent = '';
     line.setAttribute('aria-hidden', 'true');
     parts.forEach((w, k) => {
       if (k) line.appendChild(document.createTextNode(' '));
       const m = document.createElement('span'); m.className = 'hmask';
       const inner = document.createElement('i'); inner.className = 'hln';
+      // the pivotal word of the line gets the yellow treatment
+      if (hi && w.toLowerCase().replace(/[^a-z-]/g, '') === hi) inner.classList.add('hw-hi');
       inner.textContent = w;
       m.appendChild(inner); line.appendChild(m);
       words.push(inner);
