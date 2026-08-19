@@ -266,7 +266,7 @@ body.loaded .hero-progress { opacity: 1; }
   left: 11.2em; top: 50%;
   width: clamp(160px, 23vw, 330px); aspect-ratio: 1;
   transform: translateY(-54%);
-  opacity: .22;
+  opacity: 0;                              /* raised by the scroll, with the claim */
   background-color: var(--ink);            /* masked, so the stars follow the palette */
   -webkit-mask: url('img/eu-stars.svg') center / contain no-repeat;
   mask: url('img/eu-stars.svg') center / contain no-repeat;
@@ -480,7 +480,7 @@ main section[id] { scroll-margin-top: 60px; }
   padding-bottom: 7px; border-bottom: 2px solid var(--ink);
 }
 /* prints scattered on a table, on the right: the scroll fans them out of a pile */
-.team-scatter { position: relative; aspect-ratio: 4 / 6.6; }
+.team-scatter { position: relative; aspect-ratio: 4 / 4.1; }
 .ts-print {
   position: absolute; margin: 0;
   background: var(--paper); border: 1.5px solid var(--ink);

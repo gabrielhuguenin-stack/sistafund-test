@@ -51,13 +51,15 @@ const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print'
 // on top and largest, Gabriel underneath — while their spots on the table stay put.
 // Rows are spaced so prints only ever overlap on their blank top margin —
 // never on a face — while the layering keeps the reading order.
+// Two rows of three: the whole crew reads at a glance, prints biting into each
+// other sideways where there are no faces.
 const SCATTER = [
-  { x:  0, y:  5, r: -6, w: 45, z: 10 },   // Tatiana — dropped clear of the rule above
-  { x: 37, y: 11, r:  5, w: 44, z:  9 },   // Marie — slid left, so the pile bites sideways
-  { x:  3, y: 37, r:  3, w: 44, z:  8 },   // Natacha
-  { x: 39, y: 43, r: -5, w: 43, z:  7 },   // Arthur
-  { x:  1, y: 66, r:  6, w: 43, z:  6 },   // Timothée — tucked up under Natacha
-  { x: 38, y: 71, r: -3, w: 43, z:  5 },   // Gabriel
+  { x:  0, y:  2, r: -6, w: 38, z: 10 },   // Tatiana
+  { x: 31, y:  7, r:  4, w: 38, z:  9 },   // Marie
+  { x: 62, y:  1, r: -3, w: 38, z:  8 },   // Natacha
+  { x:  2, y: 49, r:  5, w: 38, z:  7 },   // Arthur
+  { x: 32, y: 54, r: -4, w: 38, z:  6 },   // Timothée
+  { x: 62, y: 48, r:  3, w: 38, z:  5 },   // Gabriel
 ];
 scatterPrints.forEach((p, i) => {
   const t = SCATTER[i];
@@ -150,6 +152,7 @@ function wordPose(w, p) {
   }
   return { y: -150, r: -4 };
 }
+const euStars = document.querySelector('.eu-stars');
 function renderHero(p) {
   heroItems.forEach(it => { it.style.opacity = 1; });
   heroWords.forEach(w => {
@@ -157,6 +160,11 @@ function renderHero(p) {
     const s = wordPose(w, p);
     w.inner.style.transform = `translateY(${s.y.toFixed(2)}%) rotate(${s.r.toFixed(2)}deg)`;
   });
+  // the stars only surface as the gender-lens claim assembles
+  if (euStars) {
+    const t = Math.min(Math.max((p - 0.62) / 0.24, 0), 1);
+    euStars.style.opacity = (t * 0.24).toFixed(3);
+  }
 }
 
 // Section h2s: wrap each line (split on <br>) for the masked line reveal
