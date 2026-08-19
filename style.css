@@ -754,51 +754,36 @@ main section[id] { scroll-margin-top: 60px; }
 .cta-btn:hover span { transform: translateX(8px); }
 
 /* ============ Footer ============ */
-/* Not a row of columns: the contact line is the piece of typography, the
-   practical details sit under it as a quiet band, the mark closes the page. */
-.footer { background: var(--ink); color: var(--paper); padding: 12vh 4vw 34px; position: relative; overflow: hidden; }
-.footer-sign { border-bottom: 1px solid var(--line-light); padding-bottom: 6vh; }
-.footer-mail {
-  display: inline-flex; align-items: flex-start; gap: .12em;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.5rem, 6.2vw, 5.6rem); line-height: .92;
-  transition: color .3s var(--ease);
+.footer { background: var(--ink); color: var(--paper); padding: 7vh 4vw 30px; }
+.footer-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 8vw; flex-wrap: wrap; margin-bottom: 5vh;
 }
-.footer-mail i { font-style: normal; font-size: .3em; transition: transform .35s var(--ease); }
-.footer-mail:hover { color: var(--yellow); }
-.footer-mail:hover i { transform: translate(.25em, -.25em); }
-
-.footer-band {
-  display: grid; grid-template-columns: repeat(3, minmax(0, .8fr)) minmax(0, 1.6fr);
-  gap: 4vw; padding: 6vh 0 8vh;
-}
-.footer-col { display: flex; flex-direction: column; gap: 8px; align-items: start; }
+.footer-legal-block { display: flex; flex-direction: column; gap: 20px; max-width: 460px; }
+.footer-cols { display: flex; gap: 72px; flex-wrap: wrap; }
+.footer-col { display: flex; flex-direction: column; gap: 8px; }
 .footer-head {
   font-family: var(--display); text-transform: uppercase;
-  letter-spacing: .14em; font-size: .8rem; color: var(--yellow); margin-bottom: 6px;
+  letter-spacing: .14em; font-size: .85rem; color: var(--yellow);
+  margin-bottom: 8px;
 }
-.footer-col a { transition: color .25s; }
 .footer-col a:hover { color: var(--yellow); }
-.footer-col p { font-size: .95rem; color: rgba(250, 248, 240, .75); }
-.footer-legal { font-size: .78rem; line-height: 1.6; color: rgba(250, 248, 240, .42); }
-
-/* the mark bleeds off the bottom edge, the way a stamp closes a page */
-.footer-mark {
-  position: absolute; right: -1.5vw; bottom: -3.2vw; width: min(34vw, 380px);
-  opacity: .1; pointer-events: none;
+.footer-legal {
+  font-size: .8rem; color: rgba(250, 248, 240, .45);
+  line-height: 1.6;
 }
-.footer-mark img { width: 100%; filter: invert(1); }
 .footer-copy {
-  display: block; padding-top: 22px; border-top: 1px solid var(--line-light);
-  font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem;
-  position: relative; z-index: 1;
+  font-family: var(--display); text-transform: uppercase;
+  letter-spacing: .08em; font-size: .8rem;
 }
-@media (max-width: 860px) {
-  .footer-band { grid-template-columns: 1fr 1fr; gap: 5vh 4vw; }
-  .footer-col--legal { grid-column: 1 / -1; }
-  .footer-mark { width: 52vw; opacity: .08; }
+.footer-bottom {
+  display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 16px;
+  padding-top: 22px; border-top: 1px solid var(--line-light);
+  font-family: var(--display); text-transform: uppercase; font-size: .8rem;
+  letter-spacing: .08em;
 }
-
+.footer-bottom div { display: flex; gap: 28px; }
+.footer-bottom a:hover { color: var(--yellow); }
 
 /* ============ Overlays ============ */
 .overlay {
@@ -1210,7 +1195,8 @@ html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
 .col-guides span:last-child { border-right: 1px solid rgba(16, 16, 16, .07); }
 body.subpage-dark .col-guides span { border-color: rgba(250, 248, 240, .08); }
 body > main, body > footer { position: relative; z-index: 1; }
-@media (max-width: 720px) { .col-guides { display: none; } }
+@media (max-width: 720px) {
+  .footer-cols { gap: 40px; } .col-guides { display: none; } }
 
 /* ============ Doc pages (about.html, manifesto.html) ============ */
 /* these pages have no scroll-reveal engine: show gated home components by default */

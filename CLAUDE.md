@@ -1,85 +1,81 @@
-# Site SISTAFUND — guide de modification
+# SISTAFUND — guide du site
 
-Ce fichier explique comment mettre à jour le site. Il est lu automatiquement par Claude :
-toute personne de l'équipe peut donc demander une modification en langage courant
-(« ajoute Untel à l'équipe », « voici une nouvelle actu ») et obtenir un résultat correct.
-
-## Comment ça marche
-
-Site statique, sans base de données ni build. Tout le contenu qui bouge vit dans **`data.js`**.
-À chaque `git push` sur `main`, Vercel redéploie tout seul en ~30 secondes :
+Site statique (HTML/CSS/JS, sans build). `git push` sur `main` → Vercel déploie en ~30 s :
 https://sistafund-test.vercel.app/
 
-## Règles de marque à ne jamais enfreindre
+## Où se trouve quoi
 
-- Couleurs : **jaune `#FFF868`**, noir `#101010`, crème `#FAF8F0`. **Aucun bleu, jamais.**
-- Polices : **Right Grotesk Narrow** (titres, en capitales) et **Portrait** (textes). Aucune autre.
-- Pas d'italique, pas de numérotation de sections, pas de motif étoile/astérisque.
-- Les portraits individuels sont en **noir et blanc** ; la photo de groupe reste en couleur.
+| Fichier | Rôle |
+|---|---|
+| `data.js` | **Tout le contenu qui bouge** : sociétés, communauté (LPs), actualités, FAQ, bios équipe |
+| `index.html` | Le défilement d'accueil (hero → photo → secteurs → chiffres → portfolio → équipe → communauté → news → FAQ → contact) |
+| `manifesto.html` `portfolio.html` `team.html` `community.html` `news.html` | Les pages dédiées |
+| `script.js` | Animations de l'accueil uniquement |
+| `reveal.js` | Scroll inertiel + apparitions au scroll, chargé sur **toutes** les pages |
+| `style.css` | Toute la mise en forme |
+
+**Après toute modification de `style.css`, `script.js`, `data.js` ou `reveal.js` : incrémenter le `?v=`
+correspondant dans les six `.html`**, sinon les visiteurs gardent l'ancienne version en cache.
+
+## Règles de marque (ne jamais enfreindre)
+
+- Couleurs : **jaune `#FFF868`**, noir `#101010`, crème `#FAF8F0`. **Aucun bleu.**
+- Polices : **Right Grotesk Narrow** (display, capitales) et **Portrait** (serif). Aucune autre.
+- **Portrait ne s'emploie jamais en capitales** — uniquement en bas de casse.
+- Pas d'italique, pas de numérotation de sections, pas de motif étoile.
 - Pas de tiret cadratin « — » au milieu d'une phrase, pas de puce « • » entre des mots.
+- Portraits individuels en noir et blanc (exception assumée : la mosaïque de `team.html`
+  passe en couleur à l'apparition).
+- Ne jamais afficher le nombre total de membres de la communauté.
+- **Le jaune sur fond jaune ne se lit pas** : dans le hero, les mots accentués restent en noir.
 
-## Ajouter une société au portfolio
+## Partis pris obtenus après itérations (ne pas défaire sans raison)
 
-1. Déposer le logo dans **`img/logos/`** (PNG ou SVG, fond transparent de préférence).
-2. Dans `data.js`, ajouter une ligne à `window.COMPANIES`, sur le modèle des autres :
+- **Hero** : chaque phrase suit la même grammaire — amorce Portrait bas de casse (45 px),
+  ancrage display massif, liaison Portrait bas de casse. L'animation se fait **mot par mot**.
+- **Étoiles européennes** (`img/eu-stars.svg`) : n'apparaissent qu'à partir de 62 % du scroll du hero,
+  avec la phrase « gender-lens fund ». Jamais de bleu.
+- **Photo de groupe** : séquence épinglée (`.grow-pin`) — le cadre s'ouvre du petit rectangle au plein
+  écran, puis s'assombrit et laisse place au texte + bouton manifeste.
+- **Équipe (accueil)** : six tirages éparpillés sur une table, 3 + 3. L'ordre de lecture est porté par
+  la superposition et la taille (Tatiana devant, Gabriel derrière), **pas** par la position.
+  Légendes alignées **à droite** (les tirages sont recouverts sur leur bord gauche).
+- **Équipe (page)** : pile de cartes sticky de **hauteur fixe** — une hauteur `min-` laisse une photo
+  très verticale étirer sa propre carte. Se termine par la mosaïque.
+- **Textes** : FAQ, bios et fiches sociétés sont **repris mot pour mot de sistafund.com**.
+  Ne pas les réécrire. Libellés officiels : `Founder(s)` / `Location(s)` / `Founded` / `Partnered`.
 
-```js
-cle: ['Nom', 'Secteur', 'fichier-logo.png', 'Une phrase de description.', 'Prénom Nom des fondateurs', 'Ville, année'],
-```
+## Ajouter du contenu
 
-- `Secteur` doit être exactement l'un de : `HealthTech`, `Frontier Tech`, `Sustainability`, `Fintech`.
-- Elle apparaît alors sur la page portfolio (avec les filtres) et dans les rangées du home.
-- **Penser à mettre à jour le compteur** `(15)` dans le menu : chercher `nav-count` dans les fichiers `.html`.
-- Pour l'afficher aussi dans les rangées défilantes du home, ajouter une carte dans `index.html` (section `pf-rows`).
-
-## Ajouter une actualité
-
-1. Déposer l'image dans **`img/news/`**.
-2. Dans `data.js`, ajouter une entrée **en haut** de `window.NEWS` (la plus récente d'abord) :
-
-```js
-["JJ/MM/AAAA", "Source", "Titre de l'article", "https://lien-vers-l-article"],
-```
-
-3. Ajouter le nom du fichier image **au même rang** dans `window.NEWS_IMG` (les deux listes sont
-   alignées : la 1re image correspond à la 1re actu).
-4. Pour la mettre aussi en avant sur le home, remplacer une des trois cartes de la section
-   `news` dans `index.html`.
-
-## Ajouter une personne à l'équipe
-
-1. Déposer le portrait dans **`img/team/`** (cadrage sur le visage, il sera passé en N&B).
-2. Ajouter la personne à **trois endroits** :
-   - `team.html` : une carte `<article class="tcard" style="--i:N">` dans `.team-stack`
-     (incrémenter `--i`, et mettre à jour les compteurs `N / 6` de toutes les cartes) ;
-   - `team.html` : une carte `<article class="member">` dans `.team-gallery` ;
-   - `index.html` : une `<figure class="team-slide">` dans le jeu de portraits `#teamDeck`.
-3. Mettre à jour le compteur `(6)` du menu (chercher `nav-count`) et le total `/ 6`.
-
-## Ajouter un membre de la communauté
-
-1. Déposer le portrait dans **`img/community/`**.
-2. Ajouter une ligne à `window.LPS` dans `data.js` :
+Tout se passe dans `data.js`, puis déposer l'image dans le bon dossier :
 
 ```js
-['Prénom Nom', 'Entreprise', 'fichier.jpg', 'secteur'],
+// une société — img/logos/
+cle: ['Nom', 'Secteur', 'logo.png', 'Description.', 'Fondateurs', 'Ville', 'Fondée', 'Partenariat'],
+// Secteur ∈ HealthTech · Frontier Tech · Sustainability · Fintech
+
+// une actualité (la plus récente en haut) — img/news/
+["JJ/MM/AAAA", "Source", "Titre", "https://lien"],
+// + le fichier image au même rang dans window.NEWS_IMG
+
+// une personne — img/team/
+["Nom", "Poste", "photo.jpg", ["paragraphe 1", "paragraphe 2"], "ligne About"],
+
+// un membre de la communauté — img/community/
+['Nom', 'Entreprise', 'photo.jpg', 'secteur'],
+// secteur ∈ consumer · fintech · frontier · health · saas
 ```
 
-- `secteur` doit être l'un de : `consumer`, `fintech`, `frontier`, `health`, `saas`.
-- Ne jamais afficher le nombre total de membres de la communauté (règle de l'équipe).
+Penser à mettre à jour les compteurs `(15)` et `(6)` du menu (chercher `nav-count` dans les `.html`).
 
-## Après toute modification
+## Pièges rencontrés
 
-1. Vérifier la page concernée en local (`python3 serve.py`, puis http://localhost:8090).
-2. Si un fichier `style.css`, `script.js`, `data.js` ou `reveal.js` a été modifié,
-   **incrémenter le `?v=` correspondant** dans tous les `.html` — sinon les visiteurs
-   garderont l'ancienne version en cache.
-3. `git add -A && git commit -m "..." && git push` → Vercel déploie automatiquement.
-
-## Pièges connus
-
-- Les animations d'apparition sont armées par `reveal.js` uniquement si l'onglet est visible :
-  ne jamais laisser un élément à `opacity: 0` sans mécanisme de secours.
-- Les pages `portfolio.html`, `community.html` sont sur fond noir (`subpage-dark`) ;
-  `index.html`, `team.html`, `manifesto.html`, `news.html` sont sur fond clair.
-- Les compteurs `(15)` et `(6)` du menu sont écrits en dur : les mettre à jour à la main.
+- **Un onglet inactif gèle les transitions CSS** : un élément masqué en attendant une animation y reste
+  invisible. `reveal.js` ne s'arme donc que si la page est visible et se désarme sinon. Ne jamais laisser
+  un `opacity: 0` sans filet.
+- **Spécificité CSS** : une règle placée avant une autre de même poids perd. Vérifier la valeur calculée
+  plutôt que supposer que la règle s'applique.
+- **Lire une valeur pendant une transition** renvoie l'état courant, pas la cible : couper la transition
+  avant de mesurer.
+- Pages sur fond noir : `portfolio.html`, `community.html` (classe `subpage-dark`).
+  Les autres sont sur fond clair.
