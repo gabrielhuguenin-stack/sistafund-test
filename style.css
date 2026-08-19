@@ -1060,6 +1060,9 @@ main section[id] { scroll-margin-top: 60px; }
 /* this page has no in-view engine: portraits are shown, reveal.js animates them */
 .team-gallery .member { opacity: 1; transform: none; }
 .team-gallery .member-photo { clip-path: inset(0 0 0 0); }
+/* each portrait warms into colour as it comes into view */
+.team-gallery .member-photo img { transition: filter 1.1s var(--ease), transform .6s var(--ease); }
+.team-gallery .member.shown .member-photo img { filter: grayscale(0) contrast(1.02); }
 
 .team-page-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 16vh; }
 .team-page-grid--top { padding-top: 22vh; }
