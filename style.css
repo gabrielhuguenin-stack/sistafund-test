@@ -758,10 +758,6 @@ main section[id] { scroll-margin-top: 60px; }
    practical details sit under it as a quiet band, the mark closes the page. */
 .footer { background: var(--ink); color: var(--paper); padding: 12vh 4vw 34px; position: relative; overflow: hidden; }
 .footer-sign { border-bottom: 1px solid var(--line-light); padding-bottom: 6vh; }
-.footer-sign-k {
-  display: block; font-family: var(--serif); font-size: clamp(1rem, 1.6vw, 1.35rem);
-  color: rgba(250, 248, 240, .6); margin-bottom: 2.5vh;
-}
 .footer-mail {
   display: inline-flex; align-items: flex-start; gap: .12em;
   font-family: var(--display); text-transform: uppercase;

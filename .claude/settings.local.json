@@ -101,7 +101,9 @@
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=59/style.css?v=60/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(git commit -q -m 'No more echo of the manifesto on the home: the intro line now lands on the opened photo alongside the manifesto link, and its punchline carries the screen. Gallery portraits warm into colour as they come into view *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=60/style.css?v=61/' index.html team.html news.html portfolio.html community.html manifesto.html)",
-      "Bash(git commit -q -m 'Drop the thesis paragraph from the home screen \\(the FAQ answers it in full further down\\) and hold the closing manifesto line on one line *)"
+      "Bash(git commit -q -m 'Drop the thesis paragraph from the home screen \\(the FAQ answers it in full further down\\) and hold the closing manifesto line on one line *)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=61/style.css?v=62/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(git commit -q -m 'Remove the invented footer line, leaving the contact address to stand on its own *)"
     ]
   }
 }
