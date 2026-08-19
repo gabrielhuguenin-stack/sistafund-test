@@ -242,7 +242,15 @@ body.loaded .hero-progress { opacity: 1; }
 /* Composed rather than set flat: each line carries its own scale and indent,
    so the statement reads as a built object instead of a uniform block. */
 .hline { display: block; white-space: nowrap; }
+/* the opening line is set in Portrait, sentence case: the serif reads naturally
+   lowercase, where uppercase made it stiff */
 .hstmt .l-sm { font-size: clamp(1.05rem, 2.4vw, 2.4rem); letter-spacing: .16em; }
+.hstmt .l-kicker {
+  font-family: var(--serif); text-transform: none;
+  font-size: clamp(1.1rem, 2.1vw, 2.1rem); letter-spacing: .01em;
+  font-style: normal;
+}
+.hstmt .l-kicker .hmask { padding-bottom: .2em; margin-bottom: -.2em; }
 .hstmt .l-md { font-size: clamp(2rem, 5.4vw, 5.6rem); }
 .hstmt .l-lg { font-size: clamp(2.6rem, 7.2vw, 7.5rem); }
 .hstmt .l-xl { font-size: clamp(3.2rem, 10vw, 10.6rem); }
@@ -928,11 +936,11 @@ main section[id] { scroll-margin-top: 60px; }
 .team-intro-hint { font-family: var(--display); text-transform: uppercase; letter-spacing: .16em; font-size: .8rem; color: var(--grey); }
 .team-stack { max-width: 1400px; margin: 0 auto; padding: 0 6vw 24vh; }
 .tcard {
-  position: sticky; top: calc(15vh + var(--i) * 16px);
-  display: grid; grid-template-columns: .95fr 1.05fr;
+  position: sticky; top: calc(11vh + var(--i) * 14px);
+  display: grid; grid-template-columns: .8fr 1.2fr;
   /* fixed, not min-: otherwise a tall portrait (Timothée's is 350×601) stretches
      its own card and it lands larger than the ones before it */
-  height: 62vh; margin-bottom: 12vh;
+  height: 78vh; margin-bottom: 10vh;
   background: var(--paper); border: 1.5px solid var(--ink);
   box-shadow: 0 -22px 40px rgba(16, 16, 16, .07);
   overflow: hidden;
@@ -946,12 +954,20 @@ main section[id] { scroll-margin-top: 60px; }
   transition: transform .8s var(--ease), filter .8s var(--ease);
 }
 .tcard:hover .tcard-photo img { transform: scale(1.04); filter: grayscale(0); }
-.tcard-body { padding: 6vh 4vw; display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+.tcard-body { padding: 4.5vh 3.2vw; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
 .tcard-index { font-family: var(--display); letter-spacing: .16em; font-size: .78rem; color: var(--grey); }
-.tcard-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.8rem, 3.6vw, 3.2rem); line-height: .98; }
-.tcard-role { font-family: var(--serif); font-size: 1.15rem; color: var(--grey); }
-.tcard-bio { font-family: var(--serif); font-size: 1.05rem; line-height: 1.6; max-width: 46ch; margin-top: 10px; }
-.tcard-fun { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: .76rem; background: var(--yellow); color: var(--ink); align-self: flex-start; padding: 5px 9px; margin-top: 6px; }
+.tcard-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.7rem); line-height: .98; }
+.tcard-role { font-family: var(--serif); font-size: 1.05rem; color: var(--grey); }
+/* full bio: several paragraphs, so it is set smaller and given the room to breathe */
+.tcard-bio { font-family: var(--serif); font-size: .92rem; line-height: 1.5; max-width: 62ch; margin-top: 6px; }
+.tcard-bio p + p { margin-top: .7em; }
+/* the closing "About" line, marked in brand yellow */
+.tcard-about {
+  align-self: flex-start; margin-top: 12px;
+  font-family: var(--serif); font-size: .92rem; line-height: 1.45;
+  background: var(--yellow); color: var(--ink);
+  padding: 6px 10px; max-width: 62ch;
+}
 @media (max-width: 860px) {
   .tcard { grid-template-columns: 1fr; height: auto; top: calc(12vh + var(--i) * 10px); }
   .tcard-photo { aspect-ratio: 4 / 3; border-right: none; border-bottom: 1.5px solid var(--ink); }

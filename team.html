@@ -6,7 +6,7 @@
 <title>SISTAFUND | The team</title>
 <meta name="description" content="Meet the SISTAFUND team — entrepreneurs, operators and investors backing exceptional female founders and gender-balanced teams across Europe.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=51">
+<link rel="stylesheet" href="style.css?v=52">
 </head>
 <body class="loaded nav-ready">
 
@@ -77,20 +77,21 @@
   </div>
 </footer>
 
-<script src="data.js?v=5"></script>
+<script src="data.js?v=6"></script>
 <script>
 
   // cards and gallery are built from the bios as published on sistafund.com
   const stack = document.getElementById('teamStack');
   const gallery = document.getElementById('teamGallery');
-  (window.TEAM || []).forEach(([name, role, file, bio], i) => {
+  (window.TEAM || []).forEach(([name, role, file, paras, about], i) => {
     const card = document.createElement('article');
     card.className = 'tcard'; card.style.setProperty('--i', i);
     card.innerHTML = `<div class="tcard-photo"><img src="img/team/${file}" alt="${name}"></div>
       <div class="tcard-body">
         <h2 class="tcard-name">${name}</h2>
         <span class="tcard-role">${role}</span>
-        <p class="tcard-bio">${bio}</p>
+        <div class="tcard-bio">${paras.map(p => `<p>${p}</p>`).join('')}</div>
+        ${about ? `<span class="tcard-about">${about}</span>` : ''}
       </div>`;
     stack.appendChild(card);
 
