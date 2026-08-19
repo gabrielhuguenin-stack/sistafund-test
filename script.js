@@ -52,12 +52,12 @@ const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print'
 // Rows are spaced so prints only ever overlap on their blank top margin —
 // never on a face — while the layering keeps the reading order.
 const SCATTER = [
-  { x:  0, y:  0, r: -6, w: 46, z: 10 },   // Tatiana
-  { x: 40, y:  7, r:  5, w: 45, z:  9 },   // Marie
-  { x:  3, y: 31, r:  3, w: 45, z:  8 },   // Natacha
-  { x: 43, y: 38, r: -5, w: 44, z:  7 },   // Arthur
-  { x:  1, y: 63, r:  6, w: 44, z:  6 },   // Timothée
-  { x: 42, y: 69, r: -3, w: 44, z:  5 },   // Gabriel
+  { x:  0, y:  5, r: -6, w: 45, z: 10 },   // Tatiana — dropped clear of the rule above
+  { x: 37, y: 11, r:  5, w: 44, z:  9 },   // Marie — slid left, so the pile bites sideways
+  { x:  3, y: 37, r:  3, w: 44, z:  8 },   // Natacha
+  { x: 39, y: 43, r: -5, w: 43, z:  7 },   // Arthur
+  { x:  1, y: 66, r:  6, w: 43, z:  6 },   // Timothée — tucked up under Natacha
+  { x: 38, y: 71, r: -3, w: 43, z:  5 },   // Gabriel
 ];
 scatterPrints.forEach((p, i) => {
   const t = SCATTER[i];
@@ -428,13 +428,20 @@ const pfDetail = document.getElementById('pfDetail');
 function showCompany(key) {
   const c = COMPANIES[key];
   if (!c) return;
+  const m = String(c[5]).match(/^(.*),\s*([^,]+)$/);
+  const place = m ? m[1].trim() : c[5];
+  const year = m ? m[2].trim() : '';
   pfDetail.innerHTML = `
     <div class="pf-detail-logo"><img src="img/logos/${c[2]}" alt="${c[0]}"></div>
     <div class="pf-detail-body">
       <span class="pf-detail-tag">${c[1]}</span>
       <h3>${c[0]}</h3>
       <p>${c[3]}</p>
-      <div class="pf-detail-meta"><span>${c[4]}</span><span>${c[5]}</span></div>
+      <div class="pf-detail-meta">
+        ${c[4] ? `<div class="pf-fact"><span class="pf-fact-k">Founders</span><span class="pf-fact-v">${c[4]}</span></div>` : ''}
+        <div class="pf-fact"><span class="pf-fact-k">Based in</span><span class="pf-fact-v">${place}</span></div>
+        <div class="pf-fact"><span class="pf-fact-k">Founded</span><span class="pf-fact-v">${year}</span></div>
+      </div>
     </div>`;
   openOverlay(pfModal);
 }

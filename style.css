@@ -251,18 +251,30 @@ body.loaded .hero-progress { opacity: 1; }
 .hline--in2 { padding-left: 1.1em; }           /* stepped in, so the block has rhythm */
 /* Portrait carries the connecting lines: its texture against the narrow display
    is what gives the statement character — the load-bearing words stay display. */
+/* Portrait is kept to the kicker alone: enough texture against the display face
+   to give the statement character, without turning the title into a mix of faces. */
 .hstmt .l-serif {
   font-family: var(--serif); text-transform: uppercase;
   letter-spacing: .26em; font-size: clamp(.85rem, 1.55vw, 1.45rem);
 }
-.hstmt .l-serif-lc {
-  font-family: var(--serif); text-transform: none;
-  letter-spacing: 0; line-height: 1.06;
-  font-size: clamp(1.5rem, 3.6vw, 3.7rem);
-}
-/* serif descenders need more room inside the mask than the display face does */
-.hstmt .l-serif-lc .hmask { padding-bottom: .24em; margin-bottom: -.24em; }
 .hstmt .l-serif .hmask { padding-bottom: .16em; margin-bottom: -.16em; }
+
+/* the twelve European stars, laid over the gender-lens claim */
+.hstmt--claim { position: relative; }
+.eu-stars {
+  position: absolute; z-index: -1; pointer-events: none;
+  left: 11.2em; top: 50%;
+  width: clamp(160px, 23vw, 330px); aspect-ratio: 1;
+  transform: translateY(-54%);
+  opacity: .22;
+  background-color: var(--ink);            /* masked, so the stars follow the palette */
+  -webkit-mask: url('img/eu-stars.svg') center / contain no-repeat;
+  mask: url('img/eu-stars.svg') center / contain no-repeat;
+  animation: euTurn 90s linear infinite;
+}
+@keyframes euTurn { to { transform: translateY(-54%) rotate(360deg); } }
+@media (max-width: 900px) { .eu-stars { left: auto; right: 2vw; width: 46vw; opacity: .1; } }
+@media (prefers-reduced-motion: reduce) { .eu-stars { animation: none; } }
 .hstmt .hmask { display: inline-block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; vertical-align: bottom; }
 .hstmt .hln { display: inline-block; font-style: normal; transform: translateY(108%); will-change: transform; }
 
@@ -388,6 +400,14 @@ main section[id] { scroll-margin-top: 60px; }
   background: var(--ink); color: var(--paper);
   padding: 14vh 4vw;
   display: grid; grid-template-columns: 1fr 1fr;
+}
+/* same voice as "Four broad areas of interest" a section above */
+.stats-kicker {
+  grid-column: 1 / -1;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .9rem; letter-spacing: .18em;
+  color: rgba(250, 248, 240, .55);
+  padding: 0 4vw; margin-bottom: 5vh;
 }
 .stat-cell {
   padding: 6vh 4vw;
@@ -856,11 +876,23 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .pf-detail-body h3 { font-size: 2.4rem; margin-bottom: 14px; }
 .pf-detail-body > p { color: var(--grey); font-size: 1.1rem; }
+/* each fact is labelled, so "Paris, 2023" no longer has to be guessed at */
 .pf-detail-meta {
   margin-top: 26px; padding-top: 18px; border-top: 1.5px solid var(--ink);
-  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  font-size: .95rem; color: var(--grey);
+  display: flex; flex-direction: column;
 }
+.pf-fact {
+  display: grid; grid-template-columns: 116px 1fr; gap: 16px;
+  padding: 11px 0; border-bottom: 1px solid var(--line);
+}
+.pf-fact:last-child { border-bottom: none; }
+.pf-fact-k {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .74rem; letter-spacing: .12em; color: var(--grey);
+  padding-top: .18em;
+}
+.pf-fact-v { font-family: var(--serif); font-size: 1rem; color: var(--ink); }
+@media (max-width: 560px) { .pf-fact { grid-template-columns: 1fr; gap: 2px; } }
 
 /* ============ Sub-page (team.html) ============ */
 .page-hero { padding: 26vh 4vw 6vh; max-width: 1260px; margin: 0 auto; }
@@ -959,6 +991,7 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .subpage-hero .page-back { margin: 0 0 10px; }
 .subpage-hero .page-hero-title { margin: 4px 0 0; }
 .subpage-hero .page-hero-sub { margin: 12px 0 0; max-width: 70ch; }
+.page-hero-sub--second { font-size: 1.15rem; opacity: .82; }
 .subpage-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 15vh; }
 
 /* News page: press mosaic of tiles */

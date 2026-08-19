@@ -6,7 +6,7 @@
 <title>SISTAFUND | Portfolio</title>
 <meta name="description" content="The SISTAFUND portfolio — companies founded or co-founded by women across HealthTech, Frontier Tech, Sustainability and Fintech.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=45">
+<link rel="stylesheet" href="style.css?v=47">
 </head>
 <body class="loaded nav-ready subpage-dark">
 
@@ -124,13 +124,20 @@
   const openModal = key => {
     const c = window.COMPANIES[key];
     if (!c) return;
+    const m = String(c[5]).match(/^(.*),\s*([^,]+)$/);
+    const place = m ? m[1].trim() : c[5];
+    const year = m ? m[2].trim() : '';
     detail.innerHTML = `
       <div class="pf-detail-logo"><img src="img/logos/${c[2]}" alt="${c[0]}"></div>
       <div class="pf-detail-body">
         <span class="pf-detail-tag">${c[1]}</span>
         <h3>${c[0]}</h3>
         <p>${c[3]}</p>
-        <div class="pf-detail-meta"><span>${c[4]}</span><span>${c[5]}</span></div>
+        <div class="pf-detail-meta">
+        ${c[4] ? `<div class="pf-fact"><span class="pf-fact-k">Founders</span><span class="pf-fact-v">${c[4]}</span></div>` : ''}
+        <div class="pf-fact"><span class="pf-fact-k">Based in</span><span class="pf-fact-v">${place}</span></div>
+        <div class="pf-fact"><span class="pf-fact-k">Founded</span><span class="pf-fact-v">${year}</span></div>
+      </div>
       </div>`;
     modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('locked');
