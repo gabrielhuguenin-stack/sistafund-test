@@ -49,13 +49,15 @@ const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print'
 // Resting place of each print on the table: left/top in %, rotation, width, layer.
 // Reading order is carried by the layering and a slight size taper — Tatiana sits
 // on top and largest, Gabriel underneath — while their spots on the table stay put.
+// Rows are spaced so prints only ever overlap on their blank top margin —
+// never on a face — while the layering keeps the reading order.
 const SCATTER = [
-  { x:  2, y:  1, r: -6, w: 48, z: 10 },   // Tatiana
-  { x: 52, y:  5, r:  5, w: 46, z:  9 },   // Marie
-  { x:  7, y: 34, r:  3, w: 44, z:  8 },   // Natacha
-  { x: 54, y: 38, r: -5, w: 43, z:  7 },   // Arthur
-  { x:  1, y: 64, r:  6, w: 41, z:  6 },   // Timothée
-  { x: 47, y: 63, r: -3, w: 40, z:  5 },   // Gabriel
+  { x:  0, y:  0, r: -6, w: 42, z: 10 },   // Tatiana
+  { x: 55, y:  3, r:  5, w: 41, z:  9 },   // Marie
+  { x:  3, y: 34, r:  3, w: 41, z:  8 },   // Natacha
+  { x: 56, y: 37, r: -5, w: 40, z:  7 },   // Arthur
+  { x:  1, y: 66, r:  6, w: 40, z:  6 },   // Timothée
+  { x: 55, y: 68, r: -3, w: 40, z:  5 },   // Gabriel
 ];
 scatterPrints.forEach((p, i) => {
   const t = SCATTER[i];

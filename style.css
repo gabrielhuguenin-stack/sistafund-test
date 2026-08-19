@@ -426,11 +426,11 @@ main section[id] { scroll-margin-top: 60px; }
   padding-bottom: 7px; border-bottom: 2px solid var(--ink);
 }
 /* prints scattered on a table, on the right: the scroll fans them out of a pile */
-.team-scatter { position: relative; aspect-ratio: 4 / 4.3; }
+.team-scatter { position: relative; aspect-ratio: 4 / 6.6; }
 .ts-print {
   position: absolute; margin: 0;
   background: var(--paper); border: 1.5px solid var(--ink);
-  padding: 7px 7px 30px;
+  padding: 7px 7px 40px;
   box-shadow: 0 16px 30px rgba(16, 16, 16, .14);
   opacity: 0; will-change: transform, opacity;
 }
@@ -440,9 +440,15 @@ main section[id] { scroll-margin-top: 60px; }
   transition: filter .5s var(--ease);
 }
 .ts-print figcaption {
-  position: absolute; left: 10px; bottom: 7px;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: .68rem; letter-spacing: .1em;
+  position: absolute; left: 10px; right: 10px; bottom: 6px;
+  display: flex; flex-direction: column; gap: 1px;
+}
+.ts-print figcaption b {
+  font-family: var(--display); font-weight: normal; text-transform: uppercase;
+  font-size: .7rem; letter-spacing: .07em; line-height: 1.1;
+}
+.ts-print figcaption span {
+  font-family: var(--serif); font-size: .62rem; color: var(--grey); line-height: 1.15;
 }
 .ts-print:hover { z-index: 40 !important; }
 .ts-print:hover img { filter: grayscale(0) contrast(1.02); }
@@ -857,7 +863,9 @@ main section[id] { scroll-margin-top: 60px; }
 .tcard {
   position: sticky; top: calc(15vh + var(--i) * 16px);
   display: grid; grid-template-columns: .95fr 1.05fr;
-  min-height: 62vh; margin-bottom: 12vh;
+  /* fixed, not min-: otherwise a tall portrait (Timothée's is 350×601) stretches
+     its own card and it lands larger than the ones before it */
+  height: 62vh; margin-bottom: 12vh;
   background: var(--paper); border: 1.5px solid var(--ink);
   box-shadow: 0 -22px 40px rgba(16, 16, 16, .07);
   overflow: hidden;
@@ -878,7 +886,7 @@ main section[id] { scroll-margin-top: 60px; }
 .tcard-bio { font-family: var(--serif); font-size: 1.05rem; line-height: 1.6; max-width: 46ch; margin-top: 10px; }
 .tcard-fun { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: .76rem; background: var(--yellow); color: var(--ink); align-self: flex-start; padding: 5px 9px; margin-top: 6px; }
 @media (max-width: 860px) {
-  .tcard { grid-template-columns: 1fr; min-height: 0; top: calc(12vh + var(--i) * 10px); }
+  .tcard { grid-template-columns: 1fr; height: auto; top: calc(12vh + var(--i) * 10px); }
   .tcard-photo { aspect-ratio: 4 / 3; border-right: none; border-bottom: 1.5px solid var(--ink); }
   .tcard-body { padding: 4vh 6vw 5vh; }
 }
