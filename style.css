@@ -452,46 +452,46 @@ main section[id] { scroll-margin-top: 60px; }
 }
 
 /* ============ Stats (black) ============ */
-.stats {
-  background: var(--ink); color: var(--paper);
-  padding: 14vh 4vw;
-  display: grid; grid-template-columns: 1fr 1fr;
-}
-/* same voice as "Four broad areas of interest" a section above */
+/* Not a 2x2 grid of boxes: four ruled lines, figure left, meaning right —
+   reads like a fact sheet and lets each number stand at full size. */
+.stats { background: var(--ink); color: var(--paper); padding: 14vh 4vw 16vh; }
 .stats-kicker {
-  grid-column: 1 / -1;
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
   color: rgba(250, 248, 240, .55);
-  padding: 0 4vw; margin-bottom: 5vh;
+  margin-bottom: 7vh;
 }
 .stat-cell {
-  padding: 6vh 4vw;
-  display: flex; flex-direction: column; gap: 14px;
-  border-bottom: 1px solid var(--line-light);
-  opacity: 0; transform: translateY(30px);
-  transition: opacity .8s var(--ease), transform .8s var(--ease);
+  display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr);
+  gap: 4vw; align-items: start;
+  padding: 4.6vh 0; border-top: 1px solid var(--line-light);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
 }
-.stat-cell:nth-child(odd) { border-right: 1px solid var(--line-light); }
-.stat-cell:nth-child(n+3) { border-bottom: none; }
-.stat-cell.in-view { opacity: 1; transform: translateY(0); }
+.stat-cell:last-child { border-bottom: 1px solid var(--line-light); }
+.stat-cell.in-view { opacity: 1; transform: none; }
 .stat-num {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(3.2rem, 7.5vw, 7rem); line-height: .9;
+  font-size: clamp(2.6rem, 7.4vw, 6.6rem); line-height: .88;
   color: var(--yellow);
 }
 .stat-label {
-  font-size: clamp(.9rem, 1.15vw, 1.1rem);
-  color: rgba(250, 248, 240, .7);
-  max-width: none;              /* these labels are meant to hold one line */
+  font-family: var(--serif);
+  font-size: clamp(.95rem, 1.2vw, 1.15rem); line-height: 1.55;
+  color: rgba(250, 248, 240, .72);
+  max-width: 46ch; padding-top: .5em;      /* sits with the top of the figure */
+}
+@media (max-width: 720px) {
+  .stat-cell { grid-template-columns: 1fr; gap: 10px; padding: 4vh 0; }
 }
 
 /* ============ Portfolio ============ */
 .portfolio { padding: 20vh 4vw 4vh; }
-.pf-rows { padding: 2vh 0 6vh; overflow: hidden; }
+/* generous vertical room: the rows cross over a longer stretch of scroll */
+.pf-rows { padding: 12vh 0 14vh; overflow: hidden; }
 .pf-all-cta { text-align: center; padding: 8vh 0 16vh; }
 .pf-all-cta .btn-big { margin: 0; }
-.pf-row { margin-bottom: 26px; }
+.pf-row { margin-bottom: 7vh; }
 .pf-track {
   display: flex; gap: 26px; width: max-content;
   will-change: transform;
@@ -531,11 +531,7 @@ main section[id] { scroll-margin-top: 60px; }
   font-family: var(--serif); font-size: 1.22rem; line-height: 1.5;
   color: var(--ink); max-width: 52ch; margin: 0 0 5vh;   /* holds two lines */
 }
-.team-intro-link {
-  font-family: var(--display); text-transform: uppercase; letter-spacing: .05em;
-  font-size: 1.1rem; display: inline-flex; align-items: center; gap: 12px;
-  padding-bottom: 7px; border-bottom: 2px solid var(--ink);
-}
+.team-intro-btn { margin: 0; }
 /* prints scattered on a table, on the right: the scroll fans them out of a pile */
 .team-scatter { position: relative; aspect-ratio: 4 / 4.1; }
 .ts-print {

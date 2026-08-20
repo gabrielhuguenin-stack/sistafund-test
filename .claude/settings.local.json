@@ -103,7 +103,9 @@
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=60/style.css?v=61/' index.html team.html news.html portfolio.html community.html manifesto.html)",
       "Bash(git commit -q -m 'Drop the thesis paragraph from the home screen \\(the FAQ answers it in full further down\\) and hold the closing manifesto line on one line *)",
       "Bash(perl -pi -e 's/style\\\\.css\\\\?v=61/style.css?v=62/' index.html team.html news.html portfolio.html community.html manifesto.html)",
-      "Bash(git commit -q -m 'Remove the invented footer line, leaving the contact address to stand on its own *)"
+      "Bash(git commit -q -m 'Remove the invented footer line, leaving the contact address to stand on its own *)",
+      "Bash(perl -pi -e 's/style\\\\.css\\\\?v=63/style.css?v=64/; s/script\\\\.js\\\\?v=31/script.js?v=32/' index.html team.html news.html portfolio.html community.html manifesto.html)",
+      "Bash(git commit -q -m 'Figures laid out as four ruled rows, figure left and meaning right, instead of a 2x2 box grid; portfolio rows given far more vertical room so they cross over a longer stretch of scroll; Meet-the-team becomes a real framed button; team prints dropped a notch; manifesto lead removed now that it opens the home *)"
     ]
   }
 }

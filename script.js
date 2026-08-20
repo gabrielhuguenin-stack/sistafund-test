@@ -73,12 +73,12 @@ const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print'
 const SCATTER = [
   // within a row each print sits a little lower than the one before, so its
   // caption falls clear of the neighbour that overlaps it
-  { x:  0, y:  0, r: -6, w: 38, z: 10 },   // Tatiana
-  { x: 31, y:  6, r:  4, w: 38, z:  9 },   // Marie
-  { x: 62, y: 12, r: -3, w: 38, z:  8 },   // Natacha
-  { x:  2, y: 46, r:  5, w: 38, z:  7 },   // Arthur
-  { x: 32, y: 52, r: -4, w: 38, z:  6 },   // Timothée
-  { x: 62, y: 58, r:  3, w: 38, z:  5 },   // Gabriel
+  { x:  0, y:  6, r: -6, w: 38, z: 10 },   // Tatiana
+  { x: 31, y: 12, r:  4, w: 38, z:  9 },   // Marie
+  { x: 62, y: 18, r: -3, w: 38, z:  8 },   // Natacha
+  { x:  2, y: 52, r:  5, w: 38, z:  7 },   // Arthur
+  { x: 32, y: 58, r: -4, w: 38, z:  6 },   // Timothée
+  { x: 62, y: 64, r:  3, w: 38, z:  5 },   // Gabriel
 ];
 scatterPrints.forEach((p, i) => {
   const t = SCATTER[i];
