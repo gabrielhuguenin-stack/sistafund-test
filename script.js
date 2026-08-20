@@ -193,8 +193,13 @@ document.querySelectorAll('.sec-head h2').forEach(h2 => {
 });
 
 const watched = [];
-document.querySelectorAll('.stat-cell, .about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center, .team-intro-text')
+document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center, .team-intro-text')
   .forEach(el => { io.observe(el); watched.push(el); });
+// the fund band: each term arrives just after the one to its left
+document.querySelectorAll('.stat-item').forEach((el, i) => {
+  el.style.transitionDelay = (i * 0.11) + 's';
+  io.observe(el); watched.push(el);
+});
 document.querySelectorAll('.member').forEach(el => { el.dataset.grp = 'member'; io.observe(el); watched.push(el); });
 document.querySelectorAll('.about-col').forEach(el => { el.dataset.grp = 'about-col'; io.observe(el); watched.push(el); });
 document.querySelectorAll('.news-card').forEach(el => { el.dataset.grp = 'news-card'; io.observe(el); watched.push(el); });
@@ -211,26 +216,6 @@ function sweepMissed(vh) {
     }
   }
 }
-
-// ---------- Counters ----------
-const countIO = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    const el = e.target;
-    const target = +el.dataset.count;
-    const decimal = el.dataset.decimal ? +el.dataset.decimal : 0;
-    const dur = 1400;
-    const t0 = performance.now();
-    (function tick(t) {
-      const p = Math.min((t - t0) / dur, 1);
-      const v = target * (1 - Math.pow(1 - p, 3));
-      el.textContent = decimal ? (v / 10).toFixed(1) : Math.round(v);
-      if (p < 1) requestAnimationFrame(tick);
-    })(t0);
-    countIO.unobserve(el);
-  });
-}, { threshold: 0.6 });
-document.querySelectorAll('.count').forEach(el => countIO.observe(el));
 
 // ---------- About intro: one-shot word wave (same language as the hero) ----------
 const aboutIntro = document.getElementById('aboutIntro');
@@ -262,6 +247,7 @@ if (aboutIntro) {
 }
 
 // ---------- Portfolio: crossing rows ----------
+const PF_TRAVEL = 0.36;   // share of the track's overflow crossed per screen of scroll
 const pfRows = document.querySelectorAll('.pf-row');
 // duplicate each row's cards so the tracks overflow wide and the opposite-direction slide is pronounced
 pfRows.forEach(row => {
@@ -412,7 +398,8 @@ function onScroll() {
     const r = row.getBoundingClientRect();
     if (r.bottom < -100 || r.top > vh + 100) return;
     const track = row.querySelector('.pf-track');
-    const overflow = Math.max(track.scrollWidth - row.clientWidth, 0);
+    // only a share of the overflow is travelled: the same crossing, far calmer
+    const overflow = Math.max(track.scrollWidth - row.clientWidth, 0) * PF_TRAVEL;
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
     const x = i % 2 === 0 ? -overflow * p : -overflow * (1 - p);
     track.style.transform = `translateX(${x}px)`;
