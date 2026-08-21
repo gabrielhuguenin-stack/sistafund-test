@@ -602,15 +602,20 @@ main section[id] { scroll-margin-top: 60px; }
 /* per-portrait framing tweaks (also applied in the home carousel) */
 .member-photo img[src*="marie"], .team-slide img[src*="marie"] { object-position: center 30%; }
 .member-photo img[src*="arthur"], .team-slide img[src*="arthur"] { object-position: center 28%; }
+/* the presentation arrives over the portrait, verbatim from sistafund.com */
 .member-bio {
   position: absolute; inset: 0;
-  background: rgba(16, 16, 16, .9); color: var(--paper);
-  padding: 26px; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px;
-  opacity: 0; transition: opacity .4s;
-  font-size: .92rem; line-height: 1.5;
+  background: rgba(16, 16, 16, .92); color: var(--paper);
+  padding: 7%; display: flex; flex-direction: column; justify-content: center; gap: .8em;
+  opacity: 0; transition: opacity .5s var(--ease);
+  font-family: var(--serif); font-size: clamp(.74rem, 1.05vw, .98rem); line-height: 1.58;
 }
-.member:hover .member-bio { opacity: 1; }
-.member-fun { color: var(--yellow); font-size: .85rem; }
+.member:hover .member-bio, .member.open .member-bio { opacity: 1; }
+.member-fun {
+  color: var(--yellow); font-family: var(--display); text-transform: uppercase;
+  font-size: .74rem; letter-spacing: .1em; line-height: 1.5;
+  border-top: 1px solid var(--line-light); padding-top: 1em; margin-top: .2em;
+}
 .member h3 { font-size: 1.3rem; margin: 14px 0 2px; }
 .member-role { color: var(--grey); font-size: .9rem; }
 
@@ -1046,10 +1051,16 @@ main section[id] { scroll-margin-top: 60px; }
   .tcard-body { padding: 4vh 6vw 5vh; }
 }
 
-/* gallery closing the team page: the whole crew at a glance after the stack */
-.team-gallery { max-width: 1400px; margin: 0 auto; padding: 6vh 6vw 18vh; }
+/* the gallery carries the team page: six large portraits, each holding its own
+   presentation, which comes up over the picture as you arrive on it */
+.team-gallery { max-width: 1400px; margin: 0 auto; padding: 2vh 6vw 18vh; }
 .team-gallery-title { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.6rem); margin-bottom: 5vh; }
-.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(3, 1fr); }
+.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(2, 1fr); gap: 2.6vw 2.4vw; }
+.team-gallery .member { cursor: pointer; }
+/* below this the two columns get too narrow for a presentation to fit its portrait */
+@media (max-width: 900px) {
+  .team-gallery .team-grid { grid-template-columns: 1fr; gap: 5vh; }
+}
 /* this page has no in-view engine: portraits are shown, reveal.js animates them */
 .team-gallery .member { opacity: 1; transform: none; }
 .team-gallery .member-photo { clip-path: inset(0 0 0 0); }
@@ -1093,29 +1104,11 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .page-open {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 47vw);
-  gap: 3vw; align-items: start;
-  padding: 20vh 0 12vh max(6vw, calc((100vw - 1400px) / 2 + 6vw));
+  gap: 3vw; align-items: center;
+  padding: 20vh 0 14vh max(6vw, calc((100vw - 1400px) / 2 + 6vw));
 }
 .page-open-text { padding-right: 2vw; }
 .page-open .page-hero-title { font-size: clamp(2.6rem, 6.8vw, 6.4rem); }
-
-/* the cast list under the title: it balances the pictures and jumps to a card */
-.open-index { margin-top: 5vh; border-top: 1px solid var(--line); max-width: 33rem; }
-.open-index a {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 2vw;
-  padding: 1.15em 0; border-bottom: 1px solid var(--line);
-  transition: padding-left .35s var(--ease), background .35s var(--ease);
-}
-.open-index a:hover { padding-left: .6em; background: var(--yellow); }
-.open-index b {
-  font-family: var(--display); text-transform: uppercase;
-  font-weight: 400; font-size: 1.02rem; letter-spacing: .02em;
-}
-.open-index span {
-  font-family: var(--serif); font-size: .92rem; color: var(--grey);
-  text-align: right; flex: 0 1 auto;
-}
-.open-index a:hover span { color: var(--ink); }
 .page-open .page-hero-sub {
   font-family: var(--serif); font-size: clamp(1rem, 1.3vw, 1.24rem); line-height: 1.6;
   margin-top: 3.6vh; max-width: 44ch;
@@ -1139,19 +1132,45 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
   opacity: 0; transition: opacity 1.4s var(--ease), filter 1.2s var(--ease);
 }
 .pcf-frame img.on { opacity: 1; }
-/* framing: each picture keeps its own subject in the frame */
-.pcf-frame img[src*="team-cafe"]     { object-position: center 62%; }
-.pcf-frame img[src*="team-podium"]   { object-position: center 66%; }
+/* framing: each picture keeps its own subject inside its frame */
+.pcf-frame img[src*="team-podium"]   { object-position: center 60%; }
 .pcf-frame img[src*="team-talk"]     { object-position: center 58%; }
 .pcf-frame img[src*="comm-fans"]     { object-position: center 40%; }
 .pcf-frame img[src*="comm-cocktail"] { object-position: center 32%; }
 .pcf-frame img[src*="comm-poilane"]  { object-position: center 42%; }
 .pcf-frame img[src*="comm-daylight"] { object-position: center 60%; }
+.pcf-frame img[src*="comm-talking"]  { object-position: 58% 50%; }
+
+/* the picture control, sitting under the large frame and aligned with it */
+.pcnav {
+  position: absolute; top: 100%; left: 0; width: 62%;
+  margin-top: 2.4vh;
+  display: flex; align-items: center; justify-content: space-between; gap: 2vw;
+}
+.pcdots { display: flex; gap: 11px; }
+.pcdots button {
+  width: 9px; height: 9px; padding: 0; background: none;
+  border: 1.5px solid var(--ink); cursor: pointer;
+  transition: background .35s var(--ease);
+}
+.pcdots button.on { background: var(--ink); }
+.pcarrows { display: flex; gap: 7px; }
+.pcarrow {
+  width: 36px; height: 36px; padding: 0; background: none; cursor: pointer;
+  border: 1.5px solid var(--line); color: var(--ink);
+  font-family: var(--display); font-size: 1.15rem; line-height: 1;
+  transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
+}
+.pcarrow:hover { background: var(--yellow); border-color: var(--ink); }
+body.subpage-dark .pcdots button { border-color: var(--paper); }
+body.subpage-dark .pcdots button.on { background: var(--yellow); border-color: var(--yellow); }
+body.subpage-dark .pcarrow { border-color: var(--line-light); color: var(--paper); }
+body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
 /* the large frame settles into colour; the two small ones keep it for the hover */
 .pcf-a .pcf-frame.shown img { filter: grayscale(0) contrast(1.02); transition-delay: 0s, .55s; }
 .pcf-b:hover .pcf-frame img, .pcf-c:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 @media (max-width: 900px) {
-  .page-open { grid-template-columns: 1fr; gap: 7vh; padding: 16vh 6vw 9vh; }
+  .page-open { grid-template-columns: 1fr; gap: 7vh; padding: 16vh 6vw 13vh; }
   .page-open-text { padding-right: 0; }
   .pcf-a { width: 72%; }
   .pcf-b { left: 73.5%; width: 26.5%; }

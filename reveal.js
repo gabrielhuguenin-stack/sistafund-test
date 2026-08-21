@@ -131,20 +131,50 @@
     run();
   }
 
-  document.querySelectorAll('.pcf-frame').forEach((frame, i) => {
-    const shots = [...frame.querySelectorAll('img')];
-    if (shots.length < 2 || reduced) return;
-    let k = 0;
-    const advance = () => {
-      // a hidden tab freezes the cross-fade, and an off-screen frame needs no work
-      if (document.hidden) return;
-      const r = frame.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > innerHeight) return;
-      shots[k].classList.remove('on');
-      k = (k + 1) % shots.length;
-      shots[k].classList.add('on');
+  document.querySelectorAll('.pcascade').forEach(cascade => {
+    const sets = [...cascade.querySelectorAll('.pcf-frame')].map(f => [...f.querySelectorAll('img')]);
+    const steps = Math.max(...sets.map(s => s.length));
+    const nav = cascade.querySelector('.pcnav');
+    if (steps < 2 || !nav) { if (nav) nav.remove(); return; }
+
+    const dots = [];
+    const dotRow = nav.querySelector('.pcdots');
+    let k = 0, timer = null;
+
+    const goTo = step => {
+      k = (step + steps) % steps;
+      sets.forEach(shots => {
+        if (shots.length < 2) return;
+        shots.forEach(s => s.classList.remove('on'));
+        shots[k % shots.length].classList.add('on');
+      });
+      dots.forEach((d, i) => d.classList.toggle('on', i === k));
     };
-    setTimeout(() => setInterval(advance, 6400), 3200 + i * 2100);
+
+    for (let i = 0; i < steps; i++) {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Picture ' + (i + 1));
+      if (i === 0) d.classList.add('on');
+      d.addEventListener('click', () => { stop(); goTo(i); });
+      dotRow.appendChild(d);
+      dots.push(d);
+    }
+    nav.querySelectorAll('.pcarrow').forEach(b => {
+      b.addEventListener('click', () => { stop(); goTo(k + +b.dataset.step); });
+    });
+
+    // it turns on its own until the visitor takes over
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+    if (!reduced) {
+      timer = setInterval(() => {
+        // a hidden tab freezes the cross-fade, and an off-screen cascade needs no work
+        if (document.hidden) return;
+        const r = cascade.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        goTo(k + 1);
+      }, 6400);
+    }
   });
 })();
 
