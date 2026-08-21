@@ -135,9 +135,9 @@
   document.querySelectorAll('.pcascade').forEach(cascade => {
     const queue = [...cascade.querySelectorAll('.pcq')];
     const open = cascade.closest('.page-open') || cascade.parentElement;
-    const nav = open.querySelector('.pcnav');
+    const nav = cascade.querySelector('.pcnav') || open.querySelector('.pcnav');
     const steps = queue.length;
-    if (steps < 4 || !nav) { if (nav) nav.remove(); return; }
+    if (steps < 3 || !nav) { if (nav) nav.remove(); return; }
 
     // three places are on show; everything else waits, unseen, at the entry place
     const PLACES = ['is-a', 'is-b', 'is-c'];

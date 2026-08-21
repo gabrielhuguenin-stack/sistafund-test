@@ -1122,16 +1122,23 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    transition on left / top / width. */
 .pcascade { position: relative; aspect-ratio: 1000 / 775; }
 .pcq {
-  position: absolute; aspect-ratio: 4 / 5;
+  position: absolute;
   transition: left .95s var(--ease), top .95s var(--ease), width .95s var(--ease),
-              opacity .75s var(--ease);
+              height .95s var(--ease), opacity .75s var(--ease);
 }
-.pcq.is-a   { left: 0;     top: 0;   width: 62%; opacity: 1; z-index: 3; }
-.pcq.is-b   { left: 63.5%; top: 8%;  width: 32%; opacity: 1; z-index: 2; }
-.pcq.is-c   { left: 63.5%; top: 62%; width: 24%; opacity: 1; z-index: 2; }
-.pcq.is-out { left: 63.5%; top: 62%; width: 24%; opacity: 0; z-index: 1; }
-/* the picture that cannot be cropped upright keeps a frame of its own, beside the title */
-.pcf-wide { width: 78%; aspect-ratio: 3 / 2; margin-top: 5vh; }
+/* heights are given in % of the block, so a place can hold an upright picture or a
+   wide one and morph between the two; each place keeps its own vertical centre */
+.pcq.is-a   { left: 0;     top: 0;   width: 62%; height: 100%;  opacity: 1; z-index: 3; }
+.pcq.is-b   { left: 63.5%; top: 8%;  width: 32%; height: 51.6%; opacity: 1; z-index: 2; }
+.pcq.is-c   { left: 63.5%; top: 62%; width: 24%; height: 38.7%; opacity: 1; z-index: 2; }
+.pcq.is-out { left: 63.5%; top: 62%; width: 24%; height: 38.7%; opacity: 0; z-index: 1; }
+.pcq[data-shape="wide"].is-a { top: 23.35%; height: 53.3%; }
+.pcq[data-shape="wide"].is-b { top: 20.05%; height: 27.5%; }
+.pcq[data-shape="wide"].is-c,
+.pcq[data-shape="wide"].is-out { top: 71.05%; height: 20.6%; }
+/* the team photograph holds its own frame beside the title, cropped to a band */
+.pcf-wide { width: 74%; aspect-ratio: 3 / 2; margin-top: 5.5vh; }
+.pcf-wide img { object-position: center 60%; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
   width: 100%; height: 100%;
@@ -1157,15 +1164,16 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
 .pcq.is-a .pcf-frame img,
 .pcq:hover .pcf-frame img    { filter: grayscale(0) contrast(1.02); }
-/* except this one, whose wall of blue type would break the palette */
+/* except those whose own colour breaks the palette: the wall of blue type, the magenta stage */
 .pcq[data-mono] .pcf-frame img,
 .pcq[data-mono]:hover .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 .pcf-wide .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 .pcf-wide:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
-/* the picture control, under the title */
+/* the picture control, under the large place and aligned with it */
 .pcnav {
-  margin-top: 4.5vh; width: 78%;
+  position: absolute; top: 100%; left: 0; width: 62%;
+  margin-top: 2.6vh;
   display: flex; align-items: center; justify-content: space-between; gap: 2vw;
 }
 .pcdots { display: flex; gap: 11px; }
@@ -1190,10 +1198,17 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
 @media (max-width: 900px) {
   .page-open { grid-template-columns: 1fr; gap: 6vh; padding: 16vh 6vw 13vh; }
   .page-open-text { padding-right: 0; }
-  .pcf-wide, .pcnav { width: 100%; }
-  .pcq.is-a { width: 72%; }
-  .pcq.is-b { left: 73.5%; width: 26.5%; }
-  .pcq.is-c, .pcq.is-out { left: 73.5%; top: 58%; width: 22%; }
+  .pcf-wide { width: 100%; }
+  .pcnav { width: 72%; }
+  /* the large place is wider here, so the block is squarer and every height follows */
+  .pcascade { aspect-ratio: 1000 / 900; }
+  .pcq.is-a { width: 72%; height: 100%; }
+  .pcq.is-b { left: 73.5%; width: 26.5%; height: 36.8%; }
+  .pcq.is-c, .pcq.is-out { left: 73.5%; top: 58%; width: 22%; height: 30.6%; }
+  .pcq[data-shape="wide"].is-a { top: 23.35%; height: 53.3%; }
+  .pcq[data-shape="wide"].is-b { top: 16.6%; height: 19.6%; }
+  .pcq[data-shape="wide"].is-c,
+  .pcq[data-shape="wide"].is-out { top: 65.15%; height: 16.3%; }
 }
 
 /* News page: press mosaic of tiles */
