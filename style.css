@@ -476,19 +476,26 @@ main section[id] { scroll-margin-top: 60px; }
   padding: 6vh 1.6vw; text-align: center;
   border-left: 1px solid var(--line-light);
   opacity: 0; transform: translateY(20px);
-  transition: opacity .9s var(--ease), transform .9s var(--ease);
+  transition: opacity .9s var(--ease), transform .9s var(--ease),
+              background .4s var(--ease), color .4s var(--ease);
 }
 .stat-item:first-child { border-left: none; }
 .stat-item.in-view { opacity: 1; transform: none; }
+/* each cell takes the yellow under the pointer, as the sector lines take the ink */
+.stat-item:hover { background: var(--yellow); }
+.stat-item:hover .stat-term { color: var(--ink); }
+.stat-item:hover .stat-note { color: rgba(16, 16, 16, .6); letter-spacing: .2em; }
 .stat-term {
   font-family: var(--serif);
   font-size: clamp(1.45rem, 2.55vw, 2.6rem); line-height: 1.04;
   color: var(--yellow);
+  transition: color .4s var(--ease);
 }
 .stat-note {
   font-family: var(--display); text-transform: uppercase;
   font-size: .78rem; letter-spacing: .16em;
   color: rgba(250, 248, 240, .62);
+  transition: color .4s var(--ease), letter-spacing .4s var(--ease);
 }
 @media (max-width: 900px) {
   .stat-band { grid-template-columns: repeat(2, 1fr); }
@@ -1116,6 +1123,10 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .team-gallery .member { opacity: 1; transform: none; }
 .team-gallery .member-photo { clip-path: inset(0 0 0 0); }
 /* each portrait warms into colour as it comes into view */
+/* the picture fills its frame exactly: the 118% height and the -8% lift were left over
+   from a parallax this gallery does not run, and they were shaving the headroom off the
+   portraits whose source is wider than the frame (Marie's and Arthur's above all) */
+.team-gallery .member-photo img { height: 100%; --py: 0%; }
 .team-gallery .member-photo img { transition: filter 1.1s var(--ease), transform .6s var(--ease); }
 .team-gallery .member.shown .member-photo img { filter: grayscale(0) contrast(1.02); }
 
