@@ -1214,6 +1214,10 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 .pcf-frame img[src*="comm-poilane"]  { object-position: center 42%; }
 .pcf-frame img[src*="comm-daylight"] { object-position: center 60%; }
 .pcf-frame img[src*="comm-talking"]  { object-position: 58% 50%; }
+.pcf-frame img[src*="pf-founders"]   { object-position: center 55%; }
+.pcf-frame img[src*="pf-laughing"]   { object-position: center 40%; }
+.pcf-frame img[src*="pf-circle"]     { object-position: center 52%; }
+.pcf-frame img[src*="pf-pitch"]      { object-position: center 45%; }
 /* only the picture standing in the large place carries its colour */
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
 .pcq.is-a .pcf-frame img,
