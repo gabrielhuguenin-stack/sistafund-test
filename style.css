@@ -1115,11 +1115,23 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 }
 .page-open .page-hero-sub--second { margin-top: 1.15em; font-size: inherit; opacity: .8; }
 
-.pcascade { position: relative; }
-.pcf { position: absolute; will-change: transform; }
-.pcf-a { position: relative; width: 62%; aspect-ratio: 4 / 5; }        /* sets the height */
-.pcf-b { left: 63.5%; top: 21%;  width: 35.5%; aspect-ratio: 3 / 2; }
-.pcf-c { left: 63.5%; top: 54%;  width: 27%;   aspect-ratio: 4 / 5; }
+/* The pictures form a queue rather than a set of fixed frames: three places are
+   visible, and every step promotes each picture one place up in size, so a small
+   one travels into the large frame while the one leaving shrinks back down to the
+   entry place. Positions are in % of the block, so the travel is a plain
+   transition on left / top / width. */
+.pcascade { position: relative; aspect-ratio: 1000 / 775; }
+.pcq {
+  position: absolute; aspect-ratio: 4 / 5;
+  transition: left .95s var(--ease), top .95s var(--ease), width .95s var(--ease),
+              opacity .75s var(--ease);
+}
+.pcq.is-a   { left: 0;     top: 0;   width: 62%; opacity: 1; z-index: 3; }
+.pcq.is-b   { left: 63.5%; top: 8%;  width: 32%; opacity: 1; z-index: 2; }
+.pcq.is-c   { left: 63.5%; top: 62%; width: 24%; opacity: 1; z-index: 2; }
+.pcq.is-out { left: 63.5%; top: 62%; width: 24%; opacity: 0; z-index: 1; }
+/* the picture that cannot be cropped upright keeps a frame of its own, beside the title */
+.pcf-wide { width: 78%; aspect-ratio: 3 / 2; margin-top: 5vh; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
   width: 100%; height: 100%;
@@ -1135,16 +1147,25 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 /* framing: each picture keeps its own subject inside its frame */
 .pcf-frame img[src*="team-podium"]   { object-position: center 60%; }
 .pcf-frame img[src*="team-talk"]     { object-position: center 58%; }
+.pcf-frame img[src*="team-cafe"]     { object-position: 46% 50%; }
 .pcf-frame img[src*="comm-fans"]     { object-position: center 40%; }
 .pcf-frame img[src*="comm-cocktail"] { object-position: center 32%; }
 .pcf-frame img[src*="comm-poilane"]  { object-position: center 42%; }
 .pcf-frame img[src*="comm-daylight"] { object-position: center 60%; }
 .pcf-frame img[src*="comm-talking"]  { object-position: 58% 50%; }
+/* only the picture standing in the large place carries its colour */
+.pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
+.pcq.is-a .pcf-frame img,
+.pcq:hover .pcf-frame img    { filter: grayscale(0) contrast(1.02); }
+/* except this one, whose wall of blue type would break the palette */
+.pcq[data-mono] .pcf-frame img,
+.pcq[data-mono]:hover .pcf-frame img { filter: grayscale(1) contrast(1.06); }
+.pcf-wide .pcf-frame img { filter: grayscale(1) contrast(1.06); }
+.pcf-wide:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
-/* the picture control, sitting under the large frame and aligned with it */
+/* the picture control, under the title */
 .pcnav {
-  position: absolute; top: 100%; left: 0; width: 62%;
-  margin-top: 2.4vh;
+  margin-top: 4.5vh; width: 78%;
   display: flex; align-items: center; justify-content: space-between; gap: 2vw;
 }
 .pcdots { display: flex; gap: 11px; }
@@ -1166,15 +1187,13 @@ body.subpage-dark .pcdots button { border-color: var(--paper); }
 body.subpage-dark .pcdots button.on { background: var(--yellow); border-color: var(--yellow); }
 body.subpage-dark .pcarrow { border-color: var(--line-light); color: var(--paper); }
 body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
-/* the large frame settles into colour; the two small ones keep it for the hover */
-.pcf-a .pcf-frame.shown img { filter: grayscale(0) contrast(1.02); transition-delay: 0s, .55s; }
-.pcf-b:hover .pcf-frame img, .pcf-c:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 @media (max-width: 900px) {
-  .page-open { grid-template-columns: 1fr; gap: 7vh; padding: 16vh 6vw 13vh; }
+  .page-open { grid-template-columns: 1fr; gap: 6vh; padding: 16vh 6vw 13vh; }
   .page-open-text { padding-right: 0; }
-  .pcf-a { width: 72%; }
-  .pcf-b { left: 73.5%; width: 26.5%; }
-  .pcf-c { left: 73.5%; width: 22%; top: 52%; }
+  .pcf-wide, .pcnav { width: 100%; }
+  .pcq.is-a { width: 72%; }
+  .pcq.is-b { left: 73.5%; width: 26.5%; }
+  .pcq.is-c, .pcq.is-out { left: 73.5%; top: 58%; width: 22%; }
 }
 
 /* News page: press mosaic of tiles */

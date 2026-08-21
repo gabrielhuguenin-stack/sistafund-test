@@ -107,8 +107,9 @@
 })();
 
 /* Page opening cascade
-   The three frames leave the screen at their own pace, and a frame holding more
-   than one picture cycles slowly through them, out of step with its neighbours. */
+   The frames leave the screen at their own pace, and the pictures form a queue:
+   each step promotes every one of them a place up in size, so a small picture
+   travels into the large frame while the one leaving shrinks back to the entry. */
 (function () {
   const frames = [...document.querySelectorAll('[data-drift]')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -132,21 +133,26 @@
   }
 
   document.querySelectorAll('.pcascade').forEach(cascade => {
-    const sets = [...cascade.querySelectorAll('.pcf-frame')].map(f => [...f.querySelectorAll('img')]);
-    const steps = Math.max(...sets.map(s => s.length));
-    const nav = cascade.querySelector('.pcnav');
-    if (steps < 2 || !nav) { if (nav) nav.remove(); return; }
+    const queue = [...cascade.querySelectorAll('.pcq')];
+    const open = cascade.closest('.page-open') || cascade.parentElement;
+    const nav = open.querySelector('.pcnav');
+    const steps = queue.length;
+    if (steps < 4 || !nav) { if (nav) nav.remove(); return; }
 
+    // three places are on show; everything else waits, unseen, at the entry place
+    const PLACES = ['is-a', 'is-b', 'is-c'];
+    const DRIFT = ['-1.6', '3.2', '5'];
     const dots = [];
     const dotRow = nav.querySelector('.pcdots');
     let k = 0, timer = null;
 
     const goTo = step => {
       k = (step + steps) % steps;
-      sets.forEach(shots => {
-        if (shots.length < 2) return;
-        shots.forEach(s => s.classList.remove('on'));
-        shots[k % shots.length].classList.add('on');
+      queue.forEach((el, i) => {
+        const place = (i - k + steps) % steps;
+        el.classList.remove('is-a', 'is-b', 'is-c', 'is-out');
+        el.classList.add(PLACES[place] || 'is-out');
+        el.dataset.drift = DRIFT[place] || '0';
       });
       dots.forEach((d, i) => d.classList.toggle('on', i === k));
     };
@@ -163,6 +169,8 @@
     nav.querySelectorAll('.pcarrow').forEach(b => {
       b.addEventListener('click', () => { stop(); goTo(k + +b.dataset.step); });
     });
+
+    goTo(0);
 
     // it turns on its own until the visitor takes over
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };

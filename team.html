@@ -6,7 +6,7 @@
 <title>SISTAFUND | The team</title>
 <meta name="description" content="Meet the SISTAFUND team — entrepreneurs, operators and investors backing exceptional female founders and gender-balanced teams across Europe.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=70">
+<link rel="stylesheet" href="style.css?v=71">
 </head>
 <body class="loaded nav-ready">
 
@@ -38,31 +38,40 @@
   <header class="page-open">
     <div class="page-open-text">
       <h1 class="page-hero-title" data-reveal="mask">The <span class="yw">people</span></h1>
-    </div>
-    <div class="pcascade">
-      <div class="pcf pcf-a" data-drift="-1.6">
-        <figure class="pcf-frame" data-reveal="image" style="--rd:0ms">
-          <img src="img/life/team-stairs.jpg" alt="The SISTAFUND team on a Paris staircase" class="on">
-          <img src="img/life/team-talk.jpg" alt="A SISTAFUND presentation closing on a thank-you slide" loading="lazy">
-          <img src="img/life/team-cafe.jpg" alt="A SISTAFUND evening in Paris" loading="lazy">
-        </figure>
-      </div>
-      <div class="pcf pcf-b" data-drift="3.2">
-        <figure class="pcf-frame" data-reveal="image" style="--rd:170ms">
-          <img src="img/life/team-vivatech.jpg" alt="On stage at VivaTechnology" class="on">
-        </figure>
-      </div>
-      <div class="pcf pcf-c" data-drift="5">
-        <figure class="pcf-frame" data-reveal="image" style="--rd:330ms">
-          <img src="img/life/team-podium.jpg" alt="Speaking on professional equality in Europe" class="on">
-        </figure>
-      </div>
       <div class="pcnav">
         <div class="pcdots"></div>
         <div class="pcarrows">
           <button class="pcarrow" data-step="-1" aria-label="Previous picture">&larr;</button>
           <button class="pcarrow" data-step="1" aria-label="Next picture">&rarr;</button>
         </div>
+      </div>
+      <!-- too wide to be cropped upright, so it keeps a frame of its own -->
+      <div class="pcf-wide" data-drift="2.2">
+        <figure class="pcf-frame" data-reveal="image" style="--rd:420ms">
+          <img src="img/life/team-vivatech.jpg" alt="On stage at VivaTechnology" class="on">
+        </figure>
+      </div>
+    </div>
+    <div class="pcascade">
+      <div class="pcq" data-drift="0">
+        <figure class="pcf-frame" data-reveal="image" style="--rd:0ms">
+          <img src="img/life/team-stairs.jpg" alt="The SISTAFUND team on a Paris staircase" class="on">
+        </figure>
+      </div>
+      <div class="pcq" data-drift="0">
+        <figure class="pcf-frame" data-reveal="image" style="--rd:170ms">
+          <img src="img/life/team-talk.jpg" alt="A SISTAFUND presentation closing on a thank-you slide" class="on">
+        </figure>
+      </div>
+      <div class="pcq" data-drift="0" data-mono>
+        <figure class="pcf-frame" data-reveal="image" style="--rd:330ms">
+          <img src="img/life/team-podium.jpg" alt="Speaking on professional equality in Europe" class="on">
+        </figure>
+      </div>
+      <div class="pcq" data-drift="0">
+        <figure class="pcf-frame" data-reveal="image">
+          <img src="img/life/team-cafe.jpg" alt="A SISTAFUND evening in Paris" class="on">
+        </figure>
       </div>
     </div>
   </header>
@@ -136,7 +145,7 @@
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 
 </script>
-<script src="reveal.js?v=6"></script>
+<script src="reveal.js?v=7"></script>
 
 </body>
 </html>
