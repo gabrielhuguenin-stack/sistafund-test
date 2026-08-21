@@ -1086,6 +1086,78 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .page-hero-sub--second { font-size: 1.15rem; opacity: .82; }
 .subpage-grid { max-width: 1400px; margin: 0 auto; padding: 0 6vw 15vh; }
 
+/* ============ Page opening: the title beside a cascade of photographs ============ */
+/* The dedicated pages no longer start on their gallery. One large frame holds the
+   room, two smaller ones step down past its shoulder and run off the right edge.
+   The text column stays on the same left edge as the grid further down. */
+.page-open {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 47vw);
+  gap: 3vw; align-items: start;
+  padding: 20vh 0 12vh max(6vw, calc((100vw - 1400px) / 2 + 6vw));
+}
+.page-open-text { padding-right: 2vw; }
+.page-open .page-hero-title { font-size: clamp(2.6rem, 6.8vw, 6.4rem); }
+
+/* the cast list under the title: it balances the pictures and jumps to a card */
+.open-index { margin-top: 5vh; border-top: 1px solid var(--line); max-width: 33rem; }
+.open-index a {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 2vw;
+  padding: 1.15em 0; border-bottom: 1px solid var(--line);
+  transition: padding-left .35s var(--ease), background .35s var(--ease);
+}
+.open-index a:hover { padding-left: .6em; background: var(--yellow); }
+.open-index b {
+  font-family: var(--display); text-transform: uppercase;
+  font-weight: 400; font-size: 1.02rem; letter-spacing: .02em;
+}
+.open-index span {
+  font-family: var(--serif); font-size: .92rem; color: var(--grey);
+  text-align: right; flex: 0 1 auto;
+}
+.open-index a:hover span { color: var(--ink); }
+.page-open .page-hero-sub {
+  font-family: var(--serif); font-size: clamp(1rem, 1.3vw, 1.24rem); line-height: 1.6;
+  margin-top: 3.6vh; max-width: 44ch;
+}
+.page-open .page-hero-sub--second { margin-top: 1.15em; font-size: inherit; opacity: .8; }
+
+.pcascade { position: relative; }
+.pcf { position: absolute; will-change: transform; }
+.pcf-a { position: relative; width: 62%; aspect-ratio: 4 / 5; }        /* sets the height */
+.pcf-b { left: 63.5%; top: 21%;  width: 35.5%; aspect-ratio: 3 / 2; }
+.pcf-c { left: 63.5%; top: 54%;  width: 27%;   aspect-ratio: 4 / 5; }
+.pcf-frame {
+  display: block; position: relative; overflow: hidden;
+  width: 100%; height: 100%;
+  border: 1.5px solid var(--ink); background: var(--yellow);
+}
+body.subpage-dark .pcf-frame { border-color: var(--paper); }
+.pcf-frame img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) contrast(1.06);
+  opacity: 0; transition: opacity 1.4s var(--ease), filter 1.2s var(--ease);
+}
+.pcf-frame img.on { opacity: 1; }
+/* framing: each picture keeps its own subject in the frame */
+.pcf-frame img[src*="team-cafe"]     { object-position: center 62%; }
+.pcf-frame img[src*="team-podium"]   { object-position: center 66%; }
+.pcf-frame img[src*="team-talk"]     { object-position: center 58%; }
+.pcf-frame img[src*="comm-fans"]     { object-position: center 40%; }
+.pcf-frame img[src*="comm-cocktail"] { object-position: center 32%; }
+.pcf-frame img[src*="comm-poilane"]  { object-position: center 42%; }
+.pcf-frame img[src*="comm-daylight"] { object-position: center 60%; }
+/* the large frame settles into colour; the two small ones keep it for the hover */
+.pcf-a .pcf-frame.shown img { filter: grayscale(0) contrast(1.02); transition-delay: 0s, .55s; }
+.pcf-b:hover .pcf-frame img, .pcf-c:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
+@media (max-width: 900px) {
+  .page-open { grid-template-columns: 1fr; gap: 7vh; padding: 16vh 6vw 9vh; }
+  .page-open-text { padding-right: 0; }
+  .pcf-a { width: 72%; }
+  .pcf-b { left: 73.5%; width: 26.5%; }
+  .pcf-c { left: 73.5%; width: 22%; top: 52%; }
+}
+
 /* News page: press mosaic of tiles */
 .news-mosaic {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

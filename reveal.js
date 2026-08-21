@@ -106,6 +106,48 @@
   run();
 })();
 
+/* Page opening cascade
+   The three frames leave the screen at their own pace, and a frame holding more
+   than one picture cycles slowly through them, out of step with its neighbours. */
+(function () {
+  const frames = [...document.querySelectorAll('[data-drift]')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (frames.length && !reduced) {
+    let ticking = false;
+    const run = () => {
+      const vh = innerHeight;
+      frames.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        const p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
+        el.style.transform = `translateY(${((p - 0.5) * +el.dataset.drift).toFixed(2)}vh)`;
+      });
+      ticking = false;
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    run();
+  }
+
+  document.querySelectorAll('.pcf-frame').forEach((frame, i) => {
+    const shots = [...frame.querySelectorAll('img')];
+    if (shots.length < 2 || reduced) return;
+    let k = 0;
+    const advance = () => {
+      // a hidden tab freezes the cross-fade, and an off-screen frame needs no work
+      if (document.hidden) return;
+      const r = frame.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      shots[k].classList.remove('on');
+      k = (k + 1) % shots.length;
+      shots[k].classList.add('on');
+    };
+    setTimeout(() => setInterval(advance, 6400), 3200 + i * 2100);
+  });
+})();
+
 /* Gentle parallax: images drift slower than their frame while in view */
 (function () {
   const items = [...document.querySelectorAll('[data-parallax] img')];
