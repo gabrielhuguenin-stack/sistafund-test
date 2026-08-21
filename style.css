@@ -1136,8 +1136,11 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .pcq[data-shape="wide"].is-b { top: 20.05%; height: 27.5%; }
 .pcq[data-shape="wide"].is-c,
 .pcq[data-shape="wide"].is-out { top: 71.05%; height: 20.6%; }
-/* the team photograph holds its own frame beside the title, cropped to a band */
-.pcf-wide { width: 74%; aspect-ratio: 3 / 2; margin-top: 5.5vh; }
+/* the team photograph holds its own frame beside the title, cropped to a band.
+   Its column is stretched to the height of the cascade and the frame takes what the
+   title leaves, so it lands on the same line as the lowest picture on the right. */
+.page-open--anchor .page-open-text { align-self: stretch; display: flex; flex-direction: column; }
+.pcf-wide { width: 100%; flex: 1 1 auto; min-height: 0; margin-top: 5vh; }
 .pcf-wide img { object-position: center 60%; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
@@ -1164,9 +1167,10 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
 .pcq.is-a .pcf-frame img,
 .pcq:hover .pcf-frame img    { filter: grayscale(0) contrast(1.02); }
-/* except those whose own colour breaks the palette: the wall of blue type, the magenta stage */
-.pcq[data-mono] .pcf-frame img,
-.pcq[data-mono]:hover .pcf-frame img { filter: grayscale(1) contrast(1.06); }
+/* two of them carry a colour the palette has no room for: a wall of blue type and a
+   magenta stage. They take their turn in colour like the others, held back a little. */
+.pcq[data-soft].is-a .pcf-frame img,
+.pcq[data-soft]:hover .pcf-frame img { filter: saturate(.6) contrast(1.03); }
 .pcf-wide .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 .pcf-wide:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
