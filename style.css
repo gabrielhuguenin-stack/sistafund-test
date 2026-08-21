@@ -606,16 +606,30 @@ main section[id] { scroll-margin-top: 60px; }
 .member-bio {
   position: absolute; inset: 0;
   background: rgba(16, 16, 16, .92); color: var(--paper);
-  padding: 7%; display: flex; flex-direction: column; justify-content: center; gap: .8em;
+  padding: 6%; display: flex; flex-direction: column; justify-content: center; gap: .75em;
   opacity: 0; transition: opacity .5s var(--ease);
-  font-family: var(--serif); font-size: clamp(.74rem, 1.05vw, .98rem); line-height: 1.58;
+  font-family: var(--serif); font-size: clamp(.74rem, 1.05vw, .98rem); line-height: 1.55;
+}
+/* the presentation is set against the width of its own portrait, not the window:
+   three to a row makes a narrower picture, and the text has to follow it down */
+@supports (container-type: inline-size) {
+  .team-gallery .member-photo { container-type: inline-size; }
+  .member-bio { font-size: clamp(.66rem, 3.15cqw, .95rem); }
 }
 .member:hover .member-bio, .member.open .member-bio { opacity: 1; }
 .member-fun {
   color: var(--yellow); font-family: var(--display); text-transform: uppercase;
-  font-size: .74rem; letter-spacing: .1em; line-height: 1.5;
-  border-top: 1px solid var(--line-light); padding-top: 1em; margin-top: .2em;
+  font-size: .72rem; letter-spacing: .08em; line-height: 1.45;
+  border-top: 1px solid var(--line-light); padding-top: .9em; margin-top: .1em;
 }
+.member-in {
+  align-self: flex-start;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .74rem; letter-spacing: .1em;
+  border-bottom: 1.5px solid rgba(250, 248, 240, .4); padding-bottom: 3px;
+  transition: color .3s var(--ease), border-color .3s var(--ease);
+}
+.member-in:hover { color: var(--yellow); border-color: var(--yellow); }
 .member h3 { font-size: 1.3rem; margin: 14px 0 2px; }
 .member-role { color: var(--grey); font-size: .9rem; }
 
@@ -1055,11 +1069,19 @@ main section[id] { scroll-margin-top: 60px; }
    presentation, which comes up over the picture as you arrive on it */
 .team-gallery { max-width: 1400px; margin: 0 auto; padding: 2vh 6vw 18vh; }
 .team-gallery-title { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.6rem); margin-bottom: 5vh; }
-.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(2, 1fr); gap: 2.6vw 2.4vw; }
+.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(3, 1fr); gap: 2.6vw 2.2vw; }
+/* taller than the default frame: three to a row leaves less width, and the
+   presentation still has to fit inside the picture */
+.team-gallery .member-photo { aspect-ratio: 4 / 5.5; }
 .team-gallery .member { cursor: pointer; }
-/* below this the two columns get too narrow for a presentation to fit its portrait */
-@media (max-width: 900px) {
+/* three to a row needs the width for it: below this, two */
+@media (max-width: 1300px) {
+  .team-gallery .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* below this a column is too narrow for a presentation to fit its portrait */
+@media (max-width: 760px) {
   .team-gallery .team-grid { grid-template-columns: 1fr; gap: 5vh; }
+  .team-gallery .member-photo { aspect-ratio: 4 / 4.7; }
 }
 /* this page has no in-view engine: portraits are shown, reveal.js animates them */
 .team-gallery .member { opacity: 1; transform: none; }
