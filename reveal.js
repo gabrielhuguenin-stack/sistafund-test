@@ -186,6 +186,55 @@
   });
 })();
 
+/* Sector marks at the pointer
+   Passing over an area of interest summons its own picto, which trails the cursor. */
+(function () {
+  const zones = [...document.querySelectorAll('[data-sec]')].filter(z => z.tagName !== 'IMG');
+  if (!zones.length) return;
+  if (matchMedia('(pointer: coarse)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const box = document.createElement('div');
+  box.className = 'sec-cursor';
+  box.setAttribute('aria-hidden', 'true');
+  const marks = {};
+  Object.entries({ health: 'health.png', frontier: 'frontier.png', sustain: 'sustain.png' })
+    .forEach(([key, file]) => {
+      const im = document.createElement('img');
+      im.src = 'img/sectors/' + file; im.alt = '';
+      box.appendChild(im); marks[key] = im;
+    });
+  document.body.appendChild(box);
+
+  let x = 0, y = 0, cx = 0, cy = 0, raf = null;
+  // offset down and to the right of the pointer: the mark accompanies the word
+  // rather than landing on top of it
+  const place = () => { box.style.transform = `translate3d(${cx.toFixed(1)}px, ${cy.toFixed(1)}px, 0) translate(6%, -20%)`; };
+  const loop = () => {
+    cx += (x - cx) * 0.16; cy += (y - cy) * 0.16;
+    place();
+    raf = (Math.abs(x - cx) > 0.4 || Math.abs(y - cy) > 0.4) ? requestAnimationFrame(loop) : null;
+  };
+
+  zones.forEach(z => {
+    const key = z.dataset.sec;
+    if (!marks[key]) return;
+    z.addEventListener('pointerenter', e => {
+      Object.values(marks).forEach(im => im.classList.remove('on'));
+      marks[key].classList.add('on');
+      box.classList.toggle('inv', z.hasAttribute('data-sec-inv'));
+      cx = x = e.clientX; cy = y = e.clientY;      // it arrives under the pointer, no flight in
+      place();
+      box.classList.add('on');
+    });
+    z.addEventListener('pointermove', e => {
+      x = e.clientX; y = e.clientY;
+      if (raf === null) raf = requestAnimationFrame(loop);
+    });
+    z.addEventListener('pointerleave', () => box.classList.remove('on'));
+  });
+})();
+
 /* Gentle parallax: images drift slower than their frame while in view */
 (function () {
   const items = [...document.querySelectorAll('[data-parallax] img')];

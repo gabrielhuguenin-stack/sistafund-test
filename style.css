@@ -881,7 +881,36 @@ main section[id] { scroll-margin-top: 60px; }
 .community-all { padding: 14vh 6vw 10vh; width: 100%; max-width: 1400px; align-self: flex-start; }
 
 /* overlay filters */
-.filters { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 6vh; }
+.filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 6vh; }
+/* the sector mark, sistafund.com's own picto, at the head of the filter row */
+.sec-badge {
+  position: relative; flex: 0 0 auto;
+  width: 66px; aspect-ratio: 810 / 820; margin-right: 10px;
+}
+.sec-badge img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  opacity: 0; transform: scale(.86) rotate(-8deg);
+  transition: opacity .45s var(--ease), transform .55s var(--ease);
+}
+.sec-badge img.on { opacity: 1; transform: none; }
+body.subpage-dark .sec-badge img { filter: invert(1); }
+
+/* the same marks, summoned at the pointer over the areas of interest */
+.sec-cursor {
+  position: fixed; top: 0; left: 0; z-index: 90;
+  width: clamp(92px, 10.5vw, 152px); aspect-ratio: 810 / 820;
+  pointer-events: none;
+  opacity: 0; scale: .84;
+  transition: opacity .35s var(--ease), scale .45s var(--ease);
+}
+.sec-cursor.on { opacity: 1; scale: 1; }
+.sec-cursor img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  opacity: 0; transition: opacity .25s var(--ease);
+}
+.sec-cursor img.on { opacity: 1; }
+/* the line turns black under the pointer, so the mark turns over with it */
+.sec-cursor.inv img, body.subpage-dark .sec-cursor img { filter: invert(1); }
 .filter {
   font-family: var(--display); text-transform: uppercase;
   font-size: .95rem; letter-spacing: .08em;
