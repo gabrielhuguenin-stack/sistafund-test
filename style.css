@@ -726,6 +726,54 @@ main section[id] { scroll-margin-top: 60px; }
 
 /* ============ News ============ */
 .news { padding: 12vh 4vw 18vh; }
+
+/* ---- press laid out like a magazine ---- */
+/* Two to a row, one wide and one narrow, and they change sides row after row. Both
+   cards in a row are the same height, so the wide one reads as a rectangle and the
+   narrow one as a column without either picture being cropped to a fixed ratio. */
+.news-mag { position: relative; margin-top: 6vh; }
+.news-mag-page {
+  position: absolute; inset: 0; display: grid; gap: 22px;
+  opacity: 0; pointer-events: none; transition: opacity .55s var(--ease);
+}
+.news-mag-page.on { position: relative; opacity: 1; pointer-events: auto; }
+.news-row { display: grid; grid-template-columns: 1fr .65fr; gap: 22px; height: clamp(300px, 44vh, 470px); }
+.news-row--invert { grid-template-columns: .65fr 1fr; }
+.nmc { display: flex; flex-direction: column; min-width: 0; }
+/* the picture is absolute inside its box: a percentage height would resolve against
+   an indefinite flex height and the card would grow to the picture's own size */
+.nmc-photo {
+  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  border: 1.5px solid var(--ink); background: var(--yellow);
+}
+.nmc-photo img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+  transform: scale(var(--sc, 1));
+  transition: transform .5s var(--ease), filter .5s var(--ease);
+}
+.nmc:hover .nmc-photo img { --sc: 1.04; filter: grayscale(0) contrast(1.02); }
+.nmc-meta {
+  display: flex; align-items: baseline; gap: 12px; margin: 14px 0 6px;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .72rem; letter-spacing: .12em; color: var(--grey);
+}
+.nmc-meta b { font-weight: normal; color: var(--ink); }
+.nmc-meta i { font-style: normal; }
+.nmc-title {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1rem, 1.5vw, 1.45rem); line-height: 1.02;
+  display: block;
+}
+.nmc:hover .nmc-title { color: var(--grey); }
+/* the pager sits under the block, in the same language as the picture controls */
+.news-nav { position: static; width: 100%; margin-top: 3.4vh; }
+@media (max-width: 860px) {
+  .news-row, .news-row--invert { grid-template-columns: 1fr; height: auto; gap: 5vh; }
+  .news-mag-page { gap: 5vh; }
+  .nmc-photo { aspect-ratio: 4 / 3; flex: 0 0 auto; }
+}
+
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .news-card { display: flex; flex-direction: column; opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .news-card.in-view { opacity: 1; transform: translateY(0); }
@@ -757,18 +805,19 @@ main section[id] { scroll-margin-top: 60px; }
   background: var(--yellow);
   min-height: 96vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 12vh 4vw calc(23vw + 4vh);
+  text-align: center; padding: 11vh 4vw calc(15vw + 4vh);
   overflow: hidden;
   border-top: 1.5px solid var(--ink);
 }
+/* the wordmark sits lower and smaller: it signs the page rather than filling it */
 .cta-brand {
-  position: absolute; left: 50%; bottom: -1.5vw;
+  position: absolute; left: 50%; bottom: -2.4vw;
   transform: translateX(-50%);
-  width: 97vw; line-height: 0;
+  width: 78vw; line-height: 0;
   pointer-events: none;
 }
 .cta-brand img { width: 100%; }
-.cta-title { position: relative; font-size: clamp(3rem, 9vw, 8.6rem); }
+.cta-title { position: relative; font-size: clamp(2.4rem, 6.1vw, 5.8rem); }
 .cta-title .line { display: block; overflow: hidden; }
 .cta-title .line > span {
   display: inline-block; transform: translateY(110%);
@@ -781,8 +830,8 @@ main section[id] { scroll-margin-top: 60px; }
   position: relative;
   display: inline-flex; align-items: center; gap: 16px;
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.2rem, 2.8vw, 2.2rem); letter-spacing: .02em;
-  margin-top: 7vh; padding: 20px 46px;
+  font-size: clamp(1rem, 1.9vw, 1.5rem); letter-spacing: .02em;
+  margin-top: 6vh; padding: 17px 38px;
   background: var(--ink); color: var(--yellow);
   border: 1.5px solid var(--ink);
   transition: background .3s, color .3s, box-shadow .3s, transform .3s;
@@ -889,6 +938,11 @@ main section[id] { scroll-margin-top: 60px; }
 
 /* overlay filters */
 .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 6vh; }
+/* the founders' wall closing the portfolio: for now the grid as sistafund.com has it,
+   on white so its own gutters disappear into the ground */
+.founders-wall { background: #fff; padding: 6vw 4vw; overflow: hidden; }
+.founders-wall img { display: block; width: 100%; max-width: 1394px; margin: 0 auto; }
+
 /* the sector mark, sistafund.com's own picto, at the head of the filter row */
 .sec-badge {
   position: relative; flex: 0 0 auto;
@@ -905,7 +959,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 /* the same marks, summoned at the pointer over the areas of interest */
 .sec-cursor {
   position: fixed; top: 0; left: 0; z-index: 90;
-  width: clamp(92px, 10.5vw, 152px); aspect-ratio: 810 / 820;
+  width: clamp(64px, 7vw, 102px); aspect-ratio: 810 / 820;
   pointer-events: none;
   opacity: 0; scale: .84;
   transition: opacity .35s var(--ease), scale .45s var(--ease);
@@ -1173,7 +1227,7 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .page-open .page-hero-title { font-size: clamp(2.6rem, 6.8vw, 6.4rem); }
 .page-open .page-hero-sub {
   font-family: var(--serif); font-size: clamp(1rem, 1.3vw, 1.24rem); line-height: 1.6;
-  margin-top: 3.6vh; max-width: 44ch;
+  margin-top: 3.6vh; max-width: none;   /* the column is the measure: no early breaks */
 }
 .page-open .page-hero-sub--second { margin-top: 1.15em; font-size: inherit; opacity: .8; }
 
@@ -1237,8 +1291,9 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
    magenta stage. They take their turn in colour like the others, held back a little. */
 .pcq[data-soft].is-a .pcf-frame img,
 .pcq[data-soft]:hover .pcf-frame img { filter: saturate(.6) contrast(1.03); }
-.pcf-wide .pcf-frame img { filter: grayscale(1) contrast(1.06); }
-.pcf-wide:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
+/* the fixed picture under the title carries its colour: it is the one that sets the
+   tone of the page, and in black and white it did not hold */
+.pcf-wide .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
 /* the picture control, under the large place and aligned with it */
 .pcnav {

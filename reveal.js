@@ -186,6 +186,72 @@
   });
 })();
 
+/* Press, laid out like a magazine
+   Rows of two, the wide one and the narrow one swapping sides row after row, so no
+   two cards next to each other are the same shape. Four to a page, and the arrows
+   turn the page. */
+(function () {
+  const host = document.querySelector('[data-news-mag]');
+  if (!host || !window.NEWS) return;
+
+  const PER_PAGE = 4;
+  const take = +host.dataset.newsMag || 12;
+  const items = window.NEWS.slice(0, take);
+  const shots = window.NEWS_IMG || [];
+  const pages = Math.ceil(items.length / PER_PAGE);
+
+  const card = (n, i) => {
+    const [date, source, title, url] = n;
+    const a = document.createElement('a');
+    a.className = 'nmc';
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = `<span class="nmc-photo"><img src="${shots[i] ? 'img/news/' + shots[i] : 'img/logo.svg'}" alt="" loading="lazy"></span>
+      <span class="nmc-meta"><b>${source}</b><i>${date}</i></span>
+      <span class="nmc-title">${title}</span>`;
+    return a;
+  };
+
+  for (let p = 0; p < pages; p++) {
+    const page = document.createElement('div');
+    page.className = 'news-mag-page' + (p === 0 ? ' on' : '');
+    for (let r = 0; r < PER_PAGE / 2; r++) {
+      const row = document.createElement('div');
+      row.className = 'news-row' + ((p * 2 + r) % 2 ? ' news-row--invert' : '');
+      for (let c = 0; c < 2; c++) {
+        const i = p * PER_PAGE + r * 2 + c;
+        if (items[i]) row.appendChild(card(items[i], i));
+      }
+      if (row.children.length) page.appendChild(row);
+    }
+    host.appendChild(page);
+  }
+
+  const nav = host.parentElement.querySelector('.news-nav');
+  const sheets = [...host.querySelectorAll('.news-mag-page')];
+  if (!nav || sheets.length < 2) { if (nav) nav.remove(); return; }
+
+  const dotRow = nav.querySelector('.pcdots');
+  const dots = [];
+  let k = 0;
+  const goTo = p => {
+    k = (p + sheets.length) % sheets.length;
+    sheets.forEach((s, i) => s.classList.toggle('on', i === k));
+    dots.forEach((d, i) => d.classList.toggle('on', i === k));
+  };
+  for (let p = 0; p < sheets.length; p++) {
+    const d = document.createElement('button');
+    d.type = 'button';
+    d.setAttribute('aria-label', 'Page ' + (p + 1));
+    if (p === 0) d.classList.add('on');
+    d.addEventListener('click', () => goTo(p));
+    dotRow.appendChild(d);
+    dots.push(d);
+  }
+  nav.querySelectorAll('.pcarrow').forEach(b => {
+    b.addEventListener('click', () => goTo(k + +b.dataset.step));
+  });
+})();
+
 /* Sector marks at the pointer
    Passing over an area of interest summons its own picto, which trails the cursor. */
 (function () {
