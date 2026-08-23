@@ -727,6 +727,40 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ News ============ */
 .news { padding: 12vh 4vw 18vh; }
 
+/* ---- the home's press: the same queue the dedicated pages open on ---- */
+.news-open {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 53vw);
+  gap: 3vw; align-items: center;
+}
+.news-open .sec-head { padding-bottom: 5vh; }
+.news-open .sec-head h2 { font-size: clamp(2.1rem, 4.4vw, 4.2rem); }
+/* every press picture is landscape, so the block is shallower and each place with it */
+.news-open .pcascade { aspect-ratio: 1000 / 413; }
+.news-lead { max-width: 34ch; }
+.news-lead-meta {
+  display: flex; align-items: baseline; gap: 12px;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .74rem; letter-spacing: .12em; color: var(--grey);
+}
+.news-lead-meta b { font-weight: normal; color: var(--ink); }
+.news-lead-meta i { font-style: normal; }
+.news-lead-title {
+  display: block; margin-top: 14px;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.1rem, 1.9vw, 1.85rem); line-height: 1.02;
+  border-bottom: 1.5px solid transparent; padding-bottom: 3px;
+  transition: border-color .35s var(--ease);
+}
+.news-lead-title:hover { border-color: var(--ink); }
+/* the headline turns over with the picture */
+.news-lead.turning .news-lead-meta, .news-lead.turning .news-lead-title { animation: leadIn .7s var(--ease) both; }
+.news-lead.turning .news-lead-title { animation-delay: .06s; }
+@keyframes leadIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (max-width: 900px) {
+  .news-open { grid-template-columns: 1fr; gap: 6vh; }
+  .news-lead { max-width: none; }
+}
+
 /* ---- press, paged by the arrows ---- */
 /* Cards of one size: the pictures come in every proportion, so a layout that varies
    the frames fits none of them. The arrows do the work instead. */
@@ -1188,7 +1222,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 /* portraits visible by default on the dedicated page (no scroll-reveal gate) */
 .team-page-grid .member { opacity: 1; transform: none; }
 .team-page-grid .member-photo { clip-path: inset(0 0 0 0); }
-.news-all-cta { margin-top: 8vh; }
+.news-all-cta { margin-top: 6vh; }
 .news-page-grid { max-width: 1260px; margin: 0 auto; padding: 0 4vw 16vh; }
 .news-page-grid .news-grid { grid-template-columns: repeat(3, 1fr); }
 

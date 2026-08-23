@@ -106,6 +106,25 @@
   run();
 })();
 
+/* The home page's press runs on the same queue as the dedicated pages open on:
+   the pictures travel up through the places, and the headline follows the one
+   standing in the large frame. */
+(function () {
+  const host = document.querySelector('[data-news-cascade]');
+  if (!host || !window.NEWS) return;
+  const shots = window.NEWS_IMG || [];
+  window.NEWS.slice(0, +host.dataset.newsCascade || 6).forEach(([date, source, title, url], i) => {
+    const q = document.createElement('div');
+    q.className = 'pcq';
+    q.dataset.drift = '0';
+    Object.assign(q.dataset, { date, source, title, url });
+    q.innerHTML = `<figure class="pcf-frame" data-reveal="image" style="--rd:${i * 160}ms">
+      <img src="${shots[i] ? 'img/news/' + shots[i] : 'img/logo.svg'}" alt="" class="on"${i > 2 ? ' loading="lazy"' : ''}>
+    </figure>`;
+    host.appendChild(q);
+  });
+})();
+
 /* Page opening cascade
    The frames leave the screen at their own pace, and the pictures form a queue:
    each step promotes every one of them a place up in size, so a small picture
@@ -144,6 +163,7 @@
     const DRIFT = ['-1.6', '3.2', '5'];
     const dots = [];
     const dotRow = nav.querySelector('.pcdots');
+    const lead = open.querySelector('[data-cascade-lead]');
     let k = 0, timer = null;
 
     const goTo = step => {
@@ -155,6 +175,18 @@
         el.dataset.drift = DRIFT[place] || '0';
       });
       dots.forEach((d, i) => d.classList.toggle('on', i === k));
+      // the headline belongs to whichever picture now stands in the large frame
+      if (lead && queue[k].dataset.title) {
+        const d = queue[k].dataset;
+        lead.querySelector('b').textContent = d.source;
+        lead.querySelector('i').textContent = d.date;
+        const a = lead.querySelector('a');
+        a.textContent = d.title;
+        a.href = d.url;
+        lead.classList.remove('turning');
+        void lead.offsetWidth;
+        lead.classList.add('turning');
+      }
     };
 
     for (let i = 0; i < steps; i++) {

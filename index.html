@@ -6,7 +6,7 @@
 <title>SISTAFUND | Investing in the next generation of European tech leaders</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=85">
+<link rel="stylesheet" href="style.css?v=87">
 </head>
 <body>
 
@@ -196,20 +196,29 @@
   </section>
   </div>
 
-  <!-- ======== NEWS ======== -->
+  <!-- ======== NEWS (same cascade as the dedicated pages open on) ======== -->
   <section class="news" id="news">
-    <div class="sec-head">
-      <h2>Latest from us<br>and our companies</h2>
-    </div>
-    <div class="news-mag" data-news-mag="12" data-news-per="3"></div>
-    <div class="pcnav news-nav">
-      <div class="pcdots"></div>
-      <div class="pcarrows">
-        <button class="pcarrow" data-step="-1" aria-label="Previous page">&larr;</button>
-        <button class="pcarrow" data-step="1" aria-label="Next page">&rarr;</button>
+    <div class="news-open">
+      <div class="news-open-text">
+        <div class="sec-head">
+          <h2>Latest from us<br>and our companies</h2>
+        </div>
+        <!-- the headline of whichever picture stands in the large frame -->
+        <div class="news-lead" data-cascade-lead>
+          <span class="news-lead-meta"><b></b><i></i></span>
+          <a class="news-lead-title" href="#" target="_blank" rel="noopener"></a>
+        </div>
+        <div class="pcnav news-nav">
+          <div class="pcdots"></div>
+          <div class="pcarrows">
+            <button class="pcarrow" data-step="-1" aria-label="Previous story">&larr;</button>
+            <button class="pcarrow" data-step="1" aria-label="Next story">&rarr;</button>
+          </div>
+        </div>
       </div>
+      <div class="pcascade" data-news-cascade="6"></div>
     </div>
-    <div class="news-all-cta"><a href="news.html" class="btn btn-big">View all news <span class="btn-arrow">→</span></a></div>
+    <div class="news-all-cta"><a href="news.html" class="btn btn-big">View all news <span class="btn-arrow">&rarr;</span></a></div>
   </section>
 
   <!-- ======== FAQ (questions and answers verbatim from sistafund.com) ======== -->
@@ -228,9 +237,8 @@
   <!-- ======== CTA (yellow) ======== -->
   <section class="cta" id="contact">
     <h2 class="cta-title">
-      <span class="line"><span>Building something</span></span>
-      <span class="line"><span>that challenges</span></span>
-      <span class="line"><span>the present?</span></span>
+      <span class="line"><span>Building something that</span></span>
+      <span class="line"><span>challenges the present?</span></span>
     </h2>
     <a href="mailto:contact@sistafund.com" class="cta-btn">contact@sistafund.com <span>→</span></a>
     <div class="cta-brand" aria-hidden="true"><img src="img/logo.svg" alt=""></div>
@@ -275,6 +283,6 @@
 
 <script src="data.js?v=7"></script>
 <script src="script.js?v=33"></script>
-<script src="reveal.js?v=12"></script>
+<script src="reveal.js?v=13"></script>
 </body>
 </html>
