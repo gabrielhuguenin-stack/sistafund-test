@@ -186,15 +186,13 @@
   });
 })();
 
-/* Press, laid out like a magazine
-   Rows of two, the wide one and the narrow one swapping sides row after row, so no
-   two cards next to each other are the same shape. Four to a page, and the arrows
-   turn the page. */
+/* Press, paged by the arrows
+   Cards of one size, three to a row, and the arrows turn the page. */
 (function () {
   const host = document.querySelector('[data-news-mag]');
   if (!host || !window.NEWS) return;
 
-  const PER_PAGE = 4;
+  const PER_PAGE = +host.dataset.newsPer || 3;
   const take = +host.dataset.newsMag || 12;
   const items = window.NEWS.slice(0, take);
   const shots = window.NEWS_IMG || [];
@@ -214,12 +212,12 @@
   for (let p = 0; p < pages; p++) {
     const page = document.createElement('div');
     page.className = 'news-mag-page' + (p === 0 ? ' on' : '');
-    for (let r = 0; r < PER_PAGE / 2; r++) {
+    for (let r = 0; r < Math.ceil(PER_PAGE / 3); r++) {
       const row = document.createElement('div');
-      row.className = 'news-row' + ((p * 2 + r) % 2 ? ' news-row--invert' : '');
-      for (let c = 0; c < 2; c++) {
-        const i = p * PER_PAGE + r * 2 + c;
-        if (items[i]) row.appendChild(card(items[i], i));
+      row.className = 'news-row';
+      for (let c = 0; c < 3; c++) {
+        const i = p * PER_PAGE + r * 3 + c;
+        if (i < p * PER_PAGE + PER_PAGE && items[i]) row.appendChild(card(items[i], i));
       }
       if (row.children.length) page.appendChild(row);
     }

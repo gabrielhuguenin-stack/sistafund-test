@@ -727,23 +727,19 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ News ============ */
 .news { padding: 12vh 4vw 18vh; }
 
-/* ---- press laid out like a magazine ---- */
-/* Two to a row, one wide and one narrow, and they change sides row after row. Both
-   cards in a row are the same height, so the wide one reads as a rectangle and the
-   narrow one as a column without either picture being cropped to a fixed ratio. */
+/* ---- press, paged by the arrows ---- */
+/* Cards of one size: the pictures come in every proportion, so a layout that varies
+   the frames fits none of them. The arrows do the work instead. */
 .news-mag { position: relative; margin-top: 6vh; }
 .news-mag-page {
-  position: absolute; inset: 0; display: grid; gap: 22px;
+  position: absolute; inset: 0; display: grid; gap: 26px;
   opacity: 0; pointer-events: none; transition: opacity .55s var(--ease);
 }
 .news-mag-page.on { position: relative; opacity: 1; pointer-events: auto; }
-.news-row { display: grid; grid-template-columns: 1fr .65fr; gap: 22px; height: clamp(300px, 44vh, 470px); }
-.news-row--invert { grid-template-columns: .65fr 1fr; }
+.news-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: start; }
 .nmc { display: flex; flex-direction: column; min-width: 0; }
-/* the picture is absolute inside its box: a percentage height would resolve against
-   an indefinite flex height and the card would grow to the picture's own size */
 .nmc-photo {
-  position: relative; flex: 1; min-height: 0; overflow: hidden;
+  position: relative; aspect-ratio: 4 / 3; flex: 0 0 auto; overflow: hidden;
   border: 1.5px solid var(--ink); background: var(--yellow);
 }
 .nmc-photo img {
@@ -767,11 +763,14 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .nmc:hover .nmc-title { color: var(--grey); }
 /* the pager sits under the block, in the same language as the picture controls */
-.news-nav { position: static; width: 100%; margin-top: 3.4vh; }
-@media (max-width: 860px) {
-  .news-row, .news-row--invert { grid-template-columns: 1fr; height: auto; gap: 5vh; }
+/* needs to out-specify .pcnav, which is declared further down and absolute */
+.pcnav.news-nav { position: static; width: 100%; margin-top: 3.8vh; }
+@media (max-width: 980px) {
+  .news-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 620px) {
+  .news-row { grid-template-columns: 1fr; gap: 5vh; }
   .news-mag-page { gap: 5vh; }
-  .nmc-photo { aspect-ratio: 4 / 3; flex: 0 0 auto; }
 }
 
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
@@ -805,15 +804,14 @@ main section[id] { scroll-margin-top: 60px; }
   background: var(--yellow);
   min-height: 96vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 11vh 4vw calc(15vw + 4vh);
+  text-align: center; padding: 11vh 4vw calc(23vw + 4vh);
   overflow: hidden;
   border-top: 1.5px solid var(--ink);
 }
-/* the wordmark sits lower and smaller: it signs the page rather than filling it */
 .cta-brand {
-  position: absolute; left: 50%; bottom: -2.4vw;
+  position: absolute; left: 50%; bottom: -1.5vw;
   transform: translateX(-50%);
-  width: 78vw; line-height: 0;
+  width: 97vw; line-height: 0;
   pointer-events: none;
 }
 .cta-brand img { width: 100%; }
@@ -1431,11 +1429,6 @@ html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
   100% { transform: translate3d(0, 0, 0) rotate(-10deg); }
 }
 .faq { position: relative; }
-.lemon-accent--faq {
-  width: clamp(110px, 13vw, 210px);
-  right: 6vw; top: 4vh;
-}
-.lemon-accent--faq img { animation: lemonFloatB 13s ease-in-out infinite; }
 @keyframes lemonFloatB {
   0%   { transform: translate3d(0, 0, 0) rotate(14deg); }
   40%  { transform: translate3d(1.4%, -2.6%, 0) rotate(17deg); }
