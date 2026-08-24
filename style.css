@@ -710,7 +710,7 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .news-open { grid-template-columns: minmax(0, 1fr) minmax(0, 66vw); }
 /* every press picture is landscape, so the block is shallower and each place with it */
-.news-open .pcascade { aspect-ratio: 1000 / 413; }
+.news-open .pcascade { aspect-ratio: 1000 / 373; }
 .news-lead { max-width: 30ch; }
 .news-lead-meta {
   display: flex; align-items: baseline; gap: 12px;
@@ -1233,22 +1233,28 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    one travels into the large frame while the one leaving shrinks back down to the
    entry place. Positions are in % of the block, so the travel is a plain
    transition on left / top / width. */
-.pcascade { position: relative; aspect-ratio: 1000 / 775; }
-.pcq {
-  position: absolute;
-  transition: left .95s var(--ease), top .95s var(--ease), width .95s var(--ease),
-              height .95s var(--ease), opacity .75s var(--ease);
+.pcascade { position: relative; aspect-ratio: 1000 / 700; }
+/* The pictures rest their lower edge on one hairline, biggest first, and advance along
+   it from right to left: the picture at the head of the queue leaves and walks to the
+   back of the line. Bottom-anchored, so a change of shape never unbalances the row and
+   the heights simply follow the widths. */
+/* the hairline runs out from under the row on both sides, so it reads as a line the
+   prints stand on rather than the frames' own bottom edges */
+.pcascade::after {
+  content: ''; position: absolute; left: -26%; right: 0; bottom: 0;
+  border-bottom: 1.5px solid var(--ink);
 }
-/* heights are given in % of the block, so a place can hold an upright picture or a
-   wide one and morph between the two; each place keeps its own vertical centre */
-.pcq.is-a   { left: 0;     top: 0;   width: 62%; height: 100%;  opacity: 1; z-index: 3; }
-.pcq.is-b   { left: 63.5%; top: 8%;  width: 32%; height: 51.6%; opacity: 1; z-index: 2; }
-.pcq.is-c   { left: 63.5%; top: 62%; width: 24%; height: 38.7%; opacity: 1; z-index: 2; }
-.pcq.is-out { left: 63.5%; top: 62%; width: 24%; height: 38.7%; opacity: 0; z-index: 1; }
-.pcq[data-shape="wide"].is-a { top: 23.35%; height: 53.3%; }
-.pcq[data-shape="wide"].is-b { top: 20.05%; height: 27.5%; }
-.pcq[data-shape="wide"].is-c,
-.pcq[data-shape="wide"].is-out { top: 71.05%; height: 20.6%; }
+body.subpage-dark .pcascade::after { border-color: var(--paper); }
+.pcq {
+  position: absolute; bottom: 0; aspect-ratio: 4 / 5;
+  transition: left .95s var(--ease), width .95s var(--ease), opacity .8s var(--ease);
+}
+.pcq[data-shape="wide"] { aspect-ratio: 3 / 2; }
+.pcq.is-a   { left: 0;    width: 56%; opacity: 1; z-index: 3; }
+.pcq.is-b   { left: 58%;  width: 19%; opacity: 1; z-index: 2; }
+.pcq.is-c   { left: 79%;  width: 19%; opacity: 1; z-index: 2; }
+.pcq.is-out { left: 101%; width: 19%; opacity: 0; z-index: 0; }
+
 /* the team photograph holds its own frame beside the title, cropped to a band.
    Its column is stretched to the height of the cascade and the frame takes what the
    title leaves, so it lands on the same line as the lowest picture on the right. */
@@ -1294,7 +1300,7 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 
 /* the picture control, under the large place and aligned with it */
 .pcnav {
-  position: absolute; top: 100%; left: 0; width: 62%;
+  position: absolute; top: 100%; left: 0; width: 56%;
   margin-top: 2.6vh;
   display: flex; align-items: center; justify-content: space-between; gap: 2vw;
 }
@@ -1322,15 +1328,11 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
   .page-open-text { padding-right: 0; }
   .pcf-wide { width: 100%; }
   .pcnav { width: 72%; }
-  /* the large place is wider here, so the block is squarer and every height follows */
-  .pcascade { aspect-ratio: 1000 / 900; }
-  .pcq.is-a { width: 72%; height: 100%; }
-  .pcq.is-b { left: 73.5%; width: 26.5%; height: 36.8%; }
-  .pcq.is-c, .pcq.is-out { left: 73.5%; top: 58%; width: 22%; height: 30.6%; }
-  .pcq[data-shape="wide"].is-a { top: 23.35%; height: 53.3%; }
-  .pcq[data-shape="wide"].is-b { top: 16.6%; height: 19.6%; }
-  .pcq[data-shape="wide"].is-c,
-  .pcq[data-shape="wide"].is-out { top: 65.15%; height: 16.3%; }
+  .pcascade { aspect-ratio: 1000 / 800; }
+  .pcq.is-a { width: 64%; }
+  .pcq.is-b { left: 66%; width: 16%; }
+  .pcq.is-c { left: 84%; width: 16%; }
+  .pcq.is-out { left: 102%; width: 16%; }
 }
 
 /* News page: press mosaic of tiles */
