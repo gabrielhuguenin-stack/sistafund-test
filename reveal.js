@@ -106,6 +106,23 @@
   run();
 })();
 
+/* The home's team runs on the same queue: the portraits travel up through the places
+   and the name follows whoever reaches the large frame. */
+(function () {
+  const host = document.querySelector('[data-team-cascade]');
+  if (!host || !window.TEAM) return;
+  window.TEAM.forEach(([name, role, file], i) => {
+    const q = document.createElement('div');
+    q.className = 'pcq';
+    q.dataset.drift = '0';
+    Object.assign(q.dataset, { title: name, source: role, date: '', url: 'team.html' });
+    q.innerHTML = `<figure class="pcf-frame" data-reveal="image" style="--rd:${i * 160}ms">
+      <img src="img/team/${file}" alt="${name}" class="on"${i > 2 ? ' loading="lazy"' : ''}>
+    </figure>`;
+    host.appendChild(q);
+  });
+})();
+
 /* The home page's press runs on the same queue as the dedicated pages open on:
    the pictures travel up through the places, and the headline follows the one
    standing in the large frame. */

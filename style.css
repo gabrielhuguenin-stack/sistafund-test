@@ -536,46 +536,13 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ Team ============ */
 .team { padding: 20vh 4vw 18vh; }
 
-/* home: Index-style intro — text + link left, auto-advancing portrait carousel right */
-/* full-bleed like every other section, rather than a centred island */
-.team-intro {
-  display: grid; grid-template-columns: 1.05fr 1fr; gap: 6vw;
-  align-items: center;
-}
-.team-intro-text .sec-head { padding-bottom: 3vh; }
+/* home: the text names whoever stands in the large frame, the queue is on the right */
+.team .sec-head { padding-bottom: 5vh; }
 .team-intro-sub {
-  font-family: var(--serif); font-size: 1.22rem; line-height: 1.5;
-  color: var(--ink); max-width: 52ch; margin: 0 0 5vh;   /* holds two lines */
+  font-family: var(--serif); font-size: clamp(1rem, 1.3vw, 1.22rem); line-height: 1.5;
+  color: var(--ink); max-width: 30ch; margin: 0 0 3.4vh;
 }
-.team-intro-btn { margin: 0; }
-/* prints scattered on a table, on the right: the scroll fans them out of a pile */
-.team-scatter { position: relative; aspect-ratio: 4 / 4.1; }
-.ts-print {
-  position: absolute; margin: 0;
-  background: var(--paper); border: 1.5px solid var(--ink);
-  padding: 7px 7px 40px;
-  box-shadow: 0 16px 30px rgba(16, 16, 16, .14);
-  opacity: 0; will-change: transform, opacity;
-}
-.ts-print img {
-  width: 100%; aspect-ratio: 1 / 1.06; object-fit: cover; object-position: center 14%;
-  filter: grayscale(1) contrast(1.05);
-  transition: filter .5s var(--ease);
-}
-/* set to the right: prints are always overlapped on their left edge, never here */
-.ts-print figcaption {
-  position: absolute; left: 10px; right: 10px; bottom: 6px;
-  display: flex; flex-direction: column; gap: 1px; text-align: right;
-}
-.ts-print figcaption b {
-  font-family: var(--display); font-weight: normal; text-transform: uppercase;
-  font-size: .7rem; letter-spacing: .07em; line-height: 1.1;
-}
-.ts-print figcaption span {
-  font-family: var(--serif); font-size: .62rem; color: var(--grey); line-height: 1.15;
-}
-.ts-print:hover { z-index: 40 !important; }
-.ts-print:hover img { filter: grayscale(0) contrast(1.02); }
+.team-intro-btn { margin: 4vh 0 0; }
 
 /* dedicated team.html: classic grid, modest cards */
 .team-grid {
@@ -727,12 +694,13 @@ main section[id] { scroll-margin-top: 60px; }
 .news { padding: 12vh 4vw 18vh; }
 
 /* ---- the home's press: the same queue the dedicated pages open on ---- */
-/* the heading keeps the full width above; underneath, the headline takes only the
-   room it needs so the pictures can have the rest */
-.news-open {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 66vw);
+/* the heading keeps the full width above; underneath, the naming column takes only the
+   room it needs so the pictures can have the rest. One shell for both queues. */
+.cascade-open {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 52vw);
   gap: 3vw; align-items: center;
 }
+.news-open { grid-template-columns: minmax(0, 1fr) minmax(0, 66vw); }
 /* every press picture is landscape, so the block is shallower and each place with it */
 .news-open .pcascade { aspect-ratio: 1000 / 413; }
 .news-lead { max-width: 30ch; }
@@ -756,8 +724,8 @@ main section[id] { scroll-margin-top: 60px; }
 .news-lead.turning .news-lead-title { animation-delay: .06s; }
 @keyframes leadIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @media (max-width: 900px) {
-  .news-open { grid-template-columns: 1fr; gap: 6vh; }
-  .news-lead { max-width: none; }
+  .cascade-open, .news-open { grid-template-columns: 1fr; gap: 6vh; }
+  .news-lead, .team-intro-sub { max-width: none; }
 }
 
 /* ---- press cards, three to a row ---- */

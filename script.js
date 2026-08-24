@@ -60,32 +60,6 @@ if (faqToggle && faqMore) {
   });
 }
 
-// ---------- Team scatter: prints fan out of a pile onto the table as you scroll ----------
-const teamScatter = document.getElementById('teamScatter');
-const scatterPrints = teamScatter ? [...teamScatter.querySelectorAll('.ts-print')] : [];
-// Resting place of each print on the table: left/top in %, rotation, width, layer.
-// Reading order is carried by the layering and a slight size taper — Tatiana sits
-// on top and largest, Gabriel underneath — while their spots on the table stay put.
-// Rows are spaced so prints only ever overlap on their blank top margin —
-// never on a face — while the layering keeps the reading order.
-// Two rows of three: the whole crew reads at a glance, prints biting into each
-// other sideways where there are no faces.
-const SCATTER = [
-  // within a row each print sits a little lower than the one before, so its
-  // caption falls clear of the neighbour that overlaps it
-  { x:  0, y:  6, r: -6, w: 38, z: 10 },   // Tatiana
-  { x: 31, y: 12, r:  4, w: 38, z:  9 },   // Marie
-  { x: 62, y: 18, r: -3, w: 38, z:  8 },   // Natacha
-  { x:  2, y: 52, r:  5, w: 38, z:  7 },   // Arthur
-  { x: 32, y: 58, r: -4, w: 38, z:  6 },   // Timothée
-  { x: 62, y: 64, r:  3, w: 38, z:  5 },   // Gabriel
-];
-scatterPrints.forEach((p, i) => {
-  const t = SCATTER[i];
-  p.style.left = t.x + '%'; p.style.top = t.y + '%';
-  p.style.width = t.w + '%'; p.style.zIndex = t.z;
-});
-
 // ---------- In-view observer (reveals, hl marker, CTA lines) ----------
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => {
@@ -193,7 +167,7 @@ document.querySelectorAll('.sec-head h2').forEach(h2 => {
 });
 
 const watched = [];
-document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center, .team-intro-text')
+document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center')
   .forEach(el => { io.observe(el); watched.push(el); });
 // the fund band: each term arrives just after the one to its left
 document.querySelectorAll('.stat-item').forEach((el, i) => {
@@ -338,70 +312,6 @@ function onScroll() {
         `translate3d(${(-p * 4).toFixed(2)}vw, ${(-p * 18).toFixed(2)}vh, 0) rotate(${(-6 + p * 16).toFixed(1)}deg)`;
     }
   }
-
-  // team prints: dealt out of a single pile one by one, then left drifting gently
-  if (teamScatter && scatterPrints.length) {
-    const r = teamScatter.getBoundingClientRect();
-    if (r.bottom > -120 && r.top < vh + 120) {
-      const p = clamp((vh - r.top) / (vh * 0.95), 0, 1);
-      const ease = t => t * t * (3 - 2 * t);
-      scatterPrints.forEach((el, i) => {
-        const tg = SCATTER[i];
-        const t = ease(clamp(p * 1.75 - i * 0.1, 0, 1));       // dealt in order
-        // travel from the middle of the pile to its place on the table
-        const dx = r.width * ((26 - tg.x) / 100) * (1 - t);
-        const dy = r.height * ((26 - tg.y) / 100) * (1 - t);
-        // once settled, each print keeps breathing at its own pace
-        const drift = (p - 0.5) * (i % 2 ? -9 : 7) * t;
-        const rot = tg.r * t + (1 - t) * (i % 2 ? 9 : -9);      // untwists as it lands
-        el.style.transform =
-          `translate(${dx.toFixed(1)}px, ${(dy + drift).toFixed(1)}px) rotate(${rot.toFixed(2)}deg) scale(${(0.86 + 0.14 * t).toFixed(3)})`;
-        el.style.opacity = Math.min(1, t * 2.4);
-      });
-    }
-  }
-
-
-
-  // the group photo opens from a small frame to the full screen, then the
-  // statement fades up over it — the sequence is entirely scroll-driven
-  if (growPin && growFrame) {
-    const r = growPin.getBoundingClientRect();
-    const total = growPin.offsetHeight - vh;
-    const p = clamp(-r.top / total, 0, 1);
-    const ease = t => t * t * (3 - 2 * t);
-
-    const open = ease(clamp(p / 0.52, 0, 1));                 // frame opens
-    const iv = (1 - open) * 30, ih = (1 - open) * 27;
-    growFrame.style.clipPath = `inset(${iv.toFixed(2)}% ${ih.toFixed(2)}%)`;
-    growImg.style.transform = `scale(${(1.18 - open * 0.18).toFixed(3)})`;
-
-    const t = ease(clamp((p - 0.5) / 0.26, 0, 1));            // then it dims and speaks
-    growDim.style.opacity = (t * 0.66).toFixed(3);
-    growCopy.style.opacity = t.toFixed(3);
-    growCopy.style.transform = `translateY(${((1 - t) * 3).toFixed(2)}vh)`;
-    growCopy.classList.toggle('on', t > 0.6);
-  }
-
-  // scattered lemons drift a touch out of step with the page
-  lemonAccents.forEach(a => {
-    const r = a.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > vh) return;
-    const p = (vh - r.top) / (vh + r.height);
-    a.style.transform = `translateY(${((p - 0.5) * +a.dataset.lspeed).toFixed(2)}vh)`;
-  });
-
-  // portfolio crossing rows
-  pfRows.forEach((row, i) => {
-    const r = row.getBoundingClientRect();
-    if (r.bottom < -100 || r.top > vh + 100) return;
-    const track = row.querySelector('.pf-track');
-    // only a share of the overflow is travelled: the same crossing, far calmer
-    const overflow = Math.max(track.scrollWidth - row.clientWidth, 0) * PF_TRAVEL;
-    const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-    const x = i % 2 === 0 ? -overflow * p : -overflow * (1 - p);
-    track.style.transform = `translateX(${x}px)`;
-  });
 
   // photos: image drifts slower than its frame (internal parallax), staying within the overflow
   parPhotos.forEach(img => {

@@ -6,7 +6,7 @@
 <title>SISTAFUND | Investing in the next generation of European tech leaders</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=91">
+<link rel="stylesheet" href="style.css?v=92">
 </head>
 <body>
 
@@ -160,23 +160,29 @@
   </div>
 
   <!-- ======== TEAM (Index-style: text + auto-advancing portrait carousel → team.html) ======== -->
+  <!-- ======== TEAM (the same queue as the news and the dedicated pages) ======== -->
   <section class="team" id="team">
-    <div class="team-intro">
-      <div class="team-intro-text">
-        <div class="sec-head">
-          <h2>The <span class="yw">people</span> behind<br>the conviction</h2>
-        </div>
+    <div class="sec-head">
+      <h2>The <span class="yw">people</span> behind<br>the conviction</h2>
+    </div>
+    <div class="cascade-open">
+      <div class="news-open-text">
         <p class="team-intro-sub">Entrepreneurs, operators and investors, building alongside the founders we back from day one.</p>
-        <a href="team.html" class="btn btn-big team-intro-btn">Meet the team <span class="btn-arrow">→</span></a>
+        <!-- whoever stands in the large frame is named here -->
+        <div class="news-lead" data-cascade-lead>
+          <span class="news-lead-meta"><b></b><i></i></span>
+          <a class="news-lead-title" href="team.html"></a>
+        </div>
+        <div class="pcnav news-nav">
+          <div class="pcdots"></div>
+          <div class="pcarrows">
+            <button class="pcarrow" data-step="-1" aria-label="Previous portrait">&larr;</button>
+            <button class="pcarrow" data-step="1" aria-label="Next portrait">&rarr;</button>
+          </div>
+        </div>
+        <a href="team.html" class="btn btn-big team-intro-btn">Meet the team <span class="btn-arrow">&rarr;</span></a>
       </div>
-      <div class="team-scatter" id="teamScatter" role="group" aria-label="The SISTAFUND team">
-        <figure class="ts-print"><img src="img/team/tatiana.jpg" alt="Tatiana Jama"><figcaption><b>Tatiana Jama</b><span>Founder &amp; General Manager</span></figcaption></figure>
-        <figure class="ts-print"><img src="img/team/marie.jpg" alt="Marie Geneste"><figcaption><b>Marie Geneste</b><span>Partner</span></figcaption></figure>
-        <figure class="ts-print"><img src="img/team/natacha.jpg" alt="Natacha Brami"><figcaption><b>Natacha Brami</b><span>Principal</span></figcaption></figure>
-        <figure class="ts-print"><img src="img/team/arthur.png" alt="Arthur Hay"><figcaption><b>Arthur Hay</b><span>Chief Financial Officer</span></figcaption></figure>
-        <figure class="ts-print"><img src="img/team/timothee.png" alt="Timothée Ricour-Dumas"><figcaption><b>Timothée Ricour-Dumas</b><span>Analyst</span></figcaption></figure>
-        <figure class="ts-print"><img src="img/team/gabriel.png" alt="Gabriel Huguenin"><figcaption><b>Gabriel Huguenin</b><span>Analyst</span></figcaption></figure>
-      </div>
+      <div class="pcascade" data-team-cascade></div>
     </div>
   </section>
 
@@ -200,7 +206,7 @@
     <div class="sec-head">
       <h2>Latest from us<br>and our companies</h2>
     </div>
-    <div class="news-open">
+    <div class="cascade-open news-open">
       <div class="news-open-text">
         <!-- the headline of whichever picture stands in the large frame -->
         <div class="news-lead" data-cascade-lead>
@@ -283,7 +289,7 @@
 </div>
 
 <script src="data.js?v=7"></script>
-<script src="script.js?v=34"></script>
-<script src="reveal.js?v=14"></script>
+<script src="script.js?v=35"></script>
+<script src="reveal.js?v=15"></script>
 </body>
 </html>
