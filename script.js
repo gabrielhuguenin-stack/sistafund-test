@@ -337,8 +337,6 @@ function onScroll() {
       heroLemon.style.transform =
         `translate3d(${(-p * 4).toFixed(2)}vw, ${(-p * 18).toFixed(2)}vh, 0) rotate(${(-6 + p * 16).toFixed(1)}deg)`;
     }
-    const pct = document.getElementById('heroPct');
-    if (pct) pct.textContent = Math.round(y / (document.documentElement.scrollHeight - vh) * 100);
   }
 
   // team prints: dealt out of a single pile one by one, then left drifting gently

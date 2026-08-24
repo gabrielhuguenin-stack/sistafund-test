@@ -71,8 +71,9 @@ em { font-style: normal; }
   -webkit-text-stroke: 2px var(--ink);
   paint-order: stroke fill;
 }
-/* the outline follows the ground: ink on the light pages, cream on the dark ones */
-.community .yw { -webkit-text-stroke: 2px var(--paper); }
+/* on black the yellow needs no outline: cream and yellow are 3% apart in
+   luminance, so the line simply does not read. Black ground does the separating. */
+.community .yw { -webkit-text-stroke: 0; }
 
 /* ============ Intro (logo on yellow) ============ */
 .intro {
@@ -216,15 +217,6 @@ body.subpage-dark .nav-count { color: var(--yellow); }
   100% { transform: translate3d(0, 0, 0) rotate(0deg); }
 }
 @media (max-width: 900px) { .hero-lemon { width: 52vw; right: -8vw; bottom: -3vh; opacity: .85; } }
-/* quiet progress readout, curaclimate-style */
-.hero-progress {
-  position: absolute; z-index: 2; left: 4vw; bottom: 4vh;
-  display: flex; align-items: center; gap: 9px;
-  font-family: var(--display); font-size: .78rem; letter-spacing: .1em;
-  opacity: 0; transition: opacity .6s ease;
-}
-body.loaded .hero-progress { opacity: 1; }
-.hero-progress span { width: 8px; height: 8px; background: var(--ink); }
 
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
 .hero-stack {
@@ -441,7 +433,7 @@ main section[id] { scroll-margin-top: 60px; }
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.7rem, 4.2vw, 4.3rem); line-height: 1.02;
 }
-.grow-title .yw { -webkit-text-stroke: 2px var(--paper); }
+.grow-title .yw { -webkit-text-stroke: 0; }
 .grow-side p {
   font-family: var(--serif); font-size: clamp(1rem, 1.25vw, 1.18rem); line-height: 1.62;
   color: rgba(250, 248, 240, .88); max-width: 46ch;
@@ -510,9 +502,9 @@ main section[id] { scroll-margin-top: 60px; }
 }
 
 /* ============ Portfolio ============ */
-.portfolio { padding: 20vh 4vw 4vh; }
+.portfolio { padding: 20vh 4vw 0; }
 /* generous vertical room: the rows cross over a longer stretch of scroll */
-.pf-rows { padding: 12vh 0 14vh; overflow: hidden; }
+.pf-rows { padding: 4vh 0 14vh; overflow: hidden; }
 .pf-all-cta { text-align: center; padding: 8vh 0 16vh; }
 .pf-all-cta .btn-big { margin: 0; }
 .pf-row { margin-bottom: 7vh; }
@@ -1232,7 +1224,7 @@ body.subpage-dark .burger span { background: var(--paper); }
 body.subpage-dark .page-hero-kicker { color: rgba(250, 248, 240, .6); }
 body.subpage-dark .page-back { color: var(--paper); border-color: var(--paper); }
 body.subpage-dark .page-hero-title { color: var(--paper); }
-body.subpage-dark .page-hero-title .yw { -webkit-text-stroke: 2px var(--paper); }
+body.subpage-dark .page-hero-title .yw { -webkit-text-stroke: 0; }
 body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 /* full editorial header for the dedicated dark pages */
 .subpage-hero { max-width: 1400px; margin: 0 auto; padding: 22vh 6vw 7vh; display: flex; flex-direction: column; gap: 16px; }
