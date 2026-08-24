@@ -328,7 +328,7 @@ function onScroll() {
     // their torsos: the faces sit at 20-31% of this picture. So the picture rides down
     // at the start and settles as the frame grows. Translate after scale, so the shift
     // is read in the frame's own space and not multiplied by the zoom.
-    const ride = (1 - open) * 26;
+    const ride = (1 - open) * 22;
     growImg.style.transform = `translateY(${ride.toFixed(2)}%) scale(${(1.18 - open * 0.18).toFixed(3)})`;
 
     const t = ease(clamp((p - 0.5) / 0.26, 0, 1));            // then it dims and speaks
