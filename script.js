@@ -324,7 +324,12 @@ function onScroll() {
     const open = ease(clamp(p / 0.52, 0, 1));                 // frame opens
     const iv = (1 - open) * 30, ih = (1 - open) * 27;
     growFrame.style.clipPath = `inset(${iv.toFixed(2)}% ${ih.toFixed(2)}%)`;
-    growImg.style.transform = `scale(${(1.18 - open * 0.18).toFixed(3)})`;
+    // The opening window is the middle band of the screen, and left alone it lands on
+    // their torsos: the faces sit at 20-31% of this picture. So the picture rides down
+    // at the start and settles as the frame grows. Translate after scale, so the shift
+    // is read in the frame's own space and not multiplied by the zoom.
+    const ride = (1 - open) * 26;
+    growImg.style.transform = `translateY(${ride.toFixed(2)}%) scale(${(1.18 - open * 0.18).toFixed(3)})`;
 
     const t = ease(clamp((p - 0.5) / 0.26, 0, 1));            // then it dims and speaks
     growDim.style.opacity = (t * 0.66).toFixed(3);
