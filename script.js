@@ -313,6 +313,46 @@ function onScroll() {
     }
   }
 
+  // the group photo opens from a small frame to the full screen, then the
+  // statement fades up over it — the sequence is entirely scroll-driven
+  if (growPin && growFrame) {
+    const r = growPin.getBoundingClientRect();
+    const total = growPin.offsetHeight - vh;
+    const p = clamp(-r.top / total, 0, 1);
+    const ease = t => t * t * (3 - 2 * t);
+
+    const open = ease(clamp(p / 0.52, 0, 1));                 // frame opens
+    const iv = (1 - open) * 30, ih = (1 - open) * 27;
+    growFrame.style.clipPath = `inset(${iv.toFixed(2)}% ${ih.toFixed(2)}%)`;
+    growImg.style.transform = `scale(${(1.18 - open * 0.18).toFixed(3)})`;
+
+    const t = ease(clamp((p - 0.5) / 0.26, 0, 1));            // then it dims and speaks
+    growDim.style.opacity = (t * 0.66).toFixed(3);
+    growCopy.style.opacity = t.toFixed(3);
+    growCopy.style.transform = `translateY(${((1 - t) * 3).toFixed(2)}vh)`;
+    growCopy.classList.toggle('on', t > 0.6);
+  }
+
+  // scattered lemons drift a touch out of step with the page
+  lemonAccents.forEach(a => {
+    const r = a.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > vh) return;
+    const p = (vh - r.top) / (vh + r.height);
+    a.style.transform = `translateY(${((p - 0.5) * +a.dataset.lspeed).toFixed(2)}vh)`;
+  });
+
+  // portfolio crossing rows
+  pfRows.forEach((row, i) => {
+    const r = row.getBoundingClientRect();
+    if (r.bottom < -100 || r.top > vh + 100) return;
+    const track = row.querySelector('.pf-track');
+    // only a share of the overflow is travelled: the same crossing, far calmer
+    const overflow = Math.max(track.scrollWidth - row.clientWidth, 0) * PF_TRAVEL;
+    const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+    const x = i % 2 === 0 ? -overflow * p : -overflow * (1 - p);
+    track.style.transform = `translateX(${x}px)`;
+  });
+
   // photos: image drifts slower than its frame (internal parallax), staying within the overflow
   parPhotos.forEach(img => {
     const r = img.parentElement.getBoundingClientRect();
