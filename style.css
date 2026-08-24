@@ -686,7 +686,13 @@ main section[id] { scroll-margin-top: 60px; }
 .orbit-center p { color: rgba(250, 248, 240, .7); font-size: 1.05rem; max-width: 400px; margin: 0 auto; }
 
 /* ============ FAQ ============ */
-.faq { padding: 20vh 4vw 16vh; }
+.faq { padding: 20vh 4vw 16vh; position: relative; }
+/* the cluster from the hero, in the room the accordion leaves to its right */
+.lemon-accent--faq {
+  width: clamp(140px, 20vw, 300px);
+  right: -3vw; top: 13vh;
+}
+.lemon-accent--faq img { animation: lemonFloatB 13s ease-in-out infinite; }
 .faq-list { border-top: 1.5px solid var(--ink); max-width: 1100px; }
 .faq-item { border-bottom: 1.5px solid var(--ink); }
 .faq-item summary {
@@ -728,15 +734,15 @@ main section[id] { scroll-margin-top: 60px; }
 .news { padding: 12vh 4vw 18vh; }
 
 /* ---- the home's press: the same queue the dedicated pages open on ---- */
+/* the heading keeps the full width above; underneath, the headline takes only the
+   room it needs so the pictures can have the rest */
 .news-open {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 53vw);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 66vw);
   gap: 3vw; align-items: center;
 }
-.news-open .sec-head { padding-bottom: 5vh; }
-.news-open .sec-head h2 { font-size: clamp(2.1rem, 4.4vw, 4.2rem); }
 /* every press picture is landscape, so the block is shallower and each place with it */
 .news-open .pcascade { aspect-ratio: 1000 / 413; }
-.news-lead { max-width: 34ch; }
+.news-lead { max-width: 30ch; }
 .news-lead-meta {
   display: flex; align-items: baseline; gap: 12px;
   font-family: var(--display); text-transform: uppercase;
