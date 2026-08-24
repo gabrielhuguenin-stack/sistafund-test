@@ -768,16 +768,11 @@ main section[id] { scroll-margin-top: 60px; }
   .news-lead { max-width: none; }
 }
 
-/* ---- press, paged by the arrows ---- */
-/* Cards of one size: the pictures come in every proportion, so a layout that varies
-   the frames fits none of them. The arrows do the work instead. */
-.news-mag { position: relative; margin-top: 6vh; }
-.news-mag-page {
-  position: absolute; inset: 0; display: grid; gap: 26px;
-  opacity: 0; pointer-events: none; transition: opacity .55s var(--ease);
+/* ---- press cards, three to a row ---- */
+.news-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 5vh 26px; align-items: start;
 }
-.news-mag-page.on { position: relative; opacity: 1; pointer-events: auto; }
-.news-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; align-items: start; }
 .nmc { display: flex; flex-direction: column; min-width: 0; }
 .nmc-photo {
   position: relative; aspect-ratio: 4 / 3; flex: 0 0 auto; overflow: hidden;
@@ -803,16 +798,11 @@ main section[id] { scroll-margin-top: 60px; }
   display: block;
 }
 .nmc:hover .nmc-title { color: var(--grey); }
-/* the pager sits under the block, in the same language as the picture controls */
-/* needs to out-specify .pcnav, which is declared further down and absolute */
+/* the home's control sits in the flow: needs to out-specify .pcnav, declared further
+   down and absolute for the picture cascades */
 .pcnav.news-nav { position: static; width: 100%; margin-top: 3.8vh; }
-@media (max-width: 980px) {
-  .news-row { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 620px) {
-  .news-row { grid-template-columns: 1fr; gap: 5vh; }
-  .news-mag-page { gap: 5vh; }
-}
+@media (max-width: 980px) { .news-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .news-cards { grid-template-columns: 1fr; } }
 
 .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
 .news-card { display: flex; flex-direction: column; opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
@@ -1410,7 +1400,7 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
 .news-fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .65s var(--ease); }
 .news-fold.open { grid-template-rows: 1fr; }
 .news-fold-inner { overflow: hidden; min-height: 0; }
-.news-fold .news-mosaic { padding-top: 20px; }
+.news-fold .news-cards { padding-top: 5vh; }
 .news-toggle { max-width: none; margin-top: 26px; border-top: 1.5px solid var(--ink); border-bottom: none; }
 
 /* dark variant kept for any page that opts into subpage-dark */

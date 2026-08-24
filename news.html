@@ -6,7 +6,7 @@
 <title>SISTAFUND | News</title>
 <meta name="description" content="The latest from SISTAFUND and our portfolio companies — funding rounds, milestones and press.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=89">
+<link rel="stylesheet" href="style.css?v=90">
 </head>
 <body class="loaded nav-ready">
 
@@ -40,16 +40,9 @@
   </header>
 
   <section class="subpage-grid" id="news">
-    <div class="news-mag" data-news-mag="24" data-news-per="6"></div>
-    <div class="pcnav news-nav">
-      <div class="pcdots"></div>
-      <div class="pcarrows">
-        <button class="pcarrow" data-step="-1" aria-label="Previous page">&larr;</button>
-        <button class="pcarrow" data-step="1" aria-label="Next page">&rarr;</button>
-      </div>
-    </div>
+    <div class="news-cards" id="newsList" data-stagger></div>
     <div class="news-fold" id="newsFold"><div class="news-fold-inner">
-      <div class="news-mosaic" id="newsListMore"></div>
+      <div class="news-cards" id="newsListMore"></div>
     </div></div>
     <button class="faq-toggle news-toggle" id="newsToggle" aria-expanded="false">
       <span class="news-toggle-label">Show all news</span>
@@ -95,30 +88,21 @@
   burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
 
-  // render the press mosaic from shared data: 5 rows of 3 up front, the rest behind a fold
-  const VISIBLE = 24;   // the magazine block above shows these
+  // this page's job is to show the press, not to page through it: everything is here,
+  // the first two dozen up front and the rest behind the fold
+  const VISIBLE = 24;
+  const list = document.getElementById('newsList');
   const listMore = document.getElementById('newsListMore');
   const IMGS = window.NEWS_IMG || [];
   (window.NEWS || []).forEach(([date, source, title, url], i) => {
     const a = document.createElement('a');
-    a.className = 'news-tile';
+    a.className = 'nmc';
+    if (i < VISIBLE) a.setAttribute('data-reveal', '');
     a.href = url; a.target = '_blank'; a.rel = 'noopener';
-    const fig = document.createElement('span');
-    fig.className = 'nt-photo';
-    const img = document.createElement('img');
-    img.src = IMGS[i] ? 'img/news/' + IMGS[i] : 'img/logo.svg';
-    img.alt = ''; img.loading = 'lazy';
-    fig.appendChild(img);
-    const body = document.createElement('div'); body.className = 'nt-body';
-    const top = document.createElement('div'); top.className = 'nt-top';
-    const s = document.createElement('span'); s.className = 'nt-source'; s.textContent = source;
-    const d = document.createElement('span'); d.className = 'nt-date'; d.textContent = date;
-    top.append(s, d);
-    const t = document.createElement('span'); t.className = 'nt-title'; t.textContent = title;
-    const m = document.createElement('span'); m.className = 'nt-more'; m.textContent = 'Read more ↗';
-    body.append(top, t, m);
-    a.append(fig, body);
-    if (i >= VISIBLE) listMore.appendChild(a);
+    a.innerHTML = `<span class="nmc-photo"><img src="${IMGS[i] ? 'img/news/' + IMGS[i] : 'img/logo.svg'}" alt="" loading="lazy"></span>
+      <span class="nmc-meta"><b>${source}</b><i>${date}</i></span>
+      <span class="nmc-title">${title}</span>`;
+    (i < VISIBLE ? list : listMore).appendChild(a);
   });
 
   // fold toggle, same pattern as the FAQ
@@ -132,7 +116,7 @@
     newsLabel.textContent = open ? 'Show fewer news' : 'Show all news';
   });
 </script>
-<script src="reveal.js?v=13"></script>
+<script src="reveal.js?v=14"></script>
 
 </body>
 </html>
