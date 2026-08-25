@@ -710,7 +710,8 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .news-open { grid-template-columns: minmax(0, 1fr) minmax(0, 66vw); }
 /* every press picture is landscape, so the block is shallower and each place with it */
-.news-open .pcascade { aspect-ratio: 1000 / 373; }
+.news-open .pcascade { aspect-ratio: 1000 / 367; }
+.news-open .pcq[data-shape="wide"].is-b { top: 43.6%; }
 .news-lead { max-width: 30ch; }
 .news-lead-meta {
   display: flex; align-items: baseline; gap: 12px;
@@ -1233,27 +1234,24 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    one travels into the large frame while the one leaving shrinks back down to the
    entry place. Positions are in % of the block, so the travel is a plain
    transition on left / top / width. */
-.pcascade { position: relative; aspect-ratio: 1000 / 700; }
-/* The pictures rest their lower edge on one hairline, biggest first, and advance along
-   it from right to left: the picture at the head of the queue leaves and walks to the
-   back of the line. Bottom-anchored, so a change of shape never unbalances the row and
-   the heights simply follow the widths. */
-/* the hairline runs out from under the row on both sides, so it reads as a line the
-   prints stand on rather than the frames' own bottom edges */
-.pcascade::after {
-  content: ''; position: absolute; left: -26%; right: 0; bottom: 0;
-  border-bottom: 1.5px solid var(--ink);
-}
-body.subpage-dark .pcascade::after { border-color: var(--paper); }
+.pcascade { position: relative; aspect-ratio: 1000 / 688; }
+/* Not a row and not a staircase: the large picture holds the left, a small one hangs
+   high beside it on the same top line, and the middle one sits low on the right, its
+   foot on the large one's. Two alignments and one deliberate drop, so the eye travels
+   in an arc instead of down a diagonal. Places are top-referenced throughout — an
+   auto-to-value swap cannot be animated — and the heights follow the widths. */
 .pcq {
-  position: absolute; bottom: 0; aspect-ratio: 4 / 5;
-  transition: left .95s var(--ease), width .95s var(--ease), opacity .8s var(--ease);
+  position: absolute; top: 0; aspect-ratio: 4 / 5;
+  transition: left .95s var(--ease), top .95s var(--ease), width .95s var(--ease),
+              opacity .8s var(--ease);
 }
 .pcq[data-shape="wide"] { aspect-ratio: 3 / 2; }
-.pcq.is-a   { left: 0;    width: 56%; opacity: 1; z-index: 3; }
-.pcq.is-b   { left: 58%;  width: 19%; opacity: 1; z-index: 2; }
-.pcq.is-c   { left: 79%;  width: 19%; opacity: 1; z-index: 2; }
-.pcq.is-out { left: 101%; width: 19%; opacity: 0; z-index: 0; }
+.pcq.is-a   { left: 0;    top: 0;     width: 55%; opacity: 1; z-index: 3; }
+.pcq.is-b   { left: 57%;  top: 43.6%; width: 31%; opacity: 1; z-index: 2; }
+.pcq.is-c   { left: 78%;  top: 0;     width: 22%; opacity: 1; z-index: 1; }
+.pcq.is-out { left: 101%; top: 0;     width: 22%; opacity: 0; z-index: 0; }
+/* a wide picture is shorter, so the low place drops to keep its foot on the same line */
+.pcq[data-shape="wide"].is-b { top: 69.9%; }
 
 /* the team photograph holds its own frame beside the title, cropped to a band.
    Its column is stretched to the height of the cascade and the frame takes what the
@@ -1328,11 +1326,12 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
   .page-open-text { padding-right: 0; }
   .pcf-wide { width: 100%; }
   .pcnav { width: 72%; }
-  .pcascade { aspect-ratio: 1000 / 800; }
-  .pcq.is-a { width: 64%; }
-  .pcq.is-b { left: 66%; width: 16%; }
-  .pcq.is-c { left: 84%; width: 16%; }
-  .pcq.is-out { left: 102%; width: 16%; }
+  .pcascade { aspect-ratio: 1000 / 775; }
+  .pcq.is-a { width: 62%; }
+  .pcq.is-b { left: 70%; top: 55%; width: 30%; }
+  .pcq.is-c { left: 66%; width: 18%; }
+  .pcq.is-out { left: 102%; width: 18%; }
+  .pcq[data-shape="wide"].is-b { top: 78%; }
 }
 
 /* News page: press mosaic of tiles */
