@@ -1246,12 +1246,14 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
               opacity .8s var(--ease);
 }
 .pcq[data-shape="wide"] { aspect-ratio: 3 / 2; }
-/* the picture that reaches the large place is backed by a yellow block, offset the way
-   the buttons carry theirs: the site's own device rather than another floating frame */
+/* the picture that reaches the large place sits on a yellow mat, the shape the LinkedIn
+   posts use: it surrounds the frame on every side, thin at the top left and thick at the
+   bottom right, with the corners softened */
 .pcq::before {
-  content: ''; position: absolute; inset: 0; z-index: -1;
+  content: ''; position: absolute; z-index: -1;
+  top: -13px; left: -13px; right: -27px; bottom: -27px;
+  border-radius: 20px;
   background: var(--yellow);
-  transform: translate(-20px, 20px);
   opacity: 0; transition: opacity .7s var(--ease);
 }
 .pcq.is-a::before { opacity: 1; }
