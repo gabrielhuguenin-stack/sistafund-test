@@ -176,9 +176,8 @@
     const steps = queue.length;
     if (steps < 3 || !nav) { if (nav) nav.remove(); return; }
 
-    // three places are on show; everything else waits, unseen, at the entry place
-    const PLACES = ['is-a', 'is-b', 'is-c'];
-    const DRIFT = ['-1.6', '3.2', '5'];
+    // one leaf is open, the rest stand closed beside it in the order of the queue
+    const DRIFT = ['-1.6', '2.4', '3.2', '4', '4.6'];
     const dots = [];
     const dotRow = nav.querySelector('.pcdots');
     const lead = open.querySelector('[data-cascade-lead]');
@@ -188,8 +187,11 @@
       k = (step + steps) % steps;
       queue.forEach((el, i) => {
         const place = (i - k + steps) % steps;
-        el.classList.remove('is-a', 'is-b', 'is-c', 'is-out');
-        el.classList.add(PLACES[place] || 'is-out');
+        el.classList.remove('is-open', 'is-leaf', 'is-gone');
+        // the one that has just closed is the last of the queue, and it is the only one
+        // that travels from the open place: it slides out past the back of the stack
+        el.classList.add(place === 0 ? 'is-open' : place === steps - 1 ? 'is-gone' : 'is-leaf');
+        el.style.setProperty('--p', place);
         el.dataset.drift = DRIFT[place] || '0';
       });
       dots.forEach((d, i) => d.classList.toggle('on', i === k));

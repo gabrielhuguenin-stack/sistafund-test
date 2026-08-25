@@ -382,21 +382,23 @@ main section[id] { scroll-margin-top: 60px; }
 .about-col:hover p { color: var(--ink); }
 
 .sectors { margin-top: 14vh; }
-/* the black band that follows is the sequel to these four lines: keep them close */
-.about--sectors { padding-bottom: 8vh; }
+/* the black now belongs to the areas of interest, which answer the thesis above */
+.about--sectors { background: var(--ink); color: var(--paper); padding: 14vh 4vw 16vh; }
+.about--sectors .sectors { margin-top: 0; }
+.about--sectors .sectors-kicker { color: rgba(250, 248, 240, .55); }
 .sectors-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
   margin-bottom: 4vh;
 }
 .sector {
-  border-top: 1.5px solid var(--ink);
+  border-top: 1.5px solid var(--paper);
   padding: 4.5vh 0;
   text-align: center;
   cursor: default; overflow: hidden;
   transition: background .35s, color .35s;
 }
-.sector:last-child { border-bottom: 1.5px solid var(--ink); }
+.sector:last-child { border-bottom: 1.5px solid var(--paper); }
 .sector > span {
   display: block;
   font-family: var(--display); text-transform: uppercase;
@@ -405,7 +407,7 @@ main section[id] { scroll-margin-top: 60px; }
   transition: transform .8s var(--ease), letter-spacing .4s var(--ease);
 }
 .sector.in-view > span { transform: translateY(0); }
-.sector:hover { background: var(--ink); color: var(--yellow); }
+.sector:hover { background: var(--yellow); color: var(--ink); }
 .sector:hover > span { letter-spacing: .04em; }
 
 
@@ -460,22 +462,22 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ The fund at a glance (black band) ============ */
 /* Four terms read across a single ruled band — the fund's card, not a stack of
    counting figures. It carries straight on from the four sector lines above. */
-.stats { background: var(--ink); color: var(--paper); padding: 11vh 4vw 12vh; }
+.stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 11vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
-  color: rgba(250, 248, 240, .55);
+  color: var(--grey);
   margin-bottom: 5vh;
 }
 .stat-band {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--line-light);
-  border-bottom: 1px solid var(--line-light);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 .stat-item {
   display: flex; flex-direction: column; align-items: center; gap: 1.5em;
   padding: 6vh 1.6vw; text-align: center;
-  border-left: 1px solid var(--line-light);
+  border-left: 1px solid var(--line);
   opacity: 0; transform: translateY(20px);
   transition: opacity .9s var(--ease), transform .9s var(--ease),
               background .4s var(--ease), color .4s var(--ease);
@@ -489,23 +491,23 @@ main section[id] { scroll-margin-top: 60px; }
 .stat-term {
   font-family: var(--serif);
   font-size: clamp(1.45rem, 2.55vw, 2.6rem); line-height: 1.04;
-  color: var(--yellow);
+  color: var(--ink);
   transition: color .4s var(--ease);
 }
 .stat-note {
   font-family: var(--display); text-transform: uppercase;
   font-size: .78rem; letter-spacing: .16em;
-  color: rgba(250, 248, 240, .62);
+  color: var(--grey);
   transition: color .4s var(--ease), letter-spacing .4s var(--ease);
 }
 @media (max-width: 900px) {
   .stat-band { grid-template-columns: repeat(2, 1fr); }
   .stat-item:nth-child(3) { border-left: none; }
-  .stat-item:nth-child(n+3) { border-top: 1px solid var(--line-light); }
+  .stat-item:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
 @media (max-width: 520px) {
   .stat-band { grid-template-columns: 1fr; }
-  .stat-item { border-left: none; border-top: 1px solid var(--line-light); padding: 5vh 0; }
+  .stat-item { border-left: none; border-top: 1px solid var(--line); padding: 5vh 0; }
   .stat-item:first-child { border-top: none; }
 }
 
@@ -710,8 +712,8 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .news-open { grid-template-columns: minmax(0, 1fr) minmax(0, 66vw); }
 /* every press picture is landscape, so the block is shallower and each place with it */
-.news-open .pcascade { aspect-ratio: 1000 / 367; }
-.news-open .pcq[data-shape="wide"].is-b { top: 45.5%; }
+.news-open .pcascade { aspect-ratio: 1000 / 387; }
+
 .news-lead { max-width: 30ch; }
 .news-lead-meta {
   display: flex; align-items: baseline; gap: 12px;
@@ -1235,37 +1237,32 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    entry place. Positions are in % of the block, so the travel is a plain
    transition on left / top / width. */
 .pcascade { position: relative; aspect-ratio: 1000 / 688; }
-/* Not a row and not a staircase: the large picture holds the left, a small one hangs
-   high beside it on the same top line, and the middle one sits low on the right, its
-   foot on the large one's. Two alignments and one deliberate drop, so the eye travels
-   in an arc instead of down a diagonal. Places are top-referenced throughout — an
-   auto-to-value swap cannot be animated — and the heights follow the widths. */
+/* A book, not a set of frames. The picture in hand is open; the ones still waiting are
+   closed, seen on their edge — a stack of leaves standing to its right, all the same
+   height, each showing the sliver of itself that falls on its edge. Advancing turns a
+   leaf: the next one opens out while the one in hand closes and joins the back of the
+   stack. Nothing is a rectangle beside a rectangle any more. */
+/* the block sets the trim size of the page: every leaf has it, open or closed */
+.pcascade { position: relative; aspect-ratio: 1000 / 725; --leaf: 26px; --gap: 7px; }
 .pcq {
-  position: absolute; top: 0; aspect-ratio: 4 / 5;
-  transition: left .95s var(--ease), top .95s var(--ease), width .95s var(--ease),
-              opacity .8s var(--ease);
+  position: absolute; top: 0; height: 100%;
+  transition: left .95s var(--ease), width .95s var(--ease), opacity .8s var(--ease);
 }
-.pcq[data-shape="wide"] { aspect-ratio: 3 / 2; }
-/* the picture that reaches the large place carries a thin band down its left side and
-   along its foot, the way the cards do: the same size as the frame, shifted 8px, so the
-   band only shows on two edges. A surround was too heavy for it. */
-.pcq::before {
-  content: ''; position: absolute; z-index: -1;
-  top: 8px; left: -8px; right: 8px; bottom: -8px;
-  border-radius: 9px;
-  background: var(--yellow);
-  opacity: 0; transition: opacity .7s var(--ease);
+.pcq.is-open { left: 0; width: 58%; z-index: 3; opacity: 1; }
+.pcq.is-leaf {
+  left: calc(60% + (var(--p) - 1) * (var(--leaf) + var(--gap)));
+  width: var(--leaf); opacity: 1; z-index: 2;
 }
-.pcq.is-a::before { opacity: 1; }
-/* Everything relates to something: the small one hangs from the large one's top line,
-   the middle one stands on its foot line, and the two share a right edge held short of
-   the screen. The gap between them is what the composition is made of. */
-.pcq.is-a   { left: 0;    top: 0;     width: 55%; opacity: 1; z-index: 3; }
-.pcq.is-b   { left: 66%;  top: 45.5%; width: 30%; opacity: 1; z-index: 2; }
-.pcq.is-c   { left: 75%;  top: 0;     width: 21%; opacity: 1; z-index: 2; }
-.pcq.is-out { left: 101%; top: 0;     width: 21%; opacity: 0; z-index: 0; }
-/* a wide picture is shorter, so the standing place drops to keep its foot on the line */
-.pcq[data-shape="wide"].is-b { top: 70.9%; }
+/* the one that has just closed slides in from beyond the last leaf */
+.pcq.is-gone {
+  left: calc(60% + 9 * (var(--leaf) + var(--gap)));
+  width: var(--leaf); opacity: 0; z-index: 0;
+}
+/* a leaf shows the strip of its picture that falls on its edge, and the stack of them
+   reads as a run of tones, like the gradient in the hero */
+.pcq.is-leaf .pcf-frame img { filter: grayscale(.25) contrast(1.06) brightness(.92); }
+.pcq.is-leaf:hover { width: calc(var(--leaf) * 2.4); }
+.pcq.is-leaf:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
 /* the team photograph holds its own frame beside the title, cropped to a band.
    Its column is stretched to the height of the cascade and the frame takes what the
@@ -1300,19 +1297,17 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 .pcf-frame img[src*="pf-pitch"]      { object-position: center 45%; }
 /* only the picture standing in the large place carries its colour */
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
-.pcq.is-a .pcf-frame img,
-.pcq:hover .pcf-frame img    { filter: grayscale(0) contrast(1.02); }
+.pcq.is-open .pcf-frame img  { filter: grayscale(0) contrast(1.02); }
 /* two of them carry a colour the palette has no room for: a wall of blue type and a
    magenta stage. They take their turn in colour like the others, held back a little. */
-.pcq[data-soft].is-a .pcf-frame img,
-.pcq[data-soft]:hover .pcf-frame img { filter: saturate(.6) contrast(1.03); }
+.pcq[data-soft].is-open .pcf-frame img { filter: saturate(.6) contrast(1.03); }
 /* the fixed picture under the title carries its colour: it is the one that sets the
    tone of the page, and in black and white it did not hold */
 .pcf-wide .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
 /* the picture control, under the large place and aligned with it */
 .pcnav {
-  position: absolute; top: 100%; left: 0; width: 55%;
+  position: absolute; top: 100%; left: 0; width: 58%;
   margin-top: 2.6vh;
   display: flex; align-items: center; justify-content: space-between; gap: 2vw;
 }
@@ -1341,11 +1336,9 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
   .pcf-wide { width: 100%; }
   .pcnav { width: 72%; }
   .pcascade { aspect-ratio: 1000 / 775; }
-  .pcq.is-a { width: 62%; }
-  .pcq.is-b { left: 64%; top: 48%; width: 34%; }
-  .pcq.is-c { left: 74%; width: 24%; }
-  .pcq.is-out { left: 102%; width: 24%; }
-  .pcq[data-shape="wide"].is-b { top: 74%; }
+  .pcascade { --leaf: 20px; --gap: 5px; }
+  .pcq.is-open { width: 64%; }
+  .pcq.is-leaf { left: calc(67% + (var(--p) - 1) * (var(--leaf) + var(--gap))); }
 }
 
 /* News page: press mosaic of tiles */
