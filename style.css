@@ -462,52 +462,54 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ The fund at a glance (black band) ============ */
 /* Four terms read across a single ruled band — the fund's card, not a stack of
    counting figures. It carries straight on from the four sector lines above. */
-.stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 11vh; }
+/* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
+   makes the four terms carry without having to enlarge them */
+.stats { background: var(--yellow); color: var(--ink); padding: 13vh 4vw 12vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
-  color: var(--grey);
+  color: rgba(16, 16, 16, .6);
   margin-bottom: 5vh;
 }
 .stat-band {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
 }
 .stat-item {
   display: flex; flex-direction: column; align-items: center; gap: 1.5em;
   padding: 6vh 1.6vw; text-align: center;
-  border-left: 1px solid var(--line);
+  border-left: 1.5px solid var(--ink);
   opacity: 0; transform: translateY(20px);
   transition: opacity .9s var(--ease), transform .9s var(--ease),
               background .4s var(--ease), color .4s var(--ease);
 }
 .stat-item:first-child { border-left: none; }
 .stat-item.in-view { opacity: 1; transform: none; }
-/* each cell takes the yellow under the pointer, as the sector lines take the ink */
-.stat-item:hover { background: var(--yellow); }
-.stat-item:hover .stat-term { color: var(--ink); }
-.stat-item:hover .stat-note { color: rgba(16, 16, 16, .6); letter-spacing: .2em; }
+/* the ground is already yellow, so the cell inverts under the pointer instead */
+.stat-item:hover { background: var(--ink); }
+.stat-item:hover .stat-term { color: var(--yellow); }
+.stat-item:hover .stat-note { color: rgba(250, 248, 240, .7); letter-spacing: .2em; }
 .stat-term {
   font-family: var(--serif);
-  font-size: clamp(1.45rem, 2.55vw, 2.6rem); line-height: 1.04;
+  font-size: clamp(1.55rem, 2.8vw, 2.9rem); line-height: 1.04;
   color: var(--ink);
   transition: color .4s var(--ease);
 }
 .stat-note {
   font-family: var(--display); text-transform: uppercase;
   font-size: .78rem; letter-spacing: .16em;
-  color: var(--grey);
+  color: rgba(16, 16, 16, .62);
   transition: color .4s var(--ease), letter-spacing .4s var(--ease);
 }
 @media (max-width: 900px) {
   .stat-band { grid-template-columns: repeat(2, 1fr); }
   .stat-item:nth-child(3) { border-left: none; }
-  .stat-item:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .stat-item:nth-child(n+3) { border-top: 1.5px solid var(--ink); }
 }
 @media (max-width: 520px) {
   .stat-band { grid-template-columns: 1fr; }
-  .stat-item { border-left: none; border-top: 1px solid var(--line); padding: 5vh 0; }
+  .stat-item { border-left: none; border-top: 1.5px solid var(--ink); padding: 5vh 0; }
   .stat-item:first-child { border-top: none; }
 }
 
@@ -1248,6 +1250,17 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
   position: absolute; top: 0; height: 100%;
   transition: left .95s var(--ease), width .95s var(--ease), opacity .8s var(--ease);
 }
+/* the open page carries a thin yellow band down its left side and along its foot, the
+   way the fund's cards do: the block is the size of the frame and simply offset, so the
+   band shows on two edges only */
+.pcq::before {
+  content: ''; position: absolute; z-index: -1;
+  top: 8px; left: -8px; right: 8px; bottom: -8px;
+  border-radius: 9px;
+  background: var(--yellow);
+  opacity: 0; transition: opacity .7s var(--ease);
+}
+.pcq.is-open::before { opacity: 1; }
 .pcq.is-open { left: 0; width: 58%; z-index: 3; opacity: 1; }
 .pcq.is-leaf {
   left: calc(60% + (var(--p) - 1) * (var(--leaf) + var(--gap)));
