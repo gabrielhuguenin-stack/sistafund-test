@@ -1246,13 +1246,13 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
               opacity .8s var(--ease);
 }
 .pcq[data-shape="wide"] { aspect-ratio: 3 / 2; }
-/* the picture that reaches the large place sits on a yellow mat, the shape the LinkedIn
-   posts use: it surrounds the frame on every side, thin at the top left and thick at the
-   bottom right, with the corners softened */
+/* the picture that reaches the large place carries a thin band down its left side and
+   along its foot, the way the cards do: the same size as the frame, shifted 8px, so the
+   band only shows on two edges. A surround was too heavy for it. */
 .pcq::before {
   content: ''; position: absolute; z-index: -1;
-  top: -13px; left: -13px; right: -27px; bottom: -27px;
-  border-radius: 20px;
+  top: 8px; left: -8px; right: 8px; bottom: -8px;
+  border-radius: 9px;
   background: var(--yellow);
   opacity: 0; transition: opacity .7s var(--ease);
 }
