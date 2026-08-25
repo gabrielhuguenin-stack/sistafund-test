@@ -711,7 +711,7 @@ main section[id] { scroll-margin-top: 60px; }
 .news-open { grid-template-columns: minmax(0, 1fr) minmax(0, 66vw); }
 /* every press picture is landscape, so the block is shallower and each place with it */
 .news-open .pcascade { aspect-ratio: 1000 / 367; }
-.news-open .pcq[data-shape="wide"].is-b { top: 43.6%; }
+.news-open .pcq[data-shape="wide"].is-b { top: 45.5%; }
 .news-lead { max-width: 30ch; }
 .news-lead-meta {
   display: flex; align-items: baseline; gap: 12px;
@@ -1257,14 +1257,15 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
   opacity: 0; transition: opacity .7s var(--ease);
 }
 .pcq.is-a::before { opacity: 1; }
+/* Everything relates to something: the small one hangs from the large one's top line,
+   the middle one stands on its foot line, and the two share a right edge held short of
+   the screen. The gap between them is what the composition is made of. */
 .pcq.is-a   { left: 0;    top: 0;     width: 55%; opacity: 1; z-index: 3; }
-/* the middle one bites into the large one's edge: one join, so the three read as an
-   assembly rather than three pictures floating side by side */
-.pcq.is-b   { left: 53.5%; top: 43.6%; width: 31%; opacity: 1; z-index: 4; }
-.pcq.is-c   { left: 79%;  top: 0;     width: 22%; opacity: 1; z-index: 2; }
-.pcq.is-out { left: 101%; top: 0;     width: 22%; opacity: 0; z-index: 0; }
-/* a wide picture is shorter, so the low place drops to keep its foot on the same line */
-.pcq[data-shape="wide"].is-b { top: 69.9%; }
+.pcq.is-b   { left: 66%;  top: 45.5%; width: 30%; opacity: 1; z-index: 2; }
+.pcq.is-c   { left: 75%;  top: 0;     width: 21%; opacity: 1; z-index: 2; }
+.pcq.is-out { left: 101%; top: 0;     width: 21%; opacity: 0; z-index: 0; }
+/* a wide picture is shorter, so the standing place drops to keep its foot on the line */
+.pcq[data-shape="wide"].is-b { top: 70.9%; }
 
 /* the team photograph holds its own frame beside the title, cropped to a band.
    Its column is stretched to the height of the cascade and the frame takes what the
@@ -1311,7 +1312,7 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 
 /* the picture control, under the large place and aligned with it */
 .pcnav {
-  position: absolute; top: 100%; left: 0; width: 56%;
+  position: absolute; top: 100%; left: 0; width: 55%;
   margin-top: 2.6vh;
   display: flex; align-items: center; justify-content: space-between; gap: 2vw;
 }
@@ -1341,10 +1342,10 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
   .pcnav { width: 72%; }
   .pcascade { aspect-ratio: 1000 / 775; }
   .pcq.is-a { width: 62%; }
-  .pcq.is-b { left: 70%; top: 55%; width: 30%; }
-  .pcq.is-c { left: 66%; width: 18%; }
-  .pcq.is-out { left: 102%; width: 18%; }
-  .pcq[data-shape="wide"].is-b { top: 78%; }
+  .pcq.is-b { left: 64%; top: 48%; width: 34%; }
+  .pcq.is-c { left: 74%; width: 24%; }
+  .pcq.is-out { left: 102%; width: 24%; }
+  .pcq[data-shape="wide"].is-b { top: 74%; }
 }
 
 /* News page: press mosaic of tiles */
