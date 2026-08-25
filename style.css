@@ -1246,9 +1246,20 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
               opacity .8s var(--ease);
 }
 .pcq[data-shape="wide"] { aspect-ratio: 3 / 2; }
+/* the picture that reaches the large place is backed by a yellow block, offset the way
+   the buttons carry theirs: the site's own device rather than another floating frame */
+.pcq::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--yellow);
+  transform: translate(-20px, 20px);
+  opacity: 0; transition: opacity .7s var(--ease);
+}
+.pcq.is-a::before { opacity: 1; }
 .pcq.is-a   { left: 0;    top: 0;     width: 55%; opacity: 1; z-index: 3; }
-.pcq.is-b   { left: 57%;  top: 43.6%; width: 31%; opacity: 1; z-index: 2; }
-.pcq.is-c   { left: 78%;  top: 0;     width: 22%; opacity: 1; z-index: 1; }
+/* the middle one bites into the large one's edge: one join, so the three read as an
+   assembly rather than three pictures floating side by side */
+.pcq.is-b   { left: 53.5%; top: 43.6%; width: 31%; opacity: 1; z-index: 4; }
+.pcq.is-c   { left: 79%;  top: 0;     width: 22%; opacity: 1; z-index: 2; }
 .pcq.is-out { left: 101%; top: 0;     width: 22%; opacity: 0; z-index: 0; }
 /* a wide picture is shorter, so the low place drops to keep its foot on the same line */
 .pcq[data-shape="wide"].is-b { top: 69.9%; }
