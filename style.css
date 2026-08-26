@@ -464,7 +464,17 @@ main section[id] { scroll-margin-top: 60px; }
    counting figures. It carries straight on from the four sector lines above. */
 /* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
    makes the four terms carry without having to enlarge them */
-.stats { background: var(--yellow); color: var(--ink); padding: 13vh 4vw 12vh; }
+/* a heading and a block of facts, not a strip of four cells: the section gets a proper
+   title on the left and the four facts sit two by two beside it */
+.stats {
+  background: var(--yellow); color: var(--ink); padding: 13vh 4vw 12vh;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 56%);
+  gap: 5vw; align-items: start;
+}
+.stats-title {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(2.6rem, 7vw, 6.2rem); line-height: .9;
+}
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
@@ -472,19 +482,18 @@ main section[id] { scroll-margin-top: 60px; }
   margin: 0 0 4vh 1.8vw;
 }
 .stat-band {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: 1fr 1fr;
   border-top: 1.5px solid var(--ink);
-  border-bottom: 1.5px solid var(--ink);
 }
 .stat-item {
-  display: flex; flex-direction: column; align-items: flex-start; gap: .7em;
-  padding: 5vh 2vw 5vh 1.8vw; text-align: left;
-  border-left: 1.5px solid var(--ink);
+  display: flex; flex-direction: column; align-items: flex-start; gap: .6em;
+  padding: 3.6vh 2vw 3.6vh 0; text-align: left;
+  border-bottom: 1.5px solid var(--ink);
   opacity: 0; transform: translateY(20px);
   transition: opacity .9s var(--ease), transform .9s var(--ease),
               background .4s var(--ease), color .4s var(--ease);
 }
-.stat-item:first-child { border-left: none; }
+.stat-item:nth-child(even) { border-left: 1.5px solid var(--ink); padding-left: 2vw; }
 .stat-item.in-view { opacity: 1; transform: none; }
 /* the ground is already yellow, so the cell inverts under the pointer instead */
 .stat-item:hover { background: var(--ink); }
@@ -493,7 +502,7 @@ main section[id] { scroll-margin-top: 60px; }
 /* display caps, as every other declaration on the site: the serif read as a label */
 .stat-term {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.4rem, 2.9vw, 3rem); line-height: .94;
+  font-size: clamp(1.3rem, 2.3vw, 2.3rem); line-height: .96;
   color: var(--ink);
   transition: color .4s var(--ease);
 }
@@ -505,14 +514,25 @@ main section[id] { scroll-margin-top: 60px; }
   transition: color .4s var(--ease);
 }
 @media (max-width: 900px) {
-  .stat-band { grid-template-columns: repeat(2, 1fr); }
-  .stat-item:nth-child(3) { border-left: none; }
-  .stat-item:nth-child(n+3) { border-top: 1.5px solid var(--ink); }
+  .stats { grid-template-columns: 1fr; gap: 5vh; }
 }
 @media (max-width: 520px) {
   .stat-band { grid-template-columns: 1fr; }
-  .stat-item { border-left: none; border-top: 1.5px solid var(--ink); padding: 5vh 0; }
+  .stat-item:nth-child(even) { border-left: none; padding-left: 0; }
   .stat-item:first-child { border-top: none; }
+}
+
+/* ---- the house band ---- */
+/* A frame that carries a subject stands on a thin yellow band: down its left side and
+   along its foot, the block being the size of the frame and simply offset. Used by the
+   open page of a cascade, the fixed picture under a page title, and the company boxes.
+   Not by the repeated thumbnails — eight pixels on forty tiles is noise, not emphasis. */
+.pf-card, .pf-all-card, .pcf-wide { position: relative; }
+.pf-card::before, .pf-all-card::before, .pcf-wide::before {
+  content: ''; position: absolute; z-index: -1;
+  top: 0; left: -8px; right: 0; bottom: -8px;
+  border-radius: 0 0 0 9px;
+  background: var(--yellow);
 }
 
 /* ============ Portfolio ============ */
@@ -534,7 +554,7 @@ main section[id] { scroll-margin-top: 60px; }
   padding: 0; text-align: left;
   transition: transform .35s var(--ease), box-shadow .35s;
 }
-.pf-card:hover { transform: translateY(-6px); box-shadow: 7px 7px 0 var(--yellow), 8.5px 8.5px 0 var(--ink); }
+.pf-card:hover { transform: translateY(-6px); }
 .pf-logo {
   width: 100%; height: 130px;
   display: flex; align-items: center; justify-content: center;
