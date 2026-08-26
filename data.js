@@ -17,8 +17,8 @@ window.COMPANIES = {
   vizzia: ['Vizzia', 'Sustainability', 'vizzia.png', 'Leveraging computer vision and AI to detect illegal waste dumping.', 'Katrin de Proyart (Dimitrova), Alexandre Leboucher', 'Paris', '2022', '2021'],
   optimiz: ['Optimiz Construction', 'Sustainability', 'optimiz.png', 'Helping construction firms optimize materials to save time, money and CO₂.', 'Marion Malandain', 'Paris', '2020', '2022'],
   notom: ['NOTOM', 'Frontier Tech', 'notom.png', 'Bridge OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris', '2025', ''],
-  stealth: ['Stealth', 'Frontier Tech', 'stealth.png', 'Unlocking Ocean Intelligence.', '', 'UK', '2022', '2026'],
-  stealth2: ['Stealth', 'HealthTech', 'stealth2.png', 'Gut Health Monitoring.', '', 'UK', '2026', '2026'],
+  oshen: ['Oshen', 'Frontier Tech', 'oshen.png', 'Unlocking ocean intelligence.', 'Anahita Laverack, Ciaran Dowds', 'UK', '2022', '2026'],
+  suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026'],
 };
 
 window.LPS = [
@@ -53,6 +53,7 @@ window.LPS = [
 
 /* Press & news — [date, source, title, url], newest first */
 window.NEWS = [
+  ["21/08/2026", "The Times", "The ocean is the world's biggest blind spot. Oshen is closing it, and just raised $5M to accelerate!", "https://www.thetimes.com/business/entrepreneurs/article/uk-start-up-raises-5m-track-russian-subs-royal-navy-vq3pprs5k"],
   ["25/03/2026", "Portfolio", "Redefining the last mile of space: PAVE Space raises $40M!", "https://pave.space/page/homepage"],
   ["12/03/2026", "Portfolio", "Waiv secures $33 million to scale AI precision testing", "https://wearewaiv.com/news/waiv-secures-33-million-to-scale-ai-precision-testing"],
   ["02/02/2026", "Maddyness", "When circular industrial tech meets Europe's strategic autonomy: Recupere Metals raises €5m!", "https://www.maddyness.com/2026/01/30/face-a-une-demande-de-cuivre-qui-explose-recupere-metals-leve-5-millions-deuros/"],
@@ -115,7 +116,7 @@ window.NEWS = [
 ];
 
 /* per-article thumbnails pulled from sistafund.com/news, same order as NEWS */
-window.NEWS_IMG = ["n01.webp", "n02.jpg", "n03.jpg", "n04.jpg", "n05.jpeg", "n06.jpeg", "n07.jpeg", "n08.jpeg", "n09.jpeg", "n10.jpeg", "n11.jpeg", "n12.jpeg", "n13.jpeg", "n14.jpeg", "n15.jpeg", "n16.jpeg", "n17.jpeg", "n18.png", "n19.jpg", "n20.jpeg", "n21.jpg", "n22.webp", "n23.jpeg", "n24.png", "n25.jpeg", "n26.jpg", "n27.png", "n28.jpeg", "n29.png", "n30.png", "n31.png", "n32.webp", "n33.jpg", "n34.jpeg", "n35.webp", "n36.jpg", "n37.png", "n38.webp", "n39.png", "n40.webp", "n41.webp", "n42.png", "n43.jpeg", "n44.jpg", "n45.webp", "n46.webp", "n47.png", "n48.webp", "n49.png", "n50.jpg", "n51.png", "n52.jpg", "n53.jpg", "n54.png", "n55.png", "n56.webp", "n57.jpg", "n58.jpg", "n59.png"];
+window.NEWS_IMG = ["n00.jpg", "n01.webp", "n02.jpg", "n03.jpg", "n04.jpg", "n05.jpeg", "n06.jpeg", "n07.jpeg", "n08.jpeg", "n09.jpeg", "n10.jpeg", "n11.jpeg", "n12.jpeg", "n13.jpeg", "n14.jpeg", "n15.jpeg", "n16.jpeg", "n17.jpeg", "n18.png", "n19.jpg", "n20.jpeg", "n21.jpg", "n22.webp", "n23.jpeg", "n24.png", "n25.jpeg", "n26.jpg", "n27.png", "n28.jpeg", "n29.png", "n30.png", "n31.png", "n32.webp", "n33.jpg", "n34.jpeg", "n35.webp", "n36.jpg", "n37.png", "n38.webp", "n39.png", "n40.webp", "n41.webp", "n42.png", "n43.jpeg", "n44.jpg", "n45.webp", "n46.webp", "n47.png", "n48.webp", "n49.png", "n50.jpg", "n51.png", "n52.jpg", "n53.jpg", "n54.png", "n55.png", "n56.webp", "n57.jpg", "n58.jpg", "n59.png"];
 
 
 /* FAQ — questions and answers copied verbatim from sistafund.com/faq */
