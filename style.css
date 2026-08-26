@@ -464,36 +464,31 @@ main section[id] { scroll-margin-top: 60px; }
    counting figures. It carries straight on from the four sector lines above. */
 /* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
    makes the four terms carry without having to enlarge them */
-/* a heading and a block of facts, not a strip of four cells: the section gets a proper
-   title on the left and the four facts sit two by two beside it */
-.stats {
-  background: var(--yellow); color: var(--ink); padding: 13vh 4vw 12vh;
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 56%);
-  gap: 5vw; align-items: start;
-}
-.stats-title {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.6rem, 7vw, 6.2rem); line-height: .9;
-}
+.stats { background: var(--yellow); color: var(--ink); padding: 13vh 4vw 12vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
   color: rgba(16, 16, 16, .6);
-  margin: 0 0 4vh 1.8vw;
+  margin-bottom: 5vh;
 }
+/* two by two rather than four across: each column is its own short ruled list, and the
+   two lists face each other. Every row carries its own rule, so nothing spans the gutter. */
 .stat-band {
   display: grid; grid-template-columns: 1fr 1fr;
-  border-top: 1.5px solid var(--ink);
+  column-gap: 5vw;
 }
 .stat-item {
-  display: flex; flex-direction: column; align-items: flex-start; gap: .6em;
-  padding: 3.6vh 2vw 3.6vh 0; text-align: left;
-  border-bottom: 1.5px solid var(--ink);
+  display: flex; flex-direction: column; align-items: flex-start; gap: .5em;
+  padding: 4.2vh 1.4vw 4.6vh; margin-left: -1.4vw; text-align: left;
+  border-top: 1.5px solid var(--ink);
   opacity: 0; transform: translateY(20px);
   transition: opacity .9s var(--ease), transform .9s var(--ease),
               background .4s var(--ease), color .4s var(--ease);
 }
-.stat-item:nth-child(even) { border-left: 1.5px solid var(--ink); padding-left: 2vw; }
+
+.stat-band .stat-item:nth-child(3), .stat-band .stat-item:nth-child(4) {
+  border-bottom: 1.5px solid var(--ink);
+}
 .stat-item.in-view { opacity: 1; transform: none; }
 /* the ground is already yellow, so the cell inverts under the pointer instead */
 .stat-item:hover { background: var(--ink); }
@@ -502,7 +497,7 @@ main section[id] { scroll-margin-top: 60px; }
 /* display caps, as every other declaration on the site: the serif read as a label */
 .stat-term {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.3rem, 2.3vw, 2.3rem); line-height: .96;
+  font-size: clamp(1.6rem, 3.4vw, 3.4rem); line-height: .94;
   color: var(--ink);
   transition: color .4s var(--ease);
 }
@@ -514,12 +509,9 @@ main section[id] { scroll-margin-top: 60px; }
   transition: color .4s var(--ease);
 }
 @media (max-width: 900px) {
-  .stats { grid-template-columns: 1fr; gap: 5vh; }
-}
-@media (max-width: 520px) {
+  /* one column: only the last row closes the list */
   .stat-band { grid-template-columns: 1fr; }
-  .stat-item:nth-child(even) { border-left: none; padding-left: 0; }
-  .stat-item:first-child { border-top: none; }
+  .stat-band .stat-item:nth-child(3) { border-bottom: none; }
 }
 
 /* ---- the house band ---- */
@@ -527,13 +519,17 @@ main section[id] { scroll-margin-top: 60px; }
    along its foot, the block being the size of the frame and simply offset. Used by the
    open page of a cascade, the fixed picture under a page title, and the company boxes.
    Not by the repeated thumbnails — eight pixels on forty tiles is noise, not emphasis. */
-.pf-card, .pf-all-card, .pcf-wide { position: relative; }
-.pf-card::before, .pf-all-card::before, .pcf-wide::before {
+.pcf-wide { position: relative; }
+.pcf-wide::before {
   content: ''; position: absolute; z-index: -1;
   top: 0; left: -8px; right: 0; bottom: -8px;
   border-radius: 0 0 0 9px;
   background: var(--yellow);
 }
+/* a company box has its own ground, so the band is cast outside it rather than behind:
+   an offset copy clipped to what falls past the left side and the foot. It waits for
+   the pointer — the box earns the band, it does not wear it at rest. */
+.pf-card:hover, .pf-all-card:hover { box-shadow: -8px 8px 0 var(--yellow); }
 
 /* ============ Portfolio ============ */
 .portfolio { padding: 20vh 4vw 0; }
@@ -547,13 +543,16 @@ main section[id] { scroll-margin-top: 60px; }
   will-change: transform;
   padding: 8px 0;
 }
+/* on the home rows the mark stands alone: the logo already says the name, and the
+   sector is the business of the portfolio page, where it can be filtered */
 .pf-card {
-  display: flex; flex-direction: column; align-items: flex-start;
+  display: flex;
   width: clamp(240px, 24vw, 320px);
   border: 1.5px solid var(--ink); background: #fff;
-  padding: 0; text-align: left;
-  transition: transform .35s var(--ease), box-shadow .35s;
+  padding: 0;
+  transition: transform .35s var(--ease), box-shadow .3s var(--ease);
 }
+.pf-card .pf-logo { height: 158px; border-bottom: none; padding: 30px; }
 .pf-card:hover { transform: translateY(-6px); }
 .pf-logo {
   width: 100%; height: 130px;
@@ -1014,7 +1013,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .pf-all-card {
   display: flex; flex-direction: column; align-items: flex-start; text-align: left;
   border: 1.5px solid var(--paper); background: transparent;
-  transition: transform .3s var(--ease), border-color .3s;
+  transition: transform .3s var(--ease), border-color .3s, box-shadow .3s var(--ease);
 }
 .pf-all-card:hover { transform: translateY(-5px); border-color: var(--yellow); }
 .pf-all-card .pf-logo {
