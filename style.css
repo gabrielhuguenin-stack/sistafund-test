@@ -1255,8 +1255,10 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    band shows on two edges only */
 .pcq::before {
   content: ''; position: absolute; z-index: -1;
-  top: 8px; left: -8px; right: 8px; bottom: -8px;
-  border-radius: 9px;
+  /* the band runs the whole length of the edge it sits on: it starts at the frame's own
+     top and ends at its own right, instead of stopping short like a drop shadow */
+  top: 0; left: -8px; right: 0; bottom: -8px;
+  border-radius: 0 0 0 9px;
   background: var(--yellow);
   opacity: 0; transition: opacity .7s var(--ease);
 }

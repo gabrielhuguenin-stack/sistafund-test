@@ -134,7 +134,6 @@
     const q = document.createElement('div');
     q.className = 'pcq';
     q.dataset.drift = '0';
-    q.dataset.shape = 'wide';            // press pictures are landscape, every one
     Object.assign(q.dataset, { date, source, title, url });
     q.innerHTML = `<figure class="pcf-frame" data-reveal="image" style="--rd:${i * 160}ms">
       <img src="${shots[i] ? 'img/news/' + shots[i] : 'img/logo.svg'}" alt="" class="on"${i > 2 ? ' loading="lazy"' : ''}>
