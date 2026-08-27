@@ -265,10 +265,19 @@ function sizeCommCells() {
 }
 function orderCommCells() {
   sizeCommCells();
-  commOrder = commCells
-    .map(el => { const r = el.getBoundingClientRect(); return { el, k: r.left + r.top * 1.4 }; })
-    .sort((a, b) => a.k - b.k)
-    .map(o => o.el);
+  const boxes = commCells.map(el => ({ el, r: el.getBoundingClientRect() }));
+  const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
+  const cols = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
+  boxes.forEach(b => {
+    const row = rows.indexOf(Math.round(b.r.top));
+    const col = cols.indexOf(Math.round(b.r.left));
+    // odd rows come in from the left, even rows from the right, and every row advances at
+    // the same pace: two fronts crossing, as the portfolio rows do
+    const left = row % 2 === 0;
+    b.el.style.setProperty('--from', left ? '-101%' : '101%');
+    b.k = (left ? col : cols.length - 1 - col) * 10 + row;
+  });
+  commOrder = boxes.sort((a, b) => a.k - b.k).map(b => b.el);
 }
 let commFilled = -1;
 function fillCommunity(p) {

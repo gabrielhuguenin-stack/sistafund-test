@@ -671,10 +671,10 @@ main section[id] { scroll-margin-top: 60px; }
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 20%;
   filter: grayscale(1) contrast(1.05);
-  opacity: 0; transform: scale(1.14);
-  transition: opacity .7s var(--ease), transform .9s var(--ease);
+  transform: translateX(var(--from, -101%));
+  transition: transform .8s cubic-bezier(.16, .86, .22, 1);
 }
-.comm-cell.is-in img { opacity: 1; transform: none; }
+.comm-cell.is-in img { transform: none; }
 /* the name only answers under the pointer, and only once the face is there */
 .comm-tag {
   position: absolute; left: 0; right: 0; bottom: 0;
