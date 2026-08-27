@@ -1023,7 +1023,11 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 }
 .pf-all-card .pf-logo img { max-height: 52px; max-width: 62%; object-fit: contain; }
 .pf-all-card .pf-name { padding: 14px 16px 4px; font-family: var(--display); text-transform: uppercase; font-size: 1.2rem; line-height: 1; }
-.pf-all-card .pf-sector { padding: 0 16px 16px; color: rgba(250, 248, 240, .55); font-size: .85rem; }
+.pf-all-card .pf-sector {
+  padding: 15px 16px 16px; color: rgba(250, 248, 240, .62);
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .78rem; letter-spacing: .1em;
+}
 
 .lp-institutions { max-width: 640px; }
 .lp-institutions p { font-size: 1.25rem; color: rgba(250, 248, 240, .85); }
