@@ -167,7 +167,7 @@ document.querySelectorAll('.sec-head h2').forEach(h2 => {
 });
 
 const watched = [];
-document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .orbit-center')
+document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .comm-say')
   .forEach(el => { io.observe(el); watched.push(el); });
 // the fund band: each term arrives just after the one to its left
 document.querySelectorAll('.stat-item').forEach((el, i) => {
@@ -234,50 +234,48 @@ pfRows.forEach(row => {
 });
 
 
-// ---------- Community orbit ----------
+// ---------- Community mosaic ----------
+// The grid is drawn empty, then fills: portraits drop into their cells in diagonal
+// waves as the section crosses the screen. Same idea as the rest of the page — the
+// structure exists first, the content arrives into it.
 const LPS = window.LPS || [];
-
-const ringA = document.getElementById('ringA');
-const ringB = document.getElementById('ringB');
-const ringAItems = [], ringBItems = [];
-LPS.slice(0, 8).forEach(lp => ringAItems.push(makeOrbitItem(lp, ringA)));
-LPS.slice(8, 20).forEach(lp => ringBItems.push(makeOrbitItem(lp, ringB)));
-
-function makeOrbitItem(lp, ring) {
+const commMosaic = document.getElementById('commMosaic');
+const commCells = [];
+LPS.forEach(([name, org, file]) => {
   const d = document.createElement('div');
-  d.className = 'orbit-item';
-  const org = lp[1].split(',')[0].trim();   // short company label under the portrait
-  d.innerHTML = `<span class="orbit-photo"><img src="img/community/${lp[2]}" alt="${lp[0]}"></span><span class="orbit-org">${org}</span>`;
-  ring.appendChild(d);
-  return d;
-}
+  d.className = 'comm-cell';
+  d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
+    `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
+  commMosaic.appendChild(d);
+  commCells.push(d);
+});
 
-function layoutOrbit(rotation, appear = 1) {
-  const orbit = document.getElementById('orbit');
-  const W = orbit.clientWidth, H = orbit.clientHeight;
-  const vmin = Math.min(W, H);
-  const size = Math.max(64, vmin * 0.12);          // bigger portraits, constant size
-  // outer ring fits inside the section, leaving room for the company caption below
-  const rB = Math.min(W, H) / 2 - size * 0.8 - 26;
-  const rA = rB * 0.62;
-  // portraits ease in one by one and settle onto their ring; the whole
-  // constellation then keeps drifting, slowly, with the scroll
-  const ease = t => t * t * (3 - 2 * t);
-  const pop = i => ease(clamp(appear * 2.6 - i * 0.11, 0, 1));
-  ringAItems.forEach((el, i) => {
-    const a = rotation + (i / ringAItems.length) * 360;
-    const t = pop(i);
-    el.style.setProperty('--size', size + 'px');
-    el.style.opacity = t;
-    el.style.transform = `rotate(${a}deg) translateX(${rA * (0.92 + 0.08 * t)}px) rotate(${-a}deg)`;
-  });
-  ringBItems.forEach((el, i) => {
-    const a = -rotation * 0.6 + (i / ringBItems.length) * 360 + 15;
-    const t = pop(i + 4);
-    el.style.setProperty('--size', size * 0.85 + 'px');
-    el.style.opacity = t;
-    el.style.transform = `rotate(${a}deg) translateX(${rB * (0.92 + 0.08 * t)}px) rotate(${-a}deg)`;
-  });
+// the order of arrival is read off the grid itself, so it holds at every breakpoint:
+// a wave running from the top left corner down to the bottom right
+let commOrder = [];
+// square rows, measured rather than guessed: a percentage would resolve against nothing
+function sizeCommCells() {
+  if (!commMosaic) return;
+  const cols = getComputedStyle(commMosaic).gridTemplateColumns.split(' ').length;
+  const w = commMosaic.clientWidth - 3;              // the 1.5px rule on each edge
+  const cell = (w - (cols - 1) * 1.5) / cols;
+  // measured before layout the width reads zero: leave the CSS fallback rather than
+  // writing a negative row height, which would flatten the whole grid
+  if (cell > 20) commMosaic.style.setProperty('--cell', cell.toFixed(2) + 'px');
+}
+function orderCommCells() {
+  sizeCommCells();
+  commOrder = commCells
+    .map(el => { const r = el.getBoundingClientRect(); return { el, k: r.left + r.top * 1.4 }; })
+    .sort((a, b) => a.k - b.k)
+    .map(o => o.el);
+}
+let commFilled = -1;
+function fillCommunity(p) {
+  const n = Math.round(p * commOrder.length);
+  if (n === commFilled) return;
+  commFilled = n;
+  commOrder.forEach((el, i) => el.classList.toggle('is-in', i < n));
 }
 
 // ---------- Scroll loop ----------
@@ -291,7 +289,6 @@ const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img im
 const heroLemon = document.getElementById('heroLemon');
 const lemonAccents = [...document.querySelectorAll('.lemon-accent')];
 const communitySec = document.getElementById('community');
-const commPinEl = document.getElementById('commPin');
 
 function onScroll() {
   const y = window.scrollY;
@@ -366,20 +363,19 @@ function onScroll() {
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
 
-  // community: held on screen while the orbit assembles, then keeps turning
-  if (commPinEl) {
-    const r = commPinEl.getBoundingClientRect();
-    if (r.bottom > 0 && r.top < vh) {
-      const total = commPinEl.offsetHeight - vh;
-      const p = total > 0 ? clamp(-r.top / total, 0, 1) : 0;
-      layoutOrbit(p * 26, p);
-    }
+  // community: the grid fills as the section crosses the screen
+  if (commMosaic) {
+    if (!commOrder.length) orderCommCells();
+    const r = commMosaic.getBoundingClientRect();
+    const p = clamp((vh * 0.92 - r.top) / (r.height * 0.72 + vh * 0.12), 0, 1);
+    fillCommunity(p);
   }
 
   sweepMissed(vh);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', onScroll, { passive: true });
+window.addEventListener('resize', () => { commOrder = []; commFilled = -1; onScroll(); }, { passive: true });
+addEventListener('load', () => { commOrder = []; onScroll(); });
 onScroll();
 
 // ---------- Overlays ----------
