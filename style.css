@@ -162,29 +162,29 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .btn {
   position: relative; isolation: isolate;
   font-family: var(--display); text-transform: uppercase;
-  font-size: .92rem; letter-spacing: .06em; line-height: 1;
+  font-size: 1.02rem; letter-spacing: .07em; line-height: 1;
   display: inline-grid; grid-template-columns: 1fr auto; align-items: end;
-  gap: 3em; width: min(340px, 100%); text-align: left;
-  border: 0; border-bottom: 1.5px solid currentColor; border-radius: 0;
+  gap: 3em; width: min(360px, 100%); text-align: left;
+  border: 0; border-bottom: 2px solid currentColor; border-radius: 0;
   background: transparent; padding: 0 0 .62em;
   transition: color .3s var(--ease);
 }
-/* the fill rises from the rule; the rule itself stays visible under it */
-.btn::before {
-  content: ''; position: absolute; z-index: -1;
-  left: -.62em; right: -.62em; bottom: 0; top: -.85em;
+/* no fill and no slab: on hover the rule gains the house band at its foot, the same
+   seven pixels of yellow every frame on the site wears */
+.btn::after {
+  content: ''; position: absolute;
+  left: 0; right: 0; top: calc(100% + 2px); height: 7px;
   background: var(--yellow);
-  transform: scaleY(0); transform-origin: bottom;
+  transform: scaleX(0); transform-origin: left;
   transition: transform .42s var(--ease);
 }
-.btn:hover::before { transform: scaleY(1); }
-.btn:hover { color: var(--ink); }
+.btn:hover::after { transform: scaleX(1); }
 .btn-arrow { font-size: 1.15em; transition: transform .3s var(--ease); }
 .btn:hover .btn-arrow { transform: translateX(7px); }
 .btn-big {
-  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
-  width: min(520px, 100%); margin: 10vh 0 0;
-  border-bottom-width: 2px; padding-bottom: .55em;
+  font-size: clamp(1.2rem, 1.9vw, 1.7rem);
+  width: min(540px, 100%); margin: 10vh 0 0;
+  padding-bottom: .5em;
 }
 .btn-light { color: var(--paper); margin-top: 28px; }
 
@@ -485,51 +485,37 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(16, 16, 16, .6);
   margin-bottom: 5vh;
 }
-/* Four facts, four rooms of one black plate. Nothing is drawn: the only lines are the
-   gutters, where the yellow ground shows through — the device the community grid already
-   uses, where the gaps are the rules. So there are no bars floating on the ground, and
-   Thesis reads as one object instead of a table. Each room arrives on its own, and turns
-   over under the pointer. */
+/* Nothing is drawn here at all: no rule, no plate, no box. On a ground this saturated the
+   colour is already the frame, so the four facts are held by type and air alone. Each one
+   follows the hero's grammar in miniature — a small display label announcing it, the fact
+   itself answering in Portrait lowercase, large. */
 .stat-band {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 2px; background: var(--yellow);
+  column-gap: 8vw; row-gap: 7vh;
+  max-width: 1180px;
 }
 .stat-item {
-  position: relative; isolation: isolate;
-  background: var(--ink);
-  display: flex; flex-direction: column; align-items: flex-start; gap: .55em;
-  padding: 6vh 2.6vw 6.4vh; text-align: left; border: 0;
+  display: flex; flex-direction: column; align-items: flex-start; gap: .5em;
+  padding: 0; text-align: left; border: 0; background: none;
   opacity: 0; transform: translateY(20px);
   transition: opacity .9s var(--ease), transform .9s var(--ease);
 }
 .stat-item.in-view { opacity: 1; transform: none; }
-/* the room turns over: the yellow rises from the foot, as it does on the buttons. A fade
-   would cross an olive halfway, where neither the ink nor the yellow reads. */
-.stat-item::before {
-  content: ''; position: absolute; inset: 0; z-index: -1;
-  background: var(--yellow);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform .45s var(--ease);
-}
-.stat-item:hover::before { transform: scaleY(1); }
-.stat-item:hover .stat-term { color: var(--ink); transition-delay: .2s; }
-.stat-item:hover .stat-note { color: rgba(16, 16, 16, .7); transition-delay: .16s; }
-/* display caps, as every other declaration on the site: the serif read as a label */
-.stat-term {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.6rem, 3.4vw, 3.4rem); line-height: .94;
-  color: var(--yellow);
-  transition: color .14s linear;
-}
-/* and the caption answers in Portrait lowercase: the quiet voice under the statement */
+/* the label that announces the fact, in the same voice as the section kickers */
 .stat-note {
-  font-family: var(--serif);
-  font-size: clamp(.92rem, 1.15vw, 1.08rem); line-height: 1.35;
-  color: rgba(250, 248, 240, .62);
-  transition: color .14s linear;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .78rem; letter-spacing: .17em; line-height: 1;
+  color: rgba(16, 16, 16, .55);
+}
+/* and the fact itself in Portrait, bas de casse, at full scale */
+.stat-term {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.1rem, 4.4vw, 4.2rem); line-height: 1.02;
+  letter-spacing: -.015em;
+  color: var(--ink);
 }
 @media (max-width: 900px) {
-  .stat-band { grid-template-columns: 1fr; }
+  .stat-band { grid-template-columns: 1fr; row-gap: 5.5vh; }
 }
 
 /* ---- the house band ---- */
@@ -717,19 +703,26 @@ main section[id] { scroll-margin-top: 60px; }
   transition: transform .8s cubic-bezier(.16, .86, .22, 1);
 }
 .comm-cell.is-in img { transform: none; }
-/* the name only answers under the pointer, and only once the face is there */
+/* the name is written on the photograph itself, not on a plate laid over the face: just
+   enough shade rising from the foot of the frame to carry the letters */
 .comm-tag {
   position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 10px 12px 11px;
-  background: var(--yellow); color: var(--ink);
-  transform: translateY(101%); transition: transform .4s var(--ease);
+  padding: 3.2em .8em .75em;
+  background: linear-gradient(to top,
+    rgba(16, 16, 16, .93) 0%, rgba(16, 16, 16, .74) 38%, rgba(16, 16, 16, 0) 100%);
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .34s var(--ease), transform .46s var(--ease);
 }
-.comm-cell.is-in:hover .comm-tag { transform: none; }
+.comm-cell.is-in:hover .comm-tag { opacity: 1; transform: none; }
 .comm-tag b {
   display: block; font-family: var(--display); text-transform: uppercase;
   font-size: .8rem; line-height: 1.05; font-weight: 400;
+  color: var(--yellow);
 }
-.comm-tag i { font-style: normal; font-size: .76rem; opacity: .72; }
+.comm-tag i {
+  font-style: normal; font-family: var(--serif);
+  font-size: .82rem; color: rgba(250, 248, 240, .82);
+}
 
 @media (max-width: 1100px) {
   /* the words come out of the grid and sit above it, so the rows can size themselves */
