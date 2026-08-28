@@ -485,47 +485,51 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(16, 16, 16, .6);
   margin-bottom: 5vh;
 }
-/* two by two rather than four across: each column is its own short ruled list, and the
-   two lists face each other. Every row carries its own rule, so nothing spans the gutter. */
+/* Four facts, four rooms of one black plate. Nothing is drawn: the only lines are the
+   gutters, where the yellow ground shows through — the device the community grid already
+   uses, where the gaps are the rules. So there are no bars floating on the ground, and
+   Thesis reads as one object instead of a table. Each room arrives on its own, and turns
+   over under the pointer. */
 .stat-band {
   display: grid; grid-template-columns: 1fr 1fr;
-  column-gap: 5vw;
+  gap: 2px; background: var(--yellow);
 }
 .stat-item {
-  display: flex; flex-direction: column; align-items: flex-start; gap: .5em;
-  padding: 4.2vh 1.4vw 4.6vh; margin-left: -1.4vw; text-align: left;
-  border-top: 1.5px solid var(--ink);
+  position: relative; isolation: isolate;
+  background: var(--ink);
+  display: flex; flex-direction: column; align-items: flex-start; gap: .55em;
+  padding: 6vh 2.6vw 6.4vh; text-align: left; border: 0;
   opacity: 0; transform: translateY(20px);
-  transition: opacity .9s var(--ease), transform .9s var(--ease),
-              background .4s var(--ease), color .4s var(--ease);
-}
-
-.stat-band .stat-item:nth-child(3), .stat-band .stat-item:nth-child(4) {
-  border-bottom: 1.5px solid var(--ink);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
 }
 .stat-item.in-view { opacity: 1; transform: none; }
-/* the ground is already yellow, so the cell inverts under the pointer instead */
-.stat-item:hover { background: var(--ink); }
-.stat-item:hover .stat-term { color: var(--yellow); }
-.stat-item:hover .stat-note { color: rgba(250, 248, 240, .75); }
+/* the room turns over: the yellow rises from the foot, as it does on the buttons. A fade
+   would cross an olive halfway, where neither the ink nor the yellow reads. */
+.stat-item::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--yellow);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .45s var(--ease);
+}
+.stat-item:hover::before { transform: scaleY(1); }
+.stat-item:hover .stat-term { color: var(--ink); transition-delay: .2s; }
+.stat-item:hover .stat-note { color: rgba(16, 16, 16, .7); transition-delay: .16s; }
 /* display caps, as every other declaration on the site: the serif read as a label */
 .stat-term {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.6rem, 3.4vw, 3.4rem); line-height: .94;
-  color: var(--ink);
-  transition: color .4s var(--ease);
+  color: var(--yellow);
+  transition: color .14s linear;
 }
 /* and the caption answers in Portrait lowercase: the quiet voice under the statement */
 .stat-note {
   font-family: var(--serif);
   font-size: clamp(.92rem, 1.15vw, 1.08rem); line-height: 1.35;
-  color: rgba(16, 16, 16, .68);
-  transition: color .4s var(--ease);
+  color: rgba(250, 248, 240, .62);
+  transition: color .14s linear;
 }
 @media (max-width: 900px) {
-  /* one column: only the last row closes the list */
   .stat-band { grid-template-columns: 1fr; }
-  .stat-band .stat-item:nth-child(3) { border-bottom: none; }
 }
 
 /* ---- the house band ---- */
