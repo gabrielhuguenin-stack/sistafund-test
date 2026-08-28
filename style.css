@@ -153,26 +153,40 @@ body.subpage-dark .page-hero-title .yw {
 body.subpage-dark .nav-count { color: var(--yellow); }
 .mobile-menu .nav-count { font-size: .5em; }
 
+/* ---- the button ---- */
+/* A slab with a label in it belongs to no one. This site is built of ruled lines — the
+   sector rows, the thesis cells, the FAQ, the LinkedIn link under a bio — so its call to
+   action is a ruled line too: label at one end, arrow at the other, the rule between them.
+   Under the pointer the yellow rises off the rule and the letters turn to ink, the same
+   inversion the sector rows already do. */
 .btn {
+  position: relative; isolation: isolate;
   font-family: var(--display); text-transform: uppercase;
-  font-size: .92rem; letter-spacing: .06em;
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 12px 26px;
-  border: 1.5px solid var(--ink); border-radius: 0;
-  background: transparent;
-  transition: background .25s, color .25s, box-shadow .25s, transform .25s;
+  font-size: .92rem; letter-spacing: .06em; line-height: 1;
+  display: inline-grid; grid-template-columns: 1fr auto; align-items: end;
+  gap: 3em; width: min(340px, 100%); text-align: left;
+  border: 0; border-bottom: 1.5px solid currentColor; border-radius: 0;
+  background: transparent; padding: 0 0 .62em;
+  transition: color .3s var(--ease);
 }
-.btn-arrow { transition: transform .3s var(--ease); }
-.btn:hover .btn-arrow { transform: translateX(5px); }
-.nav-cta { background: var(--ink); color: var(--paper); }
-.nav-cta:hover { background: var(--yellow); color: var(--ink); box-shadow: 4px 4px 0 var(--ink); transform: translate(-2px, -2px); }
+/* the fill rises from the rule; the rule itself stays visible under it */
+.btn::before {
+  content: ''; position: absolute; z-index: -1;
+  left: -.62em; right: -.62em; bottom: 0; top: -.85em;
+  background: var(--yellow);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .42s var(--ease);
+}
+.btn:hover::before { transform: scaleY(1); }
+.btn:hover { color: var(--ink); }
+.btn-arrow { font-size: 1.15em; transition: transform .3s var(--ease); }
+.btn:hover .btn-arrow { transform: translateX(7px); }
 .btn-big {
-  font-size: 1.15rem; padding: 18px 40px; margin: 10vh 0 0;
-  background: var(--ink); color: var(--paper);
+  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
+  width: min(520px, 100%); margin: 10vh 0 0;
+  border-bottom-width: 2px; padding-bottom: .55em;
 }
-.btn-big:hover { background: var(--yellow); color: var(--ink); box-shadow: 6px 6px 0 var(--ink); transform: translate(-3px, -3px); }
-.btn-light { border-color: var(--paper); color: var(--paper); margin-top: 28px; }
-.btn-light:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.btn-light { color: var(--paper); margin-top: 28px; }
 
 .burger { display: none; }
 .mobile-menu { display: none; }
@@ -529,7 +543,13 @@ main section[id] { scroll-margin-top: 60px; }
 /* a company box has its own ground, so the band is cast outside it rather than behind:
    an offset copy clipped to what falls past the left side and the foot. It waits for
    the pointer — the box earns the band, it does not wear it at rest. */
-.pf-card:hover, .pf-all-card:hover { box-shadow: -8px 8px 0 var(--yellow); }
+.pf-card:hover, .pf-all-card:hover,
+.comm-cell:hover, .lp:hover .lp-photo,
+.member:hover .member-photo, .news-card:hover .news-img {
+  box-shadow: -8px 8px 0 var(--yellow);
+}
+/* in a grid with no gutters the band would slide under the next tile */
+.comm-cell:hover { z-index: 3; }
 
 /* ---- who is behind the mark ---- */
 /* Under the pointer the plate turns over: the logo goes and the founders take its place,
@@ -574,7 +594,7 @@ main section[id] { scroll-margin-top: 60px; }
   padding: 0;
   transition: transform .35s var(--ease), box-shadow .3s var(--ease);
 }
-.pf-card .pf-logo { height: 158px; border-bottom: none; padding: 30px; }
+.pf-card .pf-logo { height: auto; aspect-ratio: 1.6; border-bottom: none; padding: 30px; }
 .pf-card:hover { transform: translateY(-6px); }
 .pf-logo {
   width: 100%; height: 130px;
@@ -606,9 +626,9 @@ main section[id] { scroll-margin-top: 60px; }
   aspect-ratio: 4 / 4.7; border: 1.5px solid var(--ink);
   background: var(--yellow);
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.05s var(--ease) .08s;
+  transition: clip-path 1.05s var(--ease) .08s, box-shadow .3s var(--ease);
 }
-.member.in-view .member-photo { clip-path: inset(0 0 0 0); }
+.member.in-view .member-photo { clip-path: inset(0 0 -10px -10px); }
 .member-photo img {
   width: 100%; height: 118%; object-fit: cover; object-position: center 16%;
   filter: grayscale(1) contrast(1.05);
@@ -683,6 +703,7 @@ main section[id] { scroll-margin-top: 60px; }
 .comm-cell {
   position: relative; overflow: hidden;
   background: var(--ink);
+  transition: box-shadow .3s var(--ease);
 }
 .comm-cell img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -843,9 +864,9 @@ main section[id] { scroll-margin-top: 60px; }
   overflow: hidden; aspect-ratio: 16 / 11;
   border: 1.5px solid var(--ink); margin-bottom: 20px;
   clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.05s var(--ease) .08s;
+  transition: clip-path 1.05s var(--ease) .08s, box-shadow .3s var(--ease);
 }
-.news-card.in-view .news-img { clip-path: inset(0 0 0 0); }
+.news-card.in-view .news-img { clip-path: inset(0 0 -10px -10px); }
 .news-img img {
   width: 100%; height: 118%; object-fit: cover; object-position: center 22%;
   filter: grayscale(1);
@@ -1045,9 +1066,10 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 
 /* full portfolio grid (overlay) */
 .pf-all-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 24px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 30px;
 }
+@media (max-width: 720px) { .pf-all-grid { grid-template-columns: 1fr; } }
 .pf-all-card {
   display: flex;
   border: 1.5px solid var(--paper); background: transparent;
@@ -1055,10 +1077,10 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 }
 .pf-all-card:hover { transform: translateY(-5px); border-color: var(--yellow); }
 .pf-all-card .pf-logo {
-  width: 100%; height: 132px; background: #fff;
-  display: flex; align-items: center; justify-content: center; padding: 24px;
+  width: 100%; height: auto; aspect-ratio: 1.6; background: #fff;
+  display: flex; align-items: center; justify-content: center; padding: 32px;
 }
-.pf-all-card .pf-logo img { max-height: 52px; max-width: 62%; object-fit: contain; }
+.pf-all-card .pf-logo img { max-height: 72px; max-width: 64%; object-fit: contain; }
 
 
 .lp-institutions { max-width: 640px; }
@@ -1076,6 +1098,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .lp-photo {
   aspect-ratio: 1; overflow: hidden; border: 1.5px solid var(--paper);
   margin-bottom: 12px;
+  transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
 }
 .lp-photo img {
   width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
