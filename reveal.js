@@ -195,8 +195,6 @@
 
     // one leaf is open, the rest stand closed beside it in the order of the queue
     const DRIFT = ['-1.6', '2.4', '3.2', '4', '4.6'];
-    const dots = [];
-    const dotRow = nav.querySelector('.pcdots');
     const lead = open.querySelector('[data-cascade-lead]');
     let k = 0, timer = null;
 
@@ -211,7 +209,6 @@
         el.style.setProperty('--p', place);
         el.dataset.drift = DRIFT[place] || '0';
       });
-      dots.forEach((d, i) => d.classList.toggle('on', i === k));
       // the headline belongs to whichever picture now stands in the large frame
       if (lead && queue[k].dataset.title) {
         const d = queue[k].dataset;
@@ -226,15 +223,6 @@
       }
     };
 
-    for (let i = 0; i < steps; i++) {
-      const d = document.createElement('button');
-      d.type = 'button';
-      d.setAttribute('aria-label', 'Picture ' + (i + 1));
-      if (i === 0) d.classList.add('on');
-      d.addEventListener('click', () => { stop(); goTo(i); });
-      dotRow.appendChild(d);
-      dots.push(d);
-    }
     nav.querySelectorAll('.pcarrow').forEach(b => {
       b.addEventListener('click', () => { stop(); goTo(k + +b.dataset.step); });
     });

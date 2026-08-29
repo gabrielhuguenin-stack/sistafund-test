@@ -303,16 +303,19 @@ const communitySec = document.getElementById('community');
 const thesisDeck = document.getElementById('thesisDeck');
 const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
 let tOpen = -1;
+const thesisPin = document.getElementById('thesisPin');
 function turnThesis(p) {
-  const k = Math.min(tleaves.length - 1, Math.floor(p * tleaves.length));
+  const n = tleaves.length;
+  const k = Math.min(n - 1, Math.floor(p * n));
   if (k === tOpen) return;
   tOpen = k;
-  let shut = 0;
   tleaves.forEach((el, i) => {
-    const open = i === k;
-    el.classList.toggle('is-open', open);
-    el.classList.toggle('is-shut', !open);
-    if (!open) el.style.setProperty('--p', shut++);
+    // the stack reads as what is still to come, and what is read takes the yellow
+    const place = (i - k + n) % n;
+    el.classList.toggle('is-open', place === 0);
+    el.classList.toggle('is-shut', place !== 0);
+    el.classList.toggle('is-done', i < k);
+    el.style.setProperty('--p', place - 1);
   });
 }
 
@@ -390,9 +393,10 @@ function onScroll() {
   });
 
   // thesis: the deck turns a card as the section crosses the screen
-  if (thesisDeck) {
-    const r = thesisDeck.getBoundingClientRect();
-    turnThesis(clamp((vh * 0.9 - r.top) / (vh * 0.95 + r.height), 0, 0.999));
+  if (thesisPin && tleaves.length) {
+    const r = thesisPin.getBoundingClientRect();
+    const total = thesisPin.offsetHeight - vh;
+    turnThesis(total > 0 ? clamp(-r.top / total, 0, 0.999) : 0);
   }
 
   // community: the grid fills as the section crosses the screen
