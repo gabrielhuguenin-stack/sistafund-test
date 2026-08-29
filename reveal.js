@@ -174,6 +174,8 @@
     const nav = cascade.querySelector('.pcnav') || open.querySelector('.pcnav');
     const steps = queue.length;
     if (steps < 3 || !nav) { if (nav) nav.remove(); return; }
+    // how many leaves stand closed at any moment: the CSS measures the pile from it
+    cascade.style.setProperty('--leaves', steps - 2);
 
     // one leaf is open, the rest stand closed beside it in the order of the queue
     const DRIFT = ['-1.6', '2.4', '3.2', '4', '4.6'];
