@@ -1692,19 +1692,26 @@ body > main, body > footer { position: relative; z-index: 1; }
 
 /* manifesto statements: one steady rhythm, claim left, argument right, no zig-zag */
 .doc-statements { padding: 4vh 4vw 0; }
-.m-stmt {
-  display: grid; grid-template-columns: 1.02fr .98fr; gap: 6vw;
-  align-items: baseline;
-  padding: 8vh 0; border-top: 1.5px solid var(--ink);
-}
+/* A manifesto is not a two-column table of headings and paragraphs. Each statement is a
+   declaration that takes the width of the page, with its explanation hanging quietly to
+   the right underneath — and the five of them grow as they go, so the document builds
+   toward its closing line instead of repeating itself five times. */
+.m-stmt { display: block; padding: 7vh 0 8vh; border-top: 1.5px solid var(--ink); }
 .m-stmt:first-child { border-top: none; padding-top: 2vh; }
 .m-claim {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.6rem, 3.1vw, 2.7rem); line-height: 1.04; max-width: 15ch;
+  line-height: .97; max-width: 24ch;
+  font-size: clamp(1.7rem, 3.2vw, 3rem);
 }
+.m-stmt:nth-child(2) .m-claim { font-size: clamp(1.85rem, 3.8vw, 3.6rem); }
+.m-stmt:nth-child(3) .m-claim { font-size: clamp(2rem, 4.4vw, 4.2rem); }
+.m-stmt:nth-child(4) .m-claim { font-size: clamp(2.15rem, 5vw, 4.8rem); }
+.m-stmt:nth-child(5) .m-claim { font-size: clamp(2.3rem, 5.6vw, 5.4rem); max-width: 20ch; }
+/* the aside answers from the right, set in the quiet voice */
 .m-body {
   font-family: var(--serif); font-size: 1.18rem; line-height: 1.65;
-  color: var(--grey); max-width: 46ch;
+  color: var(--grey); width: min(52ch, 46%);
+  margin: 3vh 0 0 auto;
 }
 /* the closing line stands alone, full measure */
 .m-legacy { padding: 12vh 4vw 16vh; border-top: 1.5px solid var(--ink); }
@@ -1715,8 +1722,8 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 @media (max-width: 620px) { .m-legacy-title { white-space: normal; } }
 @media (max-width: 900px) {
-  .m-stmt { grid-template-columns: 1fr; gap: 18px; padding: 6vh 0; }
-  .m-body { max-width: none; }
+  .m-stmt { padding: 6vh 0; }
+  .m-body { width: 100%; margin-top: 22px; }
 }
 @media (max-width: 900px) {
   .doc-hero { grid-template-columns: 1fr; align-items: start; }
