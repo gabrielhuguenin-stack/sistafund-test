@@ -189,10 +189,11 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .btn-light { color: var(--paper); margin-top: 28px; }
 /* over a photograph a cream rule disappears into whatever is behind it: the label takes
    the same treatment a yellow word takes on a picture, and the rule turns yellow with it */
-.btn--onphoto { color: var(--yellow); }
-.btn--onphoto span:first-child, .btn--onphoto { paint-order: stroke fill; }
-.btn--onphoto { -webkit-text-stroke: 1.6px var(--ink); }
-.btn--onphoto::after { background: var(--paper); }
+.btn--onphoto {
+  color: var(--yellow);
+  -webkit-text-stroke: 1.6px var(--ink); paint-order: stroke fill;
+  border-bottom-color: var(--paper);
+}
 
 .burger { display: none; }
 .mobile-menu { display: none; }
@@ -498,7 +499,7 @@ main section[id] { scroll-margin-top: 60px; }
    one in hand lies open and carries the house band; the others stand closed on their
    edge, each showing its own label written down the spine. The ground stays cream. */
 .thesis-deck {
-  position: relative; aspect-ratio: 1000 / 205;
+  position: relative; aspect-ratio: 1000 / 158;
   --leaf: 34px; --gap: 9px;
   --pile: calc(3 * var(--leaf) + 2 * var(--gap));
   margin-top: 1vh;
@@ -507,7 +508,7 @@ main section[id] { scroll-margin-top: 60px; }
   position: absolute; top: 0; height: 100%; overflow: hidden;
   border: 1.5px solid var(--ink); background: var(--paper);
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: 2.6vh 3vw 3.2vh;
+  padding: 2.4vh 2.6vw 2.6vh;
   transition: left .85s var(--ease), width .85s var(--ease), background .5s var(--ease);
 }
 /* the card in hand, on the band the whole site wears */
