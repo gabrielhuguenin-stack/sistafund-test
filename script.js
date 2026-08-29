@@ -392,14 +392,14 @@ function onScroll() {
   // thesis: the deck turns a card as the section crosses the screen
   if (thesisDeck) {
     const r = thesisDeck.getBoundingClientRect();
-    turnThesis(clamp((vh * 0.86 - r.top) / (vh * 0.62), 0, 0.999));
+    turnThesis(clamp((vh * 0.9 - r.top) / (vh * 0.95 + r.height), 0, 0.999));
   }
 
   // community: the grid fills as the section crosses the screen
   if (commMosaic) {
     if (!commOrder.length) orderCommCells();
     const r = commMosaic.getBoundingClientRect();
-    const p = clamp((vh * 0.92 - r.top) / (r.height * 0.72 + vh * 0.12), 0, 1);
+    const p = clamp((vh * 0.9 - r.top) / (vh * 0.95 + r.height), 0, 1);
     fillCommunity(p);
   }
 
