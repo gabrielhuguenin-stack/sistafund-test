@@ -118,28 +118,44 @@
     Object.assign(q.dataset, { title: name, source: role, date: '', url: 'team.html' });
     q.innerHTML = `<figure class="pcf-frame" data-reveal="image" style="--rd:${i * 160}ms">
       <img src="img/team/${file}" alt="${name}" class="on"${i > 2 ? ' loading="lazy"' : ''}>
+      <span class="pcf-tag"><b>${name}</b><i>${role}</i></span>
     </figure>`;
     host.appendChild(q);
   });
 })();
 
-/* The home page's press runs on the same queue as the dedicated pages open on:
-   the pictures travel up through the places, and the headline follows the one
-   standing in the large frame. */
+/* The home page's press is an index, not a queue: the stories are ruled rows and the
+   frame beside them holds whichever one the reader is on. The rows invert to yellow the
+   way the sector lines do — a press page reads as a list, not as a stack of pictures. */
 (function () {
-  const host = document.querySelector('[data-news-cascade]');
-  if (!host || !window.NEWS) return;
+  const list = document.querySelector('[data-news-list]');
+  if (!list || !window.NEWS) return;
   const shots = window.NEWS_IMG || [];
-  window.NEWS.slice(0, +host.dataset.newsCascade || 6).forEach(([date, source, title, url], i) => {
-    const q = document.createElement('div');
-    q.className = 'pcq';
-    q.dataset.drift = '0';
-    Object.assign(q.dataset, { date, source, title, url });
-    q.innerHTML = `<figure class="pcf-frame" data-reveal="image" style="--rd:${i * 160}ms">
-      <img src="${shots[i] ? 'img/news/' + shots[i] : 'img/logo.svg'}" alt="" class="on"${i > 2 ? ' loading="lazy"' : ''}>
-    </figure>`;
-    host.appendChild(q);
+  const frame = document.querySelector('.news-shot img');
+  const n = +list.dataset.newsList || 6;
+  window.NEWS.slice(0, n).forEach(([date, source, title, url], i) => {
+    const a = document.createElement('a');
+    a.className = 'news-row';
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.dataset.shot = shots[i] || '';
+    a.style.setProperty('--rd', (i * 90) + 'ms');
+    a.innerHTML = `<span class="news-row-meta"><b>${source}</b><i>${date}</i></span>` +
+      `<span class="news-row-title">${title}</span>` +
+      `<span class="btn-arrow">\u2197</span>`;
+    list.appendChild(a);
   });
+  const rows = [...list.querySelectorAll('.news-row')];
+  const show = row => {
+    if (!frame || !row.dataset.shot) return;
+    rows.forEach(r => r.classList.toggle('on', r === row));
+    if (frame.getAttribute('src') === 'img/news/' + row.dataset.shot) return;
+    frame.classList.remove('in');
+    frame.src = 'img/news/' + row.dataset.shot;
+    frame.alt = row.querySelector('.news-row-title').textContent;
+    requestAnimationFrame(() => frame.classList.add('in'));
+  };
+  rows.forEach(r => r.addEventListener('mouseenter', () => show(r)));
+  if (rows[0]) show(rows[0]);
 })();
 
 /* Page opening cascade

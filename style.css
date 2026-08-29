@@ -478,43 +478,66 @@ main section[id] { scroll-margin-top: 60px; }
    counting figures. It carries straight on from the four sector lines above. */
 /* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
    makes the four terms carry without having to enlarge them */
-.stats { background: var(--yellow); color: var(--ink); padding: 13vh 4vw 12vh; }
+.stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 12vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: .9rem; letter-spacing: .18em;
   color: rgba(16, 16, 16, .6);
   margin-bottom: 5vh;
 }
-/* Nothing is drawn here at all: no rule, no plate, no box. On a ground this saturated the
-   colour is already the frame, so the four facts are held by type and air alone. Each one
-   follows the hero's grammar in miniature — a small display label announcing it, the fact
-   itself answering in Portrait lowercase, large. */
-.stat-band {
-  display: grid; grid-template-columns: 1fr 1fr;
-  column-gap: 8vw; row-gap: 7vh;
+/* The four facts are cards in a deck, turned by the scroll rather than by arrows: the
+   same book the dedicated pages open on, made of statements instead of photographs. The
+   one in hand lies open and carries the house band; the others stand closed on their
+   edge, each showing its own label written down the spine. The ground stays cream. */
+.thesis-deck {
+  position: relative; aspect-ratio: 1000 / 232;
+  --leaf: 34px; --gap: 9px;
+  --pile: calc(3 * var(--leaf) + 2 * var(--gap));
+  margin-top: 1vh;
 }
-.stat-item {
-  display: flex; flex-direction: column; align-items: flex-start; gap: .5em;
-  padding: 0; text-align: left; border: 0; background: none;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity .9s var(--ease), transform .9s var(--ease);
+.tleaf {
+  position: absolute; top: 0; height: 100%; overflow: hidden;
+  border: 1.5px solid var(--ink); background: var(--paper);
+  display: flex; flex-direction: column; justify-content: center; gap: .55em;
+  padding: 0 3vw;
+  transition: left .85s var(--ease), width .85s var(--ease), background .5s var(--ease);
 }
-.stat-item.in-view { opacity: 1; transform: none; }
-/* the label that announces the fact, in the same voice as the section kickers */
-.stat-note {
+/* the card in hand, on the band the whole site wears */
+.tleaf.is-open {
+  left: 0; width: calc(100% - var(--pile) - 26px); z-index: 3;
+  box-shadow: -8px 8px 0 var(--yellow);
+}
+.tleaf.is-shut {
+  width: var(--leaf); z-index: 2; padding: 0;
+  left: calc(100% - var(--pile) + var(--p) * (var(--leaf) + var(--gap)));
+  align-items: center; justify-content: flex-end;
+}
+.tleaf.is-shut:hover { background: var(--yellow); }
+.tleaf-label {
   font-family: var(--display); text-transform: uppercase;
   font-size: .78rem; letter-spacing: .17em; line-height: 1;
   color: rgba(16, 16, 16, .55);
+  transition: color .4s var(--ease);
 }
-/* and the fact itself in Portrait, bas de casse, at full scale */
-.stat-term {
+.tleaf-term {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(2.1rem, 4.4vw, 4.2rem); line-height: 1.02;
-  letter-spacing: -.015em;
+  font-size: clamp(2.2rem, 5.4vw, 5.2rem); line-height: 1; letter-spacing: -.02em;
   color: var(--ink);
+  white-space: nowrap;
+}
+/* a closed card shows only its spine, and the label reads down it */
+.tleaf.is-shut .tleaf-term { display: none; }
+.tleaf.is-shut .tleaf-label {
+  writing-mode: vertical-rl; padding: 0 0 1.6em; color: var(--ink);
+  font-size: .72rem; letter-spacing: .16em;
 }
 @media (max-width: 900px) {
-  .stat-band { grid-template-columns: 1fr; row-gap: 5.5vh; }
+  .thesis-deck { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; gap: 1.5px; }
+  .tleaf { position: static; width: auto !important; height: auto; padding: 4vh 5vw;
+    box-shadow: none !important; }
+  .tleaf.is-shut { align-items: flex-start; justify-content: flex-start; }
+  .tleaf.is-shut .tleaf-term { display: block; }
+  .tleaf.is-shut .tleaf-label { writing-mode: horizontal-tb; padding: 0; }
 }
 
 /* ---- the house band ---- */
@@ -704,7 +727,7 @@ main section[id] { scroll-margin-top: 60px; }
 .comm-cell.is-in img { transform: none; }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
-.comm-tag {
+.comm-tag, .pcf-tag {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 3.2em .8em .75em;
   background: linear-gradient(to top,
@@ -713,12 +736,18 @@ main section[id] { scroll-margin-top: 60px; }
   transition: opacity .34s var(--ease), transform .46s var(--ease);
 }
 .comm-cell.is-in:hover .comm-tag { opacity: 1; transform: none; }
-.comm-tag b {
+/* the portraits of the home page's team queue are named the same way */
+.pcf-tag { padding: 3.4em 1.4em 1.1em; z-index: 4; }
+.pcq.is-open:hover .pcf-tag { opacity: 1; transform: none; }
+.pcq.is-leaf .pcf-tag { display: none; }
+.pcf-tag b { font-size: 1.05rem; letter-spacing: .04em; }
+.pcf-tag i { font-size: .95rem; }
+.comm-tag b, .pcf-tag b {
   display: block; font-family: var(--display); text-transform: uppercase;
   font-size: .8rem; line-height: 1.05; font-weight: 400;
   color: var(--yellow);
 }
-.comm-tag i {
+.comm-tag i, .pcf-tag i {
   font-style: normal; font-family: var(--serif);
   font-size: .82rem; color: rgba(250, 248, 240, .82);
 }
@@ -789,6 +818,63 @@ main section[id] { scroll-margin-top: 60px; }
   gap: 3vw; align-items: center;
 }
 .news-open { grid-template-columns: minmax(0, 1fr) minmax(0, 66vw); }
+
+/* ---- the press index ---- */
+/* A press page reads as a list. The stories are ruled rows, exactly like the sector
+   lines, and each one inverts to yellow under the pointer — that is where the colour
+   comes into this section. The frame beside them holds whichever story you are on, so
+   the pictures are never cropped differently from one another. */
+.news-index {
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+  gap: 4vw; align-items: start; margin-top: 6vh;
+}
+.news-list { border-top: 1.5px solid var(--ink); }
+.news-row {
+  display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) auto;
+  gap: 2vw; align-items: baseline;
+  padding: 2.6vh 1.2vw 2.9vh; margin: 0 -1.2vw;
+  border-bottom: 1.5px solid var(--ink);
+  transition: background .32s var(--ease), color .32s var(--ease);
+}
+.news-row.on, .news-row:hover { background: var(--yellow); }
+.news-row-meta {
+  display: flex; flex-direction: column; gap: 3px;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .74rem; letter-spacing: .1em; line-height: 1.2;
+}
+.news-row-meta b { font-weight: 400; }
+.news-row-meta i { font-style: normal; color: var(--grey); }
+.news-row.on .news-row-meta i, .news-row:hover .news-row-meta i { color: rgba(16, 16, 16, .62); }
+.news-row-title {
+  font-family: var(--serif); font-size: clamp(1.02rem, 1.35vw, 1.28rem);
+  line-height: 1.32;
+}
+.news-row .btn-arrow {
+  font-family: var(--display); font-size: 1rem;
+  opacity: 0; transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.news-row.on .btn-arrow, .news-row:hover .btn-arrow { opacity: 1; transform: translate(3px, -3px); }
+/* the frame keeps one trim for every story, and stands on the house band */
+.news-shot {
+  position: relative; margin: 0;
+  aspect-ratio: 4 / 3; overflow: hidden;
+  border: 1.5px solid var(--ink); background: var(--ink);
+  box-shadow: -8px 8px 0 var(--yellow);
+}
+
+.news-shot img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 32%;
+  filter: grayscale(1) contrast(1.05);
+  opacity: 0; transition: opacity .5s var(--ease);
+}
+.news-shot img.in { opacity: 1; }
+@media (max-width: 900px) {
+  .news-index { grid-template-columns: 1fr; gap: 5vh; }
+  .news-shot { order: -1; }
+  .news-row { grid-template-columns: 1fr auto; }
+  .news-row-meta { grid-column: 1 / -1; flex-direction: row; gap: 12px; }
+}
 /* every press picture is landscape, so the block is shallower and each place with it */
 .news-open .pcascade { aspect-ratio: 1000 / 387; }
 
@@ -925,14 +1011,33 @@ main section[id] { scroll-margin-top: 60px; }
   gap: 8vw; flex-wrap: wrap; margin-bottom: 5vh;
 }
 .footer-legal-block { display: flex; flex-direction: column; gap: 20px; max-width: 460px; }
-.footer-cols { display: flex; gap: 72px; flex-wrap: wrap; }
-.footer-col { display: flex; flex-direction: column; gap: 8px; }
+/* not three columns floating side by side: the same ruled rows the rest of the site is
+   made of, each one naming a thing and answering it */
+.footer-rows { flex: 1 1 480px; max-width: 660px; }
+.footer-row {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 3vw; align-items: baseline;
+  padding: 20px 0; position: relative;
+  border-top: 1.5px solid rgba(250, 248, 240, .3);
+}
+.footer-rows .footer-row:last-child { border-bottom: 1.5px solid rgba(250, 248, 240, .3); }
 .footer-head {
   font-family: var(--display); text-transform: uppercase;
   letter-spacing: .14em; font-size: .85rem; color: var(--yellow);
-  margin-bottom: 8px;
 }
-.footer-col a:hover { color: var(--yellow); }
+.footer-val { display: flex; flex-direction: column; gap: 5px; font-size: .95rem; }
+.footer-val a:hover { color: var(--yellow); }
+/* the NGO stands on its own and behaves like a button: the band rises at its foot */
+.footer-row--go { grid-template-columns: 1fr auto; align-items: center; }
+.footer-row--go .btn-arrow { font-size: 1.1rem; transition: transform .3s var(--ease); }
+.footer-row--go:hover .btn-arrow { transform: translateX(7px); }
+.footer-row--go::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -8.5px; height: 7px;
+  background: var(--yellow);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .42s var(--ease);
+}
+.footer-row--go:hover::after { transform: scaleX(1); }
 .footer-legal {
   font-size: .8rem; color: rgba(250, 248, 240, .45);
   line-height: 1.6;
@@ -1062,7 +1167,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 
 /* full portfolio grid (overlay) */
 .pf-all-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
   gap: 30px;
 }
 @media (max-width: 720px) { .pf-all-grid { grid-template-columns: 1fr; } }
@@ -1076,7 +1181,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   width: 100%; height: auto; aspect-ratio: 1.6; background: #fff;
   display: flex; align-items: center; justify-content: center; padding: 32px;
 }
-.pf-all-card .pf-logo img { max-height: 72px; max-width: 64%; object-fit: contain; }
+.pf-all-card .pf-logo img { max-height: 64px; max-width: 66%; object-fit: contain; }
 
 
 .lp-institutions { max-width: 640px; }
@@ -1253,7 +1358,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 }
 /* this page has no in-view engine: portraits are shown, reveal.js animates them */
 .team-gallery .member { opacity: 1; transform: none; }
-.team-gallery .member-photo { clip-path: inset(0 0 0 0); }
+.team-gallery .member-photo { clip-path: inset(0 0 -10px -10px); }
 /* each portrait warms into colour as it comes into view */
 /* the picture fills its frame exactly: the 118% height and the -8% lift were left over
    from a parallax this gallery does not run, and they were shaving the headroom off the
@@ -1267,7 +1372,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .team-page-grid .team-grid { max-width: none; }
 /* portraits visible by default on the dedicated page (no scroll-reveal gate) */
 .team-page-grid .member { opacity: 1; transform: none; }
-.team-page-grid .member-photo { clip-path: inset(0 0 0 0); }
+.team-page-grid .member-photo { clip-path: inset(0 0 -10px -10px); }
 .news-all-cta { margin-top: 6vh; }
 .news-page-grid { padding: 0 4vw 16vh; }
 .news-page-grid .news-grid { grid-template-columns: repeat(3, 1fr); }
@@ -1366,8 +1471,9 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    Its column is stretched to the height of the cascade and the frame takes what the
    title leaves, so it lands on the same line as the lowest picture on the right. */
 .page-open--anchor .page-open-text { align-self: stretch; display: flex; flex-direction: column; }
-.pcf-wide { width: 100%; flex: 1 1 auto; min-height: 0; margin-top: 5vh; }
-.pcf-wide img { object-position: center 60%; }
+.pcf-wide { width: 100%; flex: 0 0 auto; margin-top: 5vh; }
+.pcf-wide .pcf-frame { aspect-ratio: 1066 / 969; height: auto; }
+.pcf-wide img { object-position: center; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
   width: 100%; height: 100%;
@@ -1556,7 +1662,7 @@ html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
 body.subpage-dark .col-guides span { border-color: rgba(250, 248, 240, .08); }
 body > main, body > footer { position: relative; z-index: 1; }
 @media (max-width: 720px) {
-  .footer-cols { gap: 40px; } .col-guides { display: none; } }
+  .footer-rows { flex-basis: 100%; } .col-guides { display: none; } }
 
 /* ============ Doc pages (about.html, manifesto.html) ============ */
 /* these pages have no scroll-reveal engine: show gated home components by default */

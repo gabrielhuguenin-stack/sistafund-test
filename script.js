@@ -298,6 +298,23 @@ const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img im
 const heroLemon = document.getElementById('heroLemon');
 const lemonAccents = [...document.querySelectorAll('.lemon-accent')];
 const communitySec = document.getElementById('community');
+// ---------- Thesis deck ----------
+// the same book the dedicated pages open on, turned by the scroll instead of the arrows
+const thesisDeck = document.getElementById('thesisDeck');
+const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
+let tOpen = -1;
+function turnThesis(p) {
+  const k = Math.min(tleaves.length - 1, Math.floor(p * tleaves.length));
+  if (k === tOpen) return;
+  tOpen = k;
+  let shut = 0;
+  tleaves.forEach((el, i) => {
+    const open = i === k;
+    el.classList.toggle('is-open', open);
+    el.classList.toggle('is-shut', !open);
+    if (!open) el.style.setProperty('--p', shut++);
+  });
+}
 
 function onScroll() {
   const y = window.scrollY;
@@ -371,6 +388,12 @@ function onScroll() {
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
+
+  // thesis: the deck turns a card as the section crosses the screen
+  if (thesisDeck) {
+    const r = thesisDeck.getBoundingClientRect();
+    turnThesis(clamp((vh * 0.86 - r.top) / (vh * 0.62), 0, 0.999));
+  }
 
   // community: the grid fills as the section crosses the screen
   if (commMosaic) {
