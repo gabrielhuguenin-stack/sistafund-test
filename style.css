@@ -473,9 +473,7 @@ main section[id] { scroll-margin-top: 60px; }
   padding-top: calc(.223 * clamp(1.7rem, 4.2vw, 4.3rem) - .361em);
 }
 .grow-side p + p { margin-top: 1.1em; }
-/* the call to action runs the whole width of the frame at its foot, instead of hanging
-   under the paragraph: the rule crosses the picture and closes the composition */
-.grow-btn { grid-column: 1 / -1; width: 100%; margin: 7vh 0 0; }
+.grow-btn { margin-top: 3.4vh; }
 @media (max-width: 900px) {
   .grow-pin { height: 260vh; }
   .grow-copy { grid-template-columns: 1fr; gap: 3vh; }
@@ -487,11 +485,6 @@ main section[id] { scroll-margin-top: 60px; }
    counting figures. It carries straight on from the four sector lines above. */
 /* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
    makes the four terms carry without having to enlarge them */
-.thesis-pin { position: relative; height: 240vh; }
-.thesis-pin .stats {
-  position: sticky; top: 0; height: 100vh;
-  display: flex; flex-direction: column; justify-content: center;
-}
 .stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 12vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
@@ -504,7 +497,7 @@ main section[id] { scroll-margin-top: 60px; }
    one in hand lies open and carries the house band; the others stand closed on their
    edge, each showing its own label written down the spine. The ground stays cream. */
 .thesis-deck {
-  position: relative; aspect-ratio: 1000 / 158;
+  position: relative; aspect-ratio: 1000 / 236;
   --leaf: 34px; --gap: 9px;
   --pile: calc(3 * var(--leaf) + 2 * var(--gap));
   margin-top: 1vh;
@@ -513,8 +506,8 @@ main section[id] { scroll-margin-top: 60px; }
   position: absolute; top: 0; height: 100%; overflow: hidden;
   border: 1.5px solid var(--ink); background: var(--paper);
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: 2.4vh 2.6vw 2.6vh;
-  transition: left .85s var(--ease), width .85s var(--ease), background .5s var(--ease);
+  padding: 3.4vh 2.6vw 3.6vh;
+  transition: left .55s var(--ease), width .55s var(--ease), background .4s var(--ease);
 }
 /* the card in hand, on the band the whole site wears */
 .tleaf.is-open {
@@ -522,11 +515,10 @@ main section[id] { scroll-margin-top: 60px; }
   box-shadow: -8px 8px 0 var(--yellow);
 }
 .tleaf.is-shut {
-  width: var(--leaf); z-index: 2; padding: 0 0 1.4em;
+  width: var(--leaf); z-index: 2; padding: 0 0 1.4em; cursor: pointer;
   left: calc(100% - var(--pile) + var(--p) * (var(--leaf) + var(--gap)));
   align-items: center; justify-content: flex-end;
 }
-.tleaf.is-shut.is-done { background: var(--yellow); }
 .tleaf.is-shut:hover { background: var(--yellow); }
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
@@ -536,7 +528,7 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .tleaf-term {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(2.2rem, 6vw, 5.8rem); line-height: .96; letter-spacing: -.02em;
+  font-size: clamp(2.4rem, 6.6vw, 6.4rem); line-height: .95; letter-spacing: -.02em;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -547,8 +539,6 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: .72rem; letter-spacing: .16em;
 }
 @media (max-width: 900px) {
-  .thesis-pin { height: auto; }
-  .thesis-pin .stats { position: static; height: auto; display: block; }
   .thesis-deck { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; gap: 1.5px; }
   .tleaf { position: static; width: auto !important; height: auto; padding: 4vh 5vw;
     box-shadow: none !important; }

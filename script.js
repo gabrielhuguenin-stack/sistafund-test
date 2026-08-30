@@ -303,21 +303,21 @@ const communitySec = document.getElementById('community');
 const thesisDeck = document.getElementById('thesisDeck');
 const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
 let tOpen = -1;
-const thesisPin = document.getElementById('thesisPin');
-function turnThesis(p) {
+function turnThesis(k) {
   const n = tleaves.length;
-  const k = Math.min(n - 1, Math.floor(p * n));
-  if (k === tOpen) return;
+  if (k === tOpen || k < 0 || k >= n) return;
   tOpen = k;
   tleaves.forEach((el, i) => {
-    // the stack reads as what is still to come, and what is read takes the yellow
+    // the stack reads as what is still to come
     const place = (i - k + n) % n;
     el.classList.toggle('is-open', place === 0);
     el.classList.toggle('is-shut', place !== 0);
-    el.classList.toggle('is-done', i < k);
     el.style.setProperty('--p', place - 1);
   });
 }
+// four facts do not need a scroll sequence: the card you point at is the card that opens
+tleaves.forEach((el, i) => el.addEventListener('mouseenter', () => turnThesis(i)));
+if (tleaves.length) turnThesis(0);
 
 function onScroll() {
   const y = window.scrollY;
@@ -391,13 +391,6 @@ function onScroll() {
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
-
-  // thesis: the deck turns a card as the section crosses the screen
-  if (thesisPin && tleaves.length) {
-    const r = thesisPin.getBoundingClientRect();
-    const total = thesisPin.offsetHeight - vh;
-    turnThesis(total > 0 ? clamp(-r.top / total, 0, 0.999) : 0);
-  }
 
   // community: the grid fills as the section crosses the screen
   if (commMosaic) {
