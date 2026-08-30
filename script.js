@@ -315,8 +315,18 @@ function turnThesis(k) {
     el.style.setProperty('--p', place - 1);
   });
 }
-// four facts do not need a scroll sequence: the card you point at is the card that opens
-tleaves.forEach((el, i) => el.addEventListener('mouseenter', () => turnThesis(i)));
+if (thesisDeck) {
+  thesisDeck.querySelectorAll('[data-tstep]').forEach(b => {
+    b.addEventListener('click', () => {
+      const n = tleaves.length;
+      turnThesis((tOpen + +b.dataset.tstep + n) % n);
+    });
+  });
+  // a closed card can also be opened by clicking its spine
+  tleaves.forEach((el, i) => el.addEventListener('click', () => {
+    if (el.classList.contains('is-shut')) turnThesis(i);
+  }));
+}
 if (tleaves.length) turnThesis(0);
 
 function onScroll() {

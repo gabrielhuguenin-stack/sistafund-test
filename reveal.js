@@ -155,6 +155,7 @@
     requestAnimationFrame(() => frame.classList.add('in'));
   };
   rows.forEach(r => r.addEventListener('mouseenter', () => show(r)));
+  list.addEventListener('mouseleave', () => rows[0] && show(rows[0]));
   if (rows[0]) show(rows[0]);
 })();
 
