@@ -22,6 +22,7 @@
   --paper: #FAF8F0;
   --grey: #6e6a5e;
   --line: rgba(16, 16, 16, .14);
+  --band: 8px;
   --line-light: rgba(250, 248, 240, .18);
   --display: 'RightGrotesk', 'Arial Narrow', sans-serif;
   --serif: 'Portrait', Georgia, serif;
@@ -173,7 +174,7 @@ body.subpage-dark .nav-count { color: var(--yellow); }
    seven pixels of yellow every frame on the site wears */
 .btn::after {
   content: ''; position: absolute;
-  left: 0; right: 0; top: calc(100% + 2px); height: 7px;
+  left: 0; right: 0; top: calc(100% + 2px); height: var(--band);
   background: var(--yellow);
   transform: scaleX(0); transform-origin: left;
   transition: transform .42s var(--ease);
@@ -511,7 +512,7 @@ main section[id] { scroll-margin-top: 60px; }
 /* the card in hand, on the band the whole site wears */
 .tleaf.is-open {
   left: 0; width: calc(100% - var(--pile) - 26px); z-index: 3;
-  box-shadow: -8px 8px 0 var(--yellow);
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
 .tleaf.is-shut {
   width: var(--leaf); z-index: 2; padding: 0 0 1.4em; cursor: pointer;
@@ -551,20 +552,13 @@ main section[id] { scroll-margin-top: 60px; }
    along its foot, the block being the size of the frame and simply offset. Used by the
    open page of a cascade, the fixed picture under a page title, and the company boxes.
    Not by the repeated thumbnails — eight pixels on forty tiles is noise, not emphasis. */
-.pcf-wide { position: relative; }
-.pcf-wide::before {
-  content: ''; position: absolute; z-index: -1;
-  top: 0; left: -8px; right: 0; bottom: -8px;
-  border-radius: 0 0 0 9px;
-  background: var(--yellow);
-}
 /* a company box has its own ground, so the band is cast outside it rather than behind:
    an offset copy clipped to what falls past the left side and the foot. It waits for
    the pointer — the box earns the band, it does not wear it at rest. */
 .pf-card:hover, .pf-all-card:hover,
 .comm-cell:hover, .lp:hover .lp-photo,
 .member:hover .member-photo, .news-card:hover .news-img {
-  box-shadow: -8px 8px 0 var(--yellow);
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
 /* in a grid with no gutters the band would slide under the next tile */
 .comm-cell:hover { z-index: 3; }
@@ -874,7 +868,7 @@ main section[id] { scroll-margin-top: 60px; }
   position: relative; margin: 0;
   aspect-ratio: 4 / 3; overflow: hidden;
   border: 1.5px solid var(--ink); background: var(--ink);
-  box-shadow: -8px 8px 0 var(--yellow);
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
 
 .news-shot img {
@@ -1032,7 +1026,7 @@ main section[id] { scroll-margin-top: 60px; }
 .footer-col--go .btn-arrow { transition: transform .3s var(--ease); }
 .footer-col--go:hover .btn-arrow { transform: translateX(6px); }
 .footer-col--go::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--band);
   background: var(--yellow);
   transform: scaleX(0); transform-origin: left;
   transition: transform .4s var(--ease);
@@ -1121,10 +1115,6 @@ main section[id] { scroll-margin-top: 60px; }
 
 /* overlay filters */
 .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 6vh; }
-/* the founders' wall closing the portfolio: for now the grid as sistafund.com has it,
-   on white so its own gutters disappear into the ground */
-.founders-wall { background: #fff; padding: 6vw 4vw; overflow: hidden; }
-.founders-wall img { display: block; width: 100%; max-width: 1394px; margin: 0 auto; }
 
 /* the sector mark, sistafund.com's own picto, at the head of the filter row */
 .sec-badge {
@@ -1217,7 +1207,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   background: var(--paper); color: var(--ink);
   width: min(680px, 92vw);
   border: 1.5px solid var(--ink);
-  box-shadow: 12px 12px 0 var(--yellow), 14px 14px 0 var(--ink);
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
   padding: 0;
   transform: translateY(30px) scale(.97);
   transition: transform .5s var(--ease);
@@ -1442,16 +1432,7 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 /* the open page carries a thin yellow band down its left side and along its foot, the
    way the fund's cards do: the block is the size of the frame and simply offset, so the
    band shows on two edges only */
-.pcq::before {
-  content: ''; position: absolute; z-index: -1;
-  /* the band runs the whole length of the edge it sits on: it starts at the frame's own
-     top and ends at its own right, instead of stopping short like a drop shadow */
-  top: 0; left: -8px; right: 0; bottom: -8px;
-  border-radius: 0 0 0 9px;
-  background: var(--yellow);
-  opacity: 0; transition: opacity .7s var(--ease);
-}
-.pcq.is-open::before { opacity: 1; }
+.pcq.is-open { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .pcq.is-open { left: 0; width: calc(100% - var(--pile) - 22px); z-index: 3; opacity: 1; }
 .pcq.is-leaf {
   left: calc(100% - var(--pile) + (var(--p) - 1) * (var(--leaf) + var(--gap)));
@@ -1549,7 +1530,7 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
   border: 1.5px solid var(--ink);
   transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s, background .3s;
 }
-.news-tile:hover { transform: translate(-3px, -5px); box-shadow: 6px 6px 0 var(--ink); }
+.news-tile:hover { transform: translateY(-5px); box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .nt-photo {
   aspect-ratio: 16 / 10; overflow: hidden; flex-shrink: 0;
   border-bottom: 1.5px solid var(--ink); background: #ded9cd;
@@ -1579,7 +1560,7 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
 
 /* dark variant kept for any page that opts into subpage-dark */
 body.subpage-dark .news-tile { border-color: rgba(250, 248, 240, .25); }
-body.subpage-dark .news-tile:hover { box-shadow: none; border-color: var(--yellow); background: rgba(250, 248, 240, .04); transform: translateY(-6px); }
+body.subpage-dark .news-tile:hover { border-color: var(--yellow); transform: translateY(-5px); }
 body.subpage-dark .nt-photo { border-bottom-color: rgba(250, 248, 240, .25); background: #14140f; }
 body.subpage-dark .nt-title { color: var(--paper); }
 body.subpage-dark .nt-date, body.subpage-dark .nt-more { color: rgba(250, 248, 240, .55); }
@@ -1719,7 +1700,7 @@ body > main, body > footer { position: relative; z-index: 1; }
   position: relative;
   aspect-ratio: 16 / 6; overflow: hidden;
   border: 1.5px solid var(--ink);
-  box-shadow: -8px 8px 0 var(--yellow);
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
 .m-plate img {
   position: absolute; inset: 0; width: 100%; height: 100%;
