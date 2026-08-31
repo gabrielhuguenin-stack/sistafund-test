@@ -1247,7 +1247,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 @media (max-width: 560px) { .pf-fact { grid-template-columns: 1fr; gap: 2px; } }
 
 /* ============ Sub-page (team.html) ============ */
-.page-hero { padding: 26vh 4vw 6vh; }
+.page-hero { padding: 22vh 4vw 6vh; }
 .page-hero-slim { padding: 20vh 4vw 5vh; display: flex; flex-direction: column; gap: 22px; }
 .page-hero-slim .page-back { margin-top: 0; }
 .page-hero-kicker {
@@ -1256,7 +1256,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 }
 .page-hero-title {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.6rem, 8vw, 7rem); line-height: .92;
+  font-size: clamp(2.6rem, 6.8vw, 6.4rem); line-height: .92;
 }
 .page-hero-title .yw { color: var(--yellow); -webkit-text-stroke: 2px var(--ink); }
 .page-hero-sub {
@@ -1381,7 +1381,7 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 /* full editorial header for the dedicated dark pages */
 .subpage-hero { padding: 22vh 4vw 7vh; display: flex; flex-direction: column; gap: 16px; }
 .subpage-hero .page-back { margin: 0 0 10px; }
-.subpage-hero .page-hero-title { margin: 4px 0 0; }
+.subpage-hero .page-hero-title { margin: 0; }
 .subpage-hero .page-hero-sub { margin: 12px 0 0; max-width: 70ch; }
 .page-hero-sub--second { font-size: 1.15rem; opacity: .82; }
 .subpage-grid { padding: 0 4vw 15vh; }
@@ -1394,10 +1394,10 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 3vw; align-items: center;
-  padding: 20vh 4vw 14vh;
+  padding: 22vh 4vw 14vh;
 }
-.page-open-text { padding-right: 2vw; }
-.page-open .page-hero-title { font-size: clamp(2.6rem, 6.8vw, 6.4rem); }
+.page-open-text { padding-right: 2vw; align-self: start; }
+
 .page-open .page-hero-sub {
   font-family: var(--serif); font-size: clamp(1rem, 1.3vw, 1.24rem); line-height: 1.6;
   margin-top: 3.6vh; max-width: none;   /* the column is the measure: no early breaks */
@@ -1646,7 +1646,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 .doc-hero { padding: 22vh 4vw 5vh; }
 .doc-title {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.8rem, 8vw, 6.6rem); line-height: .92;
+  font-size: clamp(2.6rem, 6.8vw, 6.4rem); line-height: .92;
 }
 .doc-lead {
   font-family: var(--serif); font-size: 1.5rem; line-height: 1.5;
