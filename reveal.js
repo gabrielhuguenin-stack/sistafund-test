@@ -313,3 +313,23 @@
   addEventListener('resize', onScroll, { passive: true });
   run();
 })();
+
+
+/* A film on a document page: the still is ours until the reader asks for the film, then
+   the player is written in. Nothing from YouTube loads before that click. */
+(function () {
+  document.querySelectorAll('[data-video]').forEach(fig => {
+    const id = (fig.dataset.video || '').trim();
+    const btn = fig.querySelector('.m-play');
+    if (!id || !btn) return;
+    btn.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0';
+      f.title = 'SISTAFUND';
+      f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      fig.appendChild(f);
+      fig.classList.add('is-playing');
+    }, { once: true });
+  });
+})();
