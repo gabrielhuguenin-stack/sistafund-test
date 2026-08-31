@@ -950,7 +950,6 @@ main section[id] { scroll-margin-top: 60px; }
 .nmc:hover .nmc-title { color: var(--grey); }
 /* the home's control sits in the flow: needs to out-specify .pcnav, declared further
    down and absolute for the picture cascades */
-.pcnav.news-nav { position: static; width: 100%; margin-top: 3.8vh; justify-content: flex-start; }
 .pcnav.deck-nav { width: calc(100% - var(--pile) - 26px); }
 @media (max-width: 980px) { .news-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .news-cards { grid-template-columns: 1fr; } }
@@ -1520,9 +1519,10 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 }
 .pcarrows { display: flex; gap: 7px; }
 .pcarrow {
-  width: 36px; height: 36px; padding: 0; background: none; cursor: pointer;
+  width: 38px; height: 38px; padding: 0; background: none; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
   border: 1.5px solid var(--line); color: var(--ink);
-  font-family: var(--display); font-size: 1.15rem; line-height: 1;
+  font-family: var(--display); font-size: 1.1rem; line-height: 1;
   transition: background .35s var(--ease), border-color .35s var(--ease), color .35s var(--ease);
 }
 .pcarrow:hover { background: var(--yellow); border-color: var(--ink); }
@@ -1727,7 +1727,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 .m-plate.in-view img { transform: none; }
 .m-plate[data-video]:not([data-video=""]) { aspect-ratio: 16 / 9; }
-.m-plate[data-video]:not([data-video=""]) img { object-position: center 28%; }
+.m-plate[data-video]:not([data-video=""]) img { object-position: center; }
 /* the still becomes a film only when asked: our own control, the site's own button */
 .m-plate:not([data-video]) .m-play, .m-plate[data-video=""] .m-play { display: none; }
 .m-play {
