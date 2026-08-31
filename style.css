@@ -1713,11 +1713,22 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-stmt:nth-of-type(even) .m-claim { margin-left: auto; }
 .m-stmt:nth-of-type(even) .m-body { margin: 3vh auto 0 0; text-align: left; }
 /* and a picture cuts the document in half */
+.m-film { margin: 2vh 0 0; }
 .m-plate {
-  margin: 2vh 0 0; position: relative;
+  position: relative;
   aspect-ratio: 16 / 6; overflow: hidden;
   border: 1.5px solid var(--ink);
   box-shadow: -8px 8px 0 var(--yellow);
+}
+/* the film is someone else's campaign: it is named and credited under its own frame */
+.m-film-cap {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 1.6em;
+  margin-top: 2.4vh;
+}
+.m-film-title { font-family: var(--serif); font-size: 1.12rem; }
+.m-film-credit {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .76rem; letter-spacing: .14em; color: rgba(16, 16, 16, .55);
 }
 .m-plate img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -1725,7 +1736,7 @@ body > main, body > footer { position: relative; z-index: 1; }
   filter: grayscale(1) contrast(1.05);
   transform: scale(1.06); transition: transform 1.4s var(--ease), filter 1.2s var(--ease);
 }
-.m-plate.in-view img { transform: none; }
+.m-film.in-view img { transform: none; }
 .m-plate[data-video]:not([data-video=""]) { aspect-ratio: 16 / 9; }
 .m-plate[data-video]:not([data-video=""]) img { object-position: center; }
 /* the still becomes a film only when asked: our own control, the site's own button */
