@@ -1726,6 +1726,8 @@ body > main, body > footer { position: relative; z-index: 1; }
   transform: scale(1.06); transition: transform 1.4s var(--ease), filter 1.2s var(--ease);
 }
 .m-plate.in-view img { transform: none; }
+.m-plate[data-video]:not([data-video=""]) { aspect-ratio: 16 / 9; }
+.m-plate[data-video]:not([data-video=""]) img { object-position: center 28%; }
 /* the still becomes a film only when asked: our own control, the site's own button */
 .m-plate:not([data-video]) .m-play, .m-plate[data-video=""] .m-play { display: none; }
 .m-play {
