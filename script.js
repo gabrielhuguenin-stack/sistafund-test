@@ -295,8 +295,6 @@ const growImg = document.getElementById('growImg');
 const growDim = document.getElementById('growDim');
 const growCopy = document.getElementById('growCopy');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
-const heroLemon = document.getElementById('heroLemon');
-const lemonAccents = [...document.querySelectorAll('.lemon-accent')];
 const communitySec = document.getElementById('community');
 // ---------- Thesis deck ----------
 // the same book the dedicated pages open on, turned by the scroll instead of the arrows
@@ -342,11 +340,6 @@ function onScroll() {
     const p = clamp(y / total, 0, 1);
     renderHero(p);
     heroSection.classList.toggle('scrolled-past', p > 0.02);
-    // the lemons rise and turn gently across the hero's scroll
-    if (heroLemon) {
-      heroLemon.style.transform =
-        `translate3d(${(-p * 4).toFixed(2)}vw, ${(-p * 18).toFixed(2)}vh, 0) rotate(${(-6 + p * 16).toFixed(1)}deg)`;
-    }
   }
 
   // the group photo opens from a small frame to the full screen, then the
@@ -373,14 +366,6 @@ function onScroll() {
     growCopy.style.transform = `translateY(${((1 - t) * 3).toFixed(2)}vh)`;
     growCopy.classList.toggle('on', t > 0.6);
   }
-
-  // scattered lemons drift a touch out of step with the page
-  lemonAccents.forEach(a => {
-    const r = a.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > vh) return;
-    const p = (vh - r.top) / (vh + r.height);
-    a.style.transform = `translateY(${((p - 0.5) * +a.dataset.lspeed).toFixed(2)}vh)`;
-  });
 
   // portfolio crossing rows
   pfRows.forEach((row, i) => {
