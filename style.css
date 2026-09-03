@@ -1136,11 +1136,11 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   font-family: var(--display); text-transform: uppercase;
   font-size: .95rem; letter-spacing: .08em;
   padding: 10px 22px;
-  border: 1.5px solid var(--paper); color: var(--paper);
+  border: 1.5px solid var(--ink); color: var(--ink);
   transition: background .25s, color .25s, border-color .25s;
 }
-.filter:hover { border-color: var(--yellow); color: var(--yellow); }
-.filter.active { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.filter:hover { background: var(--yellow); border-color: var(--ink); color: var(--ink); }
+.filter.active { background: var(--yellow); border-color: var(--ink); color: var(--ink); }
 
 /* full portfolio grid (overlay) */
 .pf-all-grid {
@@ -1150,10 +1150,10 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 @media (max-width: 720px) { .pf-all-grid { grid-template-columns: 1fr; } }
 .pf-all-card {
   display: flex;
-  border: 1.5px solid var(--paper); background: transparent;
+  border: 1.5px solid var(--ink); background: transparent;
   transition: transform .3s var(--ease), border-color .3s, box-shadow .3s var(--ease);
 }
-.pf-all-card:hover { transform: translateY(-5px); border-color: var(--yellow); }
+.pf-all-card:hover { transform: translateY(-5px); }
 .pf-all-card .pf-logo {
   width: 100%; height: auto; aspect-ratio: 1.6; background: #fff;
   display: flex; align-items: center; justify-content: center; padding: 32px;
@@ -1162,7 +1162,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 
 
 .lp-institutions { max-width: 640px; }
-.lp-institutions p { font-size: clamp(1.25rem, 1.85vw, 1.85rem); line-height: 1.4; color: rgba(250, 248, 240, .85); }
+.lp-institutions p { font-size: clamp(1.25rem, 1.85vw, 1.85rem); line-height: 1.4; color: var(--grey); }
 .lp-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 30px 24px;
@@ -1174,7 +1174,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 }
 .overlay.open .lp { opacity: 1; transform: translateY(0); }
 .lp-photo {
-  aspect-ratio: 1; overflow: hidden; border: 1.5px solid var(--paper);
+  aspect-ratio: 1; overflow: hidden; border: 1.5px solid var(--ink);
   margin-bottom: 12px;
   transition: border-color .3s var(--ease), box-shadow .3s var(--ease);
 }
@@ -1184,9 +1184,9 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   transition: transform .5s var(--ease);
 }
 .lp:hover .lp-photo img { transform: scale(1.06); }
-.lp:hover .lp-photo { border-color: var(--yellow); }
+.lp:hover .lp-photo { border-color: var(--ink); }
 .lp-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.05rem, 1.25vw, 1.25rem); line-height: 1.05; display: block; }
-.lp-org { color: rgba(250, 248, 240, .55); font-size: clamp(.9rem, 1.05vw, 1.05rem); }
+.lp-org { color: var(--grey); font-size: clamp(.9rem, 1.05vw, 1.05rem); }
 
 /* Portfolio modal */
 .overlay-modal { background: rgba(16, 16, 16, .55); }
