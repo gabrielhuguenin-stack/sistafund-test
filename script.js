@@ -370,37 +370,6 @@ if (heroWall) {
   addEventListener('mousemove', follow, { passive: true });
 }
 
-// ---------- Thesis deck ----------
-// the same book the dedicated pages open on, turned by the scroll instead of the arrows
-const thesisDeck = document.getElementById('thesisDeck');
-const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
-let tOpen = -1;
-function turnThesis(k) {
-  const n = tleaves.length;
-  if (k === tOpen || k < 0 || k >= n) return;
-  tOpen = k;
-  tleaves.forEach((el, i) => {
-    // the stack reads as what is still to come
-    const place = (i - k + n) % n;
-    el.classList.toggle('is-open', place === 0);
-    el.classList.toggle('is-shut', place !== 0);
-    el.style.setProperty('--p', place - 1);
-  });
-}
-if (thesisDeck) {
-  thesisDeck.querySelectorAll('[data-tstep]').forEach(b => {
-    b.addEventListener('click', () => {
-      const n = tleaves.length;
-      turnThesis((tOpen + +b.dataset.tstep + n) % n);
-    });
-  });
-  // a closed card can also be opened by clicking its spine
-  tleaves.forEach((el, i) => el.addEventListener('click', () => {
-    if (el.classList.contains('is-shut')) turnThesis(i);
-  }));
-}
-if (tleaves.length) turnThesis(0);
-
 function onScroll() {
   const y = window.scrollY;
   const vh = window.innerHeight;
