@@ -296,19 +296,62 @@ const growDim = document.getElementById('growDim');
 const growCopy = document.getElementById('growCopy');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const communitySec = document.getElementById('community');
-// ---------- The hero's ruled field ----------
-// The denser ruling follows the pointer, but a step behind: it eases toward the hand
-// instead of snapping to it, so the ground reads as matter rather than as a cursor.
-const heroField = document.getElementById('heroField');
-if (heroField) {
+// ---------- The hero's wall of panels ----------
+// Blocks of hard-edged columns, each a tone of the house yellow, laid out once from a
+// fixed seed so the wall is the same on every visit. The first half is generated and
+// copied at +50% of the track, which lets the drift loop without a seam.
+const heroWall = document.getElementById('heroWall');
+if (heroWall) {
+  const TONES = ['#ffe64a', '#ffec6a', '#f7ed8e', '#ffef7d', '#ffe14a', '#fdf3a6', '#FAF8F0', '#ffe64a'];
+  const TOPS = [0, 7, 18, 31, 44, 56];
+  let seed = 20260903;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+
+  const bars = [];
+  let x = 0;
+  while (x < 50) {
+    const bw = 2.6 + rnd() * 7.4;                   // the block's width, in % of the track
+    if (rnd() > 0.11) {                             // a few stretches stay bare ground
+      const top = TOPS[Math.floor(rnd() * TOPS.length)];
+      const tall = 32 + rnd() * 68;
+      const cols = 4 + Math.floor(rnd() * 7);
+      const cw = bw / cols;
+      const base = Math.floor(rnd() * TONES.length);
+      for (let i = 0; i < cols; i++) {
+        if (rnd() < 0.1) continue;                  // a missing stripe inside the block
+        const tone = TONES[(base + (rnd() < 0.55 ? 0 : 1 + Math.floor(rnd() * 2))) % TONES.length];
+        bars.push({
+          x: x + i * cw,
+          w: cw * (0.8 + rnd() * 0.2),
+          top: top,
+          h: Math.min(100 - top, tall * (0.62 + rnd() * 0.38)),
+          tone
+        });
+      }
+    }
+    x += bw + rnd() * 1.2;
+  }
+
+  const paint = host => {
+    const html = bars.map(b => {
+      const a = `left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;top:${b.top}%;height:${b.h.toFixed(2)}%`;
+      const c = `left:${(b.x + 50).toFixed(3)}%;width:${b.w.toFixed(3)}%;top:${b.top}%;height:${b.h.toFixed(2)}%`;
+      return `<span class="hero-bar" style="${a};background:${b.tone}"></span>` +
+             `<span class="hero-bar" style="${c};background:${b.tone}"></span>`;
+    }).join('');
+    host.innerHTML = html;
+  };
+  heroWall.querySelectorAll('.hero-track').forEach(paint);
+
+  // the light follows the hand, a step behind. One eased step is called by the frame loop
+  // and by the move itself: a hidden tab suspends requestAnimationFrame, and the wall
+  // must not depend on it.
   let tx = 50, ty = 44, cx = 50, cy = 44, running = false;
-  // one eased step toward the hand, called by the frame loop and by the move itself:
-  // a hidden tab suspends requestAnimationFrame, and the field must not depend on it
   const apply = () => {
-    cx += (tx - cx) * 0.11;
-    cy += (ty - cy) * 0.11;
-    heroField.style.setProperty('--mx', cx.toFixed(2) + '%');
-    heroField.style.setProperty('--my', cy.toFixed(2) + '%');
+    cx += (tx - cx) * 0.1;
+    cy += (ty - cy) * 0.1;
+    heroWall.style.setProperty('--mx', cx.toFixed(2) + '%');
+    heroWall.style.setProperty('--my', cy.toFixed(2) + '%');
   };
   const step = () => {
     apply();
@@ -316,7 +359,7 @@ if (heroField) {
     else running = false;
   };
   const follow = e => {
-    const r = heroField.getBoundingClientRect();
+    const r = heroWall.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
     tx = ((e.clientX - r.left) / r.width) * 100;
     ty = ((e.clientY - r.top) / r.height) * 100;
