@@ -206,20 +206,32 @@ body.subpage-dark .nav-count { color: var(--yellow); }
   background: var(--yellow);
   height: 100vh; overflow: hidden;
 }
-/* living background: soft blurred streaks drift horizontally, blackwood-style, in brand tones */
-.hero-flow { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-.hero-flow i {
-  position: absolute; left: 0; width: 200%;
-  background-size: 50% 100%;
-  filter: blur(55px); will-change: transform;
+/* A blurred gradient belongs to no one. The ground is made of the site's own material
+   instead: a field of ruled lines, the same 1px ink hairlines the page is built from,
+   denser and darker under the pointer. The mask trails the cursor so the field reads as
+   matter answering a hand, not as a cursor effect. */
+.hero-field {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  --mx: 50%; --my: 44%; --pitch: 38px;
+  background-image:
+    linear-gradient(to right, rgba(16, 16, 16, .05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 16, 16, .05) 1px, transparent 1px);
+  background-size: var(--pitch) var(--pitch);
 }
-.hero-flow i:nth-child(1) { top: 4%;  height: 26vh; opacity: .85; background: linear-gradient(90deg, #FFF868, #fff7b4, #ffe64a, #FFF868); animation: heroFlow 17s linear infinite; }
-.hero-flow i:nth-child(2) { top: 26%; height: 20vh; opacity: .16; background: linear-gradient(90deg, #FFF868, #101010, #FFF868, #101010); animation: heroFlow 29s linear infinite reverse; }
-.hero-flow i:nth-child(3) { top: 46%; height: 30vh; opacity: .8;  background: linear-gradient(90deg, #ffe64a, #FAF8F0, #fff7b4, #ffe64a); animation: heroFlow 21s linear infinite; }
-.hero-flow i:nth-child(4) { top: 68%; height: 22vh; opacity: .5;  background: linear-gradient(90deg, #FAF8F0, #FFF868, #FAF8F0, #FFF868); animation: heroFlow 25s linear infinite reverse; }
-.hero-flow i:nth-child(5) { top: 84%; height: 24vh; opacity: .7;  background: linear-gradient(90deg, #FFF868, #ffe64a, #fff7b4, #FFF868); animation: heroFlow 19s linear infinite; }
-@keyframes heroFlow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .hero-flow i { animation: none; } }
+/* the ruling subdivides where the hand is: half the pitch, twice the weight */
+.hero-field::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(16, 16, 16, .18) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 16, 16, .18) 1px, transparent 1px);
+  background-size: calc(var(--pitch) / 2) calc(var(--pitch) / 2);
+  -webkit-mask-image: radial-gradient(circle 26vw at var(--mx) var(--my),
+    #000 0%, rgba(0, 0, 0, .5) 46%, transparent 76%);
+  mask-image: radial-gradient(circle 26vw at var(--mx) var(--my),
+    #000 0%, rgba(0, 0, 0, .5) 46%, transparent 76%);
+}
+/* no hand to answer: the field stays as its plain ruling */
+@media (hover: none) { .hero-field::after { display: none; } }
 
 
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */

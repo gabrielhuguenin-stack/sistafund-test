@@ -296,6 +296,37 @@ const growDim = document.getElementById('growDim');
 const growCopy = document.getElementById('growCopy');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const communitySec = document.getElementById('community');
+// ---------- The hero's ruled field ----------
+// The denser ruling follows the pointer, but a step behind: it eases toward the hand
+// instead of snapping to it, so the ground reads as matter rather than as a cursor.
+const heroField = document.getElementById('heroField');
+if (heroField) {
+  let tx = 50, ty = 44, cx = 50, cy = 44, running = false;
+  // one eased step toward the hand, called by the frame loop and by the move itself:
+  // a hidden tab suspends requestAnimationFrame, and the field must not depend on it
+  const apply = () => {
+    cx += (tx - cx) * 0.11;
+    cy += (ty - cy) * 0.11;
+    heroField.style.setProperty('--mx', cx.toFixed(2) + '%');
+    heroField.style.setProperty('--my', cy.toFixed(2) + '%');
+  };
+  const step = () => {
+    apply();
+    if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) requestAnimationFrame(step);
+    else running = false;
+  };
+  const follow = e => {
+    const r = heroField.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return;
+    tx = ((e.clientX - r.left) / r.width) * 100;
+    ty = ((e.clientY - r.top) / r.height) * 100;
+    apply();
+    if (!running) { running = true; requestAnimationFrame(step); }
+  };
+  addEventListener('pointermove', follow, { passive: true });
+  addEventListener('mousemove', follow, { passive: true });
+}
+
 // ---------- Thesis deck ----------
 // the same book the dedicated pages open on, turned by the scroll instead of the arrows
 const thesisDeck = document.getElementById('thesisDeck');
