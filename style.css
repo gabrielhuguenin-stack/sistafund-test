@@ -475,6 +475,8 @@ main section[id] { scroll-margin-top: 60px; }
    counting figures. It carries straight on from the four sector lines above. */
 /* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
    makes the four terms carry without having to enlarge them */
+.thesis-pin { position: relative; height: 260vh; }
+.thesis-pin .stats { position: sticky; top: 15vh; padding: 0 4vw; }
 .stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 12vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
@@ -497,7 +499,7 @@ main section[id] { scroll-margin-top: 60px; }
   border: 1.5px solid var(--ink); background: var(--paper);
   display: flex; flex-direction: column; justify-content: space-between;
   padding: 3.4vh 2.6vw 3.6vh;
-  transition: left .55s var(--ease), width .55s var(--ease), background .4s var(--ease);
+  transition: left .95s var(--ease), width .95s var(--ease), background .5s var(--ease);
 }
 /* the card in hand, on the band the whole site wears */
 .tleaf.is-open {
@@ -528,6 +530,8 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: .72rem; letter-spacing: .16em;
 }
 @media (max-width: 900px) {
+  .thesis-pin { height: auto; }
+  .thesis-pin .stats { position: static; padding: 13vh 4vw 12vh; }
   .thesis-deck { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; gap: 1.5px; }
   .tleaf { position: static; width: auto !important; height: auto; padding: 4vh 5vw;
     box-shadow: none !important; }

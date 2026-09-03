@@ -372,9 +372,10 @@ if (heroWall) {
 
 // ---------- Thesis deck ----------
 // The same book the dedicated pages open on, made of statements instead of photographs.
-// The scroll is what turns it — no arrow to press. The section is NOT pinned: holding the
-// screen for four short phrases was disproportionate. Roughly a third of a viewport of
-// scroll per card, so each one is read before the next arrives.
+// The scroll is what turns it — no arrow to press. The section is held while it turns,
+// otherwise the reader is already on the black band before the fourth card arrives; but
+// the sticky block is only the label and the deck, never a screenful of empty cream.
+const thesisPin = document.getElementById('thesisPin');
 const thesisDeck = document.getElementById('thesisDeck');
 const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
 let tOpen = -1;
@@ -454,9 +455,10 @@ function onScroll() {
   });
 
   // thesis: the scroll turns a card as the section crosses the screen
-  if (thesisDeck && tleaves.length) {
-    const r = thesisDeck.getBoundingClientRect();
-    turnThesis(clamp((vh * 0.9 - r.top) / (vh * 0.95 + r.height), 0, 0.999));
+  if (thesisPin && tleaves.length) {
+    const r = thesisPin.getBoundingClientRect();
+    const total = thesisPin.offsetHeight - vh;
+    turnThesis(total > 0 ? clamp(-r.top / total, 0, 0.999) : 0);
   }
 
   // community: the grid fills as the section crosses the screen
