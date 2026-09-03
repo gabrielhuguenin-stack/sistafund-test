@@ -370,6 +370,29 @@ if (heroWall) {
   addEventListener('mousemove', follow, { passive: true });
 }
 
+// ---------- Thesis deck ----------
+// The same book the dedicated pages open on, made of statements instead of photographs.
+// The scroll is what turns it — no arrow to press. The section is NOT pinned: holding the
+// screen for four short phrases was disproportionate. Roughly a third of a viewport of
+// scroll per card, so each one is read before the next arrives.
+const thesisDeck = document.getElementById('thesisDeck');
+const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
+let tOpen = -1;
+function turnThesis(p) {
+  const n = tleaves.length;
+  const k = Math.min(n - 1, Math.floor(p * n));
+  if (k === tOpen) return;
+  tOpen = k;
+  tleaves.forEach((el, i) => {
+    // the pile reads as what is still to come
+    const place = (i - k + n) % n;
+    el.classList.toggle('is-open', place === 0);
+    el.classList.toggle('is-shut', place !== 0);
+    el.style.setProperty('--p', place - 1);
+  });
+}
+if (tleaves.length) turnThesis(0);
+
 function onScroll() {
   const y = window.scrollY;
   const vh = window.innerHeight;
@@ -429,6 +452,12 @@ function onScroll() {
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
+
+  // thesis: the scroll turns a card as the section crosses the screen
+  if (thesisDeck && tleaves.length) {
+    const r = thesisDeck.getBoundingClientRect();
+    turnThesis(clamp((vh * 0.9 - r.top) / (vh * 0.95 + r.height), 0, 0.999));
+  }
 
   // community: the grid fills as the section crosses the screen
   if (commMosaic) {

@@ -482,35 +482,58 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(16, 16, 16, .6);
   margin-bottom: 5vh;
 }
-/* Four rectangles stacked, each one unrolling from its left edge as it arrives — the
-   reveal the whole site already uses for its frames, not a deck to be scrubbed. The
-   scroll is the trigger, nothing needs to be understood. Each keeps its label at the
-   head of the line and its statement facing it. */
-.thesis-deck { display: flex; flex-direction: column; gap: 10px; }
-.tleaf {
-  position: relative;
-  display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
-  gap: 3vw; align-items: baseline;
-  border: 1.5px solid var(--ink); background: var(--paper);
-  padding: 4.4vh 2.6vw 4.8vh;
-  transition: box-shadow .3s var(--ease);
+/* The four facts are cards in a deck, turned by the scroll: no arrow to press, the page itself turns the page: the
+   same book the dedicated pages open on, made of statements instead of photographs. The
+   one in hand lies open and carries the house band; the others stand closed on their
+   edge, each showing its own label written down the spine. The ground stays cream. */
+.thesis-deck {
+  position: relative; aspect-ratio: 1000 / 236;
+  --leaf: 34px; --gap: 9px;
+  --pile: calc(3 * var(--leaf) + 2 * var(--gap));
+  margin-top: 1vh;
 }
-/* the ground's own colour comes inside under the pointer, as the sector rows do */
-.tleaf:hover { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
+.tleaf {
+  position: absolute; top: 0; height: 100%; overflow: hidden;
+  border: 1.5px solid var(--ink); background: var(--paper);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 3.4vh 2.6vw 3.6vh;
+  transition: left .55s var(--ease), width .55s var(--ease), background .4s var(--ease);
+}
+/* the card in hand, on the band the whole site wears */
+.tleaf.is-open {
+  left: 0; width: calc(100% - var(--pile) - 26px); z-index: 3;
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
+}
+.tleaf.is-shut {
+  width: var(--leaf); z-index: 2; padding: 0 0 1.4em;
+  left: calc(100% - var(--pile) + var(--p) * (var(--leaf) + var(--gap)));
+  align-items: center; justify-content: flex-end;
+}
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
-  font-size: .78rem; letter-spacing: .17em; line-height: 1.2;
+  font-size: .78rem; letter-spacing: .17em; line-height: 1;
   color: rgba(16, 16, 16, .55);
-  padding-top: .5em;
+  transition: color .4s var(--ease);
 }
 .tleaf-term {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(2rem, 4.6vw, 4.4rem); line-height: .98; letter-spacing: -.02em;
+  font-size: clamp(2.4rem, 6.6vw, 6.4rem); line-height: .95; letter-spacing: -.02em;
   color: var(--ink);
+  white-space: nowrap;
 }
-@media (max-width: 760px) {
-  .tleaf { grid-template-columns: 1fr; gap: 12px; padding: 4vh 5vw 4.4vh; }
-  .tleaf-label { padding-top: 0; }
+/* a closed card shows only its spine, and the label reads down it */
+.tleaf.is-shut .tleaf-term { display: none; }
+.tleaf.is-shut .tleaf-label {
+  writing-mode: vertical-rl; padding: 0 0 1.6em; color: var(--ink);
+  font-size: .72rem; letter-spacing: .16em;
+}
+@media (max-width: 900px) {
+  .thesis-deck { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; gap: 1.5px; }
+  .tleaf { position: static; width: auto !important; height: auto; padding: 4vh 5vw;
+    box-shadow: none !important; }
+  .tleaf.is-shut { align-items: flex-start; justify-content: flex-start; }
+  .tleaf.is-shut .tleaf-term { display: block; }
+  .tleaf.is-shut .tleaf-label { writing-mode: horizontal-tb; padding: 0; }
 }
 
 /* ---- the house band ---- */
@@ -1550,10 +1573,6 @@ html.anim [data-reveal="image"]:not(.shown) { opacity: 1; transform: none; clip-
 html.anim [data-reveal="image"] { clip-path: inset(0 0 0 0); }
 html.anim [data-reveal="image"] img { transition: transform 1.4s var(--ease) var(--rd, 0ms); }
 html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
-/* a rectangle unrolls from its left edge; the clip reaches past the frame so the band
-   at its foot survives (a clip-path cuts the shadow too) */
-html.anim [data-reveal="open"]:not(.shown) { opacity: 1; transform: none; clip-path: inset(0 100% -10px -10px); }
-html.anim [data-reveal="open"] { clip-path: inset(0 0 -10px -10px); }
 /* parallax drift set by reveal.js */
 [data-parallax] { overflow: hidden; }
 [data-parallax] img { transform: translateY(var(--py, 0)); }
