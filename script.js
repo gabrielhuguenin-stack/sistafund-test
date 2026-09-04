@@ -303,7 +303,13 @@ const communitySec = document.getElementById('community');
 // comes near it. Laid out from a fixed seed, so the wall is the same on every visit.
 const heroWall = document.getElementById('heroWall');
 if (heroWall) {
-  const TONES = ['#FAF8F0', '#fdf3a6', '#f7ed8e', '#ffef7d', '#ffec6a', '#ffe96b', '#ffe64a', '#ffe14a'];
+  const NEAR = [250, 248, 240];                 // cream, against the sentence
+  const FAR  = [255, 225,  74];                 // the deepest yellow, out at the edges
+  const hex = n => n.toString(16).padStart(2, '0');
+  const toneAt = t => {
+    const k = Math.pow(Math.min(Math.max(t, 0), 1), 0.85);
+    return '#' + NEAR.map((a, i) => hex(Math.round(a + (FAR[i] - a) * k))).join('');
+  };
   let bars = [], nodes = [];
 
   // the room the sentence needs, read off the statements themselves
@@ -352,12 +358,13 @@ if (heroWall) {
       bars.push({ x, w, top: y, h, tone });
     };
 
-    // how far a panel stands from the sentence's panel, in the wall's own units
+    // how far a panel stands from the sentence's panel, in the wall's own units. The
+    // reach is long, so the grade has room to breathe instead of saturating at once.
     const away = (x, y) => {
       if (!hole) return 1;
       const dx = Math.max(hole.x0 - x, 0, x - hole.x1);
-      const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.6;
-      return Math.min(Math.sqrt(dx * dx + dy * dy) / 22, 1);
+      const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.5;
+      return Math.min(Math.sqrt(dx * dx + dy * dy) / 44, 1);
     };
 
     let x = 0;
@@ -367,12 +374,10 @@ if (heroWall) {
       while (y < 100) {                           // the column is filled top to bottom
         const h = Math.min(9 + rnd() * 24, 100 - y);
         if (rnd() > 0.13) {                       // a few segments are left as bare ground
-          // pale against the sentence, deepening as the wall moves away from it
-          const t = away(x + cw / 2, y + h / 2);
-          const jitter = Math.round((rnd() - 0.5) * 2.4);
-          const i = Math.max(0, Math.min(TONES.length - 1,
-            Math.round(t * (TONES.length - 1)) + jitter));
-          push(x, Math.max(cw - 0.12, 0.4), y, h, TONES[i]);
+          // pale against the sentence, deepening as the wall moves away from it, with
+          // just enough scatter that the wall is a wall and not a printed gradient
+          const t = away(x + cw / 2, y + h / 2) + (rnd() - 0.5) * 0.16;
+          push(x, Math.max(cw - 0.12, 0.4), y, h, toneAt(t));
         }
         y += h;
       }
