@@ -303,7 +303,7 @@ const communitySec = document.getElementById('community');
 // comes near it. Laid out from a fixed seed, so the wall is the same on every visit.
 const heroWall = document.getElementById('heroWall');
 if (heroWall) {
-  const TONES = ['#ffe64a', '#ffec6a', '#f7ed8e', '#ffef7d', '#ffe14a', '#fdf3a6', '#FAF8F0', '#ffe96b'];
+  const TONES = ['#FAF8F0', '#fdf3a6', '#f7ed8e', '#ffef7d', '#ffec6a', '#ffe96b', '#ffe64a', '#ffe14a'];
   let bars = [], nodes = [];
 
   // the room the sentence needs, read off the statements themselves
@@ -352,16 +352,27 @@ if (heroWall) {
       bars.push({ x, w, top: y, h, tone });
     };
 
+    // how far a panel stands from the sentence's panel, in the wall's own units
+    const away = (x, y) => {
+      if (!hole) return 1;
+      const dx = Math.max(hole.x0 - x, 0, x - hole.x1);
+      const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.6;
+      return Math.min(Math.sqrt(dx * dx + dy * dy) / 22, 1);
+    };
+
     let x = 0;
     while (x < 100) {
-      const cw = 1.2 + rnd() * 2.8;              // the column's width, in % of the wall
-      const base = Math.floor(rnd() * TONES.length);
+      const cw = 0.8 + rnd() * 1.5;               // the column's width, in % of the wall
       let y = 0;
-      while (y < 100) {                          // the column is filled top to bottom
-        const h = Math.min(11 + rnd() * 30, 100 - y);
-        if (rnd() > 0.13) {                      // a few segments are left as bare ground
-          const tone = TONES[(base + (rnd() < 0.6 ? 0 : 1 + Math.floor(rnd() * 2))) % TONES.length];
-          push(x, Math.max(cw - 0.14, 0.5), y, h, tone);
+      while (y < 100) {                           // the column is filled top to bottom
+        const h = Math.min(9 + rnd() * 24, 100 - y);
+        if (rnd() > 0.13) {                       // a few segments are left as bare ground
+          // pale against the sentence, deepening as the wall moves away from it
+          const t = away(x + cw / 2, y + h / 2);
+          const jitter = Math.round((rnd() - 0.5) * 2.4);
+          const i = Math.max(0, Math.min(TONES.length - 1,
+            Math.round(t * (TONES.length - 1)) + jitter));
+          push(x, Math.max(cw - 0.12, 0.4), y, h, TONES[i]);
         }
         y += h;
       }
