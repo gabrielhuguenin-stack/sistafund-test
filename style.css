@@ -490,7 +490,7 @@ main section[id] { scroll-margin-top: 60px; }
    edge, each showing its own label written down the spine. The ground stays cream. */
 .thesis-deck {
   position: relative; aspect-ratio: 1000 / 236;
-  --leaf: 34px; --gap: 9px;
+  --leaf: 1.5px; --gap: 16px;
   --pile: calc(3 * var(--leaf) + 2 * var(--gap));
   margin-top: 1vh;
 }
@@ -506,10 +506,12 @@ main section[id] { scroll-margin-top: 60px; }
   left: 0; width: calc(100% - var(--pile) - 26px); z-index: 3;
   box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
+/* a closed card is reduced to its own edge: a hairline standing beside the open one.
+   Three bordered strips read as filing tabs; three rules read as the site's own material. */
 .tleaf.is-shut {
-  width: var(--leaf); z-index: 2; padding: 0 0 1.4em;
+  width: var(--leaf); z-index: 2; padding: 0;
   left: calc(100% - var(--pile) + var(--p) * (var(--leaf) + var(--gap)));
-  align-items: center; justify-content: flex-end;
+  border: 0; border-left: 1.5px solid var(--ink); background: none;
 }
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
@@ -524,20 +526,15 @@ main section[id] { scroll-margin-top: 60px; }
   white-space: nowrap;
 }
 /* a closed card shows only its spine, and the label reads down it */
-.tleaf.is-shut .tleaf-term { display: none; }
-.tleaf.is-shut .tleaf-label {
-  writing-mode: vertical-rl; padding: 0 0 1.6em; color: var(--ink);
-  font-size: .72rem; letter-spacing: .16em;
-}
+.tleaf.is-shut .tleaf-term, .tleaf.is-shut .tleaf-label { display: none; }
+
 @media (max-width: 900px) {
   .thesis-pin { height: auto; }
   .thesis-pin .stats { position: static; padding: 13vh 4vw 12vh; }
   .thesis-deck { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; gap: 1.5px; }
   .tleaf { position: static; width: auto !important; height: auto; padding: 4vh 5vw;
     box-shadow: none !important; }
-  .tleaf.is-shut { align-items: flex-start; justify-content: flex-start; }
-  .tleaf.is-shut .tleaf-term { display: block; }
-  .tleaf.is-shut .tleaf-label { writing-mode: horizontal-tb; padding: 0; }
+  .tleaf.is-shut .tleaf-term, .tleaf.is-shut .tleaf-label { display: block; }
 }
 
 /* ---- the house band ---- */
@@ -1405,7 +1402,7 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    stack. Nothing is a rectangle beside a rectangle any more. */
 /* the block sets the trim size of the page: every leaf has it, open or closed */
 .pcascade {
-  position: relative; aspect-ratio: 1000 / 725; --leaf: 26px; --gap: 7px;
+  position: relative; aspect-ratio: 1000 / 725; --leaf: 13px; --gap: 4px;
   /* the stack of closed leaves is a fixed width in pixels, so the block is measured from
      its right edge inwards: the pile always finishes on the page margin instead of
      stopping short and leaving a band of empty ground */
@@ -1432,8 +1429,9 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 }
 /* a leaf shows the strip of its picture that falls on its edge, and the stack of them
    reads as a run of tones, like the gradient in the hero */
-.pcq.is-leaf .pcf-frame img { filter: grayscale(.25) contrast(1.06) brightness(.92); }
-.pcq.is-leaf:hover { width: calc(var(--leaf) * 2.4); }
+.pcq.is-leaf .pcf-frame { border: 0; }
+.pcq.is-leaf .pcf-frame img { filter: grayscale(.35) contrast(1.04) brightness(.9); }
+.pcq.is-leaf:hover { width: calc(var(--leaf) * 3.4); }
 .pcq.is-leaf:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
 /* the team photograph holds its own frame beside the title, cropped to a band.
