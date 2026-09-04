@@ -297,83 +297,102 @@ const growCopy = document.getElementById('growCopy');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const communitySec = document.getElementById('community');
 // ---------- The hero's wall of panels ----------
-// Blocks of hard-edged columns, laid out once from a fixed seed so the wall is the same
-// on every visit. It does not move: each panel lights as the pointer comes near it and
-// fades as it leaves. The middle is left clear, so the sentence sits in a clearing.
+// The wall covers the whole ground, column by column, with no empty stretches: the only
+// place without a panel is the place the sentence occupies, and that hole is measured off
+// the type itself rather than guessed. Nothing drifts — each panel lights as the pointer
+// comes near it. Laid out from a fixed seed, so the wall is the same on every visit.
 const heroWall = document.getElementById('heroWall');
 if (heroWall) {
-  const TONES = ['#ffe64a', '#ffec6a', '#f7ed8e', '#ffef7d', '#ffe14a', '#fdf3a6', '#FAF8F0', '#ffe64a'];
-  const TOPS = [0, 7, 18, 31, 44, 56];
-  // the room the sentence needs, in % of the wall: no panel crosses it
-  const CLEAR = { x0: 0, x1: 57, y0: 16, y1: 82 };
-  let seed = 20260903;
-  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  const TONES = ['#ffe64a', '#ffec6a', '#f7ed8e', '#ffef7d', '#ffe14a', '#fdf3a6', '#FAF8F0', '#ffe96b'];
+  let bars = [], nodes = [];
 
-  const bars = [];
-  const push = (x, w, top, h, tone) => {
-    // a panel that would run through the clearing is cut back to whichever side has room
-    if (x < CLEAR.x1 && x + w > CLEAR.x0) {
-      const above = CLEAR.y0 - top;
-      const below = top + h - CLEAR.y1;
-      if (top < CLEAR.y0 && above > 6) h = above;
-      else if (top + h > CLEAR.y1 && below > 6) { h = below; top = CLEAR.y1; }
-      else return;
-    }
-    bars.push({ x, w, top, h, tone });
+  // the room the sentence needs, read off the statements themselves
+  const measureHole = () => {
+    const wr = heroWall.getBoundingClientRect();
+    const stmts = [...document.querySelectorAll('.hstmt')];
+    if (!stmts.length || !wr.width) return null;
+    let l = Infinity, r = -Infinity, t = Infinity, b = -Infinity;
+    stmts.forEach(el => {
+      const q = el.getBoundingClientRect();
+      if (!q.width) return;
+      l = Math.min(l, q.left); r = Math.max(r, q.right);
+      t = Math.min(t, q.top);  b = Math.max(b, q.bottom);
+    });
+    if (l === Infinity) return null;
+    const px = 2.4, py = 3.4;
+    return {
+      x0: ((l - wr.left) / wr.width) * 100 - px, x1: ((r - wr.left) / wr.width) * 100 + px,
+      y0: ((t - wr.top) / wr.height) * 100 - py, y1: ((b - wr.top) / wr.height) * 100 + py
+    };
   };
 
-  let x = 0;
-  while (x < 100) {
-    const bw = 2.6 + rnd() * 7.4;                   // the block's width, in % of the wall
-    if (rnd() > 0.11) {                             // a few stretches stay bare ground
-      const top = TOPS[Math.floor(rnd() * TOPS.length)];
-      const tall = 32 + rnd() * 68;
-      const cols = 4 + Math.floor(rnd() * 7);
-      const cw = bw / cols;
-      const base = Math.floor(rnd() * TONES.length);
-      for (let i = 0; i < cols; i++) {
-        if (rnd() < 0.1) continue;                  // a missing stripe inside the block
-        const tone = TONES[(base + (rnd() < 0.55 ? 0 : 1 + Math.floor(rnd() * 2))) % TONES.length];
-        push(x + i * cw, cw * (0.8 + rnd() * 0.2), top,
-             Math.min(100 - top, tall * (0.62 + rnd() * 0.38)), tone);
-      }
-    }
-    x += bw + rnd() * 1.2;
-  }
+  const build = () => {
+    const hole = measureHole();
+    let seed = 20260903;
+    const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    bars = [];
 
-  heroWall.innerHTML = bars.map(b =>
-    `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
-    `top:${b.top}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
+    // a segment that runs into the sentence's room is cut into what falls above and below
+    const push = (x, w, y, h, tone) => {
+      if (hole && x < hole.x1 && x + w > hole.x0) {
+        const above = Math.min(y + h, hole.y0) - y;
+        const below = (y + h) - Math.max(y, hole.y1);
+        if (above > 0.8) bars.push({ x, w, top: y, h: above, tone });
+        if (below > 0.8) bars.push({ x, w, top: Math.max(y, hole.y1), h: below, tone });
+        return;
+      }
+      bars.push({ x, w, top: y, h, tone });
+    };
+
+    let x = 0;
+    while (x < 100) {
+      const cw = 1.2 + rnd() * 2.8;              // the column's width, in % of the wall
+      const base = Math.floor(rnd() * TONES.length);
+      let y = 0;
+      while (y < 100) {                          // the column is filled top to bottom
+        const h = Math.min(11 + rnd() * 30, 100 - y);
+        if (rnd() > 0.13) {                      // a few segments are left as bare ground
+          const tone = TONES[(base + (rnd() < 0.6 ? 0 : 1 + Math.floor(rnd() * 2))) % TONES.length];
+          push(x, Math.max(cw - 0.14, 0.5), y, h, tone);
+        }
+        y += h;
+      }
+      x += cw;
+    }
+
+    heroWall.innerHTML = bars.map(b =>
+      `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
+      `top:${b.top.toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
+    nodes = [...heroWall.querySelectorAll('.hero-bar')];
+  };
+  build();
+  addEventListener('load', build);
 
   // every panel answers to how near the hand is. The falloff is a wide ellipse, so the
   // light reads as sweeping across the wall rather than as a circle stuck to the cursor.
-  const nodes = [...heroWall.querySelectorAll('.hero-bar')];
-  const REACH = 30;                                  // in % of the wall's width
-  let queued = false;
+  const REACH = 26;                              // in % of the wall's width
+  let last = 0;
   const light = (mx, my) => {
-    bars.forEach((b, i) => {
+    for (let i = 0; i < bars.length; i++) {
+      const b = bars[i];
       const dx = (b.x + b.w / 2) - mx;
-      const dy = ((b.top + b.h / 2) - my) * 0.42;
+      const dy = ((b.top + b.h / 2) - my) * 0.4;
       const d = Math.sqrt(dx * dx + dy * dy) / REACH;
-      const k = d >= 1 ? 0 : (1 - d) * (1 - d);
-      nodes[i].style.setProperty('--k', k.toFixed(3));
-    });
+      nodes[i].style.setProperty('--k', d >= 1 ? '0' : ((1 - d) * (1 - d)).toFixed(3));
+    }
   };
   const follow = e => {
     const r = heroWall.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
-    const mx = ((e.clientX - r.left) / r.width) * 100;
-    const my = ((e.clientY - r.top) / r.height) * 100;
-    if (queued) return;
-    queued = true;
-    // written straight away rather than from a frame callback: a hidden tab suspends
-    // requestAnimationFrame, and the wall must not depend on it
-    light(mx, my);
-    queued = false;
+    const now = performance.now();
+    if (now - last < 16) return;                 // one pass per frame's worth of time,
+    last = now;                                  // without depending on the frame loop
+    light(((e.clientX - r.left) / r.width) * 100, ((e.clientY - r.top) / r.height) * 100);
   };
   addEventListener('pointermove', follow, { passive: true });
   addEventListener('mousemove', follow, { passive: true });
-  addEventListener('mouseleave', () => nodes.forEach(n => n.style.setProperty('--k', 0)), { passive: true });
+  addEventListener('mouseleave', () => nodes.forEach(n => n.style.setProperty('--k', '0')), { passive: true });
+  addEventListener('resize', build, { passive: true });
 }
 
 function onScroll() {

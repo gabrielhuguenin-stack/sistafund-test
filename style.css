@@ -228,7 +228,7 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
 .hero-stack {
   position: absolute; inset: 0; z-index: 2;
-  display: grid; align-items: center; justify-items: start;
+  display: grid; align-items: center; justify-items: center;
   padding: 0 4vw;
 }
 .hstmt {
