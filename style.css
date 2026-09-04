@@ -515,8 +515,8 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
-  font-size: .78rem; letter-spacing: .17em; line-height: 1;
-  color: rgba(16, 16, 16, .55);
+  font-size: clamp(.9rem, 1.15vw, 1.15rem); letter-spacing: .15em; line-height: 1;
+  color: rgba(16, 16, 16, .6);
   transition: color .4s var(--ease);
 }
 .tleaf-term {
@@ -774,9 +774,8 @@ main section[id] { scroll-margin-top: 60px; }
 .faq-item p {
   padding: 0 6px 34px; max-width: none;
   color: var(--grey); font-size: clamp(1.05rem, 1.35vw, 1.35rem); line-height: 1.55;
-  columns: 2; column-gap: 5vw;
+  max-width: 74ch;
 }
-@media (max-width: 900px) { .faq-item p { columns: 1; } }
 /* extra questions stay folded until "Show all"; height animates via grid-rows */
 .faq-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
 .faq-more.open { grid-template-rows: 1fr; }
@@ -817,9 +816,10 @@ main section[id] { scroll-margin-top: 60px; }
    the pictures are never cropped differently from one another. */
 .news-index {
   display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
-  gap: 4vw; align-items: start; margin-top: 6vh;
+  gap: var(--news-gutter); align-items: start; margin-top: 6vh;
+  --news-gutter: 3.4vh;
 }
-.news-side { display: flex; flex-direction: column; gap: 3.4vh; }
+.news-side { display: flex; flex-direction: column; gap: var(--news-gutter); }
 .news-all-btn { font-size: 1.05rem; }
 .news-list { border-top: 1.5px solid var(--ink); }
 .news-row {
