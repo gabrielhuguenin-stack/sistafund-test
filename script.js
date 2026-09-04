@@ -326,8 +326,16 @@ if (heroWall) {
     };
   };
 
+  const plate = document.getElementById('heroPlate');
   const build = () => {
     const hole = measureHole();
+    // the plate takes exactly the room the wall gives up
+    if (plate && hole) {
+      plate.style.left = hole.x0 + '%';
+      plate.style.top = hole.y0 + '%';
+      plate.style.width = (hole.x1 - hole.x0) + '%';
+      plate.style.height = (hole.y1 - hole.y0) + '%';
+    }
     let seed = 20260903;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     bars = [];

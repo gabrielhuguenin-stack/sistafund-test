@@ -223,6 +223,12 @@ body.subpage-dark .nav-count { color: var(--yellow); }
   opacity: var(--k, 0);
   transition: opacity .45s var(--ease);
 }
+/* the sentence is not standing in a gap: it stands on a panel of its own, the largest of
+   the wall, cut to the exact room the type needs */
+.hero-plate {
+  position: absolute; z-index: 1; pointer-events: none;
+  background: var(--paper);
+}
 
 
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
