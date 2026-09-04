@@ -307,7 +307,8 @@ if (heroWall) {
   const FAR  = [255, 225,  74];                 // the deepest yellow, out at the edges
   const hex = n => n.toString(16).padStart(2, '0');
   const toneAt = t => {
-    const k = Math.pow(Math.min(Math.max(t, 0), 1), 0.85);
+    const u = Math.min(Math.max(t, 0), 1);
+    const k = u * u * (3 - 2 * u);
     return '#' + NEAR.map((a, i) => hex(Math.round(a + (FAR[i] - a) * k))).join('');
   };
   let bars = [], nodes = [];
@@ -364,7 +365,7 @@ if (heroWall) {
       if (!hole) return 1;
       const dx = Math.max(hole.x0 - x, 0, x - hole.x1);
       const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.5;
-      return Math.min(Math.sqrt(dx * dx + dy * dy) / 44, 1);
+      return Math.min(Math.sqrt(dx * dx + dy * dy) / 46, 1);
     };
 
     let x = 0;
@@ -376,7 +377,8 @@ if (heroWall) {
         if (rnd() > 0.13) {                       // a few segments are left as bare ground
           // pale against the sentence, deepening as the wall moves away from it, with
           // just enough scatter that the wall is a wall and not a printed gradient
-          const t = away(x + cw / 2, y + h / 2) + (rnd() - 0.5) * 0.16;
+          const a = away(x + cw / 2, y + h / 2);
+          const t = a + (rnd() - 0.5) * 0.22 * Math.min(a * 2.2, 1);
           push(x, Math.max(cw - 0.12, 0.4), y, h, toneAt(t));
         }
         y += h;
