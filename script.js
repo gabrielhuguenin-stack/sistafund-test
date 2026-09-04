@@ -297,20 +297,34 @@ const growCopy = document.getElementById('growCopy');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const communitySec = document.getElementById('community');
 // ---------- The hero's wall of panels ----------
-// Blocks of hard-edged columns, each a tone of the house yellow, laid out once from a
-// fixed seed so the wall is the same on every visit. The first half is generated and
-// copied at +50% of the track, which lets the drift loop without a seam.
+// Blocks of hard-edged columns, laid out once from a fixed seed so the wall is the same
+// on every visit. It does not move: each panel lights as the pointer comes near it and
+// fades as it leaves. The middle is left clear, so the sentence sits in a clearing.
 const heroWall = document.getElementById('heroWall');
 if (heroWall) {
   const TONES = ['#ffe64a', '#ffec6a', '#f7ed8e', '#ffef7d', '#ffe14a', '#fdf3a6', '#FAF8F0', '#ffe64a'];
   const TOPS = [0, 7, 18, 31, 44, 56];
+  // the room the sentence needs, in % of the wall: no panel crosses it
+  const CLEAR = { x0: 0, x1: 57, y0: 16, y1: 82 };
   let seed = 20260903;
   const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
 
   const bars = [];
+  const push = (x, w, top, h, tone) => {
+    // a panel that would run through the clearing is cut back to whichever side has room
+    if (x < CLEAR.x1 && x + w > CLEAR.x0) {
+      const above = CLEAR.y0 - top;
+      const below = top + h - CLEAR.y1;
+      if (top < CLEAR.y0 && above > 6) h = above;
+      else if (top + h > CLEAR.y1 && below > 6) { h = below; top = CLEAR.y1; }
+      else return;
+    }
+    bars.push({ x, w, top, h, tone });
+  };
+
   let x = 0;
-  while (x < 50) {
-    const bw = 2.6 + rnd() * 7.4;                   // the block's width, in % of the track
+  while (x < 100) {
+    const bw = 2.6 + rnd() * 7.4;                   // the block's width, in % of the wall
     if (rnd() > 0.11) {                             // a few stretches stay bare ground
       const top = TOPS[Math.floor(rnd() * TOPS.length)];
       const tall = 32 + rnd() * 68;
@@ -320,79 +334,47 @@ if (heroWall) {
       for (let i = 0; i < cols; i++) {
         if (rnd() < 0.1) continue;                  // a missing stripe inside the block
         const tone = TONES[(base + (rnd() < 0.55 ? 0 : 1 + Math.floor(rnd() * 2))) % TONES.length];
-        bars.push({
-          x: x + i * cw,
-          w: cw * (0.8 + rnd() * 0.2),
-          top: top,
-          h: Math.min(100 - top, tall * (0.62 + rnd() * 0.38)),
-          tone
-        });
+        push(x + i * cw, cw * (0.8 + rnd() * 0.2), top,
+             Math.min(100 - top, tall * (0.62 + rnd() * 0.38)), tone);
       }
     }
     x += bw + rnd() * 1.2;
   }
 
-  const paint = host => {
-    const html = bars.map(b => {
-      const a = `left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;top:${b.top}%;height:${b.h.toFixed(2)}%`;
-      const c = `left:${(b.x + 50).toFixed(3)}%;width:${b.w.toFixed(3)}%;top:${b.top}%;height:${b.h.toFixed(2)}%`;
-      return `<span class="hero-bar" style="${a};background:${b.tone}"></span>` +
-             `<span class="hero-bar" style="${c};background:${b.tone}"></span>`;
-    }).join('');
-    host.innerHTML = html;
-  };
-  heroWall.querySelectorAll('.hero-track').forEach(paint);
+  heroWall.innerHTML = bars.map(b =>
+    `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
+    `top:${b.top}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
 
-  // the light follows the hand, a step behind. One eased step is called by the frame loop
-  // and by the move itself: a hidden tab suspends requestAnimationFrame, and the wall
-  // must not depend on it.
-  let tx = 50, ty = 44, cx = 50, cy = 44, running = false;
-  const apply = () => {
-    cx += (tx - cx) * 0.1;
-    cy += (ty - cy) * 0.1;
-    heroWall.style.setProperty('--mx', cx.toFixed(2) + '%');
-    heroWall.style.setProperty('--my', cy.toFixed(2) + '%');
-  };
-  const step = () => {
-    apply();
-    if (Math.abs(tx - cx) > 0.05 || Math.abs(ty - cy) > 0.05) requestAnimationFrame(step);
-    else running = false;
+  // every panel answers to how near the hand is. The falloff is a wide ellipse, so the
+  // light reads as sweeping across the wall rather than as a circle stuck to the cursor.
+  const nodes = [...heroWall.querySelectorAll('.hero-bar')];
+  const REACH = 30;                                  // in % of the wall's width
+  let queued = false;
+  const light = (mx, my) => {
+    bars.forEach((b, i) => {
+      const dx = (b.x + b.w / 2) - mx;
+      const dy = ((b.top + b.h / 2) - my) * 0.42;
+      const d = Math.sqrt(dx * dx + dy * dy) / REACH;
+      const k = d >= 1 ? 0 : (1 - d) * (1 - d);
+      nodes[i].style.setProperty('--k', k.toFixed(3));
+    });
   };
   const follow = e => {
     const r = heroWall.getBoundingClientRect();
     if (r.bottom < 0 || r.top > innerHeight) return;
-    tx = ((e.clientX - r.left) / r.width) * 100;
-    ty = ((e.clientY - r.top) / r.height) * 100;
-    apply();
-    if (!running) { running = true; requestAnimationFrame(step); }
+    const mx = ((e.clientX - r.left) / r.width) * 100;
+    const my = ((e.clientY - r.top) / r.height) * 100;
+    if (queued) return;
+    queued = true;
+    // written straight away rather than from a frame callback: a hidden tab suspends
+    // requestAnimationFrame, and the wall must not depend on it
+    light(mx, my);
+    queued = false;
   };
   addEventListener('pointermove', follow, { passive: true });
   addEventListener('mousemove', follow, { passive: true });
+  addEventListener('mouseleave', () => nodes.forEach(n => n.style.setProperty('--k', 0)), { passive: true });
 }
-
-// ---------- Thesis deck ----------
-// The same book the dedicated pages open on, made of statements instead of photographs.
-// The scroll is what turns it — no arrow to press. The section is held while it turns,
-// otherwise the reader is already on the black band before the fourth card arrives; but
-// the sticky block is only the label and the deck, never a screenful of empty cream.
-const thesisPin = document.getElementById('thesisPin');
-const thesisDeck = document.getElementById('thesisDeck');
-const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
-let tOpen = -1;
-function turnThesis(p) {
-  const n = tleaves.length;
-  const k = Math.min(n - 1, Math.floor(p * n));
-  if (k === tOpen) return;
-  tOpen = k;
-  tleaves.forEach((el, i) => {
-    // the pile reads as what is still to come
-    const place = (i - k + n) % n;
-    el.classList.toggle('is-open', place === 0);
-    el.classList.toggle('is-shut', place !== 0);
-    el.style.setProperty('--p', place - 1);
-  });
-}
-if (tleaves.length) turnThesis(0);
 
 function onScroll() {
   const y = window.scrollY;

@@ -207,33 +207,22 @@ body.subpage-dark .nav-count { color: var(--yellow); }
   height: 100vh; overflow: hidden;
 }
 /* A wall of lit panels, the way a stage backdrop is built: hard-edged vertical columns of
-   different widths, grouped into blocks at different heights, each column a slightly
-   different tone of the house yellow. The whole wall drifts left, slowly and forever. No
-   blur anywhere — the edges are what make it graphic instead of mushy. */
-.hero-wall {
-  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
-  --mx: 50%; --my: 44%;
+   different widths, grouped into blocks at different heights, each column a tone of the
+   house yellow. Nothing drifts — the wall stands still and answers the hand: every panel
+   lights as the pointer comes near it and fades as it leaves. And it leaves the middle
+   clear, so the sentence sits in a clearing the panels surround. No blur anywhere. */
+.hero-wall { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.hero-bar {
+  position: absolute;
+  background: var(--tone);
 }
-.hero-track {
-  position: absolute; top: 0; bottom: 0; left: 0; width: 200%;
-  animation: wallDrift 52s linear infinite;
+/* the lit state of a panel, carried by its own overlay so only one number has to change */
+.hero-bar::after {
+  content: ''; position: absolute; inset: 0;
+  background: #ffdf3d;
+  opacity: var(--k, 0);
+  transition: opacity .45s var(--ease);
 }
-.hero-bar { position: absolute; }
-@keyframes wallDrift {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
-/* the second copy is the same wall in a deeper tone, and only shows where the hand is:
-   the pointer is the light sweeping across the panels */
-.hero-track--lit .hero-bar { background: #ffe14a !important; }
-.hero-track--lit {
-  -webkit-mask-image: radial-gradient(circle 24vw at var(--mx) var(--my),
-    #000 0%, rgba(0, 0, 0, .55) 44%, transparent 74%);
-  mask-image: radial-gradient(circle 24vw at var(--mx) var(--my),
-    #000 0%, rgba(0, 0, 0, .55) 44%, transparent 74%);
-}
-@media (hover: none) { .hero-track--lit { display: none; } }
-@media (prefers-reduced-motion: reduce) { .hero-track { animation: none; } }
 
 
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
