@@ -428,7 +428,7 @@ function onScroll() {
   const y = window.scrollY;
   const vh = window.innerHeight;
 
-  nav.classList.toggle('scrolled', y > 60);
+  nav.classList.toggle('scrolled', y > (heroPin ? heroPin.offsetHeight - vh * 0.4 : 60));
   lastY = y;
 
   // hero: scrolling folds the headline away word by word
