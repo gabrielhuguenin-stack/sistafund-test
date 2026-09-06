@@ -347,65 +347,60 @@ if (heroWall) {
 
   const build = () => {
     const hole = measureHole();
+    const gh = growHole();
     let seed = 20260903;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     bars = [];
 
-    const push = (x, w, y, h, tone) => bars.push({ x, w, top: y, h, tone });
-
-    // how far a panel stands from the sentence's panel, in the wall's own units. The
-    // reach is long, so the grade has room to breathe instead of saturating at once.
+    // One wall is laid out over two screens' worth of height and rendered twice: the hero
+    // shows its first hundred units, the photo section the next hundred. A column cut at
+    // the join carries on exactly where it left off, so there is no seam and no white band.
+    const SPAN = 200;
+    // the tone opens around whichever clearing is nearer: the sentence above, the
+    // photograph below. One field, two openings.
     const away = (x, y) => {
-      if (!hole) return 1;
-      const dx = Math.max(hole.x0 - x, 0, x - hole.x1);
-      const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.5;
-      return Math.min(Math.sqrt(dx * dx + dy * dy) / 46, 1);
+      let best = 1;
+      if (hole) {
+        const dx = Math.max(hole.x0 - x, 0, x - hole.x1);
+        const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.5;
+        best = Math.min(best, Math.sqrt(dx * dx + dy * dy) / 46);
+      }
+      if (gh) {
+        const dx = Math.max(gh.x0 - x, 0, x - gh.x1);
+        const dy = Math.max(gh.y0 - (y - 100), 0, (y - 100) - gh.y1) * 1.5;
+        best = Math.min(best, Math.sqrt(dx * dx + dy * dy) / 46);
+      }
+      return Math.min(best, 1);
     };
 
     let x = 0;
     while (x < 100) {
       const cw = 0.8 + rnd() * 1.5;               // the column's width, in % of the wall
       let y = 0;
-      while (y < 100) {                           // the column is filled top to bottom
-        const h = Math.min(9 + rnd() * 24, 100 - y);
-        // pale against the sentence, deepening as the wall moves away from it, with
-        // just enough scatter that the wall is a wall and not a printed gradient
-        const a = Math.min(away(x + cw / 2, y + h / 2), Math.min((100 - (y + h)) / 22, 1));
+      while (y < SPAN) {                          // the column is filled top to bottom
+        const h = Math.min(9 + rnd() * 24, SPAN - y);
+        // pale against the openings, deepening as the wall moves away from them, with
+        // just enough scatter that the wall is a wall and not a printed gradient. The very
+        // foot eases to cream so the ground does not stop dead against the section below.
+        const a = Math.min(away(x + cw / 2, y + h / 2), Math.min((SPAN - (y + h)) / 22, 1));
         const t = a + (rnd() - 0.5) * 0.22 * Math.min(a * 2.2, 1);
-        push(x, cw, y, h, toneAt(t));
+        bars.push({ x, w: cw, top: y, h, tone: toneAt(t) });
         y += h;
       }
       x += cw;
     }
 
-    const paint = (host, list) => {
-      host.innerHTML = list.map(b =>
+    // each host shows its own hundred units; what overflows is clipped by the frame
+    const paint = (host, offset) => {
+      host.innerHTML = bars.map(b =>
         `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
-        `top:${b.top.toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
+        `top:${(b.top - offset).toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
     };
-    paint(heroWall, bars);
+    paint(heroWall, 0);
     nodes = [...heroWall.querySelectorAll('.hero-bar')];
-
-    // the same wall under the photograph, its tone opening around the picture instead of
-    // around the sentence, and pale at its head where the hero's own foot is pale
-    if (growWall) {
-      const gh = growHole();
-      const gAway = (x, y) => {
-        if (!gh) return 1;
-        const dx = Math.max(gh.x0 - x, 0, x - gh.x1);
-        const dy = Math.max(gh.y0 - y, 0, y - gh.y1) * 1.5;
-        return Math.min(Math.sqrt(dx * dx + dy * dy) / 46, 1);
-      };
-      const gbars = bars.map(b => {
-        const t = Math.min(
-          gAway(b.x + b.w / 2, b.top + b.h / 2),
-          Math.min(b.top / 22, 1),
-          Math.min((100 - (b.top + b.h)) / 22, 1));
-        return { ...b, tone: toneAt(t) };
-      });
-      paint(growWall, gbars);
-    }
+    if (growWall) paint(growWall, 100);
   };
+
   build();
   addEventListener('load', build);
 
