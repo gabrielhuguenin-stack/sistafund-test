@@ -314,14 +314,7 @@ body.loaded .hero-cue { opacity: 1; }
 
 /* ============ Section commons ============ */
 main section[id] { scroll-margin-top: 60px; }
-.sec-head { padding: 0 0 8vh; position: relative; }
-.sec-head::before {
-  content: ''; display: block; height: 4px; background: var(--ink);
-  margin-bottom: 7vh;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 1.1s var(--ease);
-}
-.sec-head.in-view::before { transform: scaleX(1); }
+.sec-head { padding: 7vh 0 8vh; position: relative; }
 .sec-head h2 {
   font-size: clamp(2.8rem, 7vw, 6.4rem);
   overflow: hidden;
