@@ -481,34 +481,25 @@ main section[id] { scroll-margin-top: 60px; }
    same book the dedicated pages open on, made of statements instead of photographs. The
    one in hand lies open and carries the house band; the others stand closed on their
    edge, each showing its own label written down the spine. The ground stays cream. */
-/* The cards are dealt downwards, not sideways: the one in hand lies open at the top and
-   the others wait below it, each shown as its own edge. Turning a card sends it down and
-   brings the next one up. */
-.thesis-deck {
-  position: relative; aspect-ratio: 1000 / 300;
-  --leaf: 1.5px; --gap: 18px;
-  --pile: calc(3 * var(--leaf) + 2 * var(--gap));
-  margin-top: 1vh;
-}
+/* The cards do not replace one another: each one opens as the scroll reaches it and
+   **stays open**, so by the end the four facts are read together. A card that is still
+   closed shows as its own rule; the one that just opened carries the band. */
+.thesis-deck { display: flex; flex-direction: column; gap: 12px; margin-top: 1vh; }
 .tleaf {
-  position: absolute; left: 0; width: 100%; overflow: hidden;
-  border: 1.5px solid var(--ink); background: var(--paper);
-  display: flex; flex-direction: column; justify-content: space-between;
-  padding: 3.4vh 2.6vw 3.6vh;
-  transition: top .95s var(--ease), height .95s var(--ease), background .5s var(--ease);
+  overflow: hidden;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  transition: max-height .85s var(--ease), border-color .5s var(--ease),
+              box-shadow .5s var(--ease);
 }
-/* the card in hand, on the band the whole site wears */
-.tleaf.is-open {
-  top: 0; height: calc(100% - var(--pile) - 26px); z-index: 3;
-  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
+html.anim .tleaf { max-height: 0; border-color: transparent; border-top-color: var(--ink); }
+.tleaf-in {
+  display: flex; flex-direction: column; justify-content: space-between; gap: .5em;
+  padding: 2.6vh 2.6vw 2.9vh;
 }
-/* a closed card is reduced to its own edge: a rule lying under the open one. Three
-   bordered strips read as filing tabs; three rules read as the site's own material. */
-.tleaf.is-shut {
-  height: var(--leaf); z-index: 2; padding: 0;
-  top: calc(100% - var(--pile) + var(--p) * (var(--leaf) + var(--gap)));
-  border: 0; border-top: 1.5px solid var(--ink); background: none;
-}
+html.anim .tleaf.is-open { max-height: 26vh; border-color: var(--ink); }
+/* the one the scroll has just turned to */
+.tleaf.is-live { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(.9rem, 1.15vw, 1.15rem); letter-spacing: .15em; line-height: 1;
@@ -517,20 +508,18 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .tleaf-term {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(2.4rem, 6.6vw, 6.4rem); line-height: .95; letter-spacing: -.02em;
+  font-size: clamp(1.9rem, 4.4vw, 4.4rem); line-height: .98; letter-spacing: -.02em;
   color: var(--ink);
   white-space: nowrap;
 }
 /* a closed card shows only its spine, and the label reads down it */
-.tleaf.is-shut .tleaf-term, .tleaf.is-shut .tleaf-label { display: none; }
 
 @media (max-width: 900px) {
   .thesis-pin { height: auto; }
   .thesis-pin .stats { position: static; padding: 13vh 4vw 12vh; }
-  .thesis-deck { aspect-ratio: auto; height: auto; display: flex; flex-direction: column; gap: 1.5px; }
-  .tleaf { position: static; width: auto !important; height: auto; padding: 4vh 5vw;
-    box-shadow: none !important; }
-  .tleaf.is-shut .tleaf-term, .tleaf.is-shut .tleaf-label { display: block; }
+  /* no scroll to drive it on a phone: every card is simply open */
+  .tleaf { grid-template-rows: 1fr; border-color: var(--ink); box-shadow: none; }
+  .tleaf .tleaf-in { padding: 3.4vh 5vw 3.6vh; }
 }
 
 /* ---- the house band ---- */

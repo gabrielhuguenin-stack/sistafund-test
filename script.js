@@ -445,11 +445,10 @@ function turnThesis(p) {
   if (k === tOpen) return;
   tOpen = k;
   tleaves.forEach((el, i) => {
-    // the pile reads as what is still to come
-    const place = (i - k + n) % n;
-    el.classList.toggle('is-open', place === 0);
-    el.classList.toggle('is-shut', place !== 0);
-    el.style.setProperty('--p', place - 1);
+    // everything already reached stays open: the reader never has to scroll back up to
+    // find a fact again. Only the one just turned to carries the band.
+    el.classList.toggle('is-open', i <= k);
+    el.classList.toggle('is-live', i === k);
   });
 }
 if (tleaves.length) turnThesis(0);
