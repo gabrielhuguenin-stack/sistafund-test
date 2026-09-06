@@ -219,12 +219,12 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .grow-wall { z-index: 0; }
 .grow-frame, .grow-copy { z-index: 1; }
 /* the lit state of a panel, carried by its own overlay so only one number has to change.
-   A veil of ink, never a fourth yellow: the panel deepens under the hand and the palette
-   stays the three colours of the charter. */
+   The panel saturates **up to the house yellow and no further**: #FFF868 is the ceiling,
+   never a step toward something deeper. */
 .hero-bar::after {
   content: ''; position: absolute; inset: 0;
-  background: var(--ink);
-  opacity: calc(var(--k, 0) * .1);
+  background: var(--yellow);
+  opacity: var(--k, 0);
   transition: opacity .45s var(--ease);
 }
 
