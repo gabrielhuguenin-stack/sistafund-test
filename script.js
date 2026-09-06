@@ -333,6 +333,18 @@ if (heroWall) {
     };
   };
 
+  const growWall = document.getElementById('growWall');
+  const growHole = () => {
+    const wr = growWall ? growWall.getBoundingClientRect() : null;
+    const fr = document.getElementById('growFrame');
+    if (!wr || !wr.width || !fr) return null;
+    const q = fr.getBoundingClientRect();
+    return {
+      x0: ((q.left - wr.left) / wr.width) * 100 + 24, x1: ((q.right - wr.left) / wr.width) * 100 - 24,
+      y0: ((q.top - wr.top) / wr.height) * 100 + 26, y1: ((q.bottom - wr.top) / wr.height) * 100 - 26
+    };
+  };
+
   const build = () => {
     const hole = measureHole();
     let seed = 20260903;
@@ -358,7 +370,7 @@ if (heroWall) {
         const h = Math.min(9 + rnd() * 24, 100 - y);
         // pale against the sentence, deepening as the wall moves away from it, with
         // just enough scatter that the wall is a wall and not a printed gradient
-        const a = away(x + cw / 2, y + h / 2);
+        const a = Math.min(away(x + cw / 2, y + h / 2), Math.min((100 - (y + h / 2)) / 24, 1));
         const t = a + (rnd() - 0.5) * 0.22 * Math.min(a * 2.2, 1);
         push(x, cw, y, h, toneAt(t));
         y += h;
@@ -366,10 +378,30 @@ if (heroWall) {
       x += cw;
     }
 
-    heroWall.innerHTML = bars.map(b =>
-      `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
-      `top:${b.top.toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
+    const paint = (host, list) => {
+      host.innerHTML = list.map(b =>
+        `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
+        `top:${b.top.toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`).join('');
+    };
+    paint(heroWall, bars);
     nodes = [...heroWall.querySelectorAll('.hero-bar')];
+
+    // the same wall under the photograph, its tone opening around the picture instead of
+    // around the sentence, and pale at its head where the hero's own foot is pale
+    if (growWall) {
+      const gh = growHole();
+      const gAway = (x, y) => {
+        if (!gh) return 1;
+        const dx = Math.max(gh.x0 - x, 0, x - gh.x1);
+        const dy = Math.max(gh.y0 - y, 0, y - gh.y1) * 1.5;
+        return Math.min(Math.sqrt(dx * dx + dy * dy) / 46, 1);
+      };
+      const gbars = bars.map(b => {
+        const t = Math.min(gAway(b.x + b.w / 2, b.top + b.h / 2), Math.min(b.top / 26, 1));
+        return { ...b, tone: toneAt(t) };
+      });
+      paint(growWall, gbars);
+    }
   };
   build();
   addEventListener('load', build);

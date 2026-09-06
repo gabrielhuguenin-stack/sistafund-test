@@ -214,6 +214,10 @@ body.subpage-dark .nav-count { color: var(--yellow); }
   position: absolute;
   background: var(--tone);
 }
+/* the wall carries on under the group photograph, so the ground does not stop dead at the
+   foot of the hero */
+.grow-wall { z-index: 0; }
+.grow-frame, .grow-copy { z-index: 1; }
 /* the lit state of a panel, carried by its own overlay so only one number has to change */
 .hero-bar::after {
   content: ''; position: absolute; inset: 0;
@@ -226,8 +230,8 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 /* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
 .hero-stack {
   position: absolute; inset: 0; z-index: 2;
-  display: grid; align-items: center; justify-items: center;
-  padding: 0 4vw;
+  display: grid; align-items: center; justify-items: start;
+  padding: 0 4vw 0 7vw;
 }
 .hstmt {
   grid-area: 1 / 1;
@@ -247,12 +251,12 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .hstmt .hline.l-kicker {
   font-family: var(--serif); text-transform: none;
   letter-spacing: .01em; line-height: 1.06;
-  font-size: clamp(1.25rem, 4vw, 4.1rem);
+  font-size: clamp(1.25rem, 3.5vw, 3.6rem);
 }
 .hstmt .l-kicker .hmask { padding-bottom: .2em; margin-bottom: -.2em; }
-.hstmt .l-md { font-size: clamp(2rem, 7.2vw, 7.4rem); }
-.hstmt .l-lg { font-size: clamp(2.6rem, 9.8vw, 10.2rem); }
-.hstmt .l-xl { font-size: clamp(3.2rem, 14.4vw, 15rem); }
+.hstmt .l-md { font-size: clamp(2rem, 6.4vw, 6.6rem); }
+.hstmt .l-lg { font-size: clamp(2.6rem, 8.7vw, 9rem); }
+.hstmt .l-xl { font-size: clamp(3.2rem, 12.6vw, 13.2rem); }
 .hstmt .l-kicker { margin-bottom: .12em; }         /* the kicker breathes above the mass */
 .hline--in1 { padding-left: .1em; }
 .hline--in2 { padding-left: 1.9em; }           /* stepped in, so the block has rhythm */
