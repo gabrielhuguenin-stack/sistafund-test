@@ -333,31 +333,13 @@ if (heroWall) {
     };
   };
 
-  const plate = document.getElementById('heroPlate');
   const build = () => {
     const hole = measureHole();
-    // the plate takes exactly the room the wall gives up
-    if (plate && hole) {
-      plate.style.left = hole.x0 + '%';
-      plate.style.top = hole.y0 + '%';
-      plate.style.width = (hole.x1 - hole.x0) + '%';
-      plate.style.height = (hole.y1 - hole.y0) + '%';
-    }
     let seed = 20260903;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     bars = [];
 
-    // a segment that runs into the sentence's room is cut into what falls above and below
-    const push = (x, w, y, h, tone) => {
-      if (hole && x < hole.x1 && x + w > hole.x0) {
-        const above = Math.min(y + h, hole.y0) - y;
-        const below = (y + h) - Math.max(y, hole.y1);
-        if (above > 0.8) bars.push({ x, w, top: y, h: above, tone });
-        if (below > 0.8) bars.push({ x, w, top: Math.max(y, hole.y1), h: below, tone });
-        return;
-      }
-      bars.push({ x, w, top: y, h, tone });
-    };
+    const push = (x, w, y, h, tone) => bars.push({ x, w, top: y, h, tone });
 
     // how far a panel stands from the sentence's panel, in the wall's own units. The
     // reach is long, so the grade has room to breathe instead of saturating at once.
@@ -374,13 +356,11 @@ if (heroWall) {
       let y = 0;
       while (y < 100) {                           // the column is filled top to bottom
         const h = Math.min(9 + rnd() * 24, 100 - y);
-        if (rnd() > 0.13) {                       // a few segments are left as bare ground
-          // pale against the sentence, deepening as the wall moves away from it, with
-          // just enough scatter that the wall is a wall and not a printed gradient
-          const a = away(x + cw / 2, y + h / 2);
-          const t = a + (rnd() - 0.5) * 0.22 * Math.min(a * 2.2, 1);
-          push(x, Math.max(cw - 0.12, 0.4), y, h, toneAt(t));
-        }
+        // pale against the sentence, deepening as the wall moves away from it, with
+        // just enough scatter that the wall is a wall and not a printed gradient
+        const a = away(x + cw / 2, y + h / 2);
+        const t = a + (rnd() - 0.5) * 0.22 * Math.min(a * 2.2, 1);
+        push(x, cw, y, h, toneAt(t));
         y += h;
       }
       x += cw;
