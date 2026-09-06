@@ -892,7 +892,7 @@ main section[id] { scroll-margin-top: 60px; }
   display: flex; flex-direction: column; justify-content: center; gap: 1.4vh;
   min-width: 0;
 }
-.nmc--lead .nmc-title { font-size: clamp(1.5rem, 3vw, 3rem); line-height: 1.08; }
+.nmc--lead .nmc-title { font-size: clamp(1.6rem, 3.1vw, 3.1rem); line-height: 1.16; }
 @media (max-width: 760px) {
   .nmc--lead { flex-direction: column; gap: 0; }
   .nmc--lead .nmc-photo { flex: 0 0 auto; }
@@ -916,8 +916,8 @@ main section[id] { scroll-margin-top: 60px; }
 .nmc-meta b { font-weight: normal; color: var(--ink); }
 .nmc-meta i { font-style: normal; }
 .nmc-title {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1rem, 1.5vw, 1.45rem); line-height: 1.02;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.08rem, 1.62vw, 1.62rem); line-height: 1.3;
   display: block;
 }
 .nmc:hover .nmc-title { color: var(--grey); }
@@ -960,7 +960,6 @@ main section[id] { scroll-margin-top: 60px; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   text-align: center; padding: 11vh 4vw calc(23vw + 4vh);
   overflow: hidden;
-  border-top: 1.5px solid var(--ink);
 }
 .cta-brand {
   position: absolute; left: 50%; bottom: -1.5vw;
@@ -1683,7 +1682,7 @@ body > main, body > footer { position: relative; z-index: 1; }
   margin: 3vh 0 0 auto;
 }
 /* the closing line stands alone, full measure */
-.m-legacy { padding: 12vh 4vw 16vh; border-top: 1.5px solid var(--ink); }
+.m-legacy { padding: 12vh 4vw 16vh; }
 .m-legacy-title {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.5rem, 6.1vw, 6.4rem); line-height: .95;
