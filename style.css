@@ -498,6 +498,8 @@ html.anim .tleaf { max-height: 0; border-color: transparent; border-top-color: v
   padding: 2.6vh 2.6vw 2.9vh;
 }
 html.anim .tleaf.is-open { max-height: 26vh; border-color: var(--ink); }
+/* under the pointer a card takes the yellow, the inversion the sector rows already do */
+.tleaf.is-open:hover { background: var(--yellow); }
 /* the one the scroll has just turned to */
 .tleaf.is-live { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .tleaf-label {
@@ -577,7 +579,7 @@ html.anim .tleaf.is-open { max-height: 26vh; border-color: var(--ink); }
 .pf-card {
   display: flex;
   width: clamp(240px, 24vw, 320px);
-  border: 1.5px solid var(--ink); background: #fff;
+  border: 1.5px solid var(--ink); background: var(--paper);
   padding: 0;
   transition: transform .35s var(--ease), box-shadow .3s var(--ease);
 }
@@ -1137,7 +1139,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 }
 .pf-all-card:hover { transform: translateY(-5px); }
 .pf-all-card .pf-logo {
-  width: 100%; height: auto; aspect-ratio: 1.6; background: #fff;
+  width: 100%; height: auto; aspect-ratio: 1.6; background: var(--paper);
   display: flex; align-items: center; justify-content: center; padding: 32px;
 }
 .pf-all-card .pf-logo img { max-height: 64px; max-width: 66%; object-fit: contain; }
@@ -1185,7 +1187,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .overlay.open .pf-detail { transform: translateY(0) scale(1); }
 .pf-detail-logo {
   height: 150px; display: flex; align-items: center; justify-content: center;
-  border-bottom: 1.5px solid var(--ink); padding: 24px; background: #fff;
+  border-bottom: 1.5px solid var(--ink); padding: 24px; background: var(--paper);
 }
 .pf-detail-logo img { max-height: 76px; max-width: 55%; object-fit: contain; }
 .pf-detail-body { padding: 34px 38px 40px; }
