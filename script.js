@@ -370,7 +370,7 @@ if (heroWall) {
         const h = Math.min(9 + rnd() * 24, 100 - y);
         // pale against the sentence, deepening as the wall moves away from it, with
         // just enough scatter that the wall is a wall and not a printed gradient
-        const a = Math.min(away(x + cw / 2, y + h / 2), Math.min((100 - (y + h / 2)) / 24, 1));
+        const a = Math.min(away(x + cw / 2, y + h / 2), Math.min((100 - (y + h)) / 22, 1));
         const t = a + (rnd() - 0.5) * 0.22 * Math.min(a * 2.2, 1);
         push(x, cw, y, h, toneAt(t));
         y += h;
@@ -397,7 +397,10 @@ if (heroWall) {
         return Math.min(Math.sqrt(dx * dx + dy * dy) / 46, 1);
       };
       const gbars = bars.map(b => {
-        const t = Math.min(gAway(b.x + b.w / 2, b.top + b.h / 2), Math.min(b.top / 26, 1));
+        const t = Math.min(
+          gAway(b.x + b.w / 2, b.top + b.h / 2),
+          Math.min(b.top / 22, 1),
+          Math.min((100 - (b.top + b.h)) / 22, 1));
         return { ...b, tone: toneAt(t) };
       });
       paint(growWall, gbars);
