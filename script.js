@@ -304,7 +304,7 @@ const communitySec = document.getElementById('community');
 const heroWall = document.getElementById('heroWall');
 if (heroWall) {
   const NEAR = [250, 248, 240];                 // cream, against the sentence
-  const FAR  = [255, 225,  74];                 // the deepest yellow, out at the edges
+  const FAR  = [255, 248, 104];                 // #FFF868, the house yellow itself
   const hex = n => n.toString(16).padStart(2, '0');
   const toneAt = t => {
     const u = Math.min(Math.max(t, 0), 1);

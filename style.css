@@ -218,11 +218,13 @@ body.subpage-dark .nav-count { color: var(--yellow); }
    foot of the hero */
 .grow-wall { z-index: 0; }
 .grow-frame, .grow-copy { z-index: 1; }
-/* the lit state of a panel, carried by its own overlay so only one number has to change */
+/* the lit state of a panel, carried by its own overlay so only one number has to change.
+   A veil of ink, never a fourth yellow: the panel deepens under the hand and the palette
+   stays the three colours of the charter. */
 .hero-bar::after {
   content: ''; position: absolute; inset: 0;
-  background: #ffdf3d;
-  opacity: var(--k, 0);
+  background: var(--ink);
+  opacity: calc(var(--k, 0) * .1);
   transition: opacity .45s var(--ease);
 }
 
@@ -1512,7 +1514,7 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
 .news-tile:hover { transform: translateY(-5px); box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .nt-photo {
   aspect-ratio: 16 / 10; overflow: hidden; flex-shrink: 0;
-  border-bottom: 1.5px solid var(--ink); background: #ded9cd;
+  border-bottom: 1.5px solid var(--ink); background: var(--line);
 }
 .nt-photo img {
   width: 100%; height: 100%; object-fit: cover; object-position: center 35%;
@@ -1540,7 +1542,7 @@ body.subpage-dark .pcarrow:hover { background: var(--yellow); border-color: var(
 /* dark variant kept for any page that opts into subpage-dark */
 body.subpage-dark .news-tile { border-color: rgba(250, 248, 240, .25); }
 body.subpage-dark .news-tile:hover { border-color: var(--yellow); transform: translateY(-5px); }
-body.subpage-dark .nt-photo { border-bottom-color: rgba(250, 248, 240, .25); background: #14140f; }
+body.subpage-dark .nt-photo { border-bottom-color: rgba(250, 248, 240, .25); background: var(--ink); }
 body.subpage-dark .nt-title { color: var(--paper); }
 body.subpage-dark .nt-date, body.subpage-dark .nt-more { color: rgba(250, 248, 240, .55); }
 body.subpage-dark .news-tile:hover .nt-more { color: var(--yellow); }
