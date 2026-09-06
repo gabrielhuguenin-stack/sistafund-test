@@ -401,6 +401,29 @@ if (heroWall) {
   addEventListener('resize', build, { passive: true });
 }
 
+// ---------- Thesis deck ----------
+// The same book the dedicated pages open on, made of statements instead of photographs,
+// dealt downwards. The scroll is what turns it — no arrow to press. The section is held
+// while it turns, otherwise the reader is on the black band before the fourth card comes.
+const thesisPin = document.getElementById('thesisPin');
+const thesisDeck = document.getElementById('thesisDeck');
+const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
+let tOpen = -1;
+function turnThesis(p) {
+  const n = tleaves.length;
+  const k = Math.min(n - 1, Math.floor(p * n));
+  if (k === tOpen) return;
+  tOpen = k;
+  tleaves.forEach((el, i) => {
+    // the pile reads as what is still to come
+    const place = (i - k + n) % n;
+    el.classList.toggle('is-open', place === 0);
+    el.classList.toggle('is-shut', place !== 0);
+    el.style.setProperty('--p', place - 1);
+  });
+}
+if (tleaves.length) turnThesis(0);
+
 function onScroll() {
   const y = window.scrollY;
   const vh = window.innerHeight;
