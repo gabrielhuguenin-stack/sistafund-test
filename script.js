@@ -431,28 +431,6 @@ if (heroWall) {
   addEventListener('resize', build, { passive: true });
 }
 
-// ---------- Thesis deck ----------
-// The same book the dedicated pages open on, made of statements instead of photographs,
-// dealt downwards. The scroll is what turns it — no arrow to press. The section is held
-// while it turns, otherwise the reader is on the black band before the fourth card comes.
-const thesisPin = document.getElementById('thesisPin');
-const thesisDeck = document.getElementById('thesisDeck');
-const tleaves = thesisDeck ? [...thesisDeck.querySelectorAll('.tleaf')] : [];
-let tOpen = -1;
-function turnThesis(p) {
-  const n = tleaves.length;
-  const k = Math.min(n - 1, Math.floor(p * n));
-  if (k === tOpen) return;
-  tOpen = k;
-  tleaves.forEach((el, i) => {
-    // everything already reached stays open: the reader never has to scroll back up to
-    // find a fact again. Only the one just turned to carries the band.
-    el.classList.toggle('is-open', i <= k);
-    el.classList.toggle('is-live', i === k);
-  });
-}
-if (tleaves.length) turnThesis(0);
-
 function onScroll() {
   const y = window.scrollY;
   const vh = window.innerHeight;
@@ -512,13 +490,6 @@ function onScroll() {
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
-
-  // thesis: the scroll turns a card as the section crosses the screen
-  if (thesisPin && tleaves.length) {
-    const r = thesisPin.getBoundingClientRect();
-    const total = thesisPin.offsetHeight - vh;
-    turnThesis(total > 0 ? clamp(-r.top / total, 0, 0.999) : 0);
-  }
 
   // community: the grid fills as the section crosses the screen
   if (commMosaic) {
