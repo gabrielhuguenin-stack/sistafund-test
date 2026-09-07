@@ -250,65 +250,68 @@ pfRows.forEach(row => {
 // waves as the section crosses the screen. Same idea as the rest of the page — the
 // structure exists first, the content arrives into it.
 const LPS = window.LPS || [];
-const commMosaic = document.getElementById('commMosaic');
+/* THE COMMUNITY, in two movements. A block of twelve portraits stands against the words,
+   and the rest of the community follows by name, in a ruled roll under it. Nothing is
+   scattered: the faces are a rectangle, the names are a list, and each holds its own
+   region — a rule dropping one face here and one there read as an accident, however
+   principled the rule was. */
+const commFaces = document.getElementById('commFaces');
+const commRoll = document.getElementById('commRoll');
 const commCells = [];
-/* The community is written before it is photographed: every member holds a cell of the
-   wall, and the cell carries the name. Any cell turns into its portrait under the pointer:
-   names and faces are the same wall, not two treatments. */
 (function () {
-  if (!commMosaic) return;
-  LPS.forEach(([name, org, file]) => {
-    const d = document.createElement('div');
-    d.className = 'comm-cell';
-    d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
-      `<span class="cm-id"><b>${name}</b><i>${org}</i></span>` +
-      `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
-    commMosaic.appendChild(d);
-    commCells.push(d);
+  if (!commFaces || !commRoll) return;
+  const N = 12;                                   // four across, three down
+  // spread through the list rather than taking the first twelve: the roll underneath
+  // stays evenly drawn from the whole community
+  const step = LPS.length / N;
+  const shown = new Set();
+  for (let k = 0; k < N; k++) shown.add(Math.floor(k * step));
+
+  LPS.forEach(([name, org, file], i) => {
+    if (shown.has(i)) {
+      const d = document.createElement('div');
+      d.className = 'comm-cell';
+      d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
+        `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
+      commFaces.appendChild(d);
+      commCells.push(d);
+    } else {
+      const e = document.createElement('div');
+      e.className = 'comm-line';
+      e.innerHTML = `<b>${name}</b><i>${org}</i>`;
+      commRoll.appendChild(e);
+      commCells.push(e);
+    }
   });
 })();
 
-/* Which cells stand open is read off the grid, not off the order in the file, so the
-   composition holds at every width. It says something in the reading order: the wall opens
-   as a crowd of faces and settles into names — you meet a few people at the top, and by
-   the foot of the block it is the roll of everyone else. Faces per row: 3, 2, 2, then one.
-   The offset shifts with the row so they never stack into a column. */
+/* The portraits come in from the sides, a row at a time, the way the portfolio rows cross;
+   the names of the roll rise column by column. Read off the grid, so it holds at every
+   width. */
 let commLaid = false;
 function layoutCommunity() {
-  const boxes = commCells.map(el => ({ el, r: el.getBoundingClientRect() }));
-  const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
-  const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
-  // faces per row, from the crowd at the head to the roll at the foot
-  const perRow = [3, 2, 2, 2, 1, 1];
-  rows.forEach((y, row) => {
-    const line = boxes.filter(b => Math.round(b.r.top) === y)
-      .sort((a, b) => a.r.left - b.r.left);
-    const n = Math.min(perRow[row] === undefined ? 1 : perRow[row], line.length);
-    // spread the row's faces across its width rather than at its head, and shift the
-    // spread by the row so they never stack into a column
-    const open = new Set();
-    for (let k = 0; k < n; k++) {
-      open.add(Math.floor((k + 0.5) * line.length / n + row) % line.length);
-    }
-    line.forEach((b, i) => {
-      b.el.classList.toggle('is-face', open.has(i));
+  if (!commFaces) return;
+  const lay = host => {
+    const boxes = [...host.children].map(el => ({ el, r: el.getBoundingClientRect() }));
+    const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
+    const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
+    boxes.forEach(b => {
+      const row = rows.indexOf(Math.round(b.r.top));
       const col = colX.indexOf(Math.round(b.r.left));
-      // odd rows come in from the left, even rows from the right, and every row advances
-      // at the same pace: two fronts crossing, as the portfolio rows do
       const left = row % 2 === 0;
       b.el.style.setProperty('--from', left ? '-101%' : '101%');
-      b.el.style.setProperty('--cd', ((left ? col : colX.length - 1 - col) * 70) + 'ms');
+      b.el.style.setProperty('--cd', ((left ? col : colX.length - 1 - col) * 70 + row * 40) + 'ms');
     });
-  });
+  };
+  lay(commFaces); lay(commRoll);
   commLaid = true;
 }
-/* Each cell answers for itself as it comes onto the screen. A single ratio taken on the
-   whole block left the last rows empty for most of the section's crossing — a wall with
-   holes in it, which is not what a wall is. */
+/* Each one answers for itself as it reaches the screen: a single ratio taken on the whole
+   block left the last rows empty for most of the section's crossing. */
 function fillCommunity(vh) {
   commCells.forEach(el => {
     if (el.classList.contains('is-in')) return;
-    if (el.getBoundingClientRect().top < vh * 0.9) el.classList.add('is-in');
+    if (el.getBoundingClientRect().top < vh * 0.92) el.classList.add('is-in');
   });
 }
 
@@ -536,8 +539,8 @@ function onScroll() {
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
 
-  // community: every cell arrives as it reaches the screen
-  if (commMosaic) {
+  // community: every portrait and every name arrives as it reaches the screen
+  if (commFaces) {
     if (!commLaid) layoutCommunity();
     fillCommunity(vh);
   }
