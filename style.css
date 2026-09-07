@@ -475,21 +475,17 @@ main section[id] { scroll-margin-top: 60px; }
 /* Four cards, opening downwards as they arrive — the same reveal every frame on the site
    uses, nothing more. No held screen, no state to follow: the section behaves like all the
    others around it, and a fact once opened stays open. */
-.thesis-deck { display: flex; flex-direction: column; gap: 12px; margin-top: 1vh; }
-.tleaf {
-  border: 1.5px solid var(--ink);
-  background: var(--paper);
-  transition: background .4s var(--ease), box-shadow .3s var(--ease);
-}
+.thesis-deck { display: flex; flex-direction: column; gap: 4vh; margin-top: 2vh; }
+.tleaf { transition: box-shadow .4s var(--ease); }
 .tleaf-in {
-  display: flex; flex-direction: column; justify-content: space-between; gap: .5em;
-  padding: 3.4vh 2.6vw 3.6vh;
-}
-/* under the pointer a card takes the yellow, the inversion the sector rows already do,
-   and the band every other frame wears */
-.tleaf:hover {
-  background: var(--yellow);
+  display: inline-flex; flex-direction: column; gap: .4em;
+  padding: 0 1.4vw .5em 0;
   box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
+  transition: box-shadow .4s var(--ease);
+}
+/* under the pointer the band grows: the mark deepens, no rectangle appears */
+.tleaf:hover .tleaf-in {
+  box-shadow: calc(-2.1 * var(--band)) calc(2.1 * var(--band)) 0 var(--yellow);
 }
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
