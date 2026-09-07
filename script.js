@@ -277,36 +277,7 @@ const commCells = [];
 // the order of arrival is read off the grid itself, so it holds at every breakpoint:
 // a wave running from the top left corner down to the bottom right
 let commOrder = [];
-// square rows, measured rather than guessed: a percentage would resolve against nothing
-function sizeCommCells() {
-  if (!commMosaic) return;
-  const cols = getComputedStyle(commMosaic).gridTemplateColumns.split(' ').length;
-  const w = commMosaic.clientWidth - 3;              // the 1.5px rule on each edge
-  const cell = (w - (cols - 1) * 1.5) / cols;
-  // measured before layout the width reads zero: leave the CSS fallback rather than
-  // writing a negative row height, which would flatten the whole grid
-  if (cell > 20) commMosaic.style.setProperty('--cell', cell.toFixed(2) + 'px');
-  return cols;
-}
-/* A wall of ruled cells cannot end mid-row: the gap between cells is the rule showing
-   through, so a missing cell would read as a hole rather than as white space. The tail is
-   padded with empty cells, recounted at every width. */
-function padCommCells(cols) {
-  if (!commMosaic || !cols) return;
-  const say = commMosaic.querySelector('.comm-say');
-  const taken = say ? (getComputedStyle(say).gridRow.includes('span 3') ? 9 : cols) : 0;
-  const need = (cols - ((commCells.length + taken) % cols)) % cols;
-  const blanks = [...commMosaic.querySelectorAll('.comm-blank')];
-  for (let i = blanks.length; i < need; i++) {
-    const b = document.createElement('div');
-    b.className = 'comm-cell comm-blank';
-    commMosaic.appendChild(b);
-  }
-  blanks.slice(need).forEach(b => b.remove());
-}
 function orderCommCells() {
-  const cols = sizeCommCells();
-  padCommCells(cols);
   const boxes = commCells.map(el => ({ el, r: el.getBoundingClientRect() }));
   const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
   const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);

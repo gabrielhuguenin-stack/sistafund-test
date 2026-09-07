@@ -709,20 +709,18 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    an entry. A third of the cells stand open at rest, and any of them turns into its
    portrait under the pointer — so the wall reads as names, and answers with faces. */
 .community { background: var(--paper); color: var(--ink); padding: 14vh 4vw 16vh; }
+/* No rule between the cells and no frame around the wall: nothing else on the site is
+   squared off like that, and a ruled table read as graph paper. The module is invisible —
+   the portraits hold it, and the names hang at the foot of it, so the whole thing lines
+   up without a single line being drawn. */
 .comm-mosaic {
   --cols: 6;
   display: grid; grid-template-columns: repeat(var(--cols), 1fr);
-  /* the rows are held square from the measured column width, so the words cannot
-     stretch their rows and leave a strip of rule showing beside them */
-  grid-auto-rows: var(--cell, 15vw);
-  gap: 1.5px; background: rgba(16, 16, 16, .16);
-  border: 1.5px solid rgba(16, 16, 16, .16);
+  gap: 1.4vw;
 }
-/* the words take three cells across and three down, at the head of the grid: that count
-   is what makes the wall come out flush, twenty-seven members and nine cells of words */
+/* the words take three cells across and three down, at the head of the grid */
 .comm-say {
   grid-column: span 3; grid-row: span 3; overflow: hidden;
-  background: var(--paper);
   display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
   gap: 22px; padding: 3vh 2.6vw;
 }
@@ -734,17 +732,19 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-say.in-view .btn { transition-delay: .2s; }
 .comm-say p { color: var(--grey); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 40ch; }
 
-/* a cell of the wall: the name, on cream */
+/* a cell of the wall: the name, on cream, in no box at all */
 .comm-cell {
   position: relative; overflow: hidden;
-  background: var(--paper);
-  transition: box-shadow .3s var(--ease);
+  aspect-ratio: 1;
+  transition: box-shadow .3s var(--ease), border-color .3s var(--ease);
+  border: 1.5px solid transparent;
 }
-.comm-blank { pointer-events: none; }
+/* the frame belongs to the photograph, not to the cell: it appears with it */
+.comm-cell.is-face, .comm-cell.is-in:hover { border-color: var(--ink); }
 .cm-id {
   position: absolute; inset: 0; z-index: 2;
   display: flex; flex-direction: column; justify-content: flex-end; gap: .35em;
-  padding: 1.1em 1.1em 1.15em;
+  padding: 1.1em .2em 1.15em 0;
   opacity: 0; transform: translateY(12px);
   transition: opacity .55s var(--ease), transform .55s var(--ease);
 }
@@ -773,7 +773,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-cell.is-face.is-in .cm-id { opacity: 0; }
 .comm-cell.is-in:hover img { opacity: 1; transform: none; }
 .comm-cell.is-in:hover .cm-id { opacity: 0; transform: none; }
-.comm-blank:hover { box-shadow: none; }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
 .comm-tag, .pcf-tag {
@@ -803,8 +802,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 
 @media (max-width: 1100px) {
   /* the words come out of the grid and sit above it, so the rows can size themselves */
-  .comm-mosaic { --cols: 4; grid-auto-rows: auto; }
-  .comm-cell { aspect-ratio: 1; }
+  .comm-mosaic { --cols: 4; }
   .comm-say { grid-column: 1 / -1; grid-row: auto; padding: 6vh 4vw; }
 }
 @media (max-width: 620px) {
