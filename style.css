@@ -588,11 +588,21 @@ main section[id] { scroll-margin-top: 60px; }
 .pf-logo img { max-height: 62px; max-width: 62%; object-fit: contain; }
 
 /* ============ Team ============ */
-/* the home's row of faces: five portraits, each naming itself under the pointer */
+/* The home's gallery is a composition, not a line: two portraits at the top left, three
+   stepping down to the bottom right, and the two cells that remain carry the words — the
+   sentence facing the first pair, the button under the last. Nothing is auto-placed: each
+   cell is named, so the source order of the tiles does not matter. */
 .team-row {
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.4vw; margin: 5vh 0 0;
 }
+.team-face:nth-of-type(1) { grid-area: 1 / 1 / 2 / 2; }
+.team-face:nth-of-type(2) { grid-area: 1 / 2 / 2 / 3; }
+.team-face:nth-of-type(3) { grid-area: 2 / 2 / 3 / 3; }
+.team-face:nth-of-type(4) { grid-area: 2 / 3 / 3 / 4; }
+.team-face:nth-of-type(5) { grid-area: 2 / 4 / 3 / 5; }
+.team-said { grid-area: 1 / 3 / 2 / 5; align-self: start; }
+.team-cta  { grid-area: 2 / 1 / 3 / 2; display: flex; align-items: flex-end; }
 .team-face {
   position: relative; display: block; overflow: hidden;
   aspect-ratio: 4 / 5.2;
@@ -614,18 +624,25 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .team-face .pcf-tag b { font-size: clamp(.86rem, 1.02vw, 1.02rem); }
 .team-face .pcf-tag i { font-size: clamp(.9rem, 1.05vw, 1.05rem); }
 .team-face:hover .pcf-tag { opacity: 1; transform: none; }
-.team-intro-btn { margin-top: 6vh; }
-@media (max-width: 900px) { .team-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* narrow: the composition gives way to a plain grid, the sentence above and the button
+   below. `order` is what places them, auto-placement having no named cells to follow. */
+@media (max-width: 1100px) {
+  .team-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .team-face:nth-of-type(1), .team-face:nth-of-type(2), .team-face:nth-of-type(3),
+  .team-face:nth-of-type(4), .team-face:nth-of-type(5),
+  .team-said, .team-cta { grid-area: auto; }
+  .team-said { grid-column: 1 / -1; order: -1; }
+  .team-cta  { grid-column: 1 / -1; order: 2; margin-top: 2vh; }
+}
 @media (max-width: 520px) { .team-row { grid-template-columns: 1fr; } }
 .team { padding: 20vh 4vw 18vh; }
 
 /* home: the text names whoever stands in the large frame, the queue is on the right */
 .team .sec-head { padding-bottom: 5vh; }
 .team-intro-sub {
-  font-family: var(--serif); font-size: clamp(1.08rem, 1.65vw, 1.65rem); line-height: 1.42;
-  color: var(--ink); max-width: 30ch; margin: 0 0 3.4vh;
+  font-family: var(--serif); font-size: clamp(1.15rem, 1.75vw, 1.75rem); line-height: 1.4;
+  color: var(--ink); max-width: 34ch; margin: 0;
 }
-.team-intro-btn { margin: 4vh 0 0; }
 
 /* dedicated team.html: classic grid, modest cards */
 .team-grid {
