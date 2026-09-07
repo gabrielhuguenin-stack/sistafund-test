@@ -471,7 +471,7 @@ main section[id] { scroll-margin-top: 60px; }
    counting figures. It carries straight on from the four sector lines above. */
 /* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
    makes the four terms carry without having to enlarge them */
-.stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 12vh; }
+.stats { background: var(--paper); color: var(--ink); padding: 15vh 4vw 14vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.1rem, 1.55vw, 1.6rem); letter-spacing: .16em;
@@ -485,11 +485,14 @@ main section[id] { scroll-margin-top: 60px; }
 /* Four cards, opening downwards as they arrive — the same reveal every frame on the site
    uses, nothing more. No held screen, no state to follow: the section behaves like all the
    others around it, and a fact once opened stays open. */
+/* Two by two, not four across. Thesis and the areas of interest below answer each other
+   and carry the same weight, but the sectors are set at 109px and Thesis was at 58: four
+   columns capped the statement at a quarter of the page. On two, a fact takes half the
+   width and can be read from across the room. */
 .thesis-deck {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.7vw; margin-top: 3vh;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7vh 3vw; margin-top: 4vh;
 }
-@media (max-width: 1100px) { .thesis-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px)  { .thesis-deck { grid-template-columns: 1fr; } }
 .tleaf { position: relative; }
 .tleaf-in {
@@ -505,13 +508,13 @@ main section[id] { scroll-margin-top: 60px; }
 .stats > :not(.stats-wall) { position: relative; z-index: 1; }
 .tleaf-label {
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(.9rem, 1.15vw, 1.15rem); letter-spacing: .15em; line-height: 1;
+  font-size: clamp(.95rem, 1.25vw, 1.3rem); letter-spacing: .15em; line-height: 1;
   color: rgba(16, 16, 16, .6);
   transition: color .4s var(--ease);
 }
 .tleaf-term {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(1.85rem, 3.35vw, 3.6rem); line-height: 1.02; letter-spacing: -.02em;
+  font-size: clamp(2.4rem, 5.4vw, 5.8rem); line-height: 1; letter-spacing: -.025em;
   color: var(--ink);
 }
 /* a closed card shows only its spine, and the label reads down it */
@@ -709,25 +712,33 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    rest of the community follows by name, in a ruled roll under it. Cream like the rest of
    the page, and no grid drawn anywhere. */
 .community { background: var(--paper); color: var(--ink); padding: 14vh 4vw 16vh; }
+/* the faces take the left, the words answer from the right — the other way round from
+   every other section, which is the point */
 .comm-top {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-  gap: 3vw; align-items: start;
+  display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
+  gap: 4vw; align-items: start;
 }
-/* the words hold the left column, in reading order down it */
-.comm-title { grid-column: 1; }
-.comm-note  { grid-column: 1; margin-top: 3.5vh; }
-.comm-cta   { grid-column: 1; margin-top: 5vh; }
-.comm-title h2 { font-size: clamp(2rem, 4.1vw, 4rem); }
+.comm-words { padding-top: 2vh; }
+/* the title is a section title like all the others: same body, same masked rise */
+.comm-head { padding: 0 0 1vh; }
+.comm-note  { margin-top: 3.5vh; }
+.comm-cta   { margin-top: 6vh; }
 .comm-note p { color: var(--grey); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 42ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
 /* the words rise as they arrive, the same gesture as every other section head */
 .comm-word > * { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
-/* four across, three down: a block, not a sprinkling */
+/* four columns of three, each hung at its own height: a curtain, not a contact sheet.
+   The offsets are fixed — same curtain every visit — and they are a fraction of the cell,
+   so the ragged edge holds at every width. */
 .comm-faces {
-  grid-column: 2; grid-row: 1 / span 3;
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2vw;
+  align-items: start;
+}
+.comm-col {
+  display: flex; flex-direction: column; gap: 1.2vw;
+  margin-top: calc(var(--off, 0) * 15vw);
 }
 .comm-cell {
   position: relative; overflow: hidden; aspect-ratio: 4 / 4.6;
@@ -795,11 +806,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 
 @media (max-width: 1100px) {
-  /* the words come out of the composition and sit above the block */
+  /* the words come out of the composition and sit above the curtain, which hangs level */
   .comm-top { grid-template-columns: 1fr; gap: 5vh; }
-  .comm-title, .comm-note, .comm-cta, .comm-faces { grid-column: 1; grid-row: auto; }
-  .comm-cta { order: 3; margin-top: 0; }
-  .comm-faces { order: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .comm-words { order: -1; padding-top: 0; }
+  .comm-col { margin-top: 0; }
+  .comm-faces { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .comm-roll { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 620px) {

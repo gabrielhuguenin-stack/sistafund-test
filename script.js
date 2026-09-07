@@ -267,13 +267,25 @@ const commCells = [];
   const shown = new Set();
   for (let k = 0; k < N; k++) shown.add(Math.floor(k * step));
 
+  // four columns, each hung at its own height: a rectangle of twelve read as a contact
+  // sheet, and the section went stiff. The offsets are fixed, not drawn — same curtain
+  // every visit.
+  const cols = [0, 1, 2, 3].map(k => {
+    const c = document.createElement('div');
+    c.className = 'comm-col';
+    c.style.setProperty('--off', [0, .46, .14, .62][k]);
+    commFaces.appendChild(c);
+    return c;
+  });
+  let put = 0;
+
   LPS.forEach(([name, org, file], i) => {
     if (shown.has(i)) {
       const d = document.createElement('div');
       d.className = 'comm-cell';
       d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
         `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
-      commFaces.appendChild(d);
+      cols[put++ % cols.length].appendChild(d);
       commCells.push(d);
     } else {
       const e = document.createElement('div');
@@ -292,7 +304,9 @@ let commLaid = false;
 function layoutCommunity() {
   if (!commFaces) return;
   const lay = host => {
-    const boxes = [...host.children].map(el => ({ el, r: el.getBoundingClientRect() }));
+    const kids = host.classList.contains('comm-faces')
+      ? [...host.querySelectorAll('.comm-cell')] : [...host.children];
+    const boxes = kids.map(el => ({ el, r: el.getBoundingClientRect() }));
     const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
     const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
     boxes.forEach(b => {
