@@ -210,7 +210,7 @@ body.subpage-dark .nav-count { color: var(--yellow); }
    lights as the pointer comes near it and fades as it leaves. And it leaves the middle
    clear, so the sentence sits in a clearing the panels surround. No blur anywhere. */
 .hero-wall {
-  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  position: absolute; inset: 0; z-index: 0; overflow: visible; pointer-events: none;
 }
 .hero-wall > * { will-change: opacity; }
 /* the panels are blurred into clouds: the ground stops being a grid of edges and becomes

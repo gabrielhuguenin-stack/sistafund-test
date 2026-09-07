@@ -382,8 +382,10 @@ if (heroWall) {
         // pale against the openings, deepening as the wall moves away from them, with
         // just enough scatter that the wall is a wall and not a printed gradient. The very
         // foot eases to cream so the ground does not stop dead against the section below.
-        const a = Math.min(away(x + cw / 2, y + h / 2), Math.min((SPAN - (y + h)) / 22, 1));
-        const t = a + (rnd() - 0.5) * 0.42 * Math.min(a * 2.2, 1);
+        const near = Math.min(away(x + cw / 2, y + h / 2) * 1.55, 1);
+        const foot = Math.min((SPAN - (y + h)) / 22, 1);
+        const room = Math.min(near, foot);
+        const t = room * 0.38 + rnd() * 0.62 * Math.min(room * 2.2, 1);
         bars.push({ x, w: cw, top: y, h, tone: toneAt(t) });
         y += h;
       }
