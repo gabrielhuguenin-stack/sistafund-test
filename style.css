@@ -756,8 +756,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-cell:hover .comm-tag { opacity: 1; transform: none; }
 /* the portraits of the home page's team queue are named the same way */
 .pcf-tag { padding: 3.4em 1.4em 1.1em; z-index: 4; }
-.pcq.is-open:hover .pcf-tag { opacity: 1; transform: none; }
-.pcq.is-leaf .pcf-tag { display: none; }
+.pcq.is-top:hover .pcf-tag { opacity: 1; transform: none; }
 .pcf-tag b { font-size: clamp(1.05rem, 1.3vw, 1.3rem); letter-spacing: .04em; }
 .pcf-tag i { font-size: clamp(1rem, 1.18vw, 1.18rem); }
 .comm-tag b, .pcf-tag b {
@@ -1464,44 +1463,55 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    transition on left / top / width. */
 .pcascade { position: relative; aspect-ratio: 1000 / 688; }
 .page-open .pcascade { aspect-ratio: 1000 / 860; }
-/* A book, not a set of frames. The picture in hand is open; the ones still waiting are
-   closed, seen on their edge — a stack of leaves standing to its right, all the same
-   height, each showing the sliver of itself that falls on its edge. Advancing turns a
-   leaf: the next one opens out while the one in hand closes and joins the back of the
-   stack. Nothing is a rectangle beside a rectangle any more. */
-/* the block sets the trim size of the page: every leaf has it, open or closed */
-.pcascade {
-  position: relative; aspect-ratio: 1000 / 725; --leaf: 13px; --gap: 4px;
-  /* the stack of closed leaves is a fixed width in pixels, so the block is measured from
-     its right edge inwards: the pile always finishes on the page margin instead of
-     stopping short and leaving a band of empty ground */
-  --leaves: 3;
-  --pile: calc((var(--leaves) - 1) * (var(--leaf) + var(--gap)) + var(--leaf));
-}
+/* PRINTS LAID ONE ON ANOTHER. Not a book with arrows: a pile of photographs being laid
+   down. The one in hand covers the frame; the ones already seen stay under it, shifted up
+   and to the right so the pile shows its edges, and they hold back in black and white.
+   Every few seconds the next print is laid — it wipes up from the foot of the frame, the
+   same gesture every picture on the site arrives with — and the pile deepens.
+   No arrow, no dot: a rule under the frame fills as the next print approaches, and the
+   pointer resting on the picture holds everything where it is. */
+.pcascade { position: relative; aspect-ratio: 1000 / 725; }
+/* the print in hand is held 51px down and in from the top right corner — three steps of
+   the pile — so the whole pile finishes exactly on the page margin instead of hanging
+   past it */
 .pcq {
-  position: absolute; top: 0; height: 100%;
-  transition: left .95s var(--ease), width .95s var(--ease), opacity .8s var(--ease);
+  position: absolute; inset: 51px 51px 0 0;
+  transition: transform 1s var(--ease), opacity .9s var(--ease);
 }
-/* the open page carries a thin yellow band down its left side and along its foot, the
-   way the fund's cards do: the block is the size of the frame and simply offset, so the
-   band shows on two edges only */
-.pcq.is-open { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
-.pcq.is-open { left: 0; width: calc(100% - var(--pile) - 22px); z-index: 3; opacity: 1; }
-.pcq.is-leaf {
-  left: calc(100% - var(--pile) + (var(--p) - 1) * (var(--leaf) + var(--gap)));
-  width: var(--leaf); opacity: 1; z-index: 2;
+/* the print in hand carries the thin yellow band down its left side and along its foot,
+   the way every frame of the site does */
+.pcq.is-top {
+  z-index: 9; transform: none;
+  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
-/* the one that has just closed slides in from beyond the last leaf */
-.pcq.is-gone {
-  left: calc(100% - var(--leaf));
-  width: var(--leaf); opacity: 0; z-index: 0;
+.pcq.is-back { z-index: calc(9 - var(--p)); opacity: 1; }
+/* beyond the third, a print is out of the pile: it waits there for its turn to be laid */
+.pcq.is-far { z-index: 0; opacity: 0; }
+/* the offset of a print in the pile is written from the driver: a `calc()` that multiplies
+   a custom property by a length is dropped inside `translate()` on this engine, while the
+   same calc holds for `z-index` — so the pixels are computed where they can be trusted */
+/* the print being laid wipes up from the foot of the frame */
+.pcq.is-top .pcf-frame { clip-path: inset(0 0 -10px -10px); transition: clip-path 1.05s var(--ease); }
+.pcq.laying .pcf-frame { clip-path: inset(100% 0 0 0); transition: none; }
+
+/* the rule that says a print is coming: it fills, it does not count */
+.pcrun {
+  position: absolute; top: 100%; left: 0; width: calc(100% - 51px);
+  margin-top: 2.6vh; height: 2px; background: rgba(16, 16, 16, .16);
+  overflow: hidden;
 }
-/* a leaf shows the strip of its picture that falls on its edge, and the stack of them
-   reads as a run of tones, like the gradient in the hero */
-.pcq.is-leaf .pcf-frame { border: 0; }
-.pcq.is-leaf .pcf-frame img { filter: grayscale(.35) contrast(1.04) brightness(.9); }
-.pcq.is-leaf:hover { width: calc(var(--leaf) * 3.4); }
-.pcq.is-leaf:hover .pcf-frame img { filter: grayscale(0) contrast(1.02); }
+.pcrun i {
+  display: block; height: 100%; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  animation: pcrun 5.6s linear infinite;
+}
+@keyframes pcrun { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* a hand on the picture holds the pile where it is */
+.pcascade:hover .pcrun i { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .pcrun { display: none; }
+  .pcrun i { animation: none; }
+}
 
 /* the team photograph holds its own frame beside the title, cropped to a band.
    Its column is stretched to the height of the cascade and the frame takes what the
@@ -1537,47 +1547,19 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 .pcf-frame img[src*="pf-pitch"]      { object-position: center 45%; }
 /* only the picture standing in the large place carries its colour */
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
-.pcq.is-open .pcf-frame img  { filter: grayscale(0) contrast(1.02); }
+.pcq.is-top .pcf-frame img   { filter: grayscale(0) contrast(1.02); }
 /* two of them carry a colour the palette has no room for: a wall of blue type and a
    magenta stage. They take their turn in colour like the others, held back a little. */
-.pcq[data-soft].is-open .pcf-frame img { filter: saturate(.6) contrast(1.03); }
+.pcq[data-soft].is-top .pcf-frame img { filter: saturate(.6) contrast(1.03); }
 /* the fixed picture under the title carries its colour: it is the one that sets the
    tone of the page, and in black and white it did not hold */
 .pcf-wide .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
-/* the picture control, under the large place and aligned with it */
-.pcnav {
-  position: absolute; top: 100%; left: 0;
-  width: calc(100% - var(--pile) - 22px);
-  margin-top: 2.4vh;
-  display: flex; align-items: center; justify-content: flex-end; gap: 2vw;
-}
-.pcarrows { display: flex; gap: 7px; }
-/* Two glyphs and a hairline, not two bordered squares: a boxed arrow reads as a widget,
-   and this site has no widgets — it has rules. */
-.pcarrows { gap: 0; }
-.pcarrow {
-  padding: 2px 20px; background: none; border: 0; cursor: pointer;
-  display: inline-flex; align-items: center; justify-content: center;
-  color: rgba(16, 16, 16, .38);
-  font-family: var(--display); font-size: 1.45rem; line-height: 1;
-  transition: color .3s var(--ease), transform .3s var(--ease);
-}
-.pcarrow + .pcarrow { border-left: 1.5px solid var(--line); }
-.pcarrow:hover { color: var(--ink); }
-.pcarrow[data-step="-1"]:hover { transform: translateX(-4px); }
-.pcarrow[data-step="1"]:hover  { transform: translateX(4px); }
-body.subpage-dark .pcarrow { color: rgba(250, 248, 240, .45); }
-body.subpage-dark .pcarrow:hover { color: var(--paper); }
 @media (max-width: 900px) {
   .page-open { grid-template-columns: 1fr; gap: 6vh; padding: 16vh 6vw 13vh; }
   .page-open-text { padding-right: 0; }
   .pcf-wide { width: 100%; }
-  .pcnav { width: 100%; justify-content: flex-start; }
   .pcascade { aspect-ratio: 1000 / 775; }
-  .pcascade { --leaf: 20px; --gap: 5px; }
-  .pcq.is-open { width: 64%; }
-  .pcq.is-leaf { left: calc(67% + (var(--p) - 1) * (var(--leaf) + var(--gap))); }
 }
 
 /* News page: press mosaic of tiles */

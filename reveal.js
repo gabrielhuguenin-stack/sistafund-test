@@ -191,29 +191,32 @@
   document.querySelectorAll('.pcascade').forEach(cascade => {
     const queue = [...cascade.querySelectorAll('.pcq')];
     const open = cascade.closest('.page-open') || cascade.parentElement;
-    const nav = cascade.querySelector('.pcnav') || open.querySelector('.pcnav');
+    const run = cascade.querySelector('.pcrun i');
     const steps = queue.length;
-    if (steps < 3 || !nav) { if (nav) nav.remove(); return; }
-    // how many leaves stand closed at any moment: the CSS measures the pile from it
-    cascade.style.setProperty('--leaves', steps - 2);
+    if (steps < 2) return;
 
-    // one leaf is open, the rest stand closed beside it in the order of the queue
-    const DRIFT = ['-1.6', '2.4', '3.2', '4', '4.6'];
     const lead = open.querySelector('[data-cascade-lead]');
-    let k = 0, timer = null;
+    let k = 0;
 
-    const goTo = step => {
+    /* Depth 0 is the print in hand; 1, 2, 3 are the ones already laid, showing their
+       edges under it; anything deeper waits out of the pile. */
+    const lay = (step, wipe) => {
       k = (step + steps) % steps;
       queue.forEach((el, i) => {
-        const place = (i - k + steps) % steps;
-        el.classList.remove('is-open', 'is-leaf', 'is-gone');
-        // the one that has just closed is the last of the queue, and it is the only one
-        // that travels from the open place: it slides out past the back of the stack
-        el.classList.add(place === 0 ? 'is-open' : place === steps - 1 ? 'is-gone' : 'is-leaf');
-        el.style.setProperty('--p', place);
-        el.dataset.drift = DRIFT[place] || '0';
+        const p = (k - i + steps) % steps;
+        el.classList.remove('is-top', 'is-back', 'is-far', 'laying');
+        el.classList.add(p === 0 ? 'is-top' : p <= 3 ? 'is-back' : 'is-far');
+        el.style.setProperty('--p', p);
+        const off = p === 0 ? 0 : Math.min(p, 4) * 17;
+        el.style.transform = off ? `translate(${off}px, ${-off}px)` : 'none';
       });
-      // the headline belongs to whichever picture now stands in the large frame
+      if (wipe) {
+        const top = queue[k];
+        top.classList.add('laying');
+        void top.offsetWidth;            // let the closed clip take, then open it
+        top.classList.remove('laying');
+      }
+      // the headline belongs to whichever picture is now in hand
       if (lead && queue[k].dataset.title) {
         const d = queue[k].dataset;
         lead.querySelector('b').textContent = d.source;
@@ -227,22 +230,18 @@
       }
     };
 
-    nav.querySelectorAll('.pcarrow').forEach(b => {
-      b.addEventListener('click', () => { stop(); goTo(k + +b.dataset.step); });
-    });
+    lay(0, false);
 
-    goTo(0);
-
-    // it turns on its own until the visitor takes over
-    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
-    if (!reduced) {
-      timer = setInterval(() => {
-        // a hidden tab freezes the cross-fade, and an off-screen cascade needs no work
+    /* The rule under the frame is the clock: one sweep, one print. Driving the pile from
+       the animation rather than from a timer means the pointer pausing the rule pauses
+       the pile too, in step, and there is no second clock to keep in sync. */
+    if (run && !reduced) {
+      run.addEventListener('animationiteration', () => {
         if (document.hidden) return;
         const r = cascade.getBoundingClientRect();
         if (r.bottom < 0 || r.top > innerHeight) return;
-        goTo(k + 1);
-      }, 6400);
+        lay(k + 1, true);
+      });
     }
   });
 })();
