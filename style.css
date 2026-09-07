@@ -1168,11 +1168,15 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .filter.active { background: var(--yellow); border-color: var(--ink); color: var(--ink); }
 
 /* full portfolio grid (overlay) */
+/* Four to a row, counted — not `auto-fill`, which fitted five on a wide screen and made
+   every plate small. The number of columns is a decision, not a consequence of the width. */
 .pf-all-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px;
 }
-@media (max-width: 720px) { .pf-all-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1180px) { .pf-all-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 860px)  { .pf-all-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px)  { .pf-all-grid { grid-template-columns: 1fr; } }
 .pf-all-card {
   display: flex;
   border: 1.5px solid var(--ink); background: transparent;
@@ -1344,10 +1348,11 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
    presentation, which comes up over the picture as you arrive on it */
 .team-gallery { padding: 2vh 4vw 18vh; }
 .team-gallery-title { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.6rem, 3vw, 2.6rem); margin-bottom: 5vh; }
-.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(3, 1fr); gap: 2.6vw 2.2vw; }
-/* taller than the default frame: three to a row leaves less width, and the
-   presentation still has to fit inside the picture */
-.team-gallery .member-photo { aspect-ratio: 4 / 5.5; }
+.team-gallery .team-grid { max-width: none; grid-template-columns: repeat(3, 1fr); gap: 2.9vw 3.2vw; }
+/* taller than the default frame: three to a row leaves less width, and the presentation
+   still has to fit inside the picture. Brought down from 4/5.5 with a wider gutter — the
+   portraits held the page a little too hard; the tallest bio still keeps ~120px of slack. */
+.team-gallery .member-photo { aspect-ratio: 4 / 5.15; }
 .team-gallery .member { cursor: pointer; }
 /* three to a row needs the width for it: below this, two */
 @media (max-width: 1300px) {
