@@ -252,14 +252,27 @@ pfRows.forEach(row => {
 const LPS = window.LPS || [];
 const commMosaic = document.getElementById('commMosaic');
 const commCells = [];
-LPS.forEach(([name, org, file]) => {
-  const d = document.createElement('div');
-  d.className = 'comm-cell';
-  d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
-    `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
-  commMosaic.appendChild(d);
-  commCells.push(d);
-});
+/* The community is written before it is photographed: every member holds a cell of the
+   wall, and the cell carries the name. A third of them stand open at rest — chosen from a
+   fixed seed, so the same faces every visit — and any cell turns into its portrait under
+   the pointer. Names and faces are the same wall, not two treatments. */
+(function () {
+  if (!commMosaic) return;
+  // one in three, on a stride rather than at random: drawn from a seed the nine faces
+  // bunched at the foot of the wall. The offset shifts by a third every three names, so
+  // they scatter across the rows whatever the number of columns.
+  const isFace = i => (i + Math.floor(i / 3)) % 3 === 0;
+
+  LPS.forEach(([name, org, file], i) => {
+    const d = document.createElement('div');
+    d.className = 'comm-cell' + (isFace(i) ? ' is-face' : '');
+    d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
+      `<span class="cm-id"><b>${name}</b><i>${org}</i></span>` +
+      `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
+    commMosaic.appendChild(d);
+    commCells.push(d);
+  });
+})();
 
 // the order of arrival is read off the grid itself, so it holds at every breakpoint:
 // a wave running from the top left corner down to the bottom right
@@ -273,20 +286,38 @@ function sizeCommCells() {
   // measured before layout the width reads zero: leave the CSS fallback rather than
   // writing a negative row height, which would flatten the whole grid
   if (cell > 20) commMosaic.style.setProperty('--cell', cell.toFixed(2) + 'px');
+  return cols;
+}
+/* A wall of ruled cells cannot end mid-row: the gap between cells is the rule showing
+   through, so a missing cell would read as a hole rather than as white space. The tail is
+   padded with empty cells, recounted at every width. */
+function padCommCells(cols) {
+  if (!commMosaic || !cols) return;
+  const say = commMosaic.querySelector('.comm-say');
+  const taken = say ? (getComputedStyle(say).gridRow.includes('span 3') ? 9 : cols) : 0;
+  const need = (cols - ((commCells.length + taken) % cols)) % cols;
+  const blanks = [...commMosaic.querySelectorAll('.comm-blank')];
+  for (let i = blanks.length; i < need; i++) {
+    const b = document.createElement('div');
+    b.className = 'comm-cell comm-blank';
+    commMosaic.appendChild(b);
+  }
+  blanks.slice(need).forEach(b => b.remove());
 }
 function orderCommCells() {
-  sizeCommCells();
+  const cols = sizeCommCells();
+  padCommCells(cols);
   const boxes = commCells.map(el => ({ el, r: el.getBoundingClientRect() }));
   const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
-  const cols = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
+  const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
   boxes.forEach(b => {
     const row = rows.indexOf(Math.round(b.r.top));
-    const col = cols.indexOf(Math.round(b.r.left));
+    const col = colX.indexOf(Math.round(b.r.left));
     // odd rows come in from the left, even rows from the right, and every row advances at
     // the same pace: two fronts crossing, as the portfolio rows do
     const left = row % 2 === 0;
     b.el.style.setProperty('--from', left ? '-101%' : '101%');
-    b.k = (left ? col : cols.length - 1 - col) * 10 + row;
+    b.k = (left ? col : colX.length - 1 - col) * 10 + row;
   });
   commOrder = boxes.sort((a, b) => a.k - b.k).map(b => b.el);
 }

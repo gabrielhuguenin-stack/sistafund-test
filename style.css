@@ -77,7 +77,6 @@ em { font-style: normal; }
    the fill, so half of the 3px shows — a hairline at these sizes.
    Only on flat black: over a photograph the hollow letters read as dark smudges, so the
    statement on the opened picture keeps the solid yellow and its thin ink stroke. */
-.community .yw,
 body.subpage-dark .page-hero-title .yw {
   color: var(--ink);
   -webkit-text-stroke: 3px var(--yellow);
@@ -705,22 +704,27 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    Portraits then drop in one by one along the diagonal as the section crosses the
    screen. The words sit inside the grid as a tile of their own, so the sentence is part
    of the structure rather than floating over it. */
-.community { background: var(--ink); color: var(--paper); padding: 16vh 4vw 18vh; }
+/* THE COMMUNITY — a wall of names, on cream like the rest of the page. Written first:
+   each member holds one ruled cell and the cell carries the name, the way an index carries
+   an entry. A third of the cells stand open at rest, and any of them turns into its
+   portrait under the pointer — so the wall reads as names, and answers with faces. */
+.community { background: var(--paper); color: var(--ink); padding: 14vh 4vw 16vh; }
 .comm-mosaic {
-  --cols: 7;
+  --cols: 6;
   display: grid; grid-template-columns: repeat(var(--cols), 1fr);
   /* the rows are held square from the measured column width, so the words cannot
-     stretch their two rows and leave a strip of rule showing beside them */
-  grid-auto-rows: var(--cell, 13vw);
-  gap: 1.5px; background: rgba(250, 248, 240, .17);
-  border: 1.5px solid rgba(250, 248, 240, .17);
+     stretch their rows and leave a strip of rule showing beside them */
+  grid-auto-rows: var(--cell, 15vw);
+  gap: 1.5px; background: rgba(16, 16, 16, .16);
+  border: 1.5px solid rgba(16, 16, 16, .16);
 }
-/* the words take four cells across and two down, at the head of the grid */
+/* the words take three cells across and three down, at the head of the grid: that count
+   is what makes the wall come out flush, twenty-seven members and nine cells of words */
 .comm-say {
-  grid-column: span 4; grid-row: span 2; overflow: hidden;
-  background: var(--ink);
+  grid-column: span 3; grid-row: span 3; overflow: hidden;
+  background: var(--paper);
   display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-  gap: 18px; padding: 3vh 2.6vw;
+  gap: 22px; padding: 3vh 2.6vw;
 }
 .comm-say h2 { font-size: clamp(2rem, 4.1vw, 4rem); }
 /* the sentence rises as its tile arrives, the same gesture as every other section head */
@@ -728,25 +732,52 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-say.in-view > * { opacity: 1; transform: none; }
 .comm-say.in-view p { transition-delay: .1s; }
 .comm-say.in-view .btn { transition-delay: .2s; }
-.comm-say p { color: rgba(250, 248, 240, .7); font-size: clamp(1.05rem, 1.4vw, 1.4rem); line-height: 1.45; max-width: 40ch; }
-/* a cell of the grid: black until its portrait arrives */
+.comm-say p { color: var(--grey); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 40ch; }
+
+/* a cell of the wall: the name, on cream */
 .comm-cell {
   position: relative; overflow: hidden;
-  background: var(--ink);
+  background: var(--paper);
   transition: box-shadow .3s var(--ease);
 }
+.comm-blank { pointer-events: none; }
+.cm-id {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: .35em;
+  padding: 1.1em 1.1em 1.15em;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .55s var(--ease), transform .55s var(--ease);
+}
+.comm-cell.is-in .cm-id { opacity: 1; transform: none; }
+.cm-id b {
+  font-family: var(--display); text-transform: uppercase; font-weight: 400;
+  font-size: clamp(1.05rem, 1.45vw, 1.5rem); line-height: 1.02; color: var(--ink);
+}
+.cm-id i {
+  font-style: normal; font-family: var(--serif);
+  font-size: clamp(.9rem, 1.08vw, 1.1rem); line-height: 1.2; color: var(--grey);
+}
+/* the portrait waits behind the name. A third of the cells hold it open from the start —
+   those arrive from the side, as the portfolio rows do — and the pointer opens any other. */
 .comm-cell img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1;
   object-fit: cover; object-position: center 20%;
   filter: grayscale(1) contrast(1.05);
-  transform: translateX(var(--from, -101%));
-  transition: transform .8s cubic-bezier(.16, .86, .22, 1);
+  opacity: 0;
+  transition: transform .8s cubic-bezier(.16, .86, .22, 1), opacity .35s var(--ease);
 }
-.comm-cell.is-in img { transform: none; }
+/* only the cells open at rest travel: a portrait called up by the pointer appears where
+   it is, a slide of eight tenths of a second would arrive long after the hand had moved on */
+.comm-cell.is-face img { transform: translateX(var(--from, -101%)); }
+.comm-cell.is-face.is-in img { opacity: 1; transform: none; }
+.comm-cell.is-face.is-in .cm-id { opacity: 0; }
+.comm-cell.is-in:hover img { opacity: 1; transform: none; }
+.comm-cell.is-in:hover .cm-id { opacity: 0; transform: none; }
+.comm-blank:hover { box-shadow: none; }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
 .comm-tag, .pcf-tag {
-  position: absolute; left: 0; right: 0; bottom: 0;
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
   padding: 3.2em .8em .75em;
   background: linear-gradient(to top,
     rgba(16, 16, 16, .93) 0%, rgba(16, 16, 16, .74) 38%, rgba(16, 16, 16, 0) 100%);
@@ -772,7 +803,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 
 @media (max-width: 1100px) {
   /* the words come out of the grid and sit above it, so the rows can size themselves */
-  .comm-mosaic { --cols: 5; grid-auto-rows: auto; }
+  .comm-mosaic { --cols: 4; grid-auto-rows: auto; }
   .comm-cell { aspect-ratio: 1; }
   .comm-say { grid-column: 1 / -1; grid-row: auto; padding: 6vh 4vw; }
 }
