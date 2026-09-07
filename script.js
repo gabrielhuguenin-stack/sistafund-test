@@ -250,82 +250,52 @@ pfRows.forEach(row => {
 // waves as the section crosses the screen. Same idea as the rest of the page — the
 // structure exists first, the content arrives into it.
 const LPS = window.LPS || [];
-/* THE COMMUNITY, in two movements. A block of twelve portraits stands against the words,
-   and the rest of the community follows by name, in a ruled roll under it. Nothing is
-   scattered: the faces are a rectangle, the names are a list, and each holds its own
-   region — a rule dropping one face here and one there read as an accident, however
-   principled the rule was. */
-const commFaces = document.getElementById('commFaces');
-const commRoll = document.getElementById('commRoll');
-const commCells = [];
+/* THE COMMUNITY passes rather than arrives: four columns of portraits that travel
+   vertically as the section crosses the screen, two up and two down, the way the portfolio
+   rows cross horizontally. No cards sliding in from the side — that read as a widget, not
+   as a page — and no wall of written names. */
+const commStage = document.getElementById('commStage');
+const commCols = [];
 (function () {
-  if (!commFaces || !commRoll) return;
-  const N = 12;                                   // four across, three down
-  // spread through the list rather than taking the first twelve: the roll underneath
-  // stays evenly drawn from the whole community
-  const step = LPS.length / N;
-  const shown = new Set();
-  for (let k = 0; k < N; k++) shown.add(Math.floor(k * step));
-
-  // four columns, each hung at its own height: a rectangle of twelve read as a contact
-  // sheet, and the section went stiff. The offsets are fixed, not drawn — same curtain
-  // every visit.
-  const cols = [0, 1, 2, 3].map(k => {
+  if (!commStage || !LPS.length) return;
+  const N = 4;
+  for (let k = 0; k < N; k++) {
     const c = document.createElement('div');
     c.className = 'comm-col';
-    c.style.setProperty('--off', [0, .46, .14, .62][k]);
-    commFaces.appendChild(c);
-    return c;
-  });
-  let put = 0;
-
+    commStage.appendChild(c);
+    commCols.push(c);
+  }
   LPS.forEach(([name, org, file], i) => {
-    if (shown.has(i)) {
-      const d = document.createElement('div');
-      d.className = 'comm-cell';
-      d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
-        `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
-      cols[put++ % cols.length].appendChild(d);
-      commCells.push(d);
-    } else {
-      const e = document.createElement('div');
-      e.className = 'comm-line';
-      e.innerHTML = `<b>${name}</b><i>${org}</i>`;
-      commRoll.appendChild(e);
-      commCells.push(e);
-    }
+    const d = document.createElement('div');
+    d.className = 'comm-cell';
+    d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
+      `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
+    commCols[i % N].appendChild(d);
   });
 })();
-
-/* The portraits come in from the sides, a row at a time, the way the portfolio rows cross;
-   the names of the roll rise column by column. Read off the grid, so it holds at every
-   width. */
-let commLaid = false;
-function layoutCommunity() {
-  if (!commFaces) return;
-  const lay = host => {
-    const kids = host.classList.contains('comm-faces')
-      ? [...host.querySelectorAll('.comm-cell')] : [...host.children];
-    const boxes = kids.map(el => ({ el, r: el.getBoundingClientRect() }));
-    const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
-    const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
-    boxes.forEach(b => {
-      const row = rows.indexOf(Math.round(b.r.top));
-      const col = colX.indexOf(Math.round(b.r.left));
-      const left = row % 2 === 0;
-      b.el.style.setProperty('--from', left ? '-101%' : '101%');
-      b.el.style.setProperty('--cd', ((left ? col : colX.length - 1 - col) * 70 + row * 40) + 'ms');
-    });
-  };
-  lay(commFaces); lay(commRoll);
-  commLaid = true;
+/* A column moving up starts at the top of its travel and ends at the foot; one moving down
+   does the reverse. Written that way neither ever shows the floor of the stage.
+   The travel is measured on the last portrait, not on scrollHeight: the columns are grid
+   items, so they all report the height of the tallest one — the short column would then
+   travel too far and open a hole under itself. */
+let commTravel = [];
+function measureCommunity() {
+  commTravel = commCols.map(col => {
+    const top = col.getBoundingClientRect().top;
+    const foot = col.lastElementChild.getBoundingClientRect().bottom;
+    return Math.max(foot - top - commStage.clientHeight, 0);
+  });
 }
-/* Each one answers for itself as it reaches the screen: a single ratio taken on the whole
-   block left the last rows empty for most of the section's crossing. */
-function fillCommunity(vh) {
-  commCells.forEach(el => {
-    if (el.classList.contains('is-in')) return;
-    if (el.getBoundingClientRect().top < vh * 0.92) el.classList.add('is-in');
+function moveCommunity(vh) {
+  if (!commCols.length) return;
+  const r = commStage.getBoundingClientRect();
+  if (r.bottom < -200 || r.top > vh + 200) return;
+  if (!commTravel.length) measureCommunity();
+  const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+  commCols.forEach((col, i) => {
+    const travel = commTravel[i] || 0;
+    const y = i % 2 === 0 ? -travel * p : -travel * (1 - p);
+    col.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
   });
 }
 
@@ -553,17 +523,14 @@ function onScroll() {
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
 
-  // community: every portrait and every name arrives as it reaches the screen
-  if (commFaces) {
-    if (!commLaid) layoutCommunity();
-    fillCommunity(vh);
-  }
+  // community: the columns pass as the section crosses
+  moveCommunity(vh);
 
   sweepMissed(vh);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => { commLaid = false; onScroll(); }, { passive: true });
-addEventListener('load', () => { commLaid = false; onScroll(); });
+window.addEventListener('resize', () => { commTravel = []; onScroll(); }, { passive: true });
+addEventListener('load', () => { commTravel = []; onScroll(); });
 onScroll();
 
 // ---------- Overlays ----------

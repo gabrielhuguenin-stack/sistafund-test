@@ -23,7 +23,7 @@ window.COMPANIES = {
 
 window.LPS = [
   ['Steve Anavi', 'Qonto', 'steve-anavi.jpg', 'fintech'],
-  ['Rémi Aubert', 'AB Tasty', 'remi-aubert.png', 'saas'],
+  ['Rémi Aubert', 'AB Tasty', 'remi-aubert.jpg', 'saas'],
   ['Nathalie Balla', 'La Redoute', 'nathalie-balla.jpg', 'consumer'],
   ['Jonathan Benhamou', 'Resilience, PeopleDoc', 'jon-benhamou.jpg', 'health'],
   ['Amélie Berthier', 'Zadig & Voltaire', 'amelie-berthier.jpg', 'consumer'],
@@ -32,8 +32,8 @@ window.LPS = [
   ['Michael Chekroun', 'Carenity', 'michael-chekroun.jpg', 'health'],
   ['Valentine de Lasteyrie', 'Albingia, Fiblac', 'valentine-de-lasteyrie.jpg', 'fintech'],
   ['Alix de Sagazan', 'AB Tasty', 'alix-de-sagazan.jpg', 'saas'],
-  ['Marine de Waziers', 'Pool', 'marine-de-waziers.png', 'consumer'],
-  ['Alice Default', 'Double', 'alice-default.png', 'saas'],
+  ['Marine de Waziers', 'Pool', 'marine-de-waziers.jpg', 'consumer'],
+  ['Alice Default', 'Double', 'alice-default.jpg', 'saas'],
   ['Laurent Delaporte', 'Qapa, Microsoft', 'laurent-delaporte.jpg', 'saas'],
   ['Xavier Durand', 'Aircall', 'xavier-durand.jpg', 'saas'],
   ['Fabien Grenier', 'DataDome', 'fabien-grenier.jpg', 'frontier'],
@@ -41,13 +41,13 @@ window.LPS = [
   ['Nicolas Hernandez', '360Learning', 'nicolas-hernandez.jpg', 'saas'],
   ['Céline Lazorthes', 'Resilience, Leetchi', 'celine-lazorthes.jpg', 'fintech'],
   ['Constance Nevoret', 'LittleBig Connection', 'constance-nevoret.jpg', 'saas'],
-  ['Xavier Niel', 'Free', 'xavier-niel.png', 'frontier'],
+  ['Xavier Niel', 'Free', 'xavier-niel.jpg', 'frontier'],
   ['Adrien Nussenbaum', 'Mirakl', 'adrien-nussenbaum.jpg', 'saas'],
   ['Philippe Oddo', 'ODDO BHF', 'phillippe-oddo.jpg', 'fintech'],
   ['Stéphane Pallez', 'Française des Jeux', 'stephane-pallez.jpg', 'consumer'],
   ['Nicolas Reboud', 'Shine', 'nicolas-reboud.jpg', 'fintech'],
   ['Cédric Sellin', 'Yogiplay, Oracle', 'cedric-sellin.jpg', 'saas'],
-  ['Xavier Zeitoun', 'Zenchef', 'xavier-zeitoun.png', 'saas'],
+  ['Xavier Zeitoun', 'Zenchef', 'xavier-zeitoun.jpg', 'saas'],
   ['Frank Zorn', 'Deskeo', 'frank-zorn.jpg', 'consumer'],
 ];
 
