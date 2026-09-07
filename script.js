@@ -106,10 +106,10 @@ heroItems.forEach((item, si) => {
     const f = j / W;
     // statement 0: on show at rest, folds away 0.30 → 0.56 in cascade.
     // statement 1: assembles 0.58 → 0.90, then stays.
-    const enter0 = si === 0 ? -0.2 : 0.58 + f * 0.18;
-    const enter1 = si === 0 ? -0.1 : enter0 + 0.12;
-    const exit0  = si === 0 ? 0.30 + f * 0.16 : 2;
-    const exit1  = exit0 + 0.10;
+    const enter0 = si === 0 ? -0.2 : 0.56 + f * 0.14;
+    const enter1 = si === 0 ? -0.1 : enter0 + 0.22;
+    const exit0  = si === 0 ? 0.26 + f * 0.13 : 2;
+    const exit1  = exit0 + 0.2;
     heroWords.push({ inner, enter0, enter1, exit0, exit1 });
   });
 });
@@ -120,30 +120,34 @@ const s0Words = heroWords.filter(w => w.exit0 < 2);
 s0Words.forEach(w => { w.inner.style.transform = 'translateY(150%) rotate(5deg)'; });
 setTimeout(() => {
   s0Words.forEach((w, j) => {
-    w.inner.style.transition = `transform .9s cubic-bezier(.22,1,.36,1) ${j * 75}ms`;
-    w.inner.style.transform = 'translateY(0%) rotate(0deg)';
+    w.inner.style.transition = `transform 1.1s cubic-bezier(.22,1,.36,1) ${j * 85}ms,` +
+      ` opacity 1.1s cubic-bezier(.22,1,.36,1) ${j * 85}ms,` +
+      ` filter 1.1s cubic-bezier(.22,1,.36,1) ${j * 85}ms`;
+    w.inner.style.transform = 'translateY(0%)';
+    w.inner.style.opacity = '1';
+    w.inner.style.filter = 'none';
   });
   setTimeout(() => {
     s0Words.forEach(w => { w.inner.style.transition = ''; });
     heroEntranceDone = true;
     onScroll();
-  }, 950 + s0Words.length * 75);
+  }, 1150 + s0Words.length * 85);
 }, 1900);
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const easeOut = t => 1 - Math.pow(1 - t, 3);
 function wordPose(w, p) {
-  if (p < w.enter0) return { y: 9, o: 0, b: 16 };
+  if (p < w.enter0) return { y: 5, o: 0, b: 7 };
   if (p < w.enter1) {
     const t = easeOut((p - w.enter0) / (w.enter1 - w.enter0));
-    return { y: 9 * (1 - t), o: Math.min(t * 1.7, 1), b: 16 * (1 - t) };
+    return { y: 5 * (1 - t), o: Math.min(t * 1.35, 1), b: 7 * (1 - t) };
   }
   if (p < w.exit0) return { y: 0, o: 1, b: 0 };
   if (p < w.exit1) {
     const t = (p - w.exit0) / (w.exit1 - w.exit0);
-    return { y: -7 * t, o: Math.max(1 - t * 1.5, 0), b: 14 * t };
+    return { y: -4 * t, o: Math.max(1 - t * 1.15, 0), b: 6.5 * t };
   }
-  return { y: -7, o: 0, b: 14 };
+  return { y: -4, o: 0, b: 6.5 };
 }
 const euStars = document.querySelector('.eu-stars');
 function renderHero(p) {

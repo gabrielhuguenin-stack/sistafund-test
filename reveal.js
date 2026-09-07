@@ -106,21 +106,22 @@
   run();
 })();
 
-/* The home's team runs on the same queue: the portraits travel up through the places
-   and the name follows whoever reaches the large frame. */
+/* The home's team is a small gallery, not one huge picture with a pager: a group reads as
+   a row of faces. Each portrait says who it is under the pointer, as the community grid
+   does. Gabriel is left out here — he is on the dedicated page. */
 (function () {
-  const host = document.querySelector('[data-team-cascade]');
+  const host = document.querySelector('[data-team-row]');
   if (!host || !window.TEAM) return;
-  window.TEAM.forEach(([name, role, file], i) => {
-    const q = document.createElement('div');
-    q.className = 'pcq';
-    q.dataset.drift = '0';
-    Object.assign(q.dataset, { title: name, source: role, date: '', url: 'team.html' });
-    q.innerHTML = `<figure class="pcf-frame" data-reveal="image" style="--rd:${i * 160}ms">
-      <img src="img/team/${file}" alt="${name}" class="on"${i > 2 ? ' loading="lazy"' : ''}>
-      <span class="pcf-tag"><b>${name}</b><i>${role}</i></span>
-    </figure>`;
-    host.appendChild(q);
+  const n = +host.dataset.teamRow || 5;
+  window.TEAM.slice(0, n).forEach(([name, role, file], i) => {
+    const a = document.createElement('a');
+    a.className = 'team-face';
+    a.href = 'team.html';
+    a.setAttribute('data-reveal', 'image');
+    a.style.setProperty('--rd', (i * 90) + 'ms');
+    a.innerHTML = `<img src="img/team/${file}" alt="${name}"${i > 2 ? ' loading="lazy"' : ''}>` +
+      `<span class="pcf-tag"><b>${name}</b><i>${role}</i></span>`;
+    host.appendChild(a);
   });
 })();
 
