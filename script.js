@@ -373,12 +373,13 @@ if (heroWall) {
       return Math.min(best, 1);
     };
 
-    let x = 0;
-    while (x < 100) {
+    const OVER = 9;                               // generated past each edge, for the blur
+    let x = -OVER;
+    while (x < 100 + OVER) {
       const cw = 1.4 + rnd() * 2.8;               // the column's width, in % of the wall
-      let y = 0;
-      while (y < SPAN) {                          // the column is filled top to bottom
-        const h = Math.min(9 + rnd() * 24, SPAN - y);
+      let y = -OVER;
+      while (y < SPAN + OVER) {                   // the column is filled top to bottom
+        const h = Math.min(9 + rnd() * 24, SPAN + OVER - y);
         // pale against the openings, deepening as the wall moves away from them, with
         // just enough scatter that the wall is a wall and not a printed gradient. The very
         // foot eases to cream so the ground does not stop dead against the section below.
@@ -393,18 +394,11 @@ if (heroWall) {
     }
 
     // each host shows its own hundred units; what overflows is clipped by the frame
-    // the panels are laid a little past every edge: blurred, a wall that stopped at the
-    // frame would show its own soft border as a vignette
-    const OVER = 7;                               // in % of the wall, on each side
     const paint = (host, offset) => {
-      host.innerHTML = bars.map(b => {
-        const x = -OVER + b.x * (100 + 2 * OVER) / 100;
-        const w = b.w * (100 + 2 * OVER) / 100;
-        const y = -OVER + (b.top - offset) * (100 + 2 * OVER) / 100;
-        const h = b.h * (100 + 2 * OVER) / 100;
-        return `<span class="hero-bar" style="left:${x.toFixed(3)}%;width:${w.toFixed(3)}%;` +
-               `top:${y.toFixed(2)}%;height:${h.toFixed(2)}%;--tone:${b.tone}"></span>`;
-      }).join('');
+      host.innerHTML = bars.map(b =>
+        `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
+        `top:${(b.top - offset).toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`
+      ).join('');
     };
     paint(heroWall, 0);
     nodes = [...heroWall.querySelectorAll('.hero-bar')];
