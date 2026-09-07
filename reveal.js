@@ -31,6 +31,27 @@
   addEventListener('scroll', () => { if (raf === null) target = current = scrollY; }, { passive: true });
 })();
 
+/* Built BEFORE the reveal engine on purpose: the engine collects [data-reveal] once,
+   so a tile appended afterwards is never observed and stays at opacity 0 forever. */
+/* The home's team is a small gallery, not one huge picture with a pager: a group reads as
+   a row of faces. Each portrait says who it is under the pointer, as the community grid
+   does. Gabriel is left out here — he is on the dedicated page. */
+(function () {
+  const host = document.querySelector('[data-team-row]');
+  if (!host || !window.TEAM) return;
+  const n = +host.dataset.teamRow || 5;
+  window.TEAM.slice(0, n).forEach(([name, role, file], i) => {
+    const a = document.createElement('a');
+    a.className = 'team-face';
+    a.href = 'team.html';
+    a.setAttribute('data-reveal', 'image');
+    a.style.setProperty('--rd', (i * 90) + 'ms');
+    a.innerHTML = `<img src="img/team/${file}" alt="${name}"${i > 2 ? ' loading="lazy"' : ''}>` +
+      `<span class="pcf-tag"><b>${name}</b><i>${role}</i></span>`;
+    host.appendChild(a);
+  });
+})();
+
 /* Scroll reveal engine for the dedicated pages
    Elements are visible by default; the hidden state is only armed once this
    script runs (html.anim), and three safety nets guarantee nothing stays hidden. */
@@ -104,25 +125,6 @@
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
   run();
-})();
-
-/* The home's team is a small gallery, not one huge picture with a pager: a group reads as
-   a row of faces. Each portrait says who it is under the pointer, as the community grid
-   does. Gabriel is left out here — he is on the dedicated page. */
-(function () {
-  const host = document.querySelector('[data-team-row]');
-  if (!host || !window.TEAM) return;
-  const n = +host.dataset.teamRow || 5;
-  window.TEAM.slice(0, n).forEach(([name, role, file], i) => {
-    const a = document.createElement('a');
-    a.className = 'team-face';
-    a.href = 'team.html';
-    a.setAttribute('data-reveal', 'image');
-    a.style.setProperty('--rd', (i * 90) + 'ms');
-    a.innerHTML = `<img src="img/team/${file}" alt="${name}"${i > 2 ? ' loading="lazy"' : ''}>` +
-      `<span class="pcf-tag"><b>${name}</b><i>${role}</i></span>`;
-    host.appendChild(a);
-  });
 })();
 
 /* The home page's press is an index, not a queue: the stories are ruled rows and the

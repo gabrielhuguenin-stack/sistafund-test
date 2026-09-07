@@ -104,12 +104,14 @@ heroItems.forEach((item, si) => {
   const W = Math.max(words.length - 1, 1);
   words.forEach((inner, j) => {
     const f = j / W;
-    // statement 0: on show at rest, folds away 0.30 → 0.56 in cascade.
-    // statement 1: assembles 0.58 → 0.90, then stays.
-    const enter0 = si === 0 ? -0.2 : 0.56 + f * 0.14;
-    const enter1 = si === 0 ? -0.1 : enter0 + 0.22;
-    const exit0  = si === 0 ? 0.26 + f * 0.13 : 2;
-    const exit1  = exit0 + 0.2;
+    // The first statement leaves early so the second has room to take its time:
+    // it folds away 0.22 → 0.50, and the second assembles 0.46 → 0.88. Each word of the
+    // second gets 0.30 of the hero's travel to come out of the ground — the arrival is the
+    // slower of the two movements, because that is the one being read.
+    const enter0 = si === 0 ? -0.2 : 0.46 + f * 0.12;
+    const enter1 = si === 0 ? -0.1 : enter0 + 0.3;
+    const exit0  = si === 0 ? 0.22 + f * 0.1 : 2;
+    const exit1  = exit0 + 0.18;
     heroWords.push({ inner, enter0, enter1, exit0, exit1 });
   });
 });
@@ -136,16 +138,19 @@ setTimeout(() => {
 
 const lerp = (a, b, t) => a + (b - a) * t;
 const easeOut = t => 1 - Math.pow(1 - t, 3);
+// flat at both ends: a word does not start moving abruptly and does not stop abruptly.
+// An ease-out alone left a jolt at the first frame of an arrival, which read as a snap.
+const smooth = t => t * t * (3 - 2 * t);
 function wordPose(w, p) {
   if (p < w.enter0) return { y: 5, o: 0, b: 7 };
   if (p < w.enter1) {
-    const t = easeOut((p - w.enter0) / (w.enter1 - w.enter0));
-    return { y: 5 * (1 - t), o: Math.min(t * 1.35, 1), b: 7 * (1 - t) };
+    const t = smooth((p - w.enter0) / (w.enter1 - w.enter0));
+    return { y: 5 * (1 - t), o: t, b: 7 * (1 - t) };
   }
   if (p < w.exit0) return { y: 0, o: 1, b: 0 };
   if (p < w.exit1) {
-    const t = (p - w.exit0) / (w.exit1 - w.exit0);
-    return { y: -4 * t, o: Math.max(1 - t * 1.15, 0), b: 6.5 * t };
+    const t = smooth((p - w.exit0) / (w.exit1 - w.exit0));
+    return { y: -4 * t, o: 1 - t, b: 6.5 * t };
   }
   return { y: -4, o: 0, b: 6.5 };
 }

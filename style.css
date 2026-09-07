@@ -393,10 +393,10 @@ main section[id] { scroll-margin-top: 60px; }
 /* the black now belongs to the areas of interest, which answer the thesis above */
 .about--sectors { background: var(--ink); color: var(--paper); padding: 14vh 4vw 16vh; }
 .about--sectors .sectors { margin-top: 0; }
-.about--sectors .sectors-kicker { color: rgba(250, 248, 240, .55); }
+.about--sectors .sectors-kicker { color: rgba(250, 248, 240, .74); }
 .sectors-kicker {
   font-family: var(--display); text-transform: uppercase;
-  font-size: .9rem; letter-spacing: .18em;
+  font-size: clamp(1.1rem, 1.55vw, 1.6rem); letter-spacing: .16em;
   margin-bottom: 4vh;
 }
 .sector {
@@ -475,8 +475,8 @@ main section[id] { scroll-margin-top: 60px; }
 .stats { background: var(--paper); color: var(--ink); padding: 13vh 4vw 12vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
-  font-size: .9rem; letter-spacing: .18em;
-  color: rgba(16, 16, 16, .6);
+  font-size: clamp(1.1rem, 1.55vw, 1.6rem); letter-spacing: .16em;
+  color: rgba(16, 16, 16, .74);
   margin-bottom: 5vh;
 }
 /* The four facts are cards in a deck, turned by the scroll: no arrow to press, the page itself turns the page: the
@@ -488,14 +488,14 @@ main section[id] { scroll-margin-top: 60px; }
    others around it, and a fact once opened stays open. */
 .thesis-deck {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2.6vw; margin-top: 3vh;
+  gap: 1.7vw; margin-top: 3vh;
 }
 @media (max-width: 1100px) { .thesis-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px)  { .thesis-deck { grid-template-columns: 1fr; } }
 .tleaf { position: relative; }
 .tleaf-in {
   display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5em;
-  height: 100%; padding: 0 1.2vw .7em 0;
+  height: 100%; padding: 0 .7vw .7em 0;
   box-shadow: 0 var(--band) 0 var(--yellow);
 }
 /* Thesis stands on the same field of clouds as the hero, lit by the same code. The section
@@ -512,7 +512,7 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .tleaf-term {
   font-family: var(--serif); font-weight: 400;
-  font-size: clamp(1.7rem, 2.95vw, 3.05rem); line-height: 1.02; letter-spacing: -.02em;
+  font-size: clamp(1.85rem, 3.35vw, 3.6rem); line-height: 1.02; letter-spacing: -.02em;
   color: var(--ink);
 }
 /* a closed card shows only its spine, and the label reads down it */
@@ -605,6 +605,9 @@ main section[id] { scroll-margin-top: 60px; }
   filter: grayscale(1) contrast(1.04);
   transition: filter .6s var(--ease), transform .6s var(--ease);
 }
+/* the settled clip-path of an image reveal is inset(0 0 0 0), and a clip-path cuts the
+   box-shadow too: the band would be shaved off. Leave it the room it needs. */
+html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .team-face:hover { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .team-face:hover img { filter: grayscale(.15) contrast(1.02); }
 .team-face .pcf-tag { padding: 3.4em 1em .9em; }
