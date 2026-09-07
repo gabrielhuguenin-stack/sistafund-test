@@ -178,7 +178,7 @@ document.querySelectorAll('.sec-head h2').forEach(h2 => {
 });
 
 const watched = [];
-document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .comm-say')
+document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .comm-word')
   .forEach(el => { io.observe(el); watched.push(el); });
 // the fund band: each term arrives just after the one to its left
 document.querySelectorAll('.stat-item').forEach((el, i) => {
@@ -253,19 +253,13 @@ const LPS = window.LPS || [];
 const commMosaic = document.getElementById('commMosaic');
 const commCells = [];
 /* The community is written before it is photographed: every member holds a cell of the
-   wall, and the cell carries the name. A third of them stand open at rest — chosen from a
-   fixed seed, so the same faces every visit — and any cell turns into its portrait under
-   the pointer. Names and faces are the same wall, not two treatments. */
+   wall, and the cell carries the name. Any cell turns into its portrait under the pointer:
+   names and faces are the same wall, not two treatments. */
 (function () {
   if (!commMosaic) return;
-  // one in three, on a stride rather than at random: drawn from a seed the nine faces
-  // bunched at the foot of the wall. The offset shifts by a third every three names, so
-  // they scatter across the rows whatever the number of columns.
-  const isFace = i => (i + Math.floor(i / 3)) % 3 === 0;
-
-  LPS.forEach(([name, org, file], i) => {
+  LPS.forEach(([name, org, file]) => {
     const d = document.createElement('div');
-    d.className = 'comm-cell' + (isFace(i) ? ' is-face' : '');
+    d.className = 'comm-cell';
     d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
       `<span class="cm-id"><b>${name}</b><i>${org}</i></span>` +
       `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
@@ -274,30 +268,48 @@ const commCells = [];
   });
 })();
 
-// the order of arrival is read off the grid itself, so it holds at every breakpoint:
-// a wave running from the top left corner down to the bottom right
-let commOrder = [];
-function orderCommCells() {
+/* Which cells stand open is read off the grid, not off the order in the file, so the
+   composition holds at every width. It says something in the reading order: the wall opens
+   as a crowd of faces and settles into names — you meet a few people at the top, and by
+   the foot of the block it is the roll of everyone else. Faces per row: 3, 2, 2, then one.
+   The offset shifts with the row so they never stack into a column. */
+let commLaid = false;
+function layoutCommunity() {
   const boxes = commCells.map(el => ({ el, r: el.getBoundingClientRect() }));
   const rows = [...new Set(boxes.map(b => Math.round(b.r.top)))].sort((a, b) => a - b);
   const colX = [...new Set(boxes.map(b => Math.round(b.r.left)))].sort((a, b) => a - b);
-  boxes.forEach(b => {
-    const row = rows.indexOf(Math.round(b.r.top));
-    const col = colX.indexOf(Math.round(b.r.left));
-    // odd rows come in from the left, even rows from the right, and every row advances at
-    // the same pace: two fronts crossing, as the portfolio rows do
-    const left = row % 2 === 0;
-    b.el.style.setProperty('--from', left ? '-101%' : '101%');
-    b.k = (left ? col : colX.length - 1 - col) * 10 + row;
+  // faces per row, from the crowd at the head to the roll at the foot
+  const perRow = [3, 2, 2, 2, 1, 1];
+  rows.forEach((y, row) => {
+    const line = boxes.filter(b => Math.round(b.r.top) === y)
+      .sort((a, b) => a.r.left - b.r.left);
+    const n = Math.min(perRow[row] === undefined ? 1 : perRow[row], line.length);
+    // spread the row's faces across its width rather than at its head, and shift the
+    // spread by the row so they never stack into a column
+    const open = new Set();
+    for (let k = 0; k < n; k++) {
+      open.add(Math.floor((k + 0.5) * line.length / n + row) % line.length);
+    }
+    line.forEach((b, i) => {
+      b.el.classList.toggle('is-face', open.has(i));
+      const col = colX.indexOf(Math.round(b.r.left));
+      // odd rows come in from the left, even rows from the right, and every row advances
+      // at the same pace: two fronts crossing, as the portfolio rows do
+      const left = row % 2 === 0;
+      b.el.style.setProperty('--from', left ? '-101%' : '101%');
+      b.el.style.setProperty('--cd', ((left ? col : colX.length - 1 - col) * 70) + 'ms');
+    });
   });
-  commOrder = boxes.sort((a, b) => a.k - b.k).map(b => b.el);
+  commLaid = true;
 }
-let commFilled = -1;
-function fillCommunity(p) {
-  const n = Math.round(p * commOrder.length);
-  if (n === commFilled) return;
-  commFilled = n;
-  commOrder.forEach((el, i) => el.classList.toggle('is-in', i < n));
+/* Each cell answers for itself as it comes onto the screen. A single ratio taken on the
+   whole block left the last rows empty for most of the section's crossing — a wall with
+   holes in it, which is not what a wall is. */
+function fillCommunity(vh) {
+  commCells.forEach(el => {
+    if (el.classList.contains('is-in')) return;
+    if (el.getBoundingClientRect().top < vh * 0.9) el.classList.add('is-in');
+  });
 }
 
 // ---------- Scroll loop ----------
@@ -524,19 +536,17 @@ function onScroll() {
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
 
-  // community: the grid fills as the section crosses the screen
+  // community: every cell arrives as it reaches the screen
   if (commMosaic) {
-    if (!commOrder.length) orderCommCells();
-    const r = commMosaic.getBoundingClientRect();
-    const p = clamp((vh * 0.9 - r.top) / (vh * 0.95 + r.height), 0, 1);
-    fillCommunity(p);
+    if (!commLaid) layoutCommunity();
+    fillCommunity(vh);
   }
 
   sweepMissed(vh);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => { commOrder = []; commFilled = -1; onScroll(); }, { passive: true });
-addEventListener('load', () => { commOrder = []; onScroll(); });
+window.addEventListener('resize', () => { commLaid = false; onScroll(); }, { passive: true });
+addEventListener('load', () => { commLaid = false; onScroll(); });
 onScroll();
 
 // ---------- Overlays ----------
