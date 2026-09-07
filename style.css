@@ -560,8 +560,8 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ Portfolio ============ */
 .portfolio { padding: 20vh 4vw 0; }
 /* generous vertical room: the rows cross over a longer stretch of scroll */
-.pf-rows { padding: 4vh 0 14vh; overflow: hidden; }
-.pf-all-cta { text-align: center; padding: 8vh 0 16vh; }
+.pf-rows { padding: 4vh 0 5vh; overflow: hidden; }
+.pf-all-cta { text-align: center; padding: 7vh 0 0; }
 .pf-all-cta .btn-big { margin: 0; }
 .pf-row { margin-bottom: 7vh; }
 .pf-track {
@@ -635,7 +635,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   .team-cta  { grid-column: 1 / -1; order: 2; margin-top: 2vh; }
 }
 @media (max-width: 520px) { .team-row { grid-template-columns: 1fr; } }
-.team { padding: 20vh 4vw 18vh; }
+.team { padding: 13vh 4vw 18vh; }
 
 /* home: the text names whoever stands in the large frame, the queue is on the right */
 .team .sec-head { padding-bottom: 5vh; }
@@ -1088,15 +1088,16 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   overflow-y: auto;
 }
 .overlay.open { opacity: 1; visibility: visible; }
+/* not a plate: a label on a rule, like every other button on the site */
 .overlay-close {
-  position: fixed; top: 24px; right: 4vw; z-index: 5;
+  position: fixed; top: 26px; right: 4vw; z-index: 5;
   font-family: var(--display); text-transform: uppercase;
   letter-spacing: .1em; font-size: .95rem;
-  color: var(--paper); padding: 10px 20px;
-  border: 1.5px solid var(--paper);
-  transition: background .25s, color .25s;
+  color: var(--paper); padding: 0 0 9px;
+  border-bottom: 1.5px solid rgba(250, 248, 240, .45);
+  transition: color .25s, border-color .25s;
 }
-.overlay-close:hover { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.overlay-close:hover { color: var(--yellow); border-color: var(--yellow); }
 
 .manifesto { padding: 9vh 4vw 6vh; width: 100%; }
 .manifesto-body {
@@ -1236,30 +1237,49 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 
 /* Portfolio modal */
 .overlay-modal { background: rgba(16, 16, 16, .55); }
+/* The card is the company's own page for a moment: the founders large on the left, what
+   they do and the four facts on the right. The logo does not come back — it is the plate
+   that was just clicked, and repeating it says nothing. No yellow plate for the sector
+   either: it takes the label register the whole site uses, small caps and letterspaced. */
 .pf-detail {
+  display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1fr);
   background: var(--paper); color: var(--ink);
-  width: min(680px, 92vw);
+  width: min(1120px, 92vw);
   border: 1.5px solid var(--ink);
   box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
   padding: 0;
   transform: translateY(30px) scale(.97);
   transition: transform .5s var(--ease);
-  margin: 12vh 4vw;
+  margin: 9vh 4vw;
 }
 .overlay.open .pf-detail { transform: translateY(0) scale(1); }
-.pf-detail-logo {
-  height: 150px; display: flex; align-items: center; justify-content: center;
-  border-bottom: 1.5px solid var(--ink); padding: 24px; background: var(--paper);
+.pfd-shot {
+  position: relative; overflow: hidden; margin: 0;
+  border-right: 1.5px solid var(--ink);
+  min-height: min(58vh, 520px);
 }
-.pf-detail-logo img { max-height: 76px; max-width: 55%; object-fit: contain; }
-.pf-detail-body { padding: 34px 38px 40px; }
+.pfd-shot img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 28%;
+  filter: grayscale(1) contrast(1.06);
+}
+.pf-detail-body { padding: 40px 42px 44px; align-self: center; }
 .pf-detail-tag {
-  font-family: var(--display); text-transform: uppercase; font-size: .78rem;
-  letter-spacing: .12em; background: var(--yellow);
-  padding: 5px 12px; display: inline-block; margin-bottom: 16px;
-  border: 1.5px solid var(--ink);
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(.82rem, .95vw, .95rem); letter-spacing: .15em;
+  color: rgba(16, 16, 16, .6);
+  display: block; margin-bottom: 18px;
 }
 .pf-detail-body h3 { font-size: clamp(2.2rem, 3vw, 3rem); margin-bottom: 14px; }
+/* narrow: the photograph takes the top and keeps a readable format */
+@media (max-width: 820px) {
+  .pf-detail { grid-template-columns: 1fr; }
+  .pfd-shot {
+    min-height: 0; aspect-ratio: 4 / 3;
+    border-right: none; border-bottom: 1.5px solid var(--ink);
+  }
+  .pf-detail-body { padding: 28px 26px 32px; }
+}
 .pf-detail-body > p { color: var(--grey); font-size: clamp(1.1rem, 1.35vw, 1.35rem); line-height: 1.5; }
 /* each fact is labelled, so "Paris, 2023" no longer has to be guessed at */
 .pf-detail-meta {

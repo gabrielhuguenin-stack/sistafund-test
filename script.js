@@ -567,8 +567,9 @@ const pfDetail = document.getElementById('pfDetail');
 function showCompany(key) {
   const c = COMPANIES[key];
   if (!c) return;
+  // the founders, large — not the logo again: that is the plate the reader just clicked
   pfDetail.innerHTML = `
-    <div class="pf-detail-logo"><img src="img/logos/${c[2]}" alt="${c[0]}"></div>
+    <figure class="pfd-shot"><img src="img/founders/${key}.jpg" alt="Founders of ${c[0]}"></figure>
     <div class="pf-detail-body">
       <span class="pf-detail-tag">${c[1]}</span>
       <h3>${c[0]}</h3>
