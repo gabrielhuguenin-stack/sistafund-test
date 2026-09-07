@@ -133,17 +133,17 @@ setTimeout(() => {
 const lerp = (a, b, t) => a + (b - a) * t;
 const easeOut = t => 1 - Math.pow(1 - t, 3);
 function wordPose(w, p) {
-  if (p < w.enter0) return { y: 150, r: 5 };                 // still below the mask
+  if (p < w.enter0) return { y: 115, o: 0 };                 // still below the mask
   if (p < w.enter1) {
     const t = easeOut((p - w.enter0) / (w.enter1 - w.enter0));
-    return { y: 150 * (1 - t), r: 5 * (1 - t) };             // rises and settles straight
+    return { y: 115 * (1 - t), o: Math.min(t * 2.4, 1) };    // rises straight, coming up
   }
-  if (p < w.exit0) return { y: 0, r: 0 };
+  if (p < w.exit0) return { y: 0, o: 1 };
   if (p < w.exit1) {
     const t = (p - w.exit0) / (w.exit1 - w.exit0);
-    return { y: -150 * t, r: -4 * t };                        // folds up and away
+    return { y: -115 * easeOut(t), o: 1 - Math.max((t - 0.35) / 0.65, 0) };
   }
-  return { y: -150, r: -4 };
+  return { y: -115, o: 0 };
 }
 const euStars = document.querySelector('.eu-stars');
 function renderHero(p) {
@@ -151,7 +151,8 @@ function renderHero(p) {
   heroWords.forEach(w => {
     if (!heroEntranceDone && w.exit0 < 2) return;   // arrival cascade owns these words
     const s = wordPose(w, p);
-    w.inner.style.transform = `translateY(${s.y.toFixed(2)}%) rotate(${s.r.toFixed(2)}deg)`;
+    w.inner.style.transform = `translateY(${s.y.toFixed(2)}%)`;
+    w.inner.style.opacity = s.o.toFixed(3);
   });
   // the stars only surface as the gender-lens claim assembles
   if (euStars) {
