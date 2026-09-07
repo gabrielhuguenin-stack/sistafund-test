@@ -133,17 +133,17 @@ setTimeout(() => {
 const lerp = (a, b, t) => a + (b - a) * t;
 const easeOut = t => 1 - Math.pow(1 - t, 3);
 function wordPose(w, p) {
-  if (p < w.enter0) return { y: 115, o: 0 };                 // still below the mask
+  if (p < w.enter0) return { y: 9, o: 0, b: 16 };
   if (p < w.enter1) {
     const t = easeOut((p - w.enter0) / (w.enter1 - w.enter0));
-    return { y: 115 * (1 - t), o: Math.min(t * 2.4, 1) };    // rises straight, coming up
+    return { y: 9 * (1 - t), o: Math.min(t * 1.7, 1), b: 16 * (1 - t) };
   }
-  if (p < w.exit0) return { y: 0, o: 1 };
+  if (p < w.exit0) return { y: 0, o: 1, b: 0 };
   if (p < w.exit1) {
     const t = (p - w.exit0) / (w.exit1 - w.exit0);
-    return { y: -115 * easeOut(t), o: 1 - Math.max((t - 0.35) / 0.65, 0) };
+    return { y: -7 * t, o: Math.max(1 - t * 1.5, 0), b: 14 * t };
   }
-  return { y: -115, o: 0 };
+  return { y: -7, o: 0, b: 14 };
 }
 const euStars = document.querySelector('.eu-stars');
 function renderHero(p) {
@@ -153,6 +153,7 @@ function renderHero(p) {
     const s = wordPose(w, p);
     w.inner.style.transform = `translateY(${s.y.toFixed(2)}%)`;
     w.inner.style.opacity = s.o.toFixed(3);
+    w.inner.style.filter = s.b < 0.15 ? 'none' : `blur(${s.b.toFixed(2)}px)`;
   });
   // the stars only surface as the gender-lens claim assembles
   if (euStars) {
@@ -297,144 +298,160 @@ const growDim = document.getElementById('growDim');
 const growCopy = document.getElementById('growCopy');
 const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
 const communitySec = document.getElementById('community');
-// ---------- The hero's wall of panels ----------
-// The wall covers the whole ground, column by column, with no empty stretches: the only
-// place without a panel is the place the sentence occupies, and that hole is measured off
-// the type itself rather than guessed. Nothing drifts — each panel lights as the pointer
-// comes near it. Laid out from a fixed seed, so the wall is the same on every visit.
-const heroWall = document.getElementById('heroWall');
-if (heroWall) {
-  const NEAR = [250, 248, 240];                 // cream, against the sentence
-  const FAR  = [255, 248, 104];                 // #FFF868, the house yellow itself
-  const hex = n => n.toString(16).padStart(2, '0');
-  const toneAt = t => {
-    const u = Math.min(Math.max(t, 0), 1);
-    const k = u * u * (3 - 2 * u);
-    return '#' + NEAR.map((a, i) => hex(Math.round(a + (FAR[i] - a) * k))).join('');
-  };
-  let bars = [], nodes = [];
+// ---------- Walls of panels ----------
+// A field of hard-edged columns, blurred into clouds by CSS, laid out from a fixed seed so
+// it is the same on every visit. Nothing drifts: each panel lights as the pointer comes
+// near it. The hero's ground and the thesis section are the same field, built by the same
+// function and lit by the same code.
+const NEAR = [250, 248, 240];                   // cream
+const FAR  = [255, 248, 104];                   // #FFF868, the house yellow itself
+const hex2 = n => n.toString(16).padStart(2, '0');
+const toneAt = t => {
+  const u = Math.min(Math.max(t, 0), 1);
+  const k = u * u * (3 - 2 * u);                // flat at both ends
+  return '#' + NEAR.map((a, i) => hex2(Math.round(a + (FAR[i] - a) * k))).join('');
+};
+const OVER = 9;                                 // generated past each edge, for the blur
 
-  // the room the sentence needs, read off the statements themselves
-  const measureHole = () => {
-    const wr = heroWall.getBoundingClientRect();
-    const stmts = [...document.querySelectorAll('.hstmt')];
-    if (!stmts.length || !wr.width) return null;
-    let l = Infinity, r = -Infinity, t = Infinity, b = -Infinity;
-    stmts.forEach(el => {
-      const q = el.getBoundingClientRect();
-      if (!q.width) return;
-      l = Math.min(l, q.left); r = Math.max(r, q.right);
-      t = Math.min(t, q.top);  b = Math.max(b, q.bottom);
-    });
-    if (l === Infinity) return null;
-    const px = 2.4, py = 3.4;
-    return {
-      x0: ((l - wr.left) / wr.width) * 100 - px, x1: ((r - wr.left) / wr.width) * 100 + px,
-      y0: ((t - wr.top) / wr.height) * 100 - py, y1: ((b - wr.top) / wr.height) * 100 + py
-    };
-  };
-
-  const growWall = document.getElementById('growWall');
-  const growHole = () => {
-    const wr = growWall ? growWall.getBoundingClientRect() : null;
-    const fr = document.getElementById('growFrame');
-    if (!wr || !wr.width || !fr) return null;
-    const q = fr.getBoundingClientRect();
-    return {
-      x0: ((q.left - wr.left) / wr.width) * 100 + 24, x1: ((q.right - wr.left) / wr.width) * 100 - 24,
-      y0: ((q.top - wr.top) / wr.height) * 100 + 26, y1: ((q.bottom - wr.top) / wr.height) * 100 - 26
-    };
-  };
+// hosts: [{ el, offset }] — several frames can show one field at different heights
+function makeWall(hosts, opts) {
+  const main = hosts[0].el;
+  let bars = [], nodes = [], last = 0;
 
   const build = () => {
-    const hole = measureHole();
-    const gh = growHole();
-    let seed = 20260903;
+    const holes = (opts.holes ? opts.holes() : []).filter(Boolean);
+    let seed = opts.seed || 20260903;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+    const SPAN = opts.span || 100;
     bars = [];
 
-    // One wall is laid out over two screens' worth of height and rendered twice: the hero
-    // shows its first hundred units, the photo section the next hundred. A column cut at
-    // the join carries on exactly where it left off, so there is no seam and no white band.
-    const SPAN = 200;
-    // the tone opens around whichever clearing is nearer: the sentence above, the
-    // photograph below. One field, two openings.
+    // the tone opens around whichever clearing is nearest
     const away = (x, y) => {
+      if (!holes.length) return 1;
       let best = 1;
-      if (hole) {
-        const dx = Math.max(hole.x0 - x, 0, x - hole.x1);
-        const dy = Math.max(hole.y0 - y, 0, y - hole.y1) * 1.5;
-        best = Math.min(best, Math.sqrt(dx * dx + dy * dy) / 46);
-      }
-      if (gh) {
-        const dx = Math.max(gh.x0 - x, 0, x - gh.x1);
-        const dy = Math.max(gh.y0 - (y - 100), 0, (y - 100) - gh.y1) * 1.5;
+      for (const h of holes) {
+        const dx = Math.max(h.x0 - x, 0, x - h.x1);
+        const dy = Math.max(h.y0 - y, 0, y - h.y1) * 1.5;
         best = Math.min(best, Math.sqrt(dx * dx + dy * dy) / 46);
       }
       return Math.min(best, 1);
     };
 
-    const OVER = 9;                               // generated past each edge, for the blur
     let x = -OVER;
     while (x < 100 + OVER) {
-      const cw = 1.4 + rnd() * 2.8;               // the column's width, in % of the wall
+      const cw = 1.4 + rnd() * 2.8;             // the column's width, in % of the field
       let y = -OVER;
-      while (y < SPAN + OVER) {                   // the column is filled top to bottom
+      while (y < SPAN + OVER) {                 // the column is filled top to bottom
         const h = Math.min(9 + rnd() * 24, SPAN + OVER - y);
-        // pale against the openings, deepening as the wall moves away from them, with
-        // just enough scatter that the wall is a wall and not a printed gradient. The very
-        // foot eases to cream so the ground does not stop dead against the section below.
         const near = Math.min(away(x + cw / 2, y + h / 2) * 1.55, 1);
-        const foot = Math.min((SPAN - (y + h)) / 22, 1);
+        const foot = opts.fadeFoot ? Math.min((SPAN - (y + h)) / 22, 1) : 1;
         const room = Math.min(near, foot);
-        const t = room * 0.38 + rnd() * 0.62 * Math.min(room * 2.2, 1);
+        // pale where the clearings are, free variation past them, so the masses fall
+        // anywhere instead of piling against the edges
+        const t = (room * 0.38 + rnd() * 0.62 * Math.min(room * 2.2, 1)) * (opts.rest ?? 1);
         bars.push({ x, w: cw, top: y, h, tone: toneAt(t) });
         y += h;
       }
       x += cw;
     }
 
-    // each host shows its own hundred units; what overflows is clipped by the frame
-    const paint = (host, offset) => {
-      host.innerHTML = bars.map(b =>
+    // rendered one to one: scaling the coordinates would move the frames apart and skip a
+    // band of the field at the join
+    hosts.forEach(({ el, offset }) => {
+      el.innerHTML = bars.map(b =>
         `<span class="hero-bar" style="left:${b.x.toFixed(3)}%;width:${b.w.toFixed(3)}%;` +
-        `top:${(b.top - offset).toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`
+        `top:${(b.top - (offset || 0)).toFixed(2)}%;height:${b.h.toFixed(2)}%;--tone:${b.tone}"></span>`
       ).join('');
-    };
-    paint(heroWall, 0);
-    nodes = [...heroWall.querySelectorAll('.hero-bar')];
-    if (growWall) paint(growWall, 100);
+    });
+    nodes = hosts.map(({ el }) => [...el.querySelectorAll('.hero-bar')]);
   };
-
   build();
   addEventListener('load', build);
+  addEventListener('resize', build, { passive: true });
 
-  // every panel answers to how near the hand is. The falloff is a wide ellipse, so the
-  // light reads as sweeping across the wall rather than as a circle stuck to the cursor.
-  const REACH = 26;                              // in % of the wall's width
-  let last = 0;
-  const light = (mx, my) => {
+  // the falloff is a wide ellipse, so the light sweeps across the field instead of sitting
+  // on the cursor as a circle
+  const REACH = opts.reach || 26;
+  const light = (mx, my, host) => {
     for (let i = 0; i < bars.length; i++) {
       const b = bars[i];
       const dx = (b.x + b.w / 2) - mx;
       const dy = ((b.top + b.h / 2) - my) * 0.4;
       const d = Math.sqrt(dx * dx + dy * dy) / REACH;
-      nodes[i].style.setProperty('--k', d >= 1 ? '0' : ((1 - d) * (1 - d)).toFixed(3));
+      const k = d >= 1 ? '0' : ((1 - d) * (1 - d)).toFixed(3);
+      nodes[host][i].style.setProperty('--k', k);
     }
   };
+  const clear = () => nodes.forEach(list => list.forEach(n => n.style.setProperty('--k', '0')));
   const follow = e => {
-    const r = heroWall.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > innerHeight) return;
     const now = performance.now();
-    if (now - last < 16) return;                 // one pass per frame's worth of time,
-    last = now;                                  // without depending on the frame loop
-    light(((e.clientX - r.left) / r.width) * 100, ((e.clientY - r.top) / r.height) * 100);
+    if (now - last < 16) return;                // one pass per frame's worth of time,
+    last = now;                                 // without depending on the frame loop
+    for (let hi = 0; hi < hosts.length; hi++) {
+      const r = hosts[hi].el.getBoundingClientRect();
+      if (!r.width || r.bottom < 0 || r.top > innerHeight) continue;
+      if (e.clientY < r.top || e.clientY > r.bottom) continue;
+      light(((e.clientX - r.left) / r.width) * 100,
+            ((e.clientY - r.top) / r.height) * 100 + (hosts[hi].offset || 0), hi);
+      return;
+    }
   };
   addEventListener('pointermove', follow, { passive: true });
   addEventListener('mousemove', follow, { passive: true });
-  addEventListener('mouseleave', () => nodes.forEach(n => n.style.setProperty('--k', '0')), { passive: true });
-  addEventListener('resize', build, { passive: true });
+  addEventListener('mouseleave', clear, { passive: true });
+  return { build };
 }
+
+// the hero's ground, carried across two screens: the first shows units 0-100, the photo
+// section the next hundred, so a column cut at the join carries straight on
+const heroWall = document.getElementById('heroWall');
+if (heroWall) {
+  const growWall = document.getElementById('growWall');
+  const boxIn = (host, el, pad, offset) => {
+    const wr = host.getBoundingClientRect();
+    if (!wr.width || !el) return null;
+    const q = el.getBoundingClientRect();
+    if (!q.width) return null;
+    return {
+      x0: ((q.left - wr.left) / wr.width) * 100 - pad[0],
+      x1: ((q.right - wr.left) / wr.width) * 100 + pad[0],
+      y0: ((q.top - wr.top) / wr.height) * 100 - pad[1] + offset,
+      y1: ((q.bottom - wr.top) / wr.height) * 100 + pad[1] + offset
+    };
+  };
+  makeWall(
+    [{ el: heroWall, offset: 0 }].concat(growWall ? [{ el: growWall, offset: 100 }] : []),
+    {
+      span: 200, fadeFoot: true,
+      holes: () => {
+        // the room the sentence needs, read off the type itself rather than guessed
+        const stmts = [...document.querySelectorAll('.hstmt')].filter(e => e.getBoundingClientRect().width);
+        let sentence = null;
+        if (stmts.length) {
+          const wr = heroWall.getBoundingClientRect();
+          const l = Math.min(...stmts.map(e => e.getBoundingClientRect().left));
+          const r = Math.max(...stmts.map(e => e.getBoundingClientRect().right));
+          const t = Math.min(...stmts.map(e => e.getBoundingClientRect().top));
+          const b = Math.max(...stmts.map(e => e.getBoundingClientRect().bottom));
+          if (wr.width) sentence = {
+            x0: ((l - wr.left) / wr.width) * 100 - 2.4, x1: ((r - wr.left) / wr.width) * 100 + 2.4,
+            y0: ((t - wr.top) / wr.height) * 100 - 3.4, y1: ((b - wr.top) / wr.height) * 100 + 3.4
+          };
+        }
+        const photo = growWall
+          ? boxIn(growWall, document.getElementById('growFrame'), [-24, -26], 100)
+          : null;
+        return [sentence, photo];
+      }
+    }
+  );
+}
+
+// and the thesis section stands on the same field, kept almost invisible at rest so only
+// the hand brings it out
+const statsWall = document.getElementById('statsWall');
+if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
+  { seed: 71042, span: 100, rest: 0.22, reach: 20 });
 
 function onScroll() {
   const y = window.scrollY;
