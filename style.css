@@ -576,7 +576,13 @@ main section[id] { scroll-margin-top: 60px; }
 /* ============ Portfolio ============ */
 .portfolio { padding: 20vh 4vw 0; }
 /* generous vertical room: the rows cross over a longer stretch of scroll */
-.pf-rows { padding: 4vh 0 5vh; overflow: hidden; }
+/* the rows are masked into the ground at the sides rather than cut by it: a plate leaves
+   the page the way a portrait leaves the community's stage */
+.pf-rows {
+  padding: 4vh 0 5vh; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+}
 .pf-all-cta { text-align: center; padding: 7vh 0 0; }
 .pf-all-cta .btn-big { margin: 0; }
 .pf-row { margin-bottom: 7vh; }
@@ -875,14 +881,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    lines, and each one inverts to yellow under the pointer — that is where the colour
    comes into this section. The frame beside them holds whichever story you are on, so
    the pictures are never cropped differently from one another. */
-/* THE HOME'S PRESS: a front page and an index. The newest story takes a large picture and
-   a title at fifty; the two behind it stand beside each other at half that; everything
-   older follows as ruled rows. A flat list of six gave the newest no more weight than the
-   oldest, and the section read as a table. */
-.news-top {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 5vh 2.6vw; margin-top: 6vh;
-}
+/* THE HOME'S PRESS: a front page and a run. The newest story takes a large picture and a
+   title at fifty; the ones behind it pass under it in a track that travels with the scroll,
+   masked into the ground at the sides like the portfolio rows. A column of ruled rows gave
+   the newest no more weight than the oldest and made the section twice as deep as any
+   other on the page. */
+.news-top { margin-top: 6vh; }
 .ncard { display: block; }
 .ncard--lead {
   grid-column: 1 / -1;
@@ -926,41 +930,20 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .ncard:hover .ncard-go { border-color: var(--ink); }
 .ncard-go .btn-arrow { font-style: normal; }
-.news-rest { margin-top: 9vh; }
-.news-all-btn { margin-top: 5vh; }
+/* the ones behind the front page pass under it, and are masked into the ground at the
+   sides exactly as the portfolio rows are */
+.news-run {
+  margin-top: 7vh; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 5%, #000 95%, transparent 100%);
+}
+.news-track { display: flex; gap: 2vw; width: max-content; will-change: transform; }
+.ncard--min { width: clamp(260px, 25vw, 400px); }
+.ncard--min .ncard-shot { aspect-ratio: 4 / 3; }
+.ncard--min .ncard-title { font-size: clamp(1.1rem, 1.35vw, 1.4rem); line-height: 1.28; }
+.news-all-btn { margin-top: 7vh; }
 @media (max-width: 900px) {
-  .news-top { grid-template-columns: 1fr; }
   .ncard--lead { grid-template-columns: 1fr; gap: 2.4vh; }
-}
-.news-list { border-top: 1.5px solid var(--ink); }
-.news-row {
-  display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) auto;
-  gap: 2vw; align-items: baseline;
-  padding: 2.6vh 1.2vw 2.9vh; margin: 0 -1.2vw;
-  border-bottom: 1.5px solid var(--ink);
-  transition: background .32s var(--ease), color .32s var(--ease);
-}
-.news-row.on, .news-row:hover { background: var(--yellow); }
-.news-row-meta {
-  display: flex; flex-direction: column; gap: 3px;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: .74rem; letter-spacing: .1em; line-height: 1.2;
-}
-.news-row-meta b { font-weight: 400; }
-.news-row-meta i { font-style: normal; color: var(--grey); }
-.news-row.on .news-row-meta i, .news-row:hover .news-row-meta i { color: rgba(16, 16, 16, .62); }
-.news-row-title {
-  font-family: var(--serif); font-size: clamp(1.1rem, 1.6vw, 1.6rem);
-  line-height: 1.28;
-}
-.news-row .btn-arrow {
-  font-family: var(--display); font-size: 1rem;
-  opacity: 0; transition: opacity .3s var(--ease), transform .3s var(--ease);
-}
-.news-row.on .btn-arrow, .news-row:hover .btn-arrow { opacity: 1; transform: translate(3px, -3px); }
-@media (max-width: 900px) {
-  .news-row { grid-template-columns: 1fr auto; }
-  .news-row-meta { grid-column: 1 / -1; flex-direction: row; gap: 12px; }
 }
 /* every press picture is landscape, so the block is shallower and each place with it */
 .news-open .pcascade { aspect-ratio: 1000 / 387; }

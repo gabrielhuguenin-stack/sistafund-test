@@ -127,52 +127,48 @@
   run();
 })();
 
-/* The home page's press has a front page and an index: the last three stories are given
-   their size — one lead with a large picture, two beside it — and everything after that
-   follows as ruled rows, which invert to yellow the way the sector lines do. A flat list
-   of six gave the newest story no more weight than the oldest. */
+/* The home page's press has a front page and a run: the latest story is given its size,
+   with a large picture and a title at fifty, and the ones behind it pass under it in a
+   track that travels with the scroll, like the portfolio rows. A column of ruled rows made
+   the section far longer than anything else on the page. */
 (function () {
   const top = document.querySelector('[data-news-top]');
-  const list = document.querySelector('[data-news-list]');
+  const track = document.querySelector('[data-news-track]');
   if (!window.NEWS) return;
   const shots = window.NEWS_IMG || [];
 
-  if (top) {
-    const n = +top.dataset.newsTop || 3;
-    window.NEWS.slice(0, n).forEach(([date, source, title, url], i) => {
-      const a = document.createElement('a');
-      a.className = 'ncard' + (i === 0 ? ' ncard--lead' : '');
-      a.href = url; a.target = '_blank'; a.rel = 'noopener';
-      // 'card' and not 'image': its settled clip leaves the hover band its room
-      a.setAttribute('data-reveal', 'card');
-      a.style.setProperty('--rd', (i * 120) + 'ms');
-      const shot = shots[i]
+  const card = (i, kind) => {
+    const [date, source, title, url] = window.NEWS[i];
+    const a = document.createElement('a');
+    a.className = 'ncard ' + kind;
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = (shots[i]
         ? `<figure class="ncard-shot"><img src="img/news/${shots[i]}" alt="${title}"${i ? ' loading="lazy"' : ''}></figure>`
-        : '';
-      a.innerHTML = shot +
-        `<span class="ncard-say">` +
-          `<span class="ncard-meta"><b>${source}</b><i>${date}</i></span>` +
-          `<span class="ncard-title">${title}</span>` +
-          `<span class="ncard-go">Read it <i class="btn-arrow">\u2197</i></span>` +
-        `</span>`;
+        : '') +
+      `<span class="ncard-say">` +
+        `<span class="ncard-meta"><b>${source}</b><i>${date}</i></span>` +
+        `<span class="ncard-title">${title}</span>` +
+      `</span>`;
+    return a;
+  };
+
+  if (top) {
+    const n = +top.dataset.newsTop || 1;
+    for (let i = 0; i < Math.min(n, window.NEWS.length); i++) {
+      const a = card(i, 'ncard--lead');
+      a.setAttribute('data-reveal', 'card');
+      a.querySelector('.ncard-say').insertAdjacentHTML('beforeend',
+        '<span class="ncard-go">Read it <i class="btn-arrow">\u2197</i></span>');
       top.appendChild(a);
-    });
+    }
   }
 
-  if (list) {
-    const from = +list.dataset.newsFrom || 0;
-    const n = +list.dataset.newsList || 7;
-    window.NEWS.slice(from, from + n).forEach(([date, source, title, url], i) => {
-      const a = document.createElement('a');
-      a.className = 'news-row';
-      a.href = url; a.target = '_blank'; a.rel = 'noopener';
-      a.setAttribute('data-reveal', '');
-      a.style.setProperty('--rd', (i * 70) + 'ms');
-      a.innerHTML = `<span class="news-row-meta"><b>${source}</b><i>${date}</i></span>` +
-        `<span class="news-row-title">${title}</span>` +
-        `<span class="btn-arrow">\u2197</span>`;
-      list.appendChild(a);
-    });
+  if (track) {
+    const from = +track.dataset.newsFrom || 1;
+    const n = +track.dataset.newsTrack || 9;
+    for (let i = from; i < Math.min(from + n, window.NEWS.length); i++) {
+      track.appendChild(card(i, 'ncard--min'));
+    }
   }
 })();
 

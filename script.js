@@ -233,6 +233,8 @@ if (aboutIntro) {
 
 // ---------- Portfolio: crossing rows ----------
 const PF_TRAVEL = 0.36;   // share of the track's overflow crossed per screen of scroll
+const NEWS_TRAVEL = 0.92; // the press run shows nearly all of itself as it crosses
+let newsRun;
 const pfRows = document.querySelectorAll('.pf-row');
 // duplicate each row's cards so the tracks overflow wide and the opposite-direction slide is pronounced
 pfRows.forEach(row => {
@@ -501,6 +503,19 @@ function onScroll() {
     growCopy.style.opacity = t.toFixed(3);
     growCopy.style.transform = `translateY(${((1 - t) * 3).toFixed(2)}vh)`;
     growCopy.classList.toggle('on', t > 0.6);
+  }
+
+  // the press run travels the same way a portfolio row does. The track is built by
+  // reveal.js, which runs after this file, so it is looked up on the first pass.
+  if (newsRun === undefined) newsRun = document.getElementById('newsTrack') || null;
+  if (newsRun) {
+    const host = newsRun.parentElement;
+    const r = host.getBoundingClientRect();
+    if (r.bottom > -100 && r.top < vh + 100) {
+      const overflow = Math.max(newsRun.scrollWidth - host.clientWidth, 0);
+      const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+      newsRun.style.transform = `translateX(${(-overflow * p * NEWS_TRAVEL).toFixed(1)}px)`;
+    }
   }
 
   // portfolio crossing rows
