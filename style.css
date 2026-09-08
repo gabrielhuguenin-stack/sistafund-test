@@ -391,10 +391,10 @@ main section[id] { scroll-margin-top: 60px; }
 
 /* the rules were three times the width of the word they carried, which read as a very
    wide, very empty band: the measure is cut back and the names sit at its left edge */
-.sectors { margin-top: 14vh; }
-.about--sectors .sectors { width: min(100%, 940px); }
+.sectors { margin-top: 11vh; }
+
 /* the black now belongs to the areas of interest, which answer the thesis above */
-.about--sectors { background: var(--ink); color: var(--paper); padding: 14vh 4vw 16vh; }
+.about--sectors { background: var(--ink); color: var(--paper); padding: 11vh 4vw 12vh; }
 .about--sectors .sectors { margin-top: 0; }
 .about--sectors .sectors-kicker { color: rgba(250, 248, 240, .74); }
 .sectors-kicker {
@@ -404,8 +404,10 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .sector {
   border-top: 1.5px solid var(--paper);
-  padding: 4.5vh 0;
-  text-align: left;
+  /* the band was too tall, not too wide: the names stay centred on the full measure and
+     the rows are cut back from 4.5vh of padding to 2.4vh */
+  padding: 2.4vh 0;
+  text-align: center;
   cursor: default; overflow: hidden;
   transition: background .35s, color .35s;
 }
@@ -457,6 +459,9 @@ main section[id] { scroll-margin-top: 60px; }
   /* h2 is display and uppercase by default, and Portrait is never set in capitals */
   text-transform: none;
   font-size: clamp(1.85rem, 4.5vw, 4.7rem); line-height: 1.05; letter-spacing: -.02em;
+  /* its measure stays inside the measure of the paragraph beside it: the statement led
+     the eye off to the right of the page while the answer stopped short */
+  max-width: 8.2em;
 }
 
 .grow-side p {
@@ -499,11 +504,13 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: clamp(1.9rem, 4.5vw, 4.8rem); line-height: 1.26; letter-spacing: -.012em;
   color: var(--ink); max-width: 33ch; margin-top: 2vh;
 }
+.thesis-line + .thesis-line { margin-top: 1.1em; }
+/* the facts stay in the voice of the sentence — one font, one size — and it is the yellow
+   band under them that tells you they are the facts */
 .thesis-line b {
-  font-family: var(--display); text-transform: uppercase; font-weight: 400;
-  font-size: .78em; letter-spacing: .005em;
+  font-weight: 400;
   border-bottom: var(--band) solid var(--yellow);
-  padding-bottom: .04em;
+  padding-bottom: .02em;
   white-space: nowrap;
 }
 /* Thesis stands on the same field of clouds as the hero, lit by the same code. The section
@@ -714,7 +721,9 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
   gap: 4vw; align-items: start;
 }
-.comm-words { padding-top: 2vh; }
+/* the words sit on the middle of the columns, not at their head: against a stage nearly
+   a screen tall, a block hanging at the top left the section bottom-heavy */
+.comm-words { align-self: center; }
 /* the title is a section title like all the others: same body, same masked rise */
 .comm-head { padding: 0 0 1vh; }
 .comm-note  { margin-top: 3.5vh; }
@@ -726,11 +735,19 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
 /* the stage is the window the columns pass behind */
+/* Three columns, not four: larger prints carry on the ink, and a wall of small ones read
+   as a contact sheet. The columns are not cut by the edge of the stage — they are masked
+   into it, so a portrait comes out of the black and goes back into it instead of being
+   sliced by an invisible line. That is the whole difference in feel. */
 .comm-stage {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1vw;
-  height: min(86vh, 880px); overflow: hidden;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4vw;
+  height: min(88vh, 920px); overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0, #000 11%, #000 89%, transparent 100%);
+  mask-image: linear-gradient(to bottom,
+    transparent 0, #000 11%, #000 89%, transparent 100%);
 }
-.comm-col { display: flex; flex-direction: column; gap: 1.1vw; will-change: transform; }
+.comm-col { display: flex; flex-direction: column; gap: 1.4vw; will-change: transform; }
 .comm-cell {
   position: relative; overflow: hidden; flex: 0 0 auto; aspect-ratio: 4 / 4.6;
   border: 1.5px solid rgba(250, 248, 240, .22);
@@ -771,7 +788,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   /* the words come out of the composition and sit above the columns */
   .comm-top { grid-template-columns: 1fr; gap: 5vh; }
   .comm-words { order: -1; padding-top: 0; }
-  .comm-stage { height: min(72vh, 700px); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .comm-stage { height: min(72vh, 700px); }
 }
 @media (max-width: 620px) {
   .comm-stage { height: 62vh; grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1171,15 +1188,27 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .sec-cursor img.on { opacity: 1; }
 /* the line turns black under the pointer, so the mark turns over with it */
 .sec-cursor.inv img, body.subpage-dark .sec-cursor img { filter: invert(1); }
+/* A filter is a label, not a box. Four bordered plates in a row is a widget, and the site
+   has none: the choice is said the way the nav says it, with the yellow rising under the
+   word. The one in force keeps its band. */
 .filter {
+  position: relative; z-index: 1;
   font-family: var(--display); text-transform: uppercase;
-  font-size: .95rem; letter-spacing: .08em;
-  padding: 10px 22px;
-  border: 1.5px solid var(--ink); color: var(--ink);
-  transition: background .25s, color .25s, border-color .25s;
+  font-size: clamp(.95rem, 1.15vw, 1.15rem); letter-spacing: .08em;
+  padding: 4px 2px 7px; color: rgba(16, 16, 16, .5);
+  transition: color .25s var(--ease);
 }
-.filter:hover { background: var(--yellow); border-color: var(--ink); color: var(--ink); }
-.filter.active { background: var(--yellow); border-color: var(--ink); color: var(--ink); }
+.filter::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+  height: .42em; background: var(--yellow); z-index: -1;
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .3s var(--ease);
+}
+.filter:hover { color: var(--ink); }
+.filter:hover::after { transform: scaleY(1); }
+.filter.active { color: var(--ink); }
+.filter.active::after { transform: scaleY(1); }
+.filters { gap: 2.2vw; }
 
 /* full portfolio grid (overlay) */
 /* Four to a row, counted — not `auto-fill`, which fitted five on a wide screen and made

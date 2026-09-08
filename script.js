@@ -258,7 +258,7 @@ const commStage = document.getElementById('commStage');
 const commCols = [];
 (function () {
   if (!commStage || !LPS.length) return;
-  const N = 4;
+  const N = 3;
   for (let k = 0; k < N; k++) {
     const c = document.createElement('div');
     c.className = 'comm-col';
