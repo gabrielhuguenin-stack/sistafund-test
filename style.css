@@ -77,7 +77,8 @@ em { font-style: normal; }
    the fill, so half of the 3px shows — a hairline at these sizes.
    Only on flat black: over a photograph the hollow letters read as dark smudges, so the
    statement on the opened picture keeps the solid yellow and its thin ink stroke. */
-body.subpage-dark .page-hero-title .yw {
+body.subpage-dark .page-hero-title .yw,
+.community .yw {
   color: var(--ink);
   -webkit-text-stroke: 3px var(--yellow);
 }
@@ -388,7 +389,10 @@ main section[id] { scroll-margin-top: 60px; }
 .about-col p { color: var(--grey); font-size: clamp(1.02rem, 1.3vw, 1.3rem); }
 .about-col:hover p { color: var(--ink); }
 
+/* the rules were three times the width of the word they carried, which read as a very
+   wide, very empty band: the measure is cut back and the names sit at its left edge */
 .sectors { margin-top: 14vh; }
+.about--sectors .sectors { width: min(100%, 940px); }
 /* the black now belongs to the areas of interest, which answer the thesis above */
 .about--sectors { background: var(--ink); color: var(--paper); padding: 14vh 4vw 16vh; }
 .about--sectors .sectors { margin-top: 0; }
@@ -401,7 +405,7 @@ main section[id] { scroll-margin-top: 60px; }
 .sector {
   border-top: 1.5px solid var(--paper);
   padding: 4.5vh 0;
-  text-align: center;
+  text-align: left;
   cursor: default; overflow: hidden;
   transition: background .35s, color .35s;
 }
@@ -446,9 +450,13 @@ main section[id] { scroll-margin-top: 60px; }
   color: var(--paper); opacity: 0; pointer-events: none;
 }
 .grow-copy.on { pointer-events: auto; }
+/* the statement of the photograph is said in the other voice: Portrait, lower case, the
+   hero's voice — it is a sentence, not a heading, and the display caps made it a placard */
 .grow-title {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.7rem, 4.2vw, 4.3rem); line-height: 1.02;
+  font-family: var(--serif); font-weight: 400;
+  /* h2 is display and uppercase by default, and Portrait is never set in capitals */
+  text-transform: none;
+  font-size: clamp(1.85rem, 4.5vw, 4.7rem); line-height: 1.05; letter-spacing: -.02em;
 }
 
 .grow-side p {
@@ -456,7 +464,9 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(250, 248, 240, .88); max-width: 46ch;
   /* the two fonts park their glyphs differently inside the line: this trim puts the
      first line's ascender exactly on the cap-top of the title, at every width */
-  padding-top: calc(.223 * clamp(1.7rem, 4.2vw, 4.3rem) - .361em);
+  /* the two fonts park their glyphs differently: this trim puts the first line's
+     ascender on the cap-top of the statement, now that the statement is Portrait */
+  padding-top: calc(.10 * clamp(1.85rem, 4.5vw, 4.7rem) - .361em);
 }
 .grow-side p + p { margin-top: 1.1em; }
 .grow-btn { margin-top: 3.4vh; }
@@ -478,27 +488,23 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(16, 16, 16, .74);
   margin-bottom: 5vh;
 }
-/* The four facts are cards in a deck, turned by the scroll: no arrow to press, the page itself turns the page: the
-   same book the dedicated pages open on, made of statements instead of photographs. The
-   one in hand lies open and carries the house band; the others stand closed on their
-   edge, each showing its own label written down the spine. The ground stays cream. */
-/* Four cards, opening downwards as they arrive — the same reveal every frame on the site
-   uses, nothing more. No held screen, no state to follow: the section behaves like all the
-   others around it, and a fact once opened stays open. */
-/* Two by two, not four across. Thesis and the areas of interest below answer each other
-   and carry the same weight, but the sectors are set at 109px and Thesis was at 58: four
-   columns capped the statement at a quarter of the page. On two, a fact takes half the
-   width and can be read from across the room. */
-.thesis-deck {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 7vh 3vw; margin-top: 4vh;
+/* THESIS IS ONE SENTENCE. Four items in a row under four grey labels is what every fund
+   site does, ours included until now — and it is exactly what the neighbours do. So the
+   thesis is written instead of tabulated: a sentence in Portrait, lower case, with the four
+   facts standing inside it in display caps, each on the house yellow band. The facts are
+   still read at a glance, being the only thing in the paragraph that carries weight, and
+   the connective words say what a grey label used to have to explain. */
+.thesis-line {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(1.9rem, 4.5vw, 4.8rem); line-height: 1.26; letter-spacing: -.012em;
+  color: var(--ink); max-width: 33ch; margin-top: 2vh;
 }
-@media (max-width: 620px)  { .thesis-deck { grid-template-columns: 1fr; } }
-.tleaf { position: relative; }
-.tleaf-in {
-  display: flex; flex-direction: column; justify-content: flex-end; gap: 1.5em;
-  height: 100%; padding: 0 .7vw .7em 0;
-  box-shadow: 0 var(--band) 0 var(--yellow);
+.thesis-line b {
+  font-family: var(--display); text-transform: uppercase; font-weight: 400;
+  font-size: .78em; letter-spacing: .005em;
+  border-bottom: var(--band) solid var(--yellow);
+  padding-bottom: .04em;
+  white-space: nowrap;
 }
 /* Thesis stands on the same field of clouds as the hero, lit by the same code. The section
    clips it: generated past its edges for the blur, the field would otherwise smudge the
@@ -506,20 +512,8 @@ main section[id] { scroll-margin-top: 60px; }
 .stats { position: relative; overflow: hidden; }
 .stats-wall { z-index: 0; }
 .stats > :not(.stats-wall) { position: relative; z-index: 1; }
-.tleaf-label {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(.95rem, 1.25vw, 1.3rem); letter-spacing: .15em; line-height: 1;
-  color: rgba(16, 16, 16, .6);
-  transition: color .4s var(--ease);
-}
-.tleaf-term {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(2.4rem, 5.4vw, 5.8rem); line-height: 1; letter-spacing: -.025em;
-  color: var(--ink);
-}
 /* a closed card shows only its spine, and the label reads down it */
 
-@media (max-width: 900px) { .tleaf .tleaf-in { padding: 3.4vh 5vw 3.6vh; } }
 
 /* ---- the house band ---- */
 /* A frame that carries a subject stands on a thin yellow band: down its left side and
@@ -711,7 +705,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    vertically as the section crosses, two up and two down, the way the portfolio rows cross
    horizontally. Cream like the rest of the page. The words answer from the right — the
    other way round from every other section, which is the point. */
-.community { background: var(--paper); color: var(--ink); padding: 14vh 4vw 16vh; }
+/* On the ink: the section marks a change of ground in the scroll, and the photographs
+   are what lights it — twenty-seven bright portraits passing over black. The words are
+   cream, and the yellow word takes its outline treatment, a flat yellow being unreadable
+   on black at that size. */
+.community { background: var(--ink); color: var(--paper); padding: 14vh 4vw 16vh; }
 .comm-top {
   display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
   gap: 4vw; align-items: start;
@@ -721,7 +719,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-head { padding: 0 0 1vh; }
 .comm-note  { margin-top: 3.5vh; }
 .comm-cta   { margin-top: 6vh; }
-.comm-note p { color: var(--grey); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 42ch; }
+.comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 42ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
 /* the words rise as they arrive, the same gesture as every other section head */
 .comm-word > * { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
@@ -735,7 +733,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-col { display: flex; flex-direction: column; gap: 1.1vw; will-change: transform; }
 .comm-cell {
   position: relative; overflow: hidden; flex: 0 0 auto; aspect-ratio: 4 / 4.6;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid rgba(250, 248, 240, .22);
   transition: box-shadow .3s var(--ease);
 }
 .comm-cell img {
