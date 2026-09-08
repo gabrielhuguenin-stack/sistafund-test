@@ -227,7 +227,7 @@ if (aboutIntro) {
 
 // ---------- Portfolio: crossing rows ----------
 const PF_TRAVEL = 0.36;   // share of the track's overflow crossed per screen of scroll
-const NEWS_TRAVEL = 0.92; // the press run shows nearly all of itself as it crosses
+const NEWS_TRAVEL = 0.72; // a share of the run's overflow: calm, and it still shows most of itself
 let newsRun;
 const pfRows = document.querySelectorAll('.pf-row');
 // duplicate each row's cards so the tracks overflow wide and the opposite-direction slide is pronounced
