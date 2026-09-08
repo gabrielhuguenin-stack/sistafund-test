@@ -283,22 +283,12 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 }
 .hstmt .l-serif-lc .hmask { padding-bottom: .24em; margin-bottom: -.24em; }
 
-/* the twelve European stars, laid over the gender-lens claim */
+/* The two statements share one skeleton: same left origin, same kicker, same mass on the
+   second line, same stepped serif on the third. The exchange is then a substitution inside
+   a fixed frame — the block keeps its silhouette while the words change — which is what
+   ties the two phrases together. Nothing is laid behind the type to bind them: the twelve
+   European stars turned slowly back there, and nothing else on the site rotates. */
 .hstmt--claim { position: relative; }
-.eu-stars {
-  position: absolute; z-index: -1; pointer-events: none;
-  left: 11.2em; top: 50%;
-  width: clamp(160px, 23vw, 330px); aspect-ratio: 1;
-  transform: translateY(-54%);
-  opacity: 0;                              /* raised by the scroll, with the claim */
-  background-color: var(--ink);            /* masked, so the stars follow the palette */
-  -webkit-mask: url('img/eu-stars.svg') center / contain no-repeat;
-  mask: url('img/eu-stars.svg') center / contain no-repeat;
-  animation: euTurn 90s linear infinite;
-}
-@keyframes euTurn { to { transform: translateY(-54%) rotate(360deg); } }
-@media (max-width: 900px) { .eu-stars { left: auto; right: 2vw; width: 46vw; opacity: .1; } }
-@media (prefers-reduced-motion: reduce) { .eu-stars { animation: none; } }
 .hstmt .hmask { display: inline-block; overflow: visible; padding-bottom: .06em; margin-bottom: -.06em; vertical-align: bottom; }
 .hstmt .hln { display: inline-block; font-style: normal; transform: translateY(108%); will-change: transform; }
 

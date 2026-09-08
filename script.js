@@ -154,7 +154,6 @@ function wordPose(w, p) {
   }
   return { y: -4, o: 0, b: 6.5 };
 }
-const euStars = document.querySelector('.eu-stars');
 function renderHero(p) {
   heroItems.forEach(it => { it.style.opacity = 1; });
   heroWords.forEach(w => {
@@ -164,11 +163,6 @@ function renderHero(p) {
     w.inner.style.opacity = s.o.toFixed(3);
     w.inner.style.filter = s.b < 0.15 ? 'none' : `blur(${s.b.toFixed(2)}px)`;
   });
-  // the stars only surface as the gender-lens claim assembles
-  if (euStars) {
-    const t = Math.min(Math.max((p - 0.62) / 0.24, 0), 1);
-    euStars.style.opacity = (t * 0.24).toFixed(3);
-  }
 }
 
 // Section h2s: wrap each line (split on <br>) for the masked line reveal
