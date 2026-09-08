@@ -158,7 +158,7 @@
       const a = card(i, 'ncard--lead');
       a.setAttribute('data-reveal', 'card');
       a.querySelector('.ncard-say').insertAdjacentHTML('beforeend',
-        '<span class="ncard-go">Read it <i class="btn-arrow">\u2197</i></span>');
+        '<span class="btn ncard-go">Read it <i class="btn-arrow">\u2197</i></span>');
       top.appendChild(a);
     }
   }

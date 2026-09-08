@@ -279,6 +279,9 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .hstmt .l-kicker { margin-bottom: .3em; }         /* the kicker breathes above the mass */
 .hline--in1 { padding-left: .1em; }
 .hline--in2 { padding-left: 1.9em; }           /* stepped in, so the block has rhythm */
+/* the claim closes on the right: its last word is stepped far enough in to end under the
+   end of the mass line above it, instead of hanging alone at the left margin */
+.hline--close { padding-left: 4.1em; }
 /* Portrait carries the connecting lines: its texture against the narrow display
    is what gives the statement character — the load-bearing words stay display. */
 /* Portrait appears once, lowercase, on the closing word: uppercase serif reads
@@ -525,6 +528,16 @@ main section[id] { scroll-margin-top: 60px; }
 .stats > :not(.stats-wall) { position: relative; z-index: 1; }
 /* a closed card shows only its spine, and the label reads down it */
 
+
+/* The other section heads stand on the same field of clouds as the hero and Thesis, so the
+   ground of the page is continuous and the hand brings the yellow out wherever it goes.
+   Kept almost invisible at rest: it is a ground, not a decoration. */
+.portfolio, .team, .news, .faq { position: relative; }
+.head-wall { z-index: 0; }
+.portfolio > :not(.head-wall), .team > :not(.head-wall),
+.news > :not(.head-wall), .faq > :not(.head-wall) { position: relative; z-index: 1; }
+/* the field is generated past its edges for the blur, so the section clips it */
+.portfolio, .team, .news, .faq { overflow: hidden; }
 
 /* ---- the house band ---- */
 /* A frame that carries a subject stands on a thin yellow band: down its left side and
@@ -916,15 +929,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .ncard--lead .ncard-title { font-size: clamp(1.8rem, 3vw, 3.1rem); line-height: 1.16; }
 /* the link is said as a rule, like every other on the site, and it lifts with the card */
-.ncard-go {
-  display: inline-flex; align-items: baseline; gap: 12px; margin-top: 2.6vh;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: .9rem; letter-spacing: .09em;
-  padding-bottom: 7px; border-bottom: 1.5px solid var(--line);
-  transition: border-color .3s var(--ease);
-}
-.ncard:hover .ncard-go { border-color: var(--ink); }
+/* the same button as everywhere else on the site: label at one end, arrow at the other,
+   rule between, and the band rising at its foot under the hand */
+.ncard-go { margin-top: 3vh; }
 .ncard-go .btn-arrow { font-style: normal; }
+.ncard:hover .ncard-go::after { transform: scaleX(1); }
 /* the ones behind the front page pass under it, and are masked into the ground at the
    sides exactly as the portfolio rows are */
 .news-run {
@@ -1065,7 +1074,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   pointer-events: none;
 }
 .cta-brand img { width: 100%; }
-.cta-title { position: relative; font-size: clamp(2.4rem, 6.1vw, 5.8rem); }
+/* said in the other voice, Portrait lower case: it is a question put to the reader, not a
+   headline. h2 is display and uppercase by default, hence the reset. */
+.cta-title {
+  position: relative; font-family: var(--serif); text-transform: none;
+  font-size: clamp(2.5rem, 6.4vw, 6.1rem); line-height: 1.04; letter-spacing: -.02em;
+}
 .cta-title .line { display: block; overflow: hidden; }
 .cta-title .line > span {
   display: inline-block; transform: translateY(110%);

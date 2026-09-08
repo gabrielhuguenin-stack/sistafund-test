@@ -329,6 +329,9 @@ function makeWall(hosts, opts) {
     let seed = opts.seed || 20260903;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     const SPAN = opts.span || 100;
+    // the grain of the field: a shallow band behind a section head needs far fewer, wider
+    // panels than the hero does — the same look, a quarter of the nodes to light
+    const G = opts.grain || 1;
     bars = [];
 
     // the tone opens around whichever clearing is nearest
@@ -345,10 +348,10 @@ function makeWall(hosts, opts) {
 
     let x = -OVER;
     while (x < 100 + OVER) {
-      const cw = 1.4 + rnd() * 2.8;             // the column's width, in % of the field
+      const cw = (1.4 + rnd() * 2.8) * G;       // the column's width, in % of the field
       let y = -OVER;
       while (y < SPAN + OVER) {                 // the column is filled top to bottom
-        const h = Math.min(9 + rnd() * 24, SPAN + OVER - y);
+        const h = Math.min((9 + rnd() * 24) * G, SPAN + OVER - y);
         const near = Math.min(away(x + cw / 2, y + h / 2) * 1.55, 1);
         const foot = opts.fadeFoot ? Math.min((SPAN - (y + h)) / 22, 1) : 1;
         const room = Math.min(near, foot);
@@ -458,6 +461,15 @@ if (heroWall) {
 const statsWall = document.getElementById('statsWall');
 if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
   { seed: 71042, span: 100, rest: 0.22, reach: 20 });
+
+// the other section heads stand on the same ground: one field each, almost invisible at
+// rest, so the yellow only comes up under the hand. Separate instances rather than one
+// wide one: a pointer pass then only touches the field the hand is actually over.
+[['pfHeadWall', 11701], ['teamHeadWall', 31013], ['newsHeadWall', 50411], ['faqHeadWall', 70207]]
+  .forEach(([id, seed]) => {
+    const el = document.getElementById(id);
+    if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 22, grain: 1.9 });
+  });
 
 function onScroll() {
   const y = window.scrollY;
