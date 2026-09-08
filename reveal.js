@@ -127,39 +127,53 @@
   run();
 })();
 
-/* The home page's press is an index, not a queue: the stories are ruled rows and the
-   frame beside them holds whichever one the reader is on. The rows invert to yellow the
-   way the sector lines do — a press page reads as a list, not as a stack of pictures. */
+/* The home page's press has a front page and an index: the last three stories are given
+   their size — one lead with a large picture, two beside it — and everything after that
+   follows as ruled rows, which invert to yellow the way the sector lines do. A flat list
+   of six gave the newest story no more weight than the oldest. */
 (function () {
+  const top = document.querySelector('[data-news-top]');
   const list = document.querySelector('[data-news-list]');
-  if (!list || !window.NEWS) return;
+  if (!window.NEWS) return;
   const shots = window.NEWS_IMG || [];
-  const frame = document.querySelector('.news-shot img');
-  const n = +list.dataset.newsList || 6;
-  window.NEWS.slice(0, n).forEach(([date, source, title, url], i) => {
-    const a = document.createElement('a');
-    a.className = 'news-row';
-    a.href = url; a.target = '_blank'; a.rel = 'noopener';
-    a.dataset.shot = shots[i] || '';
-    a.style.setProperty('--rd', (i * 90) + 'ms');
-    a.innerHTML = `<span class="news-row-meta"><b>${source}</b><i>${date}</i></span>` +
-      `<span class="news-row-title">${title}</span>` +
-      `<span class="btn-arrow">\u2197</span>`;
-    list.appendChild(a);
-  });
-  const rows = [...list.querySelectorAll('.news-row')];
-  const show = row => {
-    if (!frame || !row.dataset.shot) return;
-    rows.forEach(r => r.classList.toggle('on', r === row));
-    if (frame.getAttribute('src') === 'img/news/' + row.dataset.shot) return;
-    frame.classList.remove('in');
-    frame.src = 'img/news/' + row.dataset.shot;
-    frame.alt = row.querySelector('.news-row-title').textContent;
-    requestAnimationFrame(() => frame.classList.add('in'));
-  };
-  rows.forEach(r => r.addEventListener('mouseenter', () => show(r)));
-  list.addEventListener('mouseleave', () => rows[0] && show(rows[0]));
-  if (rows[0]) show(rows[0]);
+
+  if (top) {
+    const n = +top.dataset.newsTop || 3;
+    window.NEWS.slice(0, n).forEach(([date, source, title, url], i) => {
+      const a = document.createElement('a');
+      a.className = 'ncard' + (i === 0 ? ' ncard--lead' : '');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      // 'card' and not 'image': its settled clip leaves the hover band its room
+      a.setAttribute('data-reveal', 'card');
+      a.style.setProperty('--rd', (i * 120) + 'ms');
+      const shot = shots[i]
+        ? `<figure class="ncard-shot"><img src="img/news/${shots[i]}" alt="${title}"${i ? ' loading="lazy"' : ''}></figure>`
+        : '';
+      a.innerHTML = shot +
+        `<span class="ncard-say">` +
+          `<span class="ncard-meta"><b>${source}</b><i>${date}</i></span>` +
+          `<span class="ncard-title">${title}</span>` +
+          `<span class="ncard-go">Read it <i class="btn-arrow">\u2197</i></span>` +
+        `</span>`;
+      top.appendChild(a);
+    });
+  }
+
+  if (list) {
+    const from = +list.dataset.newsFrom || 0;
+    const n = +list.dataset.newsList || 7;
+    window.NEWS.slice(from, from + n).forEach(([date, source, title, url], i) => {
+      const a = document.createElement('a');
+      a.className = 'news-row';
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('data-reveal', '');
+      a.style.setProperty('--rd', (i * 70) + 'ms');
+      a.innerHTML = `<span class="news-row-meta"><b>${source}</b><i>${date}</i></span>` +
+        `<span class="news-row-title">${title}</span>` +
+        `<span class="btn-arrow">\u2197</span>`;
+      list.appendChild(a);
+    });
+  }
 })();
 
 /* Page opening cascade

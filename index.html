@@ -6,7 +6,7 @@
 <title>SISTAFUND | Investing in the next generation of European tech leaders</title>
 <meta name="description" content="SISTAFUND is a new generation venture capital fund backing exceptional female founders and gender-balanced teams across Europe, from Pre-Seed to Seed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=242">
+<link rel="stylesheet" href="style.css?v=244">
 </head>
 <body>
 
@@ -87,11 +87,14 @@
   <!-- ======== THESIS (light, and it opens the pair) ======== -->
   <section class="stats" id="stats">
     <div class="hero-wall stats-wall" id="statsWall" aria-hidden="true"></div>
-    <p class="stats-kicker">Thesis</p>
-    <p class="thesis-line" data-reveal="card">we lead <b>Pre-Seed &amp; Seed</b> rounds
+    <div class="stats-head">
+      <p class="stats-kicker">Thesis</p>
+      <p class="stats-fund">&euro;70m under management</p>
+    </div>
+    <p class="thesis-line" data-reveal="card">We lead <b>Pre-Seed &amp; Seed</b> rounds
       across <b>France &amp; Europe</b>.</p>
-    <p class="thesis-line" data-reveal="card" style="--rd:120ms">we write <b>&euro;700k to
-      &euro;3m</b> into a company, out of a fund of <b>&euro;70m</b>.</p>
+    <p class="thesis-line" data-reveal="card" style="--rd:120ms">We write <b>&euro;700k to
+      &euro;3m</b> into every company we back.</p>
   </section>
 
   <!-- ======== BROAD AREAS OF INTEREST (black, answering the thesis above) ======== -->
@@ -178,16 +181,11 @@
     <div class="sec-head">
       <h2><span class="yw">Latest</span> from us<br>and our companies</h2>
     </div>
-    <!-- a press index: the stories are ruled rows, and the frame beside them shows
-         whichever one you are on -->
-    <div class="news-index">
-      <div class="news-list" data-news-list="6"></div>
-      <div class="news-side">
-        <figure class="news-shot">
-          <img src="" alt="">
-        </figure>
-        <a href="news.html" class="btn news-all-btn">View all news <span class="btn-arrow">&rarr;</span></a>
-      </div>
+    <!-- the last three stories are given their size, the rest follow as ruled rows -->
+    <div class="news-top" data-news-top="3"></div>
+    <div class="news-rest">
+      <div class="news-list" data-news-list="7" data-news-from="3"></div>
+      <a href="news.html" class="btn btn-big news-all-btn">View all news <span class="btn-arrow">&rarr;</span></a>
     </div>
   </section>
 
@@ -254,6 +252,6 @@
 
 <script src="data.js?v=11"></script>
 <script src="script.js?v=83"></script>
-<script src="reveal.js?v=29"></script>
+<script src="reveal.js?v=30"></script>
 </body>
 </html>
