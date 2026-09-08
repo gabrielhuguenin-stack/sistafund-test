@@ -465,7 +465,8 @@ if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
 // the other section heads stand on the same ground: one field each, almost invisible at
 // rest, so the yellow only comes up under the hand. Separate instances rather than one
 // wide one: a pointer pass then only touches the field the hand is actually over.
-[['pfHeadWall', 11701], ['teamHeadWall', 31013], ['newsHeadWall', 50411], ['faqHeadWall', 70207]]
+[['pfHeadWall', 11701], ['pfRowsWall', 20903], ['teamHeadWall', 31013],
+ ['newsHeadWall', 50411], ['faqHeadWall', 70207]]
   .forEach(([id, seed]) => {
     const el = document.getElementById(id);
     if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 22, grain: 1.9 });

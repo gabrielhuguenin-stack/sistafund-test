@@ -533,7 +533,11 @@ main section[id] { scroll-margin-top: 60px; }
    ground of the page is continuous and the hand brings the yellow out wherever it goes.
    Kept almost invisible at rest: it is a ground, not a decoration. */
 .portfolio, .team, .news, .faq { position: relative; }
-.head-wall { z-index: 0; }
+.head-wall, .rows-wall { z-index: 0; }
+/* the rows of plates stand on the ground too: the plates are cream and opaque, so the
+   field shows in the gutters between them and the section reads as one surface */
+.pf-rows { position: relative; }
+.pf-rows > :not(.rows-wall) { position: relative; z-index: 1; }
 .portfolio > :not(.head-wall), .team > :not(.head-wall),
 .news > :not(.head-wall), .faq > :not(.head-wall) { position: relative; z-index: 1; }
 /* the field is generated past its edges for the blur, so the section clips it */
