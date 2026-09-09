@@ -865,10 +865,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .faq-item[open] .faq-x { transform: rotate(45deg); }
 .faq-item p {
   padding: 0 6px 34px;
-  color: var(--grey); font-size: clamp(1.05rem, 1.35vw, 1.35rem); line-height: 1.55;
-  /* the answer stops at 92 characters and not at the edge of the page: on 1 590 px a line
-     would run to 150 characters, and the eye loses the start of the next one */
-  max-width: 92ch;
+  color: var(--grey); font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+  /* the answer takes the whole width of its row: what matters here is the height of the
+     block, not the length of the line — on a reading measure it stood four lines deep and
+     left half the page empty. The interline is opened a little to compensate: on a long
+     measure it is what lets the eye find the start of the next line. */
+  max-width: none; line-height: 1.68;
 }
 /* extra questions stay folded until "Show all"; height animates via grid-rows */
 .faq-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
