@@ -31,6 +31,51 @@
   addEventListener('scroll', () => { if (raf === null) target = current = scrollY; }, { passive: true });
 })();
 
+/* The home page's press has a front page and a run: the latest story is given its size,
+   with a large picture and a title at fifty, and the ones behind it pass under it in a
+   track that travels with the scroll, like the portfolio rows. A column of ruled rows made
+   the section far longer than anything else on the page. */
+(function () {
+  const top = document.querySelector('[data-news-top]');
+  const track = document.querySelector('[data-news-track]');
+  if (!window.NEWS) return;
+  const shots = window.NEWS_IMG || [];
+
+  const card = (i, kind) => {
+    const [date, source, title, url] = window.NEWS[i];
+    const a = document.createElement('a');
+    a.className = 'ncard ' + kind;
+    a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    a.innerHTML = (shots[i]
+        ? `<figure class="ncard-shot"><img src="img/news/${shots[i]}" alt="${title}"${i ? ' loading="lazy"' : ''}></figure>`
+        : '') +
+      `<span class="ncard-say">` +
+        `<span class="ncard-meta"><b>${source}</b><i>${date}</i></span>` +
+        `<span class="ncard-title">${title}</span>` +
+      `</span>`;
+    return a;
+  };
+
+  if (top) {
+    const n = +top.dataset.newsTop || 1;
+    for (let i = 0; i < Math.min(n, window.NEWS.length); i++) {
+      const a = card(i, 'ncard--lead');
+      a.setAttribute('data-reveal', 'card');
+      a.querySelector('.ncard-say').insertAdjacentHTML('beforeend',
+        '<span class="btn ncard-go">Read it <i class="btn-arrow">\u2197</i></span>');
+      top.appendChild(a);
+    }
+  }
+
+  if (track) {
+    const from = +track.dataset.newsFrom || 1;
+    const n = +track.dataset.newsTrack || 9;
+    for (let i = from; i < Math.min(from + n, window.NEWS.length); i++) {
+      track.appendChild(card(i, 'ncard--min'));
+    }
+  }
+})();
+
 /* Built BEFORE the reveal engine on purpose: the engine collects [data-reveal] once,
    so a tile appended afterwards is never observed and stays at opacity 0 forever. */
 /* The home's team is a small gallery, not one huge picture with a pager: a group reads as
@@ -125,51 +170,6 @@
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll, { passive: true });
   run();
-})();
-
-/* The home page's press has a front page and a run: the latest story is given its size,
-   with a large picture and a title at fifty, and the ones behind it pass under it in a
-   track that travels with the scroll, like the portfolio rows. A column of ruled rows made
-   the section far longer than anything else on the page. */
-(function () {
-  const top = document.querySelector('[data-news-top]');
-  const track = document.querySelector('[data-news-track]');
-  if (!window.NEWS) return;
-  const shots = window.NEWS_IMG || [];
-
-  const card = (i, kind) => {
-    const [date, source, title, url] = window.NEWS[i];
-    const a = document.createElement('a');
-    a.className = 'ncard ' + kind;
-    a.href = url; a.target = '_blank'; a.rel = 'noopener';
-    a.innerHTML = (shots[i]
-        ? `<figure class="ncard-shot"><img src="img/news/${shots[i]}" alt="${title}"${i ? ' loading="lazy"' : ''}></figure>`
-        : '') +
-      `<span class="ncard-say">` +
-        `<span class="ncard-meta"><b>${source}</b><i>${date}</i></span>` +
-        `<span class="ncard-title">${title}</span>` +
-      `</span>`;
-    return a;
-  };
-
-  if (top) {
-    const n = +top.dataset.newsTop || 1;
-    for (let i = 0; i < Math.min(n, window.NEWS.length); i++) {
-      const a = card(i, 'ncard--lead');
-      a.setAttribute('data-reveal', 'card');
-      a.querySelector('.ncard-say').insertAdjacentHTML('beforeend',
-        '<span class="btn ncard-go">Read it <i class="btn-arrow">\u2197</i></span>');
-      top.appendChild(a);
-    }
-  }
-
-  if (track) {
-    const from = +track.dataset.newsFrom || 1;
-    const n = +track.dataset.newsTrack || 9;
-    for (let i = from; i < Math.min(from + n, window.NEWS.length); i++) {
-      track.appendChild(card(i, 'ncard--min'));
-    }
-  }
 })();
 
 /* Page opening cascade

@@ -66,16 +66,20 @@ em { font-style: normal; }
    many. The word keeps the colour of its ground and stands on the house band — the same
    eight pixels every frame of the site wears. One treatment, whatever the ground: no more
    solid on cream, outline on black, marker in body text. */
+/* The word is set IN the yellow, not on a band under it: at these sizes the yellow is the
+   only colour a title carries, and a rule under the word read as a correction mark rather
+   than as the brand. What went with the field of clouds are the yellow SOLIDS behind
+   words — the plate behind a nav link, the block behind a filter — not the yellow type. */
 .yw {
-  color: inherit; -webkit-text-stroke: 0;
-  /* an underline and not a block: it is drawn from the baseline, so it follows the letters
-     and stays inside the line. A band positioned on the inline box hangs a hundred pixels
-     below its line at these sizes, and the mask a section head reveals under cuts it off. */
-  text-decoration: underline;
-  text-decoration-color: var(--yellow);
-  text-decoration-thickness: var(--band);
-  text-underline-offset: .04em;
-  text-decoration-skip-ink: none;
+  color: var(--yellow);
+  -webkit-text-stroke: 2px var(--ink);
+  paint-order: stroke fill;
+}
+/* On a flat black ground the word becomes a drawing rather than a solid: the fill takes
+   the ground and the yellow is left as the outline. */
+.community .yw {
+  color: var(--ink);
+  -webkit-text-stroke: 3px var(--yellow);
 }
 /* On a flat black ground the word becomes a drawing rather than a solid: the fill takes
    the ground and the yellow is left as the outline. paint-order paints the stroke behind
@@ -321,11 +325,7 @@ main section[id] { scroll-margin-top: 60px; }
 .sec-head { padding: 7vh 0 8vh; position: relative; }
 .sec-head h2 {
   font-size: clamp(2.8rem, 7vw, 6.4rem);
-  /* the mask the lines rise under clips at the padding box, and the band under a word on
-     the last line falls just past it: sixteen pixels of padding let it show, given back by
-     the negative margin so nothing moves. The pre-state of a line sits a hundred pixels
-     lower, so it stays hidden. */
-  overflow: hidden; padding-bottom: 16px; margin-bottom: -16px;
+  overflow: hidden;
 }
 .sec-head h2 > span.rl {
   display: block;
@@ -509,7 +509,11 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: clamp(1.9rem, 4.5vw, 4.8rem); line-height: 1.26; letter-spacing: -.012em;
   color: var(--ink); max-width: 33ch; margin-top: 2vh;
 }
-.thesis-line + .thesis-line { margin-top: 1.1em; }
+.thesis-line + .thesis-line {
+  /* the second answers from the right: set at the same place it read as one paragraph
+     broken in two */
+  margin: 1.1em 0 0 auto; text-align: right;
+}
 /* the facts stay in the voice of the sentence — one font, one size — and it is the yellow
    band under them that tells you they are the facts */
 .thesis-line b {
@@ -531,7 +535,14 @@ main section[id] { scroll-margin-top: 60px; }
    ground of the page is continuous and the hand brings the yellow out wherever it goes.
    Kept almost invisible at rest: it is a ground, not a decoration. */
 .portfolio, .team, .news, .faq { position: relative; }
-.head-wall, .rows-wall { z-index: 0; }
+.head-wall, .rows-wall {
+  z-index: 0;
+  /* a field that stops on a straight edge draws a line across the page: it is faded into
+     the cream at its top and foot, so the yellow appears and goes without an edge. The
+     mask is applied after the blur, so the panels keep their material. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
+}
 /* the rows of plates stand on the ground too: the plates are cream and opaque, so the
    field shows in the gutters between them and the section reads as one surface */
 .pf-rows { position: relative; }
@@ -1098,7 +1109,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: flex; justify-content: space-between; align-items: flex-start;
   gap: 8vw; flex-wrap: wrap; margin-bottom: 5vh;
 }
-.footer-legal-block { display: flex; flex-direction: column; gap: 20px; max-width: 460px; }
+.footer-legal-block { display: flex; flex-direction: column; gap: 20px; max-width: 620px; }
 .footer-cols { display: flex; gap: 5vw; flex-wrap: wrap; align-items: flex-start; }
 .footer-col { display: flex; flex-direction: column; gap: 6px; }
 .footer-head {
@@ -1123,13 +1134,15 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: transform .4s var(--ease);
 }
 .footer-col--go:hover::after { transform: scaleX(1); }
+/* the legal note is there to be read: at .8rem and 45 % it was a grey texture. There is
+   room in that column, so it takes it. */
 .footer-legal {
-  font-size: .8rem; color: rgba(250, 248, 240, .45);
-  line-height: 1.6;
+  font-size: clamp(.92rem, 1.02vw, 1.05rem); color: rgba(250, 248, 240, .72);
+  line-height: 1.55; max-width: 62ch;
 }
 .footer-copy {
   font-family: var(--display); text-transform: uppercase;
-  letter-spacing: .08em; font-size: .8rem;
+  letter-spacing: .08em; font-size: .95rem; color: rgba(250, 248, 240, .82);
 }
 .footer-bottom {
   display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 16px;
@@ -1746,9 +1759,11 @@ body > main, body > footer { position: relative; z-index: 1; }
   font-family: var(--serif); font-size: clamp(1.3rem, 2.15vw, 2.15rem); line-height: 1.4;
   max-width: 52ch; margin-top: 4vh; color: var(--ink);
 }
-/* at body size the band is set to the type rather than to the frames, or it swallows the
-   line it stands on */
-.doc-lead .yw, .m-stmt p .yw { text-decoration-thickness: .16em; text-underline-offset: .02em; }
+/* at body size a yellow outline is unreadable: mark the words instead */
+.doc-lead .yw, .m-stmt p .yw {
+  color: var(--ink); background: var(--yellow);
+  -webkit-text-stroke: 0; padding: 0 .14em;
+}
 .doc-photo { padding: 0 4vw; }
 .doc-photo img { width: 100%; height: 62vh; object-fit: cover; object-position: center 42%; border: 1.5px solid var(--ink); }
 .doc-body { padding: 7vh 4vw; }
