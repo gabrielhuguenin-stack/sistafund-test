@@ -329,9 +329,15 @@ function makeWall(hosts, opts) {
     let seed = opts.seed || 20260903;
     const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
     const SPAN = opts.span || 100;
-    // the grain of the field: a shallow band behind a section head needs far fewer, wider
-    // panels than the hero does — the same look, a quarter of the nodes to light
+    /* The patch is sized in PIXELS and converted, not in per cent of the field: a field
+       three thousand pixels tall turned segments of "9 to 33 units" into columns a
+       thousand pixels deep, and the light read as a band down the page instead of a
+       patch. Held in pixels, every field has the hero's grain whatever its size.
+       `grain` only widens the columns, to keep the panel count where the pointer can
+       afford it — it never stretches them vertically. */
     const G = opts.grain || 1;
+    const PW = main.clientWidth || 1728;
+    const PH = main.clientHeight || 1000;
     bars = [];
 
     // the tone opens around whichever clearing is nearest
@@ -348,10 +354,10 @@ function makeWall(hosts, opts) {
 
     let x = -OVER;
     while (x < 100 + OVER) {
-      const cw = (1.4 + rnd() * 2.8) * G;       // the column's width, in % of the field
+      const cw = ((24 + rnd() * 48) * G / PW) * 100;   // 24-72px of column, widened by grain
       let y = -OVER;
       while (y < SPAN + OVER) {                 // the column is filled top to bottom
-        const h = Math.min((9 + rnd() * 24) * G, SPAN + OVER - y);
+        const h = Math.min(((90 + rnd() * 240) / PH) * 100, SPAN + OVER - y);
         const near = Math.min(away(x + cw / 2, y + h / 2) * 1.55, 1);
         const foot = opts.fadeFoot ? Math.min((SPAN - (y + h)) / 22, 1) : 1;
         const room = Math.min(near, foot);
@@ -378,20 +384,40 @@ function makeWall(hosts, opts) {
   addEventListener('load', build);
   addEventListener('resize', build, { passive: true });
 
-  // the falloff is a wide ellipse, so the light sweeps across the field instead of sitting
-  // on the cursor as a circle
+  /* The falloff is a CIRCLE measured in PIXELS. It used to be an ellipse flattened in the
+     field's own per cent space, which on a field three thousand pixels tall came out
+     830 px wide and 2 070 tall — a band down the page, not a patch. Round and in pixels,
+     the light is the same patch on every field, whatever its height.
+     Only the panels the light can reach are touched, and the ones lit on the pass before
+     are put out by name — a field of five hundred panels would cost twenty milliseconds
+     to walk from end to end on every move. */
   const REACH = opts.reach || 26;
-  const light = (mx, my, host) => {
+  let lit = [], litHost = -1;
+  const light = (mxPx, myU, host) => {
+    const list = nodes[host];
+    for (let j = 0; j < lit.length; j++) nodes[litHost][lit[j]].style.setProperty('--k', '0');
+    lit = []; litHost = host;
+    const W = hosts[host].el.clientWidth || 1728;
+    const H = hosts[host].el.clientHeight || 1000;
+    const reach = (REACH / 100) * W;            // the ellipse's half-width, in pixels
+    // a bar's `top` is a per cent of its host's height, whatever the span: one unit is one
+    // hundredth of a host, in every field
+    const spanY = H / 100;
     for (let i = 0; i < bars.length; i++) {
       const b = bars[i];
-      const dx = (b.x + b.w / 2) - mx;
-      const dy = ((b.top + b.h / 2) - my) * 0.4;
-      const d = Math.sqrt(dx * dx + dy * dy) / REACH;
-      const k = d >= 1 ? '0' : ((1 - d) * (1 - d)).toFixed(3);
-      nodes[host][i].style.setProperty('--k', k);
+      const dy = ((b.top + b.h / 2) - myU) * spanY;
+      if (dy > reach || dy < -reach) continue;  // out of the light: nothing to write
+      const dx = ((b.x + b.w / 2) / 100) * W - mxPx;
+      const d = Math.sqrt(dx * dx + dy * dy) / reach;
+      if (d >= 1) continue;
+      list[i].style.setProperty('--k', ((1 - d) * (1 - d)).toFixed(3));
+      lit.push(i);
     }
   };
-  const clear = () => nodes.forEach(list => list.forEach(n => n.style.setProperty('--k', '0')));
+  const clear = () => {
+    if (litHost >= 0) for (let j = 0; j < lit.length; j++) nodes[litHost][lit[j]].style.setProperty('--k', '0');
+    lit = [];
+  };
   const follow = e => {
     const now = performance.now();
     if (now - last < 16) return;                // one pass per frame's worth of time,
@@ -400,7 +426,7 @@ function makeWall(hosts, opts) {
       const r = hosts[hi].el.getBoundingClientRect();
       if (!r.width || r.bottom < 0 || r.top > innerHeight) continue;
       if (e.clientY < r.top || e.clientY > r.bottom) continue;
-      light(((e.clientX - r.left) / r.width) * 100,
+      light(e.clientX - r.left,
             ((e.clientY - r.top) / r.height) * 100 + (hosts[hi].offset || 0), hi);
       return;
     }
@@ -469,7 +495,7 @@ if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
 // fine columns would read as stripes, and that many panels cannot be lit on every pass.
 [['groundOne', 20903], ['groundTwo', 50411]].forEach(([id, seed]) => {
   const el = document.getElementById(id);
-  if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 20, grain: 3.6 });
+  if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 24, grain: 2 });
 });
 
 function onScroll() {
