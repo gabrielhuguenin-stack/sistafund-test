@@ -866,9 +866,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .faq-item[open] .faq-x { transform: rotate(45deg); }
 .faq-item p {
-  padding: 0 6px 34px; max-width: none;
+  padding: 0 6px 34px;
   color: var(--grey); font-size: clamp(1.05rem, 1.35vw, 1.35rem); line-height: 1.55;
-  max-width: 74ch;
+  /* the answer stops at 92 characters and not at the edge of the page: on 1 590 px a line
+     would run to 150 characters, and the eye loses the start of the next one */
+  max-width: 92ch;
 }
 /* extra questions stay folded until "Show all"; height animates via grid-rows */
 .faq-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
@@ -958,12 +960,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    sides exactly as the portfolio rows are */
 .news-run {
   margin-top: 7vh; overflow: hidden;
-  --fade: 76px;
+  --fade: 48px;
   -webkit-mask-image: var(--fade-x);
   mask-image: var(--fade-x);
 }
 .news-track { display: flex; gap: 2vw; width: max-content; will-change: transform; }
-.ncard--min { width: clamp(260px, 25vw, 400px); }
+.ncard--min { width: clamp(300px, 27vw, 470px); }
 .ncard--min .ncard-shot { aspect-ratio: 4 / 3; }
 .ncard--min .ncard-title { font-size: clamp(1.1rem, 1.35vw, 1.4rem); line-height: 1.28; }
 .news-cta { display: flex; justify-content: center; margin-top: 7vh; }
