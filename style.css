@@ -535,18 +535,18 @@ main section[id] { scroll-margin-top: 60px; }
    ground of the page is continuous and the hand brings the yellow out wherever it goes.
    Kept almost invisible at rest: it is a ground, not a decoration. */
 .portfolio, .team, .news, .faq { position: relative; }
-.head-wall, .rows-wall {
-  z-index: 0;
-  /* a field that stops on a straight edge draws a line across the page: it is faded into
-     the cream at its top and foot, so the yellow appears and goes without an edge. The
-     mask is applied after the blur, so the panels keep their material. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%);
-}
-/* the rows of plates stand on the ground too: the plates are cream and opaque, so the
-   field shows in the gutters between them and the section reads as one surface */
+/* ONE GROUND PER STRETCH OF CREAM, edge to edge. A field per section head meant a
+   junction between every band and the next, and fading their edges only turned a line into
+   a fading line — still something to see. So the whole cream run (portfolio + team, then
+   news + FAQ) stands on a single field: it begins where the black band above it ends and
+   stops where the next one starts, so there is no cream-to-field edge anywhere.
+   The grain is coarser than the hero's (`grain` in `makeWall`): over three thousand pixels
+   the hero's fine columns would have read as stripes, and a wall that tall at that grain
+   costs four hundred panels to light on every pointer pass. */
+.ground { position: relative; }
+.ground > :not(.ground-wall) { position: relative; z-index: 1; }
+.ground-wall { z-index: 0; }
 .pf-rows { position: relative; }
-.pf-rows > :not(.rows-wall) { position: relative; z-index: 1; }
 .portfolio > :not(.head-wall), .team > :not(.head-wall),
 .news > :not(.head-wall), .faq > :not(.head-wall) { position: relative; z-index: 1; }
 /* the field is generated past its edges for the blur, so the section clips it */
@@ -557,14 +557,11 @@ main section[id] { scroll-margin-top: 60px; }
    along its foot, the block being the size of the frame and simply offset. Used by the
    open page of a cascade, the fixed picture under a page title, and the company boxes.
    Not by the repeated thumbnails — eight pixels on forty tiles is noise, not emphasis. */
-/* a company box has its own ground, so the band is cast outside it rather than behind:
-   an offset copy clipped to what falls past the left side and the foot. It waits for
-   the pointer — the box earns the band, it does not wear it at rest. */
-.pf-card:hover, .pf-all-card:hover,
-.comm-cell:hover, .lp:hover .lp-photo,
-.member:hover .member-photo, .news-card:hover .news-img {
-  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
-}
+/* NO BAND UNDER THE POINTER. A photograph answers by showing what it holds — the founders
+   behind a logo, the name over a face, the presentation over a portrait — and that is the
+   whole answer. The band stays where it belongs: on the frames that wear it permanently —
+   the print in hand of a page opening, the company card, the manifesto plate — never as a
+   hover state. */
 /* in a grid with no gutters the band would slide under the next tile */
 .comm-cell:hover { z-index: 3; }
 
@@ -660,7 +657,6 @@ main section[id] { scroll-margin-top: 60px; }
 /* the settled clip-path of an image reveal is inset(0 0 0 0), and a clip-path cuts the
    box-shadow too: the band would be shaved off. Leave it the room it needs. */
 html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
-.team-face:hover { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .team-face:hover img { filter: grayscale(.15) contrast(1.02); }
 .team-face .pcf-tag { padding: 3.4em 1em .9em; }
 .team-face .pcf-tag b { font-size: clamp(.86rem, 1.02vw, 1.02rem); }
@@ -927,7 +923,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   filter: grayscale(1) contrast(1.05);
   transition: filter .6s var(--ease), transform .8s var(--ease);
 }
-.ncard:hover .ncard-shot { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .ncard:hover .ncard-shot img { filter: grayscale(.2) contrast(1.02); }
 .ncard-say { display: block; }
 .ncard-meta {
@@ -1107,9 +1102,14 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .footer { background: var(--ink); color: var(--paper); padding: 7vh 4vw 30px; }
 .footer-top {
   display: flex; justify-content: space-between; align-items: flex-start;
-  gap: 8vw; flex-wrap: wrap; margin-bottom: 5vh;
+  gap: 8vw; flex-wrap: wrap; margin-bottom: 3.4vh;
 }
-.footer-legal-block { display: flex; flex-direction: column; gap: 20px; max-width: 620px; }
+/* the note runs the full width of the page on its own line: on a 620px measure it stacked
+   five lines deep and it was the note, not the columns, that set the height of the footer */
+.footer-legal-block {
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 3vh;
+}
 .footer-cols { display: flex; gap: 5vw; flex-wrap: wrap; align-items: flex-start; }
 .footer-col { display: flex; flex-direction: column; gap: 6px; }
 .footer-head {
@@ -1138,7 +1138,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    room in that column, so it takes it. */
 .footer-legal {
   font-size: clamp(.92rem, 1.02vw, 1.05rem); color: rgba(250, 248, 240, .72);
-  line-height: 1.55; max-width: 62ch;
+  line-height: 1.5;
 }
 .footer-copy {
   font-family: var(--display); text-transform: uppercase;
@@ -1659,7 +1659,7 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
   border: 1.5px solid var(--ink);
   transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s, background .3s;
 }
-.news-tile:hover { transform: translateY(-5px); box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
+.news-tile:hover { transform: translateY(-5px); }
 .nt-photo {
   aspect-ratio: 16 / 10; overflow: hidden; flex-shrink: 0;
   border-bottom: 1.5px solid var(--ink); background: var(--line);
@@ -1787,7 +1787,6 @@ body > main, body > footer { position: relative; z-index: 1; }
   margin-bottom: 14px;
   transition: box-shadow .3s var(--ease);
 }
-.m-stmt:hover { box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow); }
 .m-claim {
   font-family: var(--display); text-transform: uppercase;
   line-height: .97; max-width: 24ch;

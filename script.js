@@ -462,15 +462,15 @@ const statsWall = document.getElementById('statsWall');
 if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
   { seed: 71042, span: 100, rest: 0.22, reach: 20 });
 
-// the other section heads stand on the same ground: one field each, almost invisible at
-// rest, so the yellow only comes up under the hand. Separate instances rather than one
-// wide one: a pointer pass then only touches the field the hand is actually over.
-[['pfHeadWall', 11701], ['pfRowsWall', 20903], ['teamHeadWall', 31013],
- ['newsHeadWall', 50411], ['faqHeadWall', 70207]]
-  .forEach(([id, seed]) => {
-    const el = document.getElementById(id);
-    if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 22, grain: 1.9 });
-  });
+// ONE FIELD PER STRETCH OF CREAM. A field behind each section head meant a junction
+// between every band and the next; fading their edges only turned a line into a fading
+// line. Each of these runs edge to edge between two black bands, so there is nothing to
+// see where the ground begins. The grain is coarse: over three thousand pixels the hero's
+// fine columns would read as stripes, and that many panels cannot be lit on every pass.
+[['groundOne', 20903], ['groundTwo', 50411]].forEach(([id, seed]) => {
+  const el = document.getElementById(id);
+  if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 20, grain: 3.6 });
+});
 
 function onScroll() {
   const y = window.scrollY;
