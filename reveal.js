@@ -44,10 +44,13 @@
   const card = (i, kind) => {
     const [date, source, title, url] = window.NEWS[i];
     const a = document.createElement('a');
-    a.className = 'ncard ' + kind;
+    a.className = 'ncard ' + kind + (shots[i] ? '' : ' ncard--nofoto');
     a.href = url; a.target = '_blank'; a.rel = 'noopener';
+    // a picture that 404s takes its frame with it and the card falls back to one column,
+    // rather than showing a hole where the photograph should be
     a.innerHTML = (shots[i]
-        ? `<figure class="ncard-shot"><img src="img/news/${shots[i]}" alt="${title}"${i ? ' loading="lazy"' : ''}></figure>`
+        ? `<figure class="ncard-shot"><img src="img/news/${shots[i]}" alt="${title}"${i ? ' loading="lazy"' : ''}` +
+          ` onerror="this.closest('.ncard').classList.add('ncard--nofoto');this.closest('.ncard-shot').remove()"></figure>`
         : '') +
       `<span class="ncard-say">` +
         `<span class="ncard-meta"><b>${source}</b><i>${date}</i></span>` +

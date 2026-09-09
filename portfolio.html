@@ -6,7 +6,7 @@
 <title>SISTAFUND | Portfolio</title>
 <meta name="description" content="The SISTAFUND portfolio — companies founded or co-founded by women across Frontier Tech, HealthTech and Sustainability.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=264">
+<link rel="stylesheet" href="style.css?v=265">
 </head>
 <body class="loaded nav-ready">
 
@@ -17,7 +17,7 @@
   <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SISTAFUND"></a>
   <nav class="nav-links">
     <a href="manifesto.html">Manifesto</a>
-    <a href="portfolio.html">Portfolio<sup class="nav-count">(15)</sup></a>
+    <a href="portfolio.html">Portfolio<sup class="nav-count">(16)</sup></a>
     <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
     <a href="community.html">Community</a>
     <a href="news.html">News</a>
@@ -27,7 +27,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="manifesto.html">Manifesto</a>
-  <a href="portfolio.html">Portfolio<sup class="nav-count">(15)</sup></a>
+  <a href="portfolio.html">Portfolio<sup class="nav-count">(16)</sup></a>
   <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
   <a href="community.html">Community</a>
   <a href="news.html">News</a>
@@ -123,7 +123,7 @@
   </div>
 </footer>
 
-<script src="data.js?v=11"></script>
+<script src="data.js?v=12"></script>
 <script>
   // nav + mobile menu
   const nav = document.getElementById('nav');
@@ -140,8 +140,12 @@
     b.setAttribute('data-reveal', '');
     b.dataset.sector = c[1];
     b.dataset.co = key;
-    b.innerHTML = `<span class="pf-logo"><img src="img/logos/${c[2]}" alt="${c[0]}" loading="lazy"></span>` +
-      `<span class="pf-shot"><img src="img/founders/${key}.jpg" alt="Founders of ${c[0]}" loading="lazy"></span>`;
+    // a logo or a founders photo that has not arrived yet leaves the name in its place
+    // rather than an empty plate
+    b.innerHTML = `<span class="pf-logo"><img src="img/logos/${c[2]}" alt="${c[0]}" loading="lazy"` +
+      ` onerror="this.parentElement.classList.add('pf-logo--word');this.parentElement.textContent='${c[0]}'"></span>` +
+      `<span class="pf-shot"><img src="img/founders/${key}.jpg" alt="Founders of ${c[0]}" loading="lazy"` +
+      ` onerror="this.closest('.pf-shot').remove()"></span>`;
     grid.appendChild(b);
   });
 
@@ -190,7 +194,7 @@
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
-<script src="reveal.js?v=32"></script>
+<script src="reveal.js?v=34"></script>
 
 </body>
 </html>

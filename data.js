@@ -4,6 +4,7 @@
 window.COMPANIES = {
   /* [name, sector, logo, description, founders, location, founded, partnered]
      wording taken verbatim from sistafund.com */
+  rebaba: ['Rebaba', 'Sustainability', 'rebaba.png', 'Powering the future with circular battery energy storage systems.', 'Paula Runsten, Felix Kruse', 'Stockholm, Sweden', '2023', '2026'],
   pave: ['Pave Space', 'Frontier Tech', 'pave.png', 'Heavy kickstage to unlock orbital logistics.', 'Julie Böhning, Jérémy Marciacq', 'Vaud, Switzerland', '2023', '2026'],
   waiv: ['Waiv', 'HealthTech', 'waiv.png', 'Accelerating AI-enabled precision oncology testing.', 'Meriem Sefta, Lionel Guillou', 'Paris', '2025', ''],
   recupere: ['Recupere Metals', 'Sustainability', 'recupere.png', 'Patented mechanical process producing electrical-grade copper wire from 100% recycled scrap.', 'Katie Marsh, Julien Vaïssette', 'Paris', '2025', '2025'],
@@ -53,6 +54,8 @@ window.LPS = [
 
 /* Press & news — [date, source, title, url], newest first */
 window.NEWS = [
+  ["09/09/2026", "Rebaba", "Retired EV batteries still have up to 80% of their useful life remaining. Rebaba gives them a second shot, and just closed a $4.6M round.", "https://rebaba.se/news/rebaba-closes-4-6-million-seed-round"],
+  ["08/09/2026", "The Exploration Company", "Our first unicorn! The Exploration Company secures $450 million in the largest-ever Series C by a European space company.", "https://www.exploration.space/blog/the-exploration-company-series-c-450-million"],
   ["01/09/2026", "LinkedIn", "We can track our sleep, our heart and our steps, but not our gut. Suna Health changes that, and just raised £3M!", "https://www.linkedin.com/feed/update/urn:li:activity:7500891946991648768"],
   ["21/08/2026", "The Times", "The ocean is the world's biggest blind spot. Oshen is closing it, and just raised $5M to accelerate!", "https://www.thetimes.com/business/entrepreneurs/article/uk-start-up-raises-5m-track-russian-subs-royal-navy-vq3pprs5k"],
   ["25/03/2026", "Portfolio", "Redefining the last mile of space: PAVE Space raises $40M!", "https://pave.space/page/homepage"],
@@ -118,7 +121,7 @@ window.NEWS = [
 
 /* per-article thumbnails pulled from sistafund.com/news, same order as NEWS */
 window.NEWS_IMG = [
-  "suna-3m.jpg","n00.jpg", "n01.webp", "n02.jpg", "n03.jpg", "n04.jpg", "n05.jpeg", "n06.jpeg", "n07.jpeg", "n08.jpeg", "n09.jpeg", "n10.jpeg", "n11.jpeg", "n12.jpeg", "n13.jpeg", "n14.jpeg", "n15.jpeg", "n16.jpeg", "n17.jpeg", "n18.png", "n19.jpg", "n20.jpeg", "n21.jpg", "n22.webp", "n23.jpeg", "n24.png", "n25.jpeg", "n26.jpg", "n27.png", "n28.jpeg", "n29.png", "n30.png", "n31.png", "n32.webp", "n33.jpg", "n34.jpeg", "n35.webp", "n36.jpg", "n37.png", "n38.webp", "n39.png", "n40.webp", "n41.webp", "n42.png", "n43.jpeg", "n44.jpg", "n45.webp", "n46.webp", "n47.png", "n48.webp", "n49.png", "n50.jpg", "n51.png", "n52.jpg", "n53.jpg", "n54.png", "n55.png", "n56.webp", "n57.jpg", "n58.jpg", "n59.png"];
+  "rebaba-46m.jpg", "tec-unicorn.jpg", "suna-3m.jpg","n00.jpg", "n01.webp", "n02.jpg", "n03.jpg", "n04.jpg", "n05.jpeg", "n06.jpeg", "n07.jpeg", "n08.jpeg", "n09.jpeg", "n10.jpeg", "n11.jpeg", "n12.jpeg", "n13.jpeg", "n14.jpeg", "n15.jpeg", "n16.jpeg", "n17.jpeg", "n18.png", "n19.jpg", "n20.jpeg", "n21.jpg", "n22.webp", "n23.jpeg", "n24.png", "n25.jpeg", "n26.jpg", "n27.png", "n28.jpeg", "n29.png", "n30.png", "n31.png", "n32.webp", "n33.jpg", "n34.jpeg", "n35.webp", "n36.jpg", "n37.png", "n38.webp", "n39.png", "n40.webp", "n41.webp", "n42.png", "n43.jpeg", "n44.jpg", "n45.webp", "n46.webp", "n47.png", "n48.webp", "n49.png", "n50.jpg", "n51.png", "n52.jpg", "n53.jpg", "n54.png", "n55.png", "n56.webp", "n57.jpg", "n58.jpg", "n59.png"];
 
 
 /* FAQ — questions and answers copied verbatim from sistafund.com/faq */

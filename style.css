@@ -629,6 +629,12 @@ main section[id] { scroll-margin-top: 60px; }
   border-bottom: 1.5px solid var(--ink); padding: 20px;
 }
 .pf-logo img { max-height: 62px; max-width: 62%; object-fit: contain; }
+/* a logo that has not arrived yet: the name stands in its place, in the house display */
+.pf-logo--word {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.1rem, 1.5vw, 1.6rem); letter-spacing: .02em; color: var(--ink);
+  text-align: center; line-height: 1.05;
+}
 
 /* ============ Team ============ */
 /* The home's gallery is a composition, not a line: two portraits at the top left, three
@@ -921,6 +927,8 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: box-shadow .3s var(--ease);
 }
 .ncard--lead .ncard-shot { margin: 0; aspect-ratio: 4 / 3; }
+/* a story whose picture has not arrived keeps its size, on one column */
+.ncard--lead.ncard--nofoto { grid-template-columns: minmax(0, 1fr); }
 .ncard-shot img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;
