@@ -543,7 +543,11 @@ main section[id] { scroll-margin-top: 60px; }
    The grain is coarser than the hero's (`grain` in `makeWall`): over three thousand pixels
    the hero's fine columns would have read as stripes, and a wall that tall at that grain
    costs four hundred panels to light on every pointer pass. */
-.ground { position: relative; }
+/* The wrapper is what clips the field, and it must: the panels are generated 9 % past
+   every edge for the blur to have material, so without this the clouds spilled 285 px
+   into the black band above and the black section below. The wall itself stays
+   `overflow: visible` — the clip has to happen on the ancestor, after the filter. */
+.ground { position: relative; overflow: hidden; }
 .ground > :not(.ground-wall) { position: relative; z-index: 1; }
 .ground-wall { z-index: 0; }
 .pf-rows { position: relative; }
