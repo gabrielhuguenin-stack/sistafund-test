@@ -17,10 +17,12 @@
 }
 
 :root {
-  /* ONE LATERAL FADE, written once. The distance is in pixels, not per cent, so it does
-     not change with the width of the block; and it is tuned per block, because the same
-     distance reads strong over a photograph and disappears over cream. */
-  --fade: 90px;
+  /* ONE LATERAL FADE, written once, and ONE DISTANCE: 120 px, in pixels so it does not
+     change with the width of the block. Tuning it per block (132 for the plates, 48 for the
+     press) was a mistake: a short fade is not a soft one — it is an abrupt one, and on a
+     photograph it read harder than the long fade on the pale plates. Same distance for all,
+     same gesture. */
+  --fade: 120px;
   --fade-x: linear-gradient(to right, transparent 0, #000 var(--fade),
                             #000 calc(100% - var(--fade)), transparent 100%);
   --yellow: #FFF868;
@@ -598,9 +600,6 @@ main section[id] { scroll-margin-top: 60px; }
    the page the way a portrait leaves the community's stage */
 .pf-rows {
   padding: 4vh 0 5vh; overflow: hidden;
-  /* the pale plates need a longer run to read as a fade at all: a distance that is plainly
-     visible over a photograph is nearly invisible over cream */
-  --fade: 132px;
   -webkit-mask-image: var(--fade-x);
   mask-image: var(--fade-x);
 }
@@ -790,7 +789,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   /* the columns are masked into the ground on all four edges, so a portrait comes out of
      the black and goes back into it — sideways as well as vertically, the way the
      portfolio rows leave the page */
-  --fade: 64px;
   -webkit-mask-image:
     linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%),
     var(--fade-x);
@@ -960,7 +958,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    sides exactly as the portfolio rows are */
 .news-run {
   margin-top: 7vh; overflow: hidden;
-  --fade: 48px;
   -webkit-mask-image: var(--fade-x);
   mask-image: var(--fade-x);
 }
