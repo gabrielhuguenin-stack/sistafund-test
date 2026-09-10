@@ -251,43 +251,79 @@ const LPS = window.LPS || [];
    middle of them — the names run around the block instead of beside it. Nothing moves at
    rest; a name lights yellow under the hand. Each name carries its company in Portrait,
    which is what separates one from the next: no bullet, no rule between words. */
+/* THE COMMUNITY, WRITTEN AND SCATTERED. The community is its names, and they are strewn
+   across the black rather than set on lines: four paragraphs around the words still read as
+   four paragraphs. Each name is placed at a free position drawn from a FIXED seed — same
+   scatter at every visit — refused if it would land on the block of words or on a name
+   already down. Text cannot flow around a centred block, so the names are not text here:
+   they are placed. */
 const commRoll = document.getElementById('commRoll');
+let commNames = [];
 (function () {
   if (!commRoll || !LPS.length) return;
-  // the names that open the field are the ones a visitor recognises
   const FIRST = ['Adrien Nussenbaum', 'Céline Lazorthes', 'Nathalie Balla',
                  'Steve Anavi', 'Philippe Oddo', 'Cédric Sellin'];
   const rank = n => { const i = FIRST.indexOf(n); return i < 0 ? FIRST.length : i; };
   const order = LPS.map((m, i) => ({ m, i })).sort((a, b) =>
     (rank(a.m[0]) - rank(b.m[0])) || (a.i - b.i)).map(o => o.m);
 
-  /* Four runs around the words: above, on either side, and below. A single float only ever
-     has text down one of its sides, so the block could never sit in the middle of the
-     field — it has to be the field that is cut into four. */
-  const runs = ['top', 'left', 'right', 'bottom']
-    .map(k => commRoll.querySelector(`[data-run="${k}"]`));
-  const share = [7, 6, 6, order.length - 19];
-
-  // a fixed seed, so the scatter is the same at every visit
-  let seed = 40711;
-  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
-
-  let k = 0;
-  runs.forEach((run, r) => {
-    if (!run) return;
-    for (let n = 0; n < share[r] && k < order.length; n++, k++) {
-      const [name, org] = order[k];
-      const a = document.createElement('span');
-      a.className = 'comm-name';
-      // each name sits a little off the line and carries its own space: set flush they
-      // read as a ruler, and this section is a roll, not a table
-      a.style.setProperty('--dy', ((rnd() - 0.5) * 1.1).toFixed(2) + 'em');
-      a.style.setProperty('--gap', (0.9 + rnd() * 1.5).toFixed(2) + 'em');
-      a.innerHTML = `${name}<i>${org}</i>`;
-      run.appendChild(a);
-    }
+  order.forEach(([name, org]) => {
+    const a = document.createElement('span');
+    a.className = 'comm-name';
+    a.innerHTML = `${name}<i>${org}</i>`;
+    commRoll.appendChild(a);
+    commNames.push(a);
   });
 })();
+
+function scatterNames() {
+  if (!commNames.length) return;
+  const loose = matchMedia('(max-width: 900px)').matches;
+  if (loose) { commNames.forEach(n => { n.style.left = ''; n.style.top = ''; }); return; }
+
+  const field = commRoll.getBoundingClientRect();
+  const W = commRoll.clientWidth, H = commRoll.clientHeight;
+  if (!W || !H) return;
+  const wb = commRoll.querySelector('.comm-words').getBoundingClientRect();
+  // the room the words hold, in the field's own coordinates, with air around it
+  const hole = { x0: wb.left - field.left - 34, x1: wb.right - field.left + 34,
+                 y0: wb.top - field.top - 26, y1: wb.bottom - field.top + 26 };
+
+  let seed = 40711;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  const hits = (a, b) => a.x0 < b.x1 && b.x0 < a.x1 && a.y0 < b.y1 && b.y0 < a.y1;
+  const placed = [];
+
+  commNames.forEach(el => {
+    el.style.left = '0px'; el.style.top = '0px';
+    const w = el.offsetWidth, h = el.offsetHeight;
+    let best = null, bestPen = Infinity;
+    for (let t = 0; t < 260; t++) {
+      const box = { x0: rnd() * Math.max(W - w, 1), y0: rnd() * Math.max(H - h, 1) };
+      box.x1 = box.x0 + w; box.y1 = box.y0 + h;
+      if (hits(box, hole)) continue;
+      // a little air between two names, so the field breathes instead of clotting
+      const pad = { x0: box.x0 - 16, x1: box.x1 + 16, y0: box.y0 - 9, y1: box.y1 + 9 };
+      const clash = placed.filter(p => hits(pad, p)).length;
+      if (!clash) { best = box; break; }
+      if (clash < bestPen) { bestPen = clash; best = box; }
+    }
+    if (!best) best = { x0: 0, y0: 0, x1: w, y1: h };
+    el.style.left = Math.round(best.x0) + 'px';
+    el.style.top = Math.round(best.y0) + 'px';
+    placed.push(best);
+  });
+}
+addEventListener('load', scatterNames);
+// the width of a name depends on the face that draws it: place them again once the fonts
+// are in, or the scatter is computed on the fallback's metrics
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(scatterNames);
+let scatterTimer = null;
+addEventListener('resize', () => {
+  clearTimeout(scatterTimer);
+  scatterTimer = setTimeout(scatterNames, 160);
+}, { passive: true });
+scatterNames();
 
 // ---------- Scroll loop ----------
 const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
