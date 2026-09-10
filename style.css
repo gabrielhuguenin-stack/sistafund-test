@@ -1106,7 +1106,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .footer-say .cta-title .line > span { transform: none; }
 .footer-say .cta-title .line { text-align: right; }
+/* in the footer the address is a label, not a button: no rule under it, and it takes the
+   yellow under the hand like every other link down here */
 .cta-btn { margin: 0; flex: 0 0 auto; font-size: clamp(1rem, 1.18vw, 1.25rem); }
+.footer-say .cta-btn { border-bottom: 0; padding-bottom: 0; }
+.footer-say .cta-btn::after { display: none; }
+.footer-say .cta-btn:hover { color: var(--yellow); }
 @media (max-width: 900px) {
   .footer-say { text-align: left; margin-left: 0; justify-content: flex-start; gap: 2.4vh; }
   .footer-say .cta-title .line { text-align: left; }
@@ -1156,15 +1161,18 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .footer-copy {
   font-family: var(--display); text-transform: uppercase;
-  letter-spacing: .08em; font-size: .95rem; color: rgba(250, 248, 240, .82);
+  letter-spacing: .08em; font-size: .8rem; color: rgba(250, 248, 240, .82);
 }
+/* one closing line: the copyright at one end, the three notes at the other, and the rule
+   above them both — nothing hangs below it */
 .footer-bottom {
-  display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 16px;
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px 28px;
   padding-top: 22px; border-top: 1px solid var(--line-light);
   font-family: var(--display); text-transform: uppercase; font-size: .8rem;
   letter-spacing: .08em;
 }
-.footer-bottom div { display: flex; gap: 28px; }
+.footer-notes { display: flex; gap: 28px; flex-wrap: wrap; }
 .footer-bottom a:hover { color: var(--yellow); }
 
 /* ============ Overlays ============ */
