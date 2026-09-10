@@ -261,7 +261,15 @@ const commCols = [];
     commStage.appendChild(c);
     commCols.push(c);
   }
-  LPS.forEach(([name, org, file], i) => {
+  /* the names that open the columns: they are the ones a visitor recognises, so they are
+     the ones on screen when the section arrives. The rest follow in their own order. */
+  const FIRST = ['Adrien Nussenbaum', 'Céline Lazorthes', 'Nathalie Balla',
+                 'Steve Anavi', 'Philippe Oddo', 'Cédric Sellin'];
+  const rank = n => { const i = FIRST.indexOf(n); return i < 0 ? FIRST.length : i; };
+  const order = LPS.map((m, i) => ({ m, i })).sort((a, b) =>
+    (rank(a.m[0]) - rank(b.m[0])) || (a.i - b.i)).map(o => o.m);
+
+  order.forEach(([name, org, file], i) => {
     const d = document.createElement('div');
     d.className = 'comm-cell';
     d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +

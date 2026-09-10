@@ -920,7 +920,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .ncard--lead {
   grid-column: 1 / -1;
   display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
-  gap: 2.6vw; align-items: center;
+  gap: 2.6vw; align-items: start;
 }
 .ncard-shot {
   position: relative; margin: 0 0 1.6vh; overflow: hidden;
@@ -1016,7 +1016,8 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .nmc--lead .nmc-photo { flex: 0 0 54%; aspect-ratio: 16 / 10; }
 .nmc--lead .nmc-body {
-  display: flex; flex-direction: column; justify-content: center; gap: 1.4vh;
+  /* the headline starts on the top edge of the picture, it is not centred on its height */
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 1.4vh;
   min-width: 0;
 }
 .nmc--lead .nmc-title { font-size: clamp(1.6rem, 3.1vw, 3.1rem); line-height: 1.16; }
@@ -1106,7 +1107,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    headline. h2 is display and uppercase by default, hence the reset. */
 .cta-title {
   position: relative; font-family: var(--serif); text-transform: none;
-  font-size: clamp(1.6rem, 2.9vw, 3rem); line-height: 1.12; letter-spacing: -.02em;
+  font-size: clamp(1.35rem, 2.1vw, 2.2rem); line-height: 1.12; letter-spacing: -.02em;
 }
 .cta-title .line { display: block; overflow: hidden; }
 .cta-title .line > span {
@@ -1121,7 +1122,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 /* no masked rise down here: the lines are simply there. The reveal was keyed on `.cta`
    coming into view, and only the home page runs that observer — on the five other pages
    the question would have stayed hidden under its mask for ever. */
-.footer-say { text-align: right; margin-left: auto; }
+.footer-say { text-align: right; margin-left: auto; max-width: 62%; }
 .footer-say .cta-title .line > span { transform: none; }
 .footer-say .cta-title .line { text-align: right; }
 .cta-btn { margin: 3.4vh 0 0 auto; }
@@ -1364,7 +1365,6 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   background: var(--paper); color: var(--ink);
   width: min(1120px, 92vw);
   border: 1.5px solid var(--ink);
-  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
   padding: 0;
   transform: translateY(30px) scale(.97);
   transition: transform .5s var(--ease);
@@ -1598,12 +1598,8 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
   position: absolute; inset: 51px 51px 0 0;
   transition: transform 1s var(--ease), opacity .9s var(--ease);
 }
-/* the print in hand carries the thin yellow band down its left side and along its foot,
-   the way every frame of the site does */
-.pcq.is-top {
-  z-index: 9; transform: none;
-  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
-}
+/* the print in hand carries nothing but itself: no yellow block behind the frame */
+.pcq.is-top { z-index: 9; transform: none; }
 .pcq.is-back { z-index: calc(9 - var(--p)); opacity: 1; }
 /* beyond the third, a print is out of the pile: it waits there for its turn to be laid */
 .pcq.is-far { z-index: 0; opacity: 0; }
@@ -1842,7 +1838,6 @@ body > main, body > footer { position: relative; z-index: 1; }
   position: relative;
   aspect-ratio: 16 / 6; overflow: hidden;
   border: 1.5px solid var(--ink);
-  box-shadow: calc(-1 * var(--band)) var(--band) 0 var(--yellow);
 }
 .m-plate img {
   position: absolute; inset: 0; width: 100%; height: 100%;
