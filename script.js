@@ -227,7 +227,6 @@ if (aboutIntro) {
 
 // ---------- Portfolio: crossing rows ----------
 const PF_TRAVEL = 0.36;   // share of the track's overflow crossed per screen of scroll
-const COMM_TRAVEL = 0.42; // share of a community column's overflow crossed
 const NEWS_TRAVEL = 0.72; // a share of the run's overflow: calm, and it still shows most of itself
 let newsRun;
 const pfRows = document.querySelectorAll('.pf-row');
@@ -247,64 +246,34 @@ pfRows.forEach(row => {
 // waves as the section crosses the screen. Same idea as the rest of the page — the
 // structure exists first, the content arrives into it.
 const LPS = window.LPS || [];
-/* THE COMMUNITY passes rather than arrives: four columns of portraits that travel
-   vertically as the section crosses the screen, two up and two down, the way the portfolio
-   rows cross horizontally. No cards sliding in from the side — that read as a widget, not
-   as a page — and no wall of written names. */
-const commStage = document.getElementById('commStage');
-const commCols = [];
+/* THE COMMUNITY, WRITTEN. Not a band of photographs travelling on its own: the community is
+   its names, set as one field of display capitals on the ink, and the words stand in the
+   middle of them — the names run around the block instead of beside it. Nothing moves at
+   rest; a name lights yellow under the hand. Each name carries its company in Portrait,
+   which is what separates one from the next: no bullet, no rule between words. */
+const commRoll = document.getElementById('commRoll');
 (function () {
-  if (!commStage || !LPS.length) return;
-  const N = 3;
-  for (let k = 0; k < N; k++) {
-    const c = document.createElement('div');
-    c.className = 'comm-col';
-    commStage.appendChild(c);
-    commCols.push(c);
-  }
-  /* the names that open the columns: they are the ones a visitor recognises, so they are
-     the ones on screen when the section arrives. The rest follow in their own order. */
+  if (!commRoll || !LPS.length) return;
+  // the names that open the field are the ones a visitor recognises
   const FIRST = ['Adrien Nussenbaum', 'Céline Lazorthes', 'Nathalie Balla',
                  'Steve Anavi', 'Philippe Oddo', 'Cédric Sellin'];
   const rank = n => { const i = FIRST.indexOf(n); return i < 0 ? FIRST.length : i; };
   const order = LPS.map((m, i) => ({ m, i })).sort((a, b) =>
     (rank(a.m[0]) - rank(b.m[0])) || (a.i - b.i)).map(o => o.m);
 
-  order.forEach(([name, org, file], i) => {
-    const d = document.createElement('div');
-    d.className = 'comm-cell';
-    d.innerHTML = `<img src="img/community/${file}" alt="${name}" loading="lazy">` +
-      `<span class="comm-tag"><b>${name}</b><i>${org}</i></span>`;
-    commCols[i % N].appendChild(d);
+  /* The block of words is moved into the middle of the flow rather than left at its head:
+     a float at the start of a paragraph has nothing above it, so the names only ran beside
+     it. Set after the first few, the names run above it, then around it, then under it. */
+  const words = commRoll.querySelector('.comm-words');
+  const OPEN = 5;
+  order.forEach(([name, org], i) => {
+    if (i === OPEN && words) commRoll.appendChild(words);
+    const a = document.createElement('span');
+    a.className = 'comm-name';
+    a.innerHTML = `${name}<i>${org}</i>`;
+    commRoll.appendChild(a);
   });
 })();
-/* A column moving up starts at the top of its travel and ends at the foot; one moving down
-   does the reverse. Written that way neither ever shows the floor of the stage.
-   The travel is measured on the last portrait, not on scrollHeight: the columns are grid
-   items, so they all report the height of the tallest one — the short column would then
-   travel too far and open a hole under itself. */
-let commTravel = [];
-function measureCommunity() {
-  commTravel = commCols.map(col => {
-    const top = col.getBoundingClientRect().top;
-    const foot = col.lastElementChild.getBoundingClientRect().bottom;
-    return Math.max(foot - top - commStage.clientHeight, 0);
-  });
-}
-function moveCommunity(vh) {
-  if (!commCols.length) return;
-  const r = commStage.getBoundingClientRect();
-  if (r.bottom < -200 || r.top > vh + 200) return;
-  if (!commTravel.length) measureCommunity();
-  const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-  commCols.forEach((col, i) => {
-    // a share of the travel, not all of it: at full speed the faces that open the columns
-    // were gone before they could be read, and a fast pass does not read as premium
-    const travel = (commTravel[i] || 0) * COMM_TRAVEL;
-    const y = i % 2 === 0 ? -travel * p : -travel * (1 - p);
-    col.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
-  });
-}
 
 // ---------- Scroll loop ----------
 const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
@@ -582,14 +551,12 @@ function onScroll() {
     img.style.setProperty('--py', (-2 - p * 12).toFixed(2) + '%');
   });
 
-  // community: the columns pass as the section crosses
-  moveCommunity(vh);
 
   sweepMissed(vh);
 }
 window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', () => { commTravel = []; onScroll(); }, { passive: true });
-addEventListener('load', () => { commTravel = []; onScroll(); });
+window.addEventListener('resize', onScroll, { passive: true });
+addEventListener('load', onScroll);
 onScroll();
 
 // ---------- Overlays ----------

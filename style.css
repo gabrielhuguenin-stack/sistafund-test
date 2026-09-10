@@ -566,7 +566,6 @@ main section[id] { scroll-margin-top: 60px; }
    the print in hand of a page opening, the company card, the manifesto plate — never as a
    hover state. */
 /* in a grid with no gutters the band would slide under the next tile */
-.comm-cell:hover { z-index: 3; }
 
 /* ---- who is behind the mark ---- */
 /* Under the pointer the plate turns over: the logo goes and the founders take its place,
@@ -749,68 +748,50 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    Portraits then drop in one by one along the diagonal as the section crosses the
    screen. The words sit inside the grid as a tile of their own, so the sentence is part
    of the structure rather than floating over it. */
-/* THE COMMUNITY passes rather than arrives: four columns of portraits travelling
-   vertically as the section crosses, two up and two down, the way the portfolio rows cross
-   horizontally. Cream like the rest of the page. The words answer from the right — the
-   other way round from every other section, which is the point. */
-/* On the ink: the section marks a change of ground in the scroll, and the photographs
-   are what lights it — twenty-seven bright portraits passing over black. The words are
-   cream, and the yellow word takes its outline treatment, a flat yellow being unreadable
-   on black at that size. */
-/* a black band arriving wants more air than a cream section: 20vh above (32vh of gap with
-   the team, against the 26vh the cream sections share) */
-.community { background: var(--ink); color: var(--paper); padding: 20vh 4vw 12vh; }
-.comm-top {
-  display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
-  gap: 4vw; align-items: start;
+/* THE COMMUNITY, WRITTEN. The community is its names: one field of display capitals on the
+   ink, and the words stand in the middle of them — floated, so the names run around the
+   block instead of sitting beside it. Nothing moves at rest, a name lights under the hand.
+   Each name carries its company in Portrait: that is what separates one from the next, so
+   there is no bullet and no rule between words. */
+.community { background: var(--ink); color: var(--paper); padding: 20vh 4vw 16vh; }
+.comm-roll { line-height: 1.85; }
+.comm-roll::after { content: ''; display: block; clear: both; }
+/* the words hold a block in the middle of the field and the names close around it */
+.comm-words {
+  float: right; width: min(36%, 580px);
+  margin: 2vh 0 3vh 4vw;
 }
-/* the words hold the whole height of the columns: the title on their top edge, the button
-   at their foot. Centred as a block in the middle of the column it read as floating. */
-.comm-words { align-self: stretch; display: flex; flex-direction: column; padding: 1vh 0 0; }
-/* the title is a section title like all the others: same body, same masked rise */
 .comm-head { padding: 0 0 1vh; }
 .comm-note  { margin-top: 3.5vh; }
-.comm-cta   { margin-top: auto; }
+.comm-cta   { margin-top: 5vh; }
 .comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 42ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
 /* the words rise as they arrive, the same gesture as every other section head */
 .comm-word > * { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
-/* the stage is the window the columns pass behind */
-/* Three columns, not four: larger prints carry on the ink, and a wall of small ones read
-   as a contact sheet. The columns are not cut by the edge of the stage — they are masked
-   into it, so a portrait comes out of the black and goes back into it instead of being
-   sliced by an invisible line. That is the whole difference in feel. */
-.comm-stage {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4vw;
-  height: min(88vh, 920px); overflow: hidden;
-  /* the columns are masked into the ground on all four edges, so a portrait comes out of
-     the black and goes back into it — sideways as well as vertically, the way the
-     portfolio rows leave the page */
-  -webkit-mask-image:
-    linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%),
-    var(--fade-x);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%),
-    var(--fade-x);
-  mask-composite: intersect;
+.comm-name {
+  /* one unit, never broken across two lines */
+  display: inline-block; white-space: nowrap;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.1rem, 1.78vw, 1.95rem); letter-spacing: .01em;
+  color: var(--paper); margin-right: 1.4em;
+  transition: color .28s var(--ease);
 }
-.comm-col { display: flex; flex-direction: column; gap: 1.4vw; will-change: transform; }
-.comm-cell {
-  position: relative; overflow: hidden; flex: 0 0 auto; aspect-ratio: 4 / 4.6;
-  border: 1.5px solid rgba(250, 248, 240, .22);
-  transition: box-shadow .3s var(--ease);
+.comm-name i {
+  font-style: normal; font-family: var(--serif); text-transform: none;
+  font-size: .82em; letter-spacing: 0; color: rgba(250, 248, 240, .5);
+  margin-left: .42em;
+  transition: color .28s var(--ease);
 }
-.comm-cell img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center 20%;
-  filter: grayscale(1) contrast(1.05);
+.comm-name:hover { color: var(--yellow); }
+.comm-name:hover i { color: rgba(250, 248, 240, .78); }
+@media (max-width: 900px) {
+  .comm-words { float: none; width: auto; margin: 0 0 6vh; }
 }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
-.comm-tag, .pcf-tag {
+.pcf-tag {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
   padding: 3.2em .8em .75em;
   background: linear-gradient(to top,
@@ -818,31 +799,21 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   opacity: 0; transform: translateY(10px);
   transition: opacity .34s var(--ease), transform .46s var(--ease);
 }
-.comm-cell:hover .comm-tag { opacity: 1; transform: none; }
 /* the portraits of the home page's team queue are named the same way */
 .pcf-tag { padding: 3.4em 1.4em 1.1em; z-index: 4; }
 .pcq.is-top:hover .pcf-tag { opacity: 1; transform: none; }
 .pcf-tag b { font-size: clamp(1.05rem, 1.3vw, 1.3rem); letter-spacing: .04em; }
 .pcf-tag i { font-size: clamp(1rem, 1.18vw, 1.18rem); }
-.comm-tag b, .pcf-tag b {
+.pcf-tag b {
   display: block; font-family: var(--display); text-transform: uppercase;
   font-size: .8rem; line-height: 1.05; font-weight: 400;
   color: var(--yellow);
 }
-.comm-tag i, .pcf-tag i {
+.pcf-tag i {
   font-style: normal; font-family: var(--serif);
   font-size: .82rem; color: rgba(250, 248, 240, .82);
 }
 
-@media (max-width: 1100px) {
-  /* the words come out of the composition and sit above the columns */
-  .comm-top { grid-template-columns: 1fr; gap: 5vh; }
-  .comm-words { order: -1; padding-top: 0; }
-  .comm-stage { height: min(72vh, 700px); }
-}
-@media (max-width: 620px) {
-  .comm-stage { height: 62vh; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 /* ============ FAQ ============ */
 .faq { padding: 14vh 4vw 16vh; position: relative; }
 .faq-list { }
