@@ -251,6 +251,42 @@ const LPS = window.LPS || [];
    middle of them — the names run around the block instead of beside it. Nothing moves at
    rest; a name lights yellow under the hand. Each name carries its company in Portrait,
    which is what separates one from the next: no bullet, no rule between words. */
+/* The two frames show more than two pictures, and they do it without any furniture: no
+   arrow, no filling gauge, no dot. It is the SCROLL that turns them — the page's own way of
+   moving — so nothing runs on its own and nothing has to be operated. Each frame keeps its
+   own cycle, so the same picture is never in both at once, and the change is a dissolve:
+   the frame stays where it is, only what it holds changes. The next picture is decoded
+   before anything happens, so a swap never shows an empty frame. */
+const commShots = [...document.querySelectorAll('.comm-shot')];
+const COMM_PICS = ['comm-cocktail.jpg', 'comm-daylight.jpg', 'comm-talking.jpg',
+                   'comm-poilane.jpg', 'comm-fans.jpg'];
+const COMM_STEPS = 3;
+let commStep = -1;
+if (commShots.length) {
+  addEventListener('load', () => COMM_PICS.forEach(f => { new Image().src = 'img/life/' + f; }));
+}
+function swapShot(frame, pic) {
+  const img = frame.querySelector('img');
+  if (img.dataset.pic === pic) return;
+  img.dataset.pic = pic;
+  const next = new Image();
+  next.onload = () => {
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = next.src; img.style.opacity = '1'; }, 380);
+  };
+  next.src = 'img/life/' + pic;
+}
+function turnCommunity(vh) {
+  if (commShots.length < 2) return;
+  const r = commShots[0].parentElement.getBoundingClientRect();
+  if (r.bottom < -200 || r.top > vh + 200) return;
+  const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+  const step = Math.min(COMM_STEPS - 1, Math.floor(p * COMM_STEPS));
+  if (step === commStep) return;
+  commStep = step;
+  commShots.forEach((f, i) => swapShot(f, COMM_PICS[(step * 2 + i) % COMM_PICS.length]));
+}
+
 // ---------- Scroll loop ----------
 const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
 const growPin = document.getElementById('growPin');
@@ -506,6 +542,9 @@ function onScroll() {
       newsRun.style.transform = `translateX(${(-overflow * p * NEWS_TRAVEL).toFixed(1)}px)`;
     }
   }
+
+  // the community's two frames take the next pictures as the section crosses
+  turnCommunity(vh);
 
   // portfolio crossing rows
   pfRows.forEach((row, i) => {

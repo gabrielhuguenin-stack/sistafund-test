@@ -783,7 +783,14 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;
   filter: contrast(1.02);
+  /* the frame stays, only what it holds changes */
+  transition: opacity .42s var(--ease);
 }
+/* framing: two of these were taken in landscape and are cut to a standing frame, so each
+   one says where its own subject is */
+.comm-shot img[src*="comm-talking"] { object-position: center 38%; }
+.comm-shot img[src*="comm-poilane"] { object-position: center 52%; }
+.comm-shot img[src*="comm-fans"]    { object-position: center 28%; }
 @media (max-width: 1000px) {
   .comm-top { grid-template-columns: 1fr; gap: 6vh; }
   .comm-shot--low { margin-top: 0; }
