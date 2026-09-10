@@ -251,40 +251,53 @@ const LPS = window.LPS || [];
    middle of them — the names run around the block instead of beside it. Nothing moves at
    rest; a name lights yellow under the hand. Each name carries its company in Portrait,
    which is what separates one from the next: no bullet, no rule between words. */
-/* The two frames show more than two pictures, and they do it without any furniture: no
-   arrow, no filling gauge, no dot. It is the SCROLL that turns them — the page's own way of
-   moving — so nothing runs on its own and nothing has to be operated. Each frame keeps its
-   own cycle, so the same picture is never in both at once, and the change is a dissolve:
-   the frame stays where it is, only what it holds changes. The next picture is decoded
-   before anything happens, so a swap never shows an empty frame. */
+/* The two frames hold five pictures, and they are turned BY HAND: no arrow, no gauge, no
+   dot — the frame itself is the control, and nothing changes unless it is asked for.
+   Each frame carries TWO layers and a change is a dissolve from one to the other: setting
+   a new source on a visible image blanks it for a frame, and that was the flash. Nothing is
+   ever shown before it is decoded, and the two frames never hold the same picture. */
 const commShots = [...document.querySelectorAll('.comm-shot')];
 const COMM_PICS = ['comm-cocktail.jpg', 'comm-daylight.jpg', 'comm-talking.jpg',
                    'comm-poilane.jpg', 'comm-fans.jpg'];
-const COMM_STEPS = 3;
-let commStep = -1;
+const commAt = [0, 1];
 if (commShots.length) {
   addEventListener('load', () => COMM_PICS.forEach(f => { new Image().src = 'img/life/' + f; }));
-}
-function swapShot(frame, pic) {
-  const img = frame.querySelector('img');
-  if (img.dataset.pic === pic) return;
-  img.dataset.pic = pic;
-  const next = new Image();
-  next.onload = () => {
-    img.style.opacity = '0';
-    setTimeout(() => { img.src = next.src; img.style.opacity = '1'; }, 380);
+
+  const turn = k => {
+    const frame = commShots[k];
+    if (!frame || frame.dataset.busy) return;
+    const other = commAt[1 - k];
+    let n = (commAt[k] + 1) % COMM_PICS.length;
+    while (n === other) n = (n + 1) % COMM_PICS.length;
+
+    const layers = [...frame.querySelectorAll('img')];
+    const front = layers.find(l => l.classList.contains('on')) || layers[0];
+    const back = layers.find(l => l !== front);
+    const next = new Image();
+    frame.dataset.busy = '1';
+    next.onload = () => {
+      back.src = next.src;
+      back.alt = front.alt;
+      // a beat for the layer to be painted before it is faded in — a timer and not
+      // `requestAnimationFrame`, which a hidden tab suspends: the swap would then be stuck
+      // half done, with the frame marked busy for ever
+      setTimeout(() => {
+        back.classList.add('on');
+        front.classList.remove('on');
+        commAt[k] = n;
+        setTimeout(() => { delete frame.dataset.busy; }, 620);
+      }, 20);
+    };
+    next.onerror = () => { delete frame.dataset.busy; };
+    next.src = 'img/life/' + COMM_PICS[n];
   };
-  next.src = 'img/life/' + pic;
-}
-function turnCommunity(vh) {
-  if (commShots.length < 2) return;
-  const r = commShots[0].parentElement.getBoundingClientRect();
-  if (r.bottom < -200 || r.top > vh + 200) return;
-  const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-  const step = Math.min(COMM_STEPS - 1, Math.floor(p * COMM_STEPS));
-  if (step === commStep) return;
-  commStep = step;
-  commShots.forEach((f, i) => swapShot(f, COMM_PICS[(step * 2 + i) % COMM_PICS.length]));
+
+  commShots.forEach((f, k) => {
+    f.addEventListener('click', () => turn(k));
+    f.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); turn(k); }
+    });
+  });
 }
 
 // ---------- Scroll loop ----------
@@ -542,9 +555,6 @@ function onScroll() {
       newsRun.style.transform = `translateX(${(-overflow * p * NEWS_TRAVEL).toFixed(1)}px)`;
     }
   }
-
-  // the community's two frames take the next pictures as the section crosses
-  turnCommunity(vh);
 
   // portfolio crossing rows
   pfRows.forEach((row, i) => {

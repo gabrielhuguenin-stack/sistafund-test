@@ -773,19 +773,26 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6vw;
   align-items: start;
 }
+/* the frame is the control: it is asked for the next picture, so there is no arrow and no
+   gauge anywhere near it */
 .comm-shot {
   position: relative; margin: 0; overflow: hidden;
   aspect-ratio: 4 / 5.3;
   border: 1.5px solid rgba(250, 248, 240, .22);
+  cursor: pointer;
+  transition: border-color .3s var(--ease);
 }
+.comm-shot:hover, .comm-shot:focus-visible { border-color: rgba(250, 248, 240, .58); outline: none; }
 .comm-shot--low { margin-top: 9vh; }
 .comm-shot img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;
   filter: contrast(1.02);
-  /* the frame stays, only what it holds changes */
-  transition: opacity .42s var(--ease);
+  /* two layers, one on top of the other: a change is a dissolve between them. Setting a new
+     source on a visible image blanks it for a frame — that was the flash. */
+  opacity: 0; transition: opacity .55s var(--ease);
 }
+.comm-shot img.on { opacity: 1; }
 /* framing: two of these were taken in landscape and are cut to a standing frame, so each
    one says where its own subject is */
 .comm-shot img[src*="comm-talking"] { object-position: center 38%; }
