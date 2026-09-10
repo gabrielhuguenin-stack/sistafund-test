@@ -678,7 +678,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   .team-cta  { grid-column: 1 / -1; order: 2; margin-top: 2vh; }
 }
 @media (max-width: 520px) { .team-row { grid-template-columns: 1fr; } }
-.team { padding: 14vh 4vw 12vh; }
+.team { padding: 14vh 4vw 24vh; }
 
 /* home: the text names whoever stands in the large frame, the queue is on the right */
 .team .sec-head { padding-bottom: 5vh; }
@@ -748,19 +748,25 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    Portraits then drop in one by one along the diagonal as the section crosses the
    screen. The words sit inside the grid as a tile of their own, so the sentence is part
    of the structure rather than floating over it. */
-/* THE COMMUNITY, WRITTEN. The community is its names: one field of display capitals on the
-   ink, and the words stand in the middle of them — floated, so the names run around the
-   block instead of sitting beside it. Nothing moves at rest, a name lights under the hand.
-   Each name carries its company in Portrait: that is what separates one from the next, so
-   there is no bullet and no rule between words. */
-.community { background: var(--ink); color: var(--paper); padding: 20vh 4vw 16vh; }
-.comm-roll { line-height: 1.85; }
-.comm-roll::after { content: ''; display: block; clear: both; }
-/* the words hold a block in the middle of the field and the names close around it */
-.comm-words {
-  float: right; width: min(36%, 580px);
-  margin: 2vh 0 3vh 4vw;
+/* THE COMMUNITY, WRITTEN. The community is its names: a field of display capitals on the
+   ink, and the words stand **in the middle** of them — the field is cut into four runs,
+   above, on either side, and below, because a float only ever has text down one of its
+   sides. Nothing moves at rest, a name lights under the hand. Each name carries its company
+   in Portrait: that is what separates one from the next, so there is no bullet and no rule
+   between words. The gap before the band is on the CREAM side (the team's own bottom
+   margin): the eye measures the cream it crosses, not the padding inside the black. */
+.community { background: var(--ink); color: var(--paper); padding: 12vh 4vw 14vh; }
+.comm-roll { line-height: 1.8; }
+.comm-run { display: block; }
+.comm-run[data-run="top"] { text-align: center; margin-bottom: 3vh; }
+.comm-run[data-run="bottom"] { text-align: center; margin-top: 3vh; }
+.comm-mid {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 3vw; align-items: center;
 }
+.comm-run[data-run="left"] { text-align: right; }
+.comm-run[data-run="right"] { text-align: left; }
+.comm-words { width: 100%; }
 .comm-head { padding: 0 0 1vh; }
 .comm-note  { margin-top: 3.5vh; }
 .comm-cta   { margin-top: 5vh; }
@@ -771,11 +777,13 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
 .comm-name {
-  /* one unit, never broken across two lines */
+  /* one unit, never broken across two lines, and each one a little off the line */
   display: inline-block; white-space: nowrap;
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.1rem, 1.78vw, 1.95rem); letter-spacing: .01em;
-  color: var(--paper); margin-right: 1.4em;
+  font-size: clamp(1.02rem, 1.6vw, 1.72rem); letter-spacing: .01em;
+  color: var(--paper);
+  margin: 0 var(--gap, 1.2em) 0 0;
+  transform: translateY(var(--dy, 0));
   transition: color .28s var(--ease);
 }
 .comm-name i {
@@ -787,7 +795,8 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-name:hover { color: var(--yellow); }
 .comm-name:hover i { color: rgba(250, 248, 240, .78); }
 @media (max-width: 900px) {
-  .comm-words { float: none; width: auto; margin: 0 0 6vh; }
+  .comm-mid { grid-template-columns: 1fr; gap: 4vh; }
+  .comm-run[data-run="left"], .comm-run[data-run="right"] { text-align: left; }
 }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */

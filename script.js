@@ -261,17 +261,31 @@ const commRoll = document.getElementById('commRoll');
   const order = LPS.map((m, i) => ({ m, i })).sort((a, b) =>
     (rank(a.m[0]) - rank(b.m[0])) || (a.i - b.i)).map(o => o.m);
 
-  /* The block of words is moved into the middle of the flow rather than left at its head:
-     a float at the start of a paragraph has nothing above it, so the names only ran beside
-     it. Set after the first few, the names run above it, then around it, then under it. */
-  const words = commRoll.querySelector('.comm-words');
-  const OPEN = 5;
-  order.forEach(([name, org], i) => {
-    if (i === OPEN && words) commRoll.appendChild(words);
-    const a = document.createElement('span');
-    a.className = 'comm-name';
-    a.innerHTML = `${name}<i>${org}</i>`;
-    commRoll.appendChild(a);
+  /* Four runs around the words: above, on either side, and below. A single float only ever
+     has text down one of its sides, so the block could never sit in the middle of the
+     field — it has to be the field that is cut into four. */
+  const runs = ['top', 'left', 'right', 'bottom']
+    .map(k => commRoll.querySelector(`[data-run="${k}"]`));
+  const share = [7, 6, 6, order.length - 19];
+
+  // a fixed seed, so the scatter is the same at every visit
+  let seed = 40711;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+
+  let k = 0;
+  runs.forEach((run, r) => {
+    if (!run) return;
+    for (let n = 0; n < share[r] && k < order.length; n++, k++) {
+      const [name, org] = order[k];
+      const a = document.createElement('span');
+      a.className = 'comm-name';
+      // each name sits a little off the line and carries its own space: set flush they
+      // read as a ruler, and this section is a roll, not a table
+      a.style.setProperty('--dy', ((rnd() - 0.5) * 1.1).toFixed(2) + 'em');
+      a.style.setProperty('--gap', (0.9 + rnd() * 1.5).toFixed(2) + 'em');
+      a.innerHTML = `${name}<i>${org}</i>`;
+      run.appendChild(a);
+    }
   });
 })();
 
