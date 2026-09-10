@@ -77,12 +77,9 @@ em { font-style: normal; }
   -webkit-text-stroke: 2px var(--ink);
   paint-order: stroke fill;
 }
-/* On a flat black ground the word becomes a drawing rather than a solid: the fill takes
-   the ground and the yellow is left as the outline. */
-.community .yw {
-  color: var(--ink);
-  -webkit-text-stroke: 3px var(--yellow);
-}
+/* on the black the word is simply set in the yellow: an outlined word read as unfinished,
+   and yellow on ink needs no help to be legible */
+.community .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 /* On a flat black ground the word becomes a drawing rather than a solid: the fill takes
    the ground and the yellow is left as the outline. paint-order paints the stroke behind
    the fill, so half of the 3px shows — a hairline at these sizes.
@@ -760,18 +757,20 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    are what lights it — twenty-seven bright portraits passing over black. The words are
    cream, and the yellow word takes its outline treatment, a flat yellow being unreadable
    on black at that size. */
-.community { background: var(--ink); color: var(--paper); padding: 14vh 4vw 10vh; }
+/* a black band arriving wants more air than a cream section: 20vh above (32vh of gap with
+   the team, against the 26vh the cream sections share) */
+.community { background: var(--ink); color: var(--paper); padding: 20vh 4vw 12vh; }
 .comm-top {
   display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr);
   gap: 4vw; align-items: start;
 }
-/* the words sit on the middle of the columns, not at their head: against a stage nearly
-   a screen tall, a block hanging at the top left the section bottom-heavy */
-.comm-words { align-self: center; }
+/* the words hold the whole height of the columns: the title on their top edge, the button
+   at their foot. Centred as a block in the middle of the column it read as floating. */
+.comm-words { align-self: stretch; display: flex; flex-direction: column; padding: 1vh 0 0; }
 /* the title is a section title like all the others: same body, same masked rise */
 .comm-head { padding: 0 0 1vh; }
 .comm-note  { margin-top: 3.5vh; }
-.comm-cta   { margin-top: 6vh; }
+.comm-cta   { margin-top: auto; }
 .comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 42ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
 /* the words rise as they arrive, the same gesture as every other section head */
@@ -1081,21 +1080,15 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .news-card:hover .news-more { transform: translateX(8px); }
 
 /* ============ CTA (yellow) ============ */
-/* The closing screen holds nothing but the mark, on the cream, on the same field of clouds
-   as the rest of the page — the hand brings the yellow up under it. The question and the
-   address have gone down into the footer, where the right-hand side was empty. */
+/* The closing screen holds nothing but the mark. It carries no field of its own: it sits
+   INSIDE the second ground (news + FAQ + this), because two cream fields meeting make a
+   junction — the very line this page is not supposed to have anywhere. */
 .cta {
   position: relative;
-  background: var(--paper); color: var(--ink);
+  color: var(--ink);
   display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
   text-align: center; padding: 13vh 4vw calc(23vw + 1vh);
-  overflow: hidden;
 }
-.cta > :not(.ground-wall) { position: relative; z-index: 1; }
-/* the mark stays taken out of the flow: the rule above out-specifies `.cta-brand` and was
-   putting it back in, which added its own height to the section and left 400 px of cream
-   underneath it */
-.cta > .cta-brand { position: absolute; z-index: 1; }
 .cta-brand {
   position: absolute; left: 50%; bottom: -1.5vw;
   transform: translateX(-50%);
@@ -1107,7 +1100,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    headline. h2 is display and uppercase by default, hence the reset. */
 .cta-title {
   position: relative; font-family: var(--serif); text-transform: none;
-  font-size: clamp(1.35rem, 2.1vw, 2.2rem); line-height: 1.12; letter-spacing: -.02em;
+  font-size: clamp(1.25rem, 1.85vw, 1.95rem); line-height: 1.12; letter-spacing: -.02em;
 }
 .cta-title .line { display: block; overflow: hidden; }
 .cta-title .line > span {
@@ -1122,14 +1115,17 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 /* no masked rise down here: the lines are simply there. The reveal was keyed on `.cta`
    coming into view, and only the home page runs that observer — on the five other pages
    the question would have stayed hidden under its mask for ever. */
-.footer-say { text-align: right; margin-left: auto; max-width: 62%; }
+.footer-say {
+  margin-left: auto; text-align: right;
+  display: flex; align-items: baseline; justify-content: flex-end; gap: 3vw;
+  flex-wrap: wrap;
+}
 .footer-say .cta-title .line > span { transform: none; }
 .footer-say .cta-title .line { text-align: right; }
-.cta-btn { margin: 3.4vh 0 0 auto; }
+.cta-btn { margin: 0; flex: 0 0 auto; font-size: clamp(1rem, 1.18vw, 1.25rem); }
 @media (max-width: 900px) {
-  .footer-say { text-align: left; margin-left: 0; }
+  .footer-say { text-align: left; margin-left: 0; justify-content: flex-start; gap: 2.4vh; }
   .footer-say .cta-title .line { text-align: left; }
-  .cta-btn { margin-left: 0; }
 }
 
 /* ============ Footer ============ */

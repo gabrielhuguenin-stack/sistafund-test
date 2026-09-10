@@ -227,6 +227,7 @@ if (aboutIntro) {
 
 // ---------- Portfolio: crossing rows ----------
 const PF_TRAVEL = 0.36;   // share of the track's overflow crossed per screen of scroll
+const COMM_TRAVEL = 0.42; // share of a community column's overflow crossed
 const NEWS_TRAVEL = 0.72; // a share of the run's overflow: calm, and it still shows most of itself
 let newsRun;
 const pfRows = document.querySelectorAll('.pf-row');
@@ -297,7 +298,9 @@ function moveCommunity(vh) {
   if (!commTravel.length) measureCommunity();
   const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
   commCols.forEach((col, i) => {
-    const travel = commTravel[i] || 0;
+    // a share of the travel, not all of it: at full speed the faces that open the columns
+    // were gone before they could be read, and a fast pass does not read as premium
+    const travel = (commTravel[i] || 0) * COMM_TRAVEL;
     const y = i % 2 === 0 ? -travel * p : -travel * (1 - p);
     col.style.transform = `translate3d(0, ${y.toFixed(1)}px, 0)`;
   });
@@ -501,7 +504,7 @@ if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
 // line. Each of these runs edge to edge between two black bands, so there is nothing to
 // see where the ground begins. The grain is coarse: over three thousand pixels the hero's
 // fine columns would read as stripes, and that many panels cannot be lit on every pass.
-[['groundOne', 20903], ['groundTwo', 50411], ['ctaWall', 80317]].forEach(([id, seed]) => {
+[['groundOne', 20903], ['groundTwo', 50411]].forEach(([id, seed]) => {
   const el = document.getElementById(id);
   if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 24, grain: 2 });
 });
