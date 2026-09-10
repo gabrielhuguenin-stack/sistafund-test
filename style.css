@@ -1080,14 +1080,21 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .news-card:hover .news-more { transform: translateX(8px); }
 
 /* ============ CTA (yellow) ============ */
+/* The closing screen holds nothing but the mark, on the cream, on the same field of clouds
+   as the rest of the page — the hand brings the yellow up under it. The question and the
+   address have gone down into the footer, where the right-hand side was empty. */
 .cta {
   position: relative;
-  background: var(--yellow);
-  min-height: 96vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 11vh 4vw calc(23vw + 4vh);
+  background: var(--paper); color: var(--ink);
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  text-align: center; padding: 13vh 4vw calc(23vw + 1vh);
   overflow: hidden;
 }
+.cta > :not(.ground-wall) { position: relative; z-index: 1; }
+/* the mark stays taken out of the flow: the rule above out-specifies `.cta-brand` and was
+   putting it back in, which added its own height to the section and left 400 px of cream
+   underneath it */
+.cta > .cta-brand { position: absolute; z-index: 1; }
 .cta-brand {
   position: absolute; left: 50%; bottom: -1.5vw;
   transform: translateX(-50%);
@@ -1099,7 +1106,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    headline. h2 is display and uppercase by default, hence the reset. */
 .cta-title {
   position: relative; font-family: var(--serif); text-transform: none;
-  font-size: clamp(2.5rem, 6.4vw, 6.1rem); line-height: 1.04; letter-spacing: -.02em;
+  font-size: clamp(1.6rem, 2.9vw, 3rem); line-height: 1.12; letter-spacing: -.02em;
 }
 .cta-title .line { display: block; overflow: hidden; }
 .cta-title .line > span {
@@ -1109,7 +1116,20 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .cta.in-view .cta-title .line:nth-child(1) > span { transform: translateY(0); transition-delay: .05s; }
 .cta.in-view .cta-title .line:nth-child(2) > span { transform: translateY(0); transition-delay: .15s; }
 .cta.in-view .cta-title .line:nth-child(3) > span { transform: translateY(0); transition-delay: .25s; }
-.cta-btn { margin-top: 6vh; }
+/* the question closes the footer from the right: the three columns take the room they
+   need on the left and this takes the rest */
+/* no masked rise down here: the lines are simply there. The reveal was keyed on `.cta`
+   coming into view, and only the home page runs that observer — on the five other pages
+   the question would have stayed hidden under its mask for ever. */
+.footer-say { text-align: right; margin-left: auto; }
+.footer-say .cta-title .line > span { transform: none; }
+.footer-say .cta-title .line { text-align: right; }
+.cta-btn { margin: 3.4vh 0 0 auto; }
+@media (max-width: 900px) {
+  .footer-say { text-align: left; margin-left: 0; }
+  .footer-say .cta-title .line { text-align: left; }
+  .cta-btn { margin-left: 0; }
+}
 
 /* ============ Footer ============ */
 .footer { background: var(--ink); color: var(--paper); padding: 7vh 4vw 30px; }

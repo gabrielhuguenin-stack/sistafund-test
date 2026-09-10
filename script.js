@@ -493,7 +493,7 @@ if (statsWall) makeWall([{ el: statsWall, offset: 0 }],
 // line. Each of these runs edge to edge between two black bands, so there is nothing to
 // see where the ground begins. The grain is coarse: over three thousand pixels the hero's
 // fine columns would read as stripes, and that many panels cannot be lit on every pass.
-[['groundOne', 20903], ['groundTwo', 50411]].forEach(([id, seed]) => {
+[['groundOne', 20903], ['groundTwo', 50411], ['ctaWall', 80317]].forEach(([id, seed]) => {
   const el = document.getElementById(id);
   if (el) makeWall([{ el, offset: 0 }], { seed, span: 100, rest: 0.2, reach: 24, grain: 2 });
 });
