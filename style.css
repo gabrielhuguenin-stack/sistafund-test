@@ -748,49 +748,45 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    Portraits then drop in one by one along the diagonal as the section crosses the
    screen. The words sit inside the grid as a tile of their own, so the sentence is part
    of the structure rather than floating over it. */
-/* THE COMMUNITY, WRITTEN AND SCATTERED. The community is its names, strewn across the ink
-   rather than set on lines, with the words standing in the middle of them. Nothing moves at
-   rest; a name lights under the hand. Each name carries its company in Portrait: that is
-   what separates one from the next, so there is no bullet and no rule between words.
-   The places are computed in `scatterNames` from a fixed seed — text cannot flow around a
-   centred block, so here the names are placed rather than set. The gap before the band is
-   taken on the CREAM side (the team's own bottom margin): the eye measures the cream it
-   crosses, not the padding inside the black. */
+/* THE COMMUNITY AS IT IS MET. Not a list, not a band of portraits travelling, not a field
+   of names: the two informal pictures of the community, large, beside the words. They keep
+   their colour — the rule that holds portraits to black and white is about portraits, and on
+   the ink it is the colour of these that lights the section. One is hung lower than the
+   other, so the pair reads as two prints laid down rather than as a pair of slots.
+   The gap before the band is taken on the CREAM side (the team's own bottom margin): the eye
+   measures the cream it crosses, not the padding inside the black. */
 .community { background: var(--ink); color: var(--paper); padding: 12vh 4vw 14vh; }
-.comm-field { position: relative; height: min(88vh, 960px); }
-.comm-words {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-  width: min(40%, 620px); z-index: 2;
+.comm-top {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
+  gap: 3.4vw; align-items: center;
 }
 .comm-head { padding: 0 0 1vh; }
-.comm-note  { margin-top: 3vh; }
-.comm-cta   { margin-top: 4.5vh; }
-.comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.1rem, 1.42vw, 1.42rem); line-height: 1.45; }
+.comm-note  { margin-top: 3.5vh; }
+.comm-cta   { margin-top: 5vh; }
+.comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 40ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
 /* the words rise as they arrive, the same gesture as every other section head */
 .comm-word > * { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
-.comm-name {
-  position: absolute; white-space: nowrap;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1rem, 1.52vw, 1.62rem); letter-spacing: .01em;
-  color: var(--paper);
-  transition: color .28s var(--ease);
+.comm-shots {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6vw;
+  align-items: start;
 }
-.comm-name i {
-  font-style: normal; font-family: var(--serif); text-transform: none;
-  font-size: .82em; letter-spacing: 0; color: rgba(250, 248, 240, .5);
-  margin-left: .42em;
-  transition: color .28s var(--ease);
+.comm-shot {
+  position: relative; margin: 0; overflow: hidden;
+  aspect-ratio: 4 / 5.3;
+  border: 1.5px solid rgba(250, 248, 240, .22);
 }
-.comm-name:hover { color: var(--yellow); }
-.comm-name:hover i { color: rgba(250, 248, 240, .78); }
-/* narrow: no scatter to be had, the names simply run under the words */
-@media (max-width: 900px) {
-  .comm-field { height: auto; }
-  .comm-words { position: static; transform: none; width: auto; margin-bottom: 5vh; }
-  .comm-name { position: static; display: inline-block; margin: 0 1.1em .7em 0; }
+.comm-shot--low { margin-top: 9vh; }
+.comm-shot img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 32%;
+  filter: contrast(1.02);
+}
+@media (max-width: 1000px) {
+  .comm-top { grid-template-columns: 1fr; gap: 6vh; }
+  .comm-shot--low { margin-top: 0; }
 }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
