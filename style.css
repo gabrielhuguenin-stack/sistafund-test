@@ -802,6 +802,21 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-pile:hover::after,  .comm-pile:focus-within::after  { transform: translate(-34px, 34px); border-color: rgba(250, 248, 240, .24); }
 .comm-pile--low { margin-top: 9vh; }
 .comm-shot { position: relative; z-index: 2; }
+/* how many there are and where you are: a short bar for the picture in view, a dot for each
+   of the others. No arrow, no gauge that grows, no plate. */
+.comm-dots {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 4.5vh;
+}
+.comm-dot {
+  width: 9px; height: 9px; padding: 0; border: 0; border-radius: 99px;
+  background: rgba(250, 248, 240, .32); cursor: pointer;
+  transition: width .38s var(--ease), background .38s var(--ease);
+}
+.comm-dot:hover { background: rgba(250, 248, 240, .6); }
+.comm-dot.on { width: 30px; background: var(--yellow); }
+.comm-dot.on:hover { background: var(--yellow); }
 .comm-shot img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;

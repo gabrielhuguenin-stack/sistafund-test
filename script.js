@@ -251,30 +251,44 @@ const LPS = window.LPS || [];
    middle of them — the names run around the block instead of beside it. Nothing moves at
    rest; a name lights yellow under the hand. Each name carries its company in Portrait,
    which is what separates one from the next: no bullet, no rule between words. */
-/* The two frames hold five pictures, and they are turned BY HAND: no arrow, no gauge, no
-   dot — the frame itself is the control, and nothing changes unless it is asked for.
-   Each frame carries TWO layers and a change is a dissolve from one to the other: setting
-   a new source on a visible image blanks it for a frame, and that was the flash. Nothing is
-   ever shown before it is decoded, and the two frames never hold the same picture. */
+/* The two frames hold five pictures and move as a pair: the left one shows the picture the
+   marks point at, the right one the next. They are turned by hand — the frames themselves
+   are clickable, and a row of marks under them says how many there are and where you are.
+   No arrow and no gauge: a short bar for the one in view, a dot for each of the others.
+   Each frame carries TWO layers and a change is a dissolve from one to the other: setting a
+   new source on a visible image blanks it for a frame, and that was the flash. Nothing is
+   ever shown before it is decoded. */
 const commShots = [...document.querySelectorAll('.comm-shot')];
+const commDots = document.getElementById('commDots');
 const COMM_PICS = ['comm-cocktail.jpg', 'comm-daylight.jpg', 'comm-talking.jpg',
                    'comm-poilane.jpg', 'comm-fans.jpg'];
-const commAt = [0, 1];
+let commAt = 0;
 if (commShots.length) {
   addEventListener('load', () => COMM_PICS.forEach(f => { new Image().src = 'img/life/' + f; }));
 
-  const turn = k => {
-    const frame = commShots[k];
-    if (!frame || frame.dataset.busy) return;
-    const other = commAt[1 - k];
-    let n = (commAt[k] + 1) % COMM_PICS.length;
-    while (n === other) n = (n + 1) % COMM_PICS.length;
+  const dots = COMM_PICS.map((_, j) => {
+    if (!commDots) return null;
+    const b = document.createElement('button');
+    b.className = 'comm-dot';
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Picture ' + (j + 1));
+    b.addEventListener('click', () => setCommunity(j));
+    commDots.appendChild(b);
+    return b;
+  }).filter(Boolean);
 
+  /* A click while a frame is still dissolving is remembered, not dropped: the frame keeps
+     the picture it was last asked for and takes it as soon as it is free. Otherwise two
+     clicks in quick succession left the marks and the pictures out of step. */
+  const run = frame => {
+    const pic = frame.dataset.want;
+    if (!pic || frame.dataset.busy) return;
     const layers = [...frame.querySelectorAll('img')];
     const front = layers.find(l => l.classList.contains('on')) || layers[0];
     const back = layers.find(l => l !== front);
-    const next = new Image();
+    if ((front.getAttribute('src') || '').endsWith(pic)) return;
     frame.dataset.busy = '1';
+    const next = new Image();
     next.onload = () => {
       back.src = next.src;
       back.alt = front.alt;
@@ -284,20 +298,27 @@ if (commShots.length) {
       setTimeout(() => {
         back.classList.add('on');
         front.classList.remove('on');
-        commAt[k] = n;
-        setTimeout(() => { delete frame.dataset.busy; }, 620);
+        setTimeout(() => { delete frame.dataset.busy; run(frame); }, 560);
       }, 20);
     };
     next.onerror = () => { delete frame.dataset.busy; };
-    next.src = 'img/life/' + COMM_PICS[n];
+    next.src = 'img/life/' + pic;
   };
+  const dissolve = (frame, pic) => { frame.dataset.want = pic; run(frame); };
 
-  commShots.forEach((f, k) => {
-    f.addEventListener('click', () => turn(k));
+  function setCommunity(i) {
+    commAt = (i + COMM_PICS.length) % COMM_PICS.length;
+    commShots.forEach((f, k) => dissolve(f, COMM_PICS[(commAt + k) % COMM_PICS.length]));
+    dots.forEach((d, j) => d.classList.toggle('on', j === commAt));
+  }
+
+  commShots.forEach(f => {
+    f.addEventListener('click', () => setCommunity(commAt + 1));
     f.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); turn(k); }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setCommunity(commAt + 1); }
     });
   });
+  setCommunity(0);
 }
 
 // ---------- Scroll loop ----------
