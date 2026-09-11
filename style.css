@@ -770,7 +770,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
 .comm-shots {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.6vw;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4vw;
   align-items: start;
 }
 /* the frame is the control: it is asked for the next picture, so there is no arrow and no
@@ -783,7 +783,25 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: border-color .3s var(--ease);
 }
 .comm-shot:hover, .comm-shot:focus-visible { border-color: rgba(250, 248, 240, .58); outline: none; }
-.comm-shot--low { margin-top: 9vh; }
+/* THERE ARE MORE UNDERNEATH, AND YOU CAN SEE IT. Two edges lie under each frame, offset
+   down and to the left: the pile itself says the picture is one of several, so nothing has
+   to be written and no arrow has to be drawn. Under the hand the pile opens a little — that
+   is the invitation — and a click lays the next print.
+   Positive stacking only: a pseudo-element at a negative z-index paints behind the section's
+   own ground and disappears. */
+.comm-pile { position: relative; isolation: isolate; }
+.comm-pile::before, .comm-pile::after {
+  content: ''; position: absolute; inset: 0;
+  background: #151515;
+  border: 1.5px solid rgba(250, 248, 240, .18);
+  transition: transform .4s var(--ease), border-color .4s var(--ease);
+}
+.comm-pile::before { z-index: 1; transform: translate(-11px, 11px); }
+.comm-pile::after  { z-index: 0; transform: translate(-22px, 22px); }
+.comm-pile:hover::before, .comm-pile:focus-within::before { transform: translate(-17px, 17px); border-color: rgba(250, 248, 240, .3); }
+.comm-pile:hover::after,  .comm-pile:focus-within::after  { transform: translate(-34px, 34px); border-color: rgba(250, 248, 240, .24); }
+.comm-pile--low { margin-top: 9vh; }
+.comm-shot { position: relative; z-index: 2; }
 .comm-shot img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;
@@ -800,7 +818,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-shot img[src*="comm-fans"]    { object-position: center 28%; }
 @media (max-width: 1000px) {
   .comm-top { grid-template-columns: 1fr; gap: 6vh; }
-  .comm-shot--low { margin-top: 0; }
+  .comm-pile--low { margin-top: 0; }
 }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
