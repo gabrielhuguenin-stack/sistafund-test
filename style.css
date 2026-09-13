@@ -274,11 +274,17 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .hstmt .l-lg { font-size: clamp(2.6rem, 8vw, 8.2rem); }
 .hstmt .l-xl { font-size: clamp(3.2rem, 11vw, 11.4rem); }
 .hstmt .l-kicker { margin-bottom: .3em; }         /* the kicker breathes above the mass */
-.hline--in1 { padding-left: .1em; }
-.hline--in2 { padding-left: 1.9em; }           /* stepped in, so the block has rhythm */
-/* the claim closes on the right: its last word is stepped far enough in to end under the
-   end of the mass line above it, instead of hanging alone at the left margin */
-.hline--close { padding-left: 4.1em; }
+/* ONE GRAMMAR FOR BOTH STATEMENTS: the block opens flush left on its first two lines, then
+   the tail steps right and the LAST line closes exactly under the right end of the mass
+   line. The claim already worked this way (fund under gender-lens); the first statement did
+   not, and its right edge zigzagged 298 / 908 / 426 / 726. Now both read as one built
+   object with the same silhouette. */
+.hline--in1 { padding-left: 1.3em; }            /* the middle step of the stair */
+/* The closing line is ALIGNED, not indented by a magic number. The statement is only as wide
+   as its mass line, so `text-align: right` lands the last line on that edge at every width —
+   where a fixed em was exact on one screen and drifted on the others (the clamp floors reach
+   the small sizes at different rates, so on a phone the tail ran past the mass line). */
+.hline--in2, .hline--close { text-align: right; padding-left: 0; }
 /* Portrait carries the connecting lines: its texture against the narrow display
    is what gives the statement character — the load-bearing words stay display. */
 /* Portrait appears once, lowercase, on the closing word: uppercase serif reads
@@ -295,6 +301,16 @@ body.subpage-dark .nav-count { color: var(--yellow); }
    ties the two phrases together. Nothing is laid behind the type to bind them: the twelve
    European stars turned slowly back there, and nothing else on the site rotates. */
 .hstmt--claim { position: relative; }
+/* THE MASS LINE DOES NOT MOVE. Both statements are centred in the same cell, but the first
+   has four lines and the claim three — so the block the eye locks onto, the big second line,
+   landed 31 px lower on the claim and the exchange read as a drop. The claim therefore
+   RESERVES the line it does not use: the height of the missing l-md line, less the extra
+   leading its own closing line already carries (1.06 against .88). Both blocks are then the
+   same height, so centring puts their mass lines at exactly the same y, at every width. */
+.hstmt--claim::after {
+  content: ''; display: block;
+  height: calc(clamp(2rem, 5.8vw, 6rem) * 1.06 - clamp(2.6rem, 8vw, 8.2rem) * .18);
+}
 .hstmt .hmask { display: inline-block; overflow: visible; padding-bottom: .06em; margin-bottom: -.06em; vertical-align: bottom; }
 .hstmt .hln { display: inline-block; font-style: normal; transform: translateY(108%); will-change: transform; }
 
