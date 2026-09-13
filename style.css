@@ -831,31 +831,40 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    not a photograph. The row of rules below says how many there are. */
 .comm-pile { position: relative; }
 .comm-pile--low { margin-top: 9vh; }
-/* how many there are and where you are: one rule per picture, the one in view long and
-   yellow, the others short. Rules, not rounded bars — the site is made of straight lines.
-   The button keeps a clickable height and the rule is drawn inside it.
+/* how many there are and where you are: one rule per picture, the one in view long, the
+   others short. Rules, not rounded bars — the site is made of straight lines. The button
+   keeps a clickable height and the rule is drawn inside it.
+   ONE COMPONENT, two homes: the community here and the page openings of Team, Portfolio and
+   Community, which used to carry a filling gauge. The two tones come from the context, since
+   yellow on cream is 1.05:1 and would not be seen — on the ink the live mark is yellow, on
+   the cream it is ink.
    The row starts on the PHOTOGRAPH, not on its frame: the frame carries a 1.5 px border, so
    flush with the frame box the first rule began a hair left of the picture above it, and at
    any magnification that reads as a miss. */
+.comm-dots, .pcdots {
+  display: flex; align-items: center; gap: 14px;
+}
 .comm-dots {
   grid-column: 1 / -1;
-  display: flex; align-items: center; gap: 14px;
   margin-top: 4.5vh; padding-left: var(--shot-edge);
 }
-.comm-dot {
+.community { --mark-off: rgba(250, 248, 240, .32); --mark-hover: rgba(250, 248, 240, .62); --mark-on: var(--yellow); }
+.page-open { --mark-off: rgba(16, 16, 16, .2); --mark-hover: rgba(16, 16, 16, .45); --mark-on: var(--ink); }
+.comm-dot, .pcdot {
   display: flex; align-items: center;
   width: 18px; height: 16px; padding: 0; border: 0; border-radius: 0;
   background: none; cursor: pointer;
   transition: width .38s var(--ease);
 }
-.comm-dot::before {
+.comm-dot::before, .pcdot::before {
   content: ''; display: block; width: 100%; height: 2px;
-  background: rgba(250, 248, 240, .32);
+  background: var(--mark-off);
   transition: background .38s var(--ease);
 }
-.comm-dot:hover::before { background: rgba(250, 248, 240, .62); }
-.comm-dot.on { width: 46px; }
-.comm-dot.on::before, .comm-dot.on:hover::before { background: var(--yellow); }
+.comm-dot:hover::before, .pcdot:hover::before { background: var(--mark-hover); }
+.comm-dot.on, .pcdot.on { width: 46px; }
+.comm-dot.on::before, .comm-dot.on:hover::before,
+.pcdot.on::before, .pcdot.on:hover::before { background: var(--mark-on); }
 .comm-shot img {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;
@@ -947,26 +956,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .faq-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
 .faq-more.open { grid-template-rows: 1fr; }
 .faq-more-inner { overflow: hidden; min-height: 0; }
-.faq-toggle {
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  width: 100%;
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1rem, 2vw, 1.3rem); letter-spacing: .04em;
-  padding: 24px 6px; color: var(--ink);
-  border-bottom: 1.5px solid var(--ink);
-  transition: background .3s, padding .3s;
-}
-.faq-toggle { position: relative; background: transparent; }
-.faq-toggle::after {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--band);
-  background: var(--yellow);
-  transform: scaleX(0); transform-origin: left;
-  transition: transform .42s var(--ease);
-}
-.faq-toggle:hover { padding-left: 20px; }
-.faq-toggle:hover::after { transform: scaleX(1); }
-.faq-toggle-x { font-size: 1.3em; transition: transform .45s var(--ease); flex-shrink: 0; }
-.faq-toggle.open .faq-toggle-x { transform: rotate(45deg); }
+/* "Show all questions" is a BUTTON, not a row of the list. As a full-width ruled line with a
+   plus sign it read as a sixth question; it is the site's ordinary button now — label at one
+   end, arrow at the other, rule between — and the arrow points the way the fold moves. */
+.faq-fold-cta { margin-top: 5vh; }
+.faq-fold-cta .btn { margin: 0; }
 
 /* ============ News ============ */
 .news { padding: 9vh 4vw 12vh; }
@@ -1037,12 +1031,18 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .ncard:hover .ncard-go::after { transform: scaleX(1); }
 /* the ones behind the front page pass under it, and are masked into the ground at the
    sides exactly as the portfolio rows are */
+/* THE FADE BELONGS AT THE SCREEN EDGE, not at the reading margin. Both runs carry the same
+   gradient, but the portfolio rows are a full-width block (they sit outside the padded
+   section) while this one was inside the 4vw padding: its fade therefore fell on the first
+   card, at the very line where every other element on the page starts crisply, and read far
+   harder than the portfolio's for that reason alone. The run is pulled out to the full width
+   and the track is padded back in, so the cards still line up with the margin. */
 .news-run {
-  margin-top: 7vh; overflow: hidden;
+  margin: 7vh -4vw 0; overflow: hidden;
   -webkit-mask-image: var(--fade-x);
   mask-image: var(--fade-x);
 }
-.news-track { display: flex; gap: 2vw; width: max-content; will-change: transform; }
+.news-track { display: flex; gap: 2vw; width: max-content; padding: 0 4vw; will-change: transform; }
 .ncard--min { width: clamp(300px, 27vw, 470px); }
 .ncard--min .ncard-shot { aspect-ratio: 4 / 3; }
 .ncard--min .ncard-title { font-size: clamp(1.1rem, 1.35vw, 1.4rem); line-height: 1.28; }
@@ -1436,7 +1436,7 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 .lp:hover .lp-photo img { transform: scale(1.06); }
 .lp:hover .lp-photo { border-color: var(--ink); }
 .lp-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.05rem, 1.25vw, 1.25rem); line-height: 1.05; display: block; }
-.lp-org { color: var(--grey); font-size: clamp(.9rem, 1.05vw, 1.05rem); }
+.lp-org { color: var(--grey); font-size: clamp(1rem, 1.18vw, 1.18rem); }
 
 /* Portfolio modal */
 .overlay-modal { background: rgba(16, 16, 16, .55); }
@@ -1483,23 +1483,27 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   .pf-detail-body { padding: 28px 26px 32px; }
 }
 .pf-detail-body > p { color: var(--grey); font-size: clamp(1.1rem, 1.35vw, 1.35rem); line-height: 1.5; }
-/* each fact is labelled, so "Paris, 2023" no longer has to be guessed at */
+/* NO RULES INSIDE THE CARD. The four facts were a ruled table — a line above the block and
+   a line under every row, five rules in a window that already has a frame and a band. They
+   are a BLOCK OF FACTS instead: two columns of two, each one its label in the site's label
+   register with the answer under it. What separates them is the space, and the label is what
+   names them — a rule was doing a job the small caps already do. */
 .pf-detail-meta {
-  margin-top: 26px; padding-top: 18px; border-top: 1.5px solid var(--ink);
-  display: flex; flex-direction: column;
+  margin-top: 34px;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 34px;
 }
-.pf-fact {
-  display: grid; grid-template-columns: 116px 1fr; gap: 16px;
-  padding: 11px 0; border-bottom: 1px solid var(--line);
-}
-.pf-fact:last-child { border-bottom: none; }
+.pf-fact { display: block; }
 .pf-fact-k {
+  display: block; margin-bottom: 7px;
   font-family: var(--display); text-transform: uppercase;
   font-size: .74rem; letter-spacing: .12em; color: var(--grey);
-  padding-top: .18em;
 }
-.pf-fact-v { font-family: var(--serif); font-size: clamp(1rem, 1.18vw, 1.18rem); color: var(--ink); }
-@media (max-width: 560px) { .pf-fact { grid-template-columns: 1fr; gap: 2px; } }
+.pf-fact-v {
+  display: block; font-family: var(--serif);
+  font-size: clamp(1rem, 1.18vw, 1.18rem); line-height: 1.35; color: var(--ink);
+}
+@media (max-width: 560px) { .pf-detail-meta { grid-template-columns: 1fr; gap: 20px; } }
 
 /* ============ Sub-page (team.html) ============ */
 .page-hero { padding: 22vh 4vw 6vh; }
@@ -1654,11 +1658,16 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 }
 .page-open-text { padding-right: 2vw; align-self: start; }
 
+/* THE SAME READING SIZE AS THE HOME. This paragraph is the dedicated pages' ordinary text,
+   so it takes the home's own scale (the one `.sec-sub` uses) — at 1440 it was running 19 px
+   against the home's 23 px, and the two read as different sites. */
 .page-open .page-hero-sub {
-  font-family: var(--serif); font-size: clamp(1rem, 1.3vw, 1.24rem); line-height: 1.6;
+  font-family: var(--serif); font-size: clamp(1.15rem, 1.6vw, 1.62rem); line-height: 1.5;
   margin-top: 3.6vh; max-width: none;   /* the column is the measure: no early breaks */
 }
-.page-open .page-hero-sub--second { margin-top: 1.15em; font-size: inherit; opacity: .8; }
+/* no size of its own: it is the same paragraph, said second. `font-size: inherit` here took
+   the CONTAINER's size, not the first paragraph's, and left it at 16 px */
+.page-open .page-hero-sub--second { margin-top: 1.15em; opacity: .8; }
 
 /* The pictures form a queue rather than a set of fixed frames: three places are
    visible, and every step promotes each picture one place up in size, so a small
@@ -1695,22 +1704,13 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .pcq.laying .pcf-frame { clip-path: inset(100% 0 0 0); transition: none; }
 
 /* the rule that says a print is coming: it fills, it does not count */
-.pcrun {
-  position: absolute; top: 100%; left: 0; width: calc(100% - 51px);
-  margin-top: 2.6vh; height: 2px; background: rgba(16, 16, 16, .16);
-  overflow: hidden;
-}
-.pcrun i {
-  display: block; height: 100%; background: var(--ink);
-  transform: scaleX(0); transform-origin: left;
-  animation: pcrun 5.6s linear infinite;
-}
-@keyframes pcrun { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-/* a hand on the picture holds the pile where it is */
-.pcascade:hover .pcrun i { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) {
-  .pcrun { display: none; }
-  .pcrun i { animation: none; }
+/* The row of marks stands where the gauge used to be. A filling bar is a progress indicator
+   and the site has none anywhere else — the marks say how many there are and which one is in
+   hand, which is all the reader needs. The clock is a timer in reveal.js, and a hand on the
+   picture holds the pile where it is. */
+.pcdots {
+  position: absolute; top: 100%; left: 0;
+  margin-top: 2.6vh;
 }
 
 /* the team photograph holds its own frame beside the title, cropped to a band.
@@ -1798,7 +1798,6 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
 .news-fold.open { grid-template-rows: 1fr; }
 .news-fold-inner { overflow: hidden; min-height: 0; }
 .news-fold .news-cards { padding-top: 5vh; }
-.news-toggle { max-width: none; margin-top: 26px; border-top: 1.5px solid var(--ink); border-bottom: none; }
 
 /* dark variant kept for any page that opts into subpage-dark */
 body.subpage-dark .news-tile { border-color: rgba(250, 248, 240, .25); }
@@ -1810,7 +1809,7 @@ body.subpage-dark .news-tile:hover .nt-more { color: var(--yellow); }
 /* keeps the standfirst on a single line across desktop widths
    (needs to out-specify `.subpage-hero .page-hero-sub`) */
 .subpage-hero .page-hero-sub--wide,
-.page-hero-sub--wide { max-width: none; font-size: clamp(.95rem, 1.42vw, 1.32rem); }
+.page-hero-sub--wide { max-width: none; font-size: clamp(1.15rem, 1.6vw, 1.62rem); }
 
 /* ============ Scroll reveals (dedicated pages) ============ */
 /* Hidden states are armed only once reveal.js runs, so content can never get stuck. */

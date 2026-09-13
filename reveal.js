@@ -204,12 +204,24 @@
   document.querySelectorAll('.pcascade').forEach(cascade => {
     const queue = [...cascade.querySelectorAll('.pcq')];
     const open = cascade.closest('.page-open') || cascade.parentElement;
-    const run = cascade.querySelector('.pcrun i');
+    const marks = cascade.querySelector('.pcdots');
     const steps = queue.length;
     if (steps < 2) return;
 
     const lead = open.querySelector('[data-cascade-lead]');
     let k = 0;
+
+    /* The same row of marks the community carries on the home: one rule per picture, the one
+       in hand long, the others short. No gauge filling up — that was a progress bar, and the
+       site has none anywhere else. Each mark turns its own print. */
+    const dots = marks ? queue.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'pcdot';
+      b.setAttribute('aria-label', 'Picture ' + (i + 1) + ' of ' + steps);
+      b.addEventListener('click', () => { lay(i, true); restart(); });
+      marks.appendChild(b);
+      return b;
+    }) : [];
 
     /* Depth 0 is the print in hand; 1, 2, 3 are the ones already laid, showing their
        edges under it; anything deeper waits out of the pile. */
@@ -229,6 +241,7 @@
         void top.offsetWidth;            // let the closed clip take, then open it
         top.classList.remove('laying');
       }
+      dots.forEach((d, i) => d.classList.toggle('on', i === k));
       // the headline belongs to whichever picture is now in hand
       if (lead && queue[k].dataset.title) {
         const d = queue[k].dataset;
@@ -243,19 +256,32 @@
       }
     };
 
-    lay(0, false);
-
-    /* The rule under the frame is the clock: one sweep, one print. Driving the pile from
-       the animation rather than from a timer means the pointer pausing the rule pauses
-       the pile too, in step, and there is no second clock to keep in sync. */
-    if (run && !reduced) {
-      run.addEventListener('animationiteration', () => {
-        if (document.hidden) return;
+    /* A PLAIN TIMER is the clock now. It used to be the filling rule's own animation — one
+       clock, and pausing the rule paused the pile. With the rule gone there is nothing left
+       to keep in sync, and an animation that paints nothing is optimised away by the engine:
+       it never fires a single iteration. A hand on the picture clears the timer, leaving it
+       clears it again and starts a fresh 5.6 s, and turning a print by hand does the same —
+       so a print never lands a moment after you chose it. `setTimeout`, not rAF: a hidden
+       tab suspends rAF and the pile would stop for good. */
+    let timer = null;
+    const stop = () => { if (timer) { clearTimeout(timer); timer = null; } };
+    const restart = () => {
+      stop();
+      if (reduced) return;
+      timer = setTimeout(() => {
+        timer = null;
         const r = cascade.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        lay(k + 1, true);
-      });
-    }
+        if (!document.hidden && r.bottom > 0 && r.top < innerHeight) lay(k + 1, true);
+        restart();
+      }, 5600);
+    };
+
+    lay(0, false);
+    restart();
+    cascade.addEventListener('mouseenter', stop);
+    cascade.addEventListener('mouseleave', restart);
+    cascade.addEventListener('focusin', stop);
+    cascade.addEventListener('focusout', restart);
   });
 })();
 

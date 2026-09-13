@@ -57,6 +57,8 @@ if (faqToggle && faqMore) {
     faqToggle.classList.toggle('open', open);
     faqToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     label.textContent = open ? 'Show fewer questions' : 'Show all questions';
+    const arrow = faqToggle.querySelector('.btn-arrow');
+    if (arrow) arrow.innerHTML = open ? '&uarr;' : '&darr;';
   });
 }
 
