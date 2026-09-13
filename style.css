@@ -1504,6 +1504,16 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   font-size: clamp(1rem, 1.18vw, 1.18rem); line-height: 1.35; color: var(--ink);
 }
 @media (max-width: 560px) { .pf-detail-meta { grid-template-columns: 1fr; gap: 20px; } }
+/* the way out of the card: the site's ordinary button, at the foot of what it describes */
+.pf-detail-go { margin-top: 34px; }
+.pf-detail-go .btn { margin: 0; }
+/* a company whose link has not arrived yet still shows its button, so the card keeps the
+   shape it will have — held back rather than hidden, and nothing happens on it */
+.btn--waiting {
+  color: rgba(16, 16, 16, .34); cursor: default;
+  pointer-events: none;
+}
+.btn--waiting::after { content: none; }
 
 /* ============ Sub-page (team.html) ============ */
 .page-hero { padding: 22vh 4vw 6vh; }

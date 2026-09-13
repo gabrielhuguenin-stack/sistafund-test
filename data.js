@@ -2,24 +2,25 @@
    Loaded by index.html, portfolio.html and community.html. */
 
 window.COMPANIES = {
-  /* [name, sector, logo, description, founders, location, founded, partnered]
-     wording taken verbatim from sistafund.com */
-  rebaba: ['Rebaba', 'Sustainability', 'rebaba.png', 'Powering the future with circular battery energy storage systems.', 'Paula Runsten, Felix Kruse', 'Stockholm, Sweden', '2023', '2026'],
-  pave: ['Pave Space', 'Frontier Tech', 'pave.png', 'Heavy kickstage to unlock orbital logistics.', 'Julie Böhning, Jérémy Marciacq', 'Vaud, Switzerland', '2023', '2026'],
-  waiv: ['Waiv', 'HealthTech', 'waiv.png', 'Accelerating AI-enabled precision oncology testing.', 'Meriem Sefta, Lionel Guillou', 'Paris', '2025', ''],
-  recupere: ['Recupere Metals', 'Sustainability', 'recupere.png', 'Patented mechanical process producing electrical-grade copper wire from 100% recycled scrap.', 'Katie Marsh, Julien Vaïssette', 'Paris', '2025', '2025'],
-  tec: ['The Exploration Company', 'Frontier Tech', 'tec.png', 'Democratizing space exploration, making it affordable, sustainable and open, for space & non-space industries.', 'Hélène Huby, Artur Kopp, Sebastien Reichstadt, Johannes Reijneveld, Pierre Vinet', 'Bordeaux', '2021', '2023'],
-  numi: ['Nūmi', 'HealthTech', 'numi.png', 'Developing in vivo breast milk, in vitro.', 'Eden Banon-Lagrange, Eugénie Pezé-Heidsieck', 'Paris', '2023', ''],
-  orakl: ['Orakl Oncology', 'HealthTech', 'orakl.png', 'Accelerating drug discovery in oncology.', 'Fanny Jaulin, Diane-Laure Pagès, Gustave Ronteix', 'Paris', '2023', ''],
-  femaleinvest: ['Female Invest', 'Frontier Tech', 'femaleinvest.webp', 'On a mission to close the financial gender gap, democratizing investing for everyone, globally.', 'Anna-Sophie Hartvigsen, Camilla Cloëtta Falkenberg, Emma Due Bitz', 'Copenhagen, Denmark London, UK', '2021', '2023'],
-  underdog: ['Underdog', 'Sustainability', 'underdog.png', 'By bridging the gap between circularity and industrial efficiency, the company provides a robust solution for the carbon footprint reduction and the emergence of a European industrial sector.', 'Claire Bretton, Laura Chavigny, Mathieu Maure', 'Nantes Paris', '2022', '2022'],
-  astran: ['Astran', 'Frontier Tech', 'astran.png', 'Zero Trust cloud storage solution for sensitive data.', 'Yosra Jarraya, Gilles Seghaier, Yahya Jarraya', 'Paris', '2021', '2023'],
-  mallow: ['Mallow', 'Frontier Tech', 'mallow.png', 'Educational toys for children at the intersection of cognitive science and AI.', 'Flore Cousin, Cédric O', 'Paris', '2024', ''],
-  vizzia: ['Vizzia', 'Sustainability', 'vizzia.png', 'Leveraging computer vision and AI to detect illegal waste dumping.', 'Katrin de Proyart (Dimitrova), Alexandre Leboucher', 'Paris', '2022', '2021'],
-  optimiz: ['Optimiz Construction', 'Sustainability', 'optimiz.png', 'Helping construction firms optimize materials to save time, money and CO₂.', 'Marion Malandain', 'Paris', '2020', '2022'],
-  notom: ['NOTOM', 'Frontier Tech', 'notom.png', 'Bridge OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris', '2025', ''],
-  oshen: ['Oshen', 'Frontier Tech', 'oshen.png', 'Unlocking ocean intelligence.', 'Anahita Laverack, Ciaran Dowds', 'UK', '2022', '2026'],
-  suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026'],
+  /* [name, sector, logo, description, founders, location, founded, partnered, website]
+     wording taken verbatim from sistafund.com. An empty website still gets its button,
+     shown waiting rather than hidden, so the card keeps its final shape. */
+  rebaba: ['Rebaba', 'Sustainability', 'rebaba.png', 'Powering the future with circular battery energy storage systems.', 'Paula Runsten, Felix Kruse', 'Stockholm, Sweden', '2023', '2026', 'https://rebaba.se/'],
+  pave: ['Pave Space', 'Frontier Tech', 'pave.png', 'Heavy kickstage to unlock orbital logistics.', 'Julie Böhning, Jérémy Marciacq', 'Vaud, Switzerland', '2023', '2026', 'https://pave.space/page/homepage'],
+  waiv: ['Waiv', 'HealthTech', 'waiv.png', 'Accelerating AI-enabled precision oncology testing.', 'Meriem Sefta, Lionel Guillou', 'Paris', '2025', '', 'https://wearewaiv.com/'],
+  recupere: ['Recupere Metals', 'Sustainability', 'recupere.png', 'Patented mechanical process producing electrical-grade copper wire from 100% recycled scrap.', 'Katie Marsh, Julien Vaïssette', 'Paris', '2025', '2025', ''],
+  tec: ['The Exploration Company', 'Frontier Tech', 'tec.png', 'Democratizing space exploration, making it affordable, sustainable and open, for space & non-space industries.', 'Hélène Huby, Artur Kopp, Sebastien Reichstadt, Johannes Reijneveld, Pierre Vinet', 'Bordeaux', '2021', '2023', 'https://www.exploration.space/'],
+  numi: ['Nūmi', 'HealthTech', 'numi.png', 'Developing in vivo breast milk, in vitro.', 'Eden Banon-Lagrange, Eugénie Pezé-Heidsieck', 'Paris', '2023', '', 'https://www.numi.life/'],
+  orakl: ['Orakl Oncology', 'HealthTech', 'orakl.png', 'Accelerating drug discovery in oncology.', 'Fanny Jaulin, Diane-Laure Pagès, Gustave Ronteix', 'Paris', '2023', '', 'https://www.orakl-oncology.com/'],
+  femaleinvest: ['Female Invest', 'Frontier Tech', 'femaleinvest.webp', 'On a mission to close the financial gender gap, democratizing investing for everyone, globally.', 'Anna-Sophie Hartvigsen, Camilla Cloëtta Falkenberg, Emma Due Bitz', 'Copenhagen, Denmark London, UK', '2021', '2023', 'https://www.femaleinvest.com/'],
+  underdog: ['Underdog', 'Sustainability', 'underdog.png', 'By bridging the gap between circularity and industrial efficiency, the company provides a robust solution for the carbon footprint reduction and the emergence of a European industrial sector.', 'Claire Bretton, Laura Chavigny, Mathieu Maure', 'Nantes Paris', '2022', '2022', 'https://underdog.shop/'],
+  astran: ['Astran', 'Frontier Tech', 'astran.png', 'Zero Trust cloud storage solution for sensitive data.', 'Yosra Jarraya, Gilles Seghaier, Yahya Jarraya', 'Paris', '2021', '2023', 'https://astran.io/'],
+  mallow: ['Mallow', 'Frontier Tech', 'mallow.png', 'Educational toys for children at the intersection of cognitive science and AI.', 'Flore Cousin, Cédric O', 'Paris', '2024', '', 'https://www.mallow.fr/'],
+  vizzia: ['Vizzia', 'Sustainability', 'vizzia.png', 'Leveraging computer vision and AI to detect illegal waste dumping.', 'Katrin de Proyart (Dimitrova), Alexandre Leboucher', 'Paris', '2022', '2021', 'https://www.vizzia.fr/'],
+  optimiz: ['Optimiz Construction', 'Sustainability', 'optimiz.png', 'Helping construction firms optimize materials to save time, money and CO₂.', 'Marion Malandain', 'Paris', '2020', '2022', 'https://www.optimiz-construction.fr/'],
+  notom: ['NOTOM', 'Frontier Tech', 'notom.png', 'Bridge OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris', '2025', '', 'https://notom.io/'],
+  oshen: ['Oshen', 'Frontier Tech', 'oshen.png', 'Unlocking ocean intelligence.', 'Anahita Laverack, Ciaran Dowds', 'UK', '2022', '2026', 'https://www.oshendata.com/'],
+  suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026', 'https://suna.health/'],
 };
 
 window.LPS = [
