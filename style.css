@@ -21,10 +21,24 @@
      change with the width of the block. Tuning it per block (132 for the plates, 48 for the
      press) was a mistake: a short fade is not a soft one — it is an abrupt one, and on a
      photograph it read harder than the long fade on the pale plates. Same distance for all,
-     same gesture. */
+     same gesture.
+     What DOES change is the PROFILE. A straight ramp dims the whole 120 px evenly, so on the
+     press photographs a sixth of the picture sat under a veil. The ramp is eased instead:
+     50 % at 19 px, 82 % at 40 px, 95 % at 70 px — so the picture is essentially clear a third
+     of the way in, while the outermost 19 px still dissolves. Shortening the distance would
+     only have brought the abrupt edge back; this takes the veil off without doing that. */
   --fade: 120px;
-  --fade-x: linear-gradient(to right, transparent 0, #000 var(--fade),
-                            #000 calc(100% - var(--fade)), transparent 100%);
+  --fade-x: linear-gradient(to right,
+    transparent 0,
+    rgba(0, 0, 0, .5) calc(var(--fade) * .16),
+    rgba(0, 0, 0, .82) calc(var(--fade) * .33),
+    rgba(0, 0, 0, .95) calc(var(--fade) * .58),
+    #000 var(--fade),
+    #000 calc(100% - var(--fade)),
+    rgba(0, 0, 0, .95) calc(100% - var(--fade) * .58),
+    rgba(0, 0, 0, .82) calc(100% - var(--fade) * .33),
+    rgba(0, 0, 0, .5) calc(100% - var(--fade) * .16),
+    transparent 100%);
   --yellow: #FFF868;
   --ink: #101010;
   --paper: #FAF8F0;
@@ -771,14 +785,28 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    other, so the pair reads as two prints laid down rather than as a pair of slots.
    The gap before the band is taken on the CREAM side (the team's own bottom margin): the eye
    measures the cream it crosses, not the padding inside the black. */
-.community { background: var(--ink); color: var(--paper); padding: 12vh 4vw 14vh; }
+.community { background: var(--ink); color: var(--paper); padding: 12vh 4vw 14vh; --shot-edge: 1.5px; }
+/* THE COLUMN IS HELD AT BOTH ENDS, like the team's composition and like the group photo.
+   The words used to float, centred against the pictures: the title started 133 px below the
+   top of the first frame and the button ended nowhere in particular. Now the column is
+   stretched to the height of the pictures — the title opens on the same line as the first
+   frame, and the button falls to the foot (`margin-top: auto`), so the section closes on ONE
+   ruled line: the button's rule at the left, the row of marks under the frames at the right. */
 .comm-top {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
-  gap: 3.4vw; align-items: center;
+  gap: 3.4vw; align-items: stretch;
 }
+.comm-words { display: flex; flex-direction: column; }
+/* aligned on the CAPS, not on the text box: display type carries 0.2 em of leading above its
+   capitals, so flush with the frame the title sat 20 px low against a hard edge */
 .comm-head { padding: 0 0 1vh; }
+.comm-head h2 { margin-top: -.2em; }
 .comm-note  { margin-top: 3.5vh; }
-.comm-cta   { margin-top: 5vh; }
+/* the marks are drawn in the middle of a 16 px hit area, so the button's own rule drops by
+   the same amount to land on their line */
+/* flex, so the button is not an inline box: as a line box it carried 18 px of leading under
+   its own rule and the foot of the column was not the foot of the rule */
+.comm-cta   { margin-top: auto; margin-bottom: 7px; display: flex; align-items: flex-end; }
 .comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 40ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
 /* the words rise as they arrive, the same gesture as every other section head */
@@ -794,7 +822,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-shot {
   position: relative; margin: 0; overflow: hidden;
   aspect-ratio: 4 / 5.3;
-  border: 1.5px solid rgba(250, 248, 240, .22);
+  border: var(--shot-edge) solid rgba(250, 248, 240, .22);
   cursor: pointer;
   transition: border-color .3s var(--ease);
 }
@@ -805,11 +833,14 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .comm-pile--low { margin-top: 9vh; }
 /* how many there are and where you are: one rule per picture, the one in view long and
    yellow, the others short. Rules, not rounded bars — the site is made of straight lines.
-   The button keeps a clickable height and the rule is drawn inside it. */
+   The button keeps a clickable height and the rule is drawn inside it.
+   The row starts on the PHOTOGRAPH, not on its frame: the frame carries a 1.5 px border, so
+   flush with the frame box the first rule began a hair left of the picture above it, and at
+   any magnification that reads as a miss. */
 .comm-dots {
   grid-column: 1 / -1;
   display: flex; align-items: center; gap: 14px;
-  margin-top: 4.5vh;
+  margin-top: 4.5vh; padding-left: var(--shot-edge);
 }
 .comm-dot {
   display: flex; align-items: center;
@@ -842,6 +873,9 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 @media (max-width: 1000px) {
   .comm-top { grid-template-columns: 1fr; gap: 6vh; }
   .comm-pile--low { margin-top: 0; }
+  /* one column: there is no picture beside the words to hold the foot of the column, so the
+     button takes its own room again instead of collapsing onto the sentence */
+  .comm-cta { margin-top: 5vh; margin-bottom: 0; }
 }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
@@ -882,7 +916,20 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: background .3s, padding .3s;
 }
 .faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary:hover { background: var(--yellow); padding-left: 20px; }
+/* NO YELLOW SLAB ON THE CREAM. The FAQ sits on the cloud field, which already lights under
+   the hand: filling the whole row with yellow on top of that is two answers to one gesture.
+   The row answers like every other ruled line here — the yellow rises at its foot, the label
+   steps in. The slab stays on the SECTOR rows, which are on black and have no field beneath
+   them, so there the inversion is the only thing that happens. */
+.faq-item summary { position: relative; }
+.faq-item summary::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--band);
+  background: var(--yellow);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .42s var(--ease);
+}
+.faq-item summary:hover { padding-left: 20px; }
+.faq-item summary:hover::after { transform: scaleX(1); }
 .faq-x {
   font-size: 1.1em; transition: transform .45s var(--ease); flex-shrink: 0;
 }
@@ -909,7 +956,15 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   border-bottom: 1.5px solid var(--ink);
   transition: background .3s, padding .3s;
 }
-.faq-toggle:hover { background: var(--yellow); padding-left: 20px; }
+.faq-toggle { position: relative; background: transparent; }
+.faq-toggle::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--band);
+  background: var(--yellow);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .42s var(--ease);
+}
+.faq-toggle:hover { padding-left: 20px; }
+.faq-toggle:hover::after { transform: scaleX(1); }
 .faq-toggle-x { font-size: 1.3em; transition: transform .45s var(--ease); flex-shrink: 0; }
 .faq-toggle.open .faq-toggle-x { transform: rotate(45deg); }
 
