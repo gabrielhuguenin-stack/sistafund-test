@@ -1972,9 +1972,34 @@ body > main, body > footer { position: relative; z-index: 1; }
    Everything now starts on the left margin, the paragraph sits directly under the claim it
    belongs to, and the rhythm comes from the claims growing as the page descends.
    NO BOX either: five cream rectangles each cornered by a rule made a stack of cards. */
+/* EACH STATEMENT IS A PART, AND EACH PART HAS ITS PHOTOGRAPH. Five text blocks stacked one
+   on the next read flat, and the right half of the page was empty the whole way down. The
+   claim still takes the full width — it is what gives the column its scale — and underneath it
+   the paragraph and a picture share the line. The paragraph never leaves the left margin, so
+   the claim and its own text stay together: what fills the right is a photograph, not a
+   sentence the reader has to go and find. */
 .m-stmt {
-  display: block; position: relative;
-  padding: 6.5vh 0 7vh;
+  display: grid; position: relative;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .78fr);
+  grid-template-areas: "claim claim" "body  shot";
+  column-gap: 4vw; row-gap: 3vh;
+  align-items: start;
+  padding: 7vh 0 7.5vh;
+}
+.m-claim { grid-area: claim; }
+.m-shot { grid-area: shot; margin: 0; }
+.m-shot img {
+  display: block; width: 100%; aspect-ratio: 3 / 2;
+  object-fit: cover; border: 1.5px solid var(--ink);
+}
+/* framing solved on the faces, as everywhere else on the site */
+.m-shot img[src*="pf-founders"]  { object-position: center 0%; }
+.m-shot img[src*="pf-dinner"]    { object-position: center 14%; }
+.m-shot img[src*="comm-poilane"] { object-position: center 93%; }
+.m-shot img[src*="team-stairs"]  { object-position: center 0%; }
+.m-shot img[src*="comm-talking"] { object-position: 100% center; }
+@media (max-width: 980px) {
+  .m-stmt { grid-template-columns: 1fr; grid-template-areas: "claim" "body" "shot"; }
 }
 /* the claims take the page: with the alternation gone they are what gives the column its
    scale, so they run wide and ragged right while the paragraphs keep a reading measure
@@ -1992,9 +2017,10 @@ body > main, body > footer { position: relative; z-index: 1; }
 /* the explanation follows its claim immediately, in the quiet voice and on a reading
    measure — it is the same block, said second, not an aside across the page */
 .m-body {
+  grid-area: body;
   font-family: var(--serif); font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.48;
-  color: var(--grey); width: min(56ch, 100%);
-  margin: 2.4vh 0 0;
+  color: var(--grey); width: min(50ch, 100%);
+  margin: 0;
 }
 /* the closing line stands alone, full measure */
 .m-legacy { padding: 12vh 4vw 16vh; }
