@@ -228,18 +228,27 @@ if (aboutIntro) {
 }
 
 // ---------- Portfolio: crossing rows ----------
-const PF_TRAVEL = 0.36;   // share of the track's overflow crossed per screen of scroll
+/* The travel is the SET's own overflow, crossed once — so every plate sweeps through the
+   middle of the screen and none is stuck at an edge. It used to be 0.36 of the DOUBLED track,
+   which came to 976 px for the six-plate row: more movement than this, and yet the first and
+   last plates never arrived. Measured on the real set it is 636 px — calmer and complete. */
+const PF_TRAVEL = 1;
 const NEWS_TRAVEL = 0.72; // a share of the run's overflow: calm, and it still shows most of itself
 let newsRun;
 const pfRows = document.querySelectorAll('.pf-row');
-// duplicate each row's cards so the tracks overflow wide and the opposite-direction slide is pronounced
+/* EVERY PLATE GETS ITS TURN IN THE MIDDLE. The cards used to be duplicated once and the track
+   pulled left from zero, so a row's FIRST plate sat at the very edge when the row was only
+   just entering at the foot of the screen, and was already gone by the time the row was
+   comfortably in view — Rebaba, the newest company, was never actually seen. The set is now
+   cloned on BOTH sides, and the travel is centred on the real set: the originals sweep through
+   the middle of the screen, and the clones are only there so no gap can ever open at an edge. */
 pfRows.forEach(row => {
   const track = row.querySelector('.pf-track');
-  track.querySelectorAll('.pf-card').forEach(card => {
-    const clone = card.cloneNode(true);
-    clone.setAttribute('aria-hidden', 'true');
-    track.appendChild(clone);
-  });
+  const cards = [...track.querySelectorAll('.pf-card')];
+  const clone = card => { const c = card.cloneNode(true); c.setAttribute('aria-hidden', 'true'); return c; };
+  cards.forEach(card => track.appendChild(clone(card)));
+  [...cards].reverse().forEach(card => track.insertBefore(clone(card), track.firstChild));
+  track.dataset.set = cards.length;
 });
 
 
@@ -451,11 +460,18 @@ function onScroll() {
     const r = row.getBoundingClientRect();
     if (r.bottom < -100 || r.top > vh + 100) return;
     const track = row.querySelector('.pf-track');
-    // only a share of the overflow is travelled: the same crossing, far calmer
-    const overflow = Math.max(track.scrollWidth - row.clientWidth, 0) * PF_TRAVEL;
+    const cards = track.querySelectorAll('.pf-card');
+    const n = +track.dataset.set || cards.length;
+    const pitch = cards.length > 1
+      ? cards[1].offsetLeft - cards[0].offsetLeft
+      : cards[0].offsetWidth;
+    const setW = n * pitch;                       // one set, trailing gutter included
+    // the middle of the scroll puts the real set in the middle of the screen
+    const mid = setW + (setW - pitch + cards[0].offsetWidth - row.clientWidth) / 2;
+    const travel = Math.max(setW - row.clientWidth, 0) * PF_TRAVEL;
     const p = clamp((vh - r.top) / (vh + r.height), 0, 1);
-    const x = i % 2 === 0 ? -overflow * p : -overflow * (1 - p);
-    track.style.transform = `translateX(${x}px)`;
+    const x = -mid + (i % 2 === 0 ? 1 : -1) * travel * (0.5 - p);
+    track.style.transform = `translateX(${x.toFixed(1)}px)`;
   });
 
   // photos: image drifts slower than its frame (internal parallax), staying within the overflow
