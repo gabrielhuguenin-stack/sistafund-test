@@ -1993,8 +1993,13 @@ body > main, body > footer { position: relative; z-index: 1; }
   background: var(--ink); color: var(--paper);
   margin: 0 -4vw; padding: 15vh 4vw;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
-  column-gap: 3.4vw; align-items: center;
+  column-gap: 3.4vw; align-items: start;
 }
+/* the words START AT THE TOP OF THE PHOTOGRAPH, they are not centred against it — and aligned
+   on the CAPITALS, not on the text box: the display face carries leading above its caps, so
+   flush with the frame the title sat low against a hard edge. Same calage as the community
+   section on the home. */
+.m-stmt--ink .m-claim { margin-top: -.2em; }
 .m-stmt--ink .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 .m-stmt--ink .m-body { color: rgba(250, 248, 240, .78); }
 .m-stmt--ink .m-shot img { border-color: rgba(250, 248, 240, .22); }
