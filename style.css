@@ -1948,8 +1948,15 @@ body > main, body > footer { position: relative; z-index: 1; }
   color: var(--ink); background: var(--yellow);
   -webkit-text-stroke: 0; padding: 0 .14em;
 }
-.doc-photo { padding: 0 4vw; }
-.doc-photo img { width: 100%; height: 62vh; object-fit: cover; object-position: center 42%; border: 1.5px solid var(--ink); }
+/* THE PHOTOGRAPH IS SET TO ONE SIDE. Full width under the title it read as a poster band,
+   the only full-bleed picture on any dedicated page. It now starts well inside the page and
+   runs to the right margin, so the title keeps the air beneath it and the opening is read as
+   a composition rather than a banner. It stops AT the margin: the frame carries the house
+   1.5 px edge, and a picture bleeding off the screen would lose that edge on one side, which
+   reads as an accident rather than a decision. */
+.doc-photo { padding: 0 4vw 0 30vw; }
+.doc-photo img { width: 100%; height: 58vh; object-fit: cover; object-position: center 42%; border: 1.5px solid var(--ink); }
+@media (max-width: 900px) { .doc-photo { padding: 0 4vw 0 12vw; } }
 .doc-body { padding: 7vh 4vw; }
 .doc-cta { margin-top: 7vh; }
 /* hero: statement left, standfirst set to the right so the line fills the page */
@@ -1962,14 +1969,13 @@ body > main, body > footer { position: relative; z-index: 1; }
    declaration that takes the width of the page, with its explanation hanging quietly to
    the right underneath — and the five of them grow as they go, so the document builds
    toward its closing line instead of repeating itself five times. */
-/* Each statement is a card, like the ones the thesis deals: a cream rectangle with its
-   own edge, and it opens downwards as it arrives. */
+/* NO BOX AROUND A STATEMENT. Five cream rectangles each cornered by a rule turned the
+   manifesto into a stack of cards — five frames on a page that is meant to be read straight
+   through. The statements stand on the page itself; what separates them is the space and the
+   alternation, and they still wipe down as they arrive. */
 .m-stmt {
   display: block; position: relative;
-  border: 1.5px solid var(--ink); background: var(--paper);
-  padding: 6vh 2.6vw 6.4vh;
-  margin-bottom: 14px;
-  transition: box-shadow .3s var(--ease);
+  padding: 7vh 0 7.4vh;
 }
 .m-claim {
   font-family: var(--display); text-transform: uppercase;
@@ -1985,22 +1991,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-stmt:nth-of-type(even) { text-align: right; }
 .m-stmt:nth-of-type(even) .m-claim { margin-left: auto; }
 .m-stmt:nth-of-type(even) .m-body { margin: 3vh auto 0 0; text-align: left; }
-@media (max-width: 760px) { .m-stmt { padding: 5vh 5vw 5.4vh; } }
-/* and a picture cuts the document in half */
-.m-film { margin: 2vh 0 0; width: min(54%, 880px); }
-@media (max-width: 900px) { .m-film { width: 100%; } }
-.m-plate {
-  position: relative;
-  aspect-ratio: 16 / 6; overflow: hidden;
-  border: 1.5px solid var(--ink);
-}
-.m-plate img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center 34%;
-  filter: grayscale(1) contrast(1.05);
-  transform: scale(1.06); transition: transform 1.4s var(--ease), filter 1.2s var(--ease);
-}
-.m-film.in-view img { transform: none; }
+@media (max-width: 760px) { .m-stmt { padding: 6vh 0 6.4vh; } }
 /* the aside answers from the right, set in the quiet voice */
 .m-body {
   font-family: var(--serif); font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.48;
