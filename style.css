@@ -1812,14 +1812,19 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 .page-open--anchor .pcascade { aspect-ratio: 1 / 1; height: auto; align-self: start; }
 .page-open--anchor .pcf-wide { margin-top: auto; margin-bottom: calc(-2.6vh - 9px); }
 .page-open--anchor .page-open-text { align-self: stretch; display: flex; flex-direction: column; }
-.pcf-wide { width: 100%; flex: 0 0 auto; margin-top: 5vh; }
+/* the picture takes the whole column: `width: 100%` pinned it to the text column's own
+   measure, so a negative margin alone could not widen it */
+.pcf-wide { width: calc(100% + 2vw); flex: 0 0 auto; margin-top: 5vh; }
 @media (max-width: 900px) { .page-open--anchor .pcf-wide { margin-top: 5vh; margin-bottom: 0; } }
 /* THE FIXED PHOTOGRAPH IS CROPPED ABOVE THE KNEE. At the file's own ratio (1066/969) the whole
    body showed, feet and floor included, and the bottom third carried nothing — tiles under the
    founders, empty steps under the team. A 5/3 frame keeps the top 66 % of the picture: the
    group, cropped where a portrait is normally cropped, and the page opening gets shorter with
    it. Anchored to the TOP, so the heads are never the thing that goes. */
-.pcf-wide .pcf-frame { aspect-ratio: 5 / 3; height: auto; }
+/* it takes the WHOLE column: the 2vw the text column holds back for its own measure is not
+   the picture's business, and the frame is a touch taller too (3/2 rather than 5/3). It still
+   keeps only 73 % of the file, so the feet are still out. */
+.pcf-wide .pcf-frame { aspect-ratio: 3 / 2; height: auto; }
 .pcf-wide img { object-position: center 0%; }
 /* the group portrait sits a touch lower in its file than the founders do in theirs */
 .pcf-wide img[src*="hero"] { object-position: center 5%; }
