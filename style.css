@@ -1972,83 +1972,57 @@ body > main, body > footer { position: relative; z-index: 1; }
    Everything now starts on the left margin, the paragraph sits directly under the claim it
    belongs to, and the rhythm comes from the claims growing as the page descends.
    NO BOX either: five cream rectangles each cornered by a rule made a stack of cards. */
-/* FIVE PARTS, FIVE TREATMENTS — not one arrangement run five times. Claim, paragraph and a
-   picture, over and over, read as a template: the page was regular where it should have been
-   argued. Each part now carries the weight its own sentence has, and only two of them need a
-   photograph at all:
-     1 the opening, words alone;
-     2 the evidence, with the founders beside it;
-     3 the turn, on a black band across the page — the strongest device the site owns;
-     4 the team, a wide photograph with the statement under it;
-     5 the closing argument, words alone and the largest, running into the legacy line.
-   In every one the paragraph stays on the left margin, under its own claim. */
+/* ONE RULE, NOT FIVE IDEAS. The page was drifting: every statement had been given its own
+   arrangement, so nothing carried over from one to the next and the placements read as
+   decisions taken one at a time. The manifesto is built from the home's own grammar instead:
+   THE GROUND ALTERNATES, and the ground is what says what a statement carries.
+     on the cream — words alone, claim at the left margin, paragraph under it;
+     on the ink   — the statement comes with its photograph, words left and picture right,
+                    which is exactly how the community section is built on the home.
+   Cream, ink, cream, ink, cream. The reader feels the alternation without being told, the two
+   photographs land where the ground turns over, and the order of the statements is untouched. */
 .m-stmt {
   display: block; position: relative;
-  padding: 7vh 0 7.5vh;
+  padding: 11vh 0 11.5vh;
 }
 .m-shot { margin: 0; }
 .m-shot img {
-  display: block; width: 100%; object-fit: cover;
+  display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
   border: 1.5px solid var(--ink);
+  object-position: center 0%;           /* solved on the faces: both keep all of theirs */
 }
-/* 2 — the paragraph keeps the left, the photograph takes the half that was empty */
-.m-stmt--aside {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, .78fr);
-  grid-template-areas: "claim claim" "body  shot";
-  column-gap: 4vw; row-gap: 3vh; align-items: start;
-}
-.m-stmt--aside .m-claim { grid-area: claim; }
-.m-stmt--aside .m-shot { grid-area: shot; }
-.m-stmt--aside .m-shot img { aspect-ratio: 3 / 2; object-position: center 0%; }
-/* 3 — the turn of the manifesto: TWO statements on one black band running the full width of
-   the page, side by side, the second hung lower than the first — the same offset pair the
-   community's two pictures make on the home. What the fund is and what founders are owed are
-   the two halves of the same declaration, so they are read together rather than a page apart.
-   The word is set in the yellow here, not outlined: on ink it needs no help to be read. */
-.m-ink {
+/* the ink statement: the same two columns the community uses on the home, and the same
+   proportion — the words narrower than the picture. The word is written IN the yellow here;
+   on ink it needs no outline. */
+.m-stmt--ink {
   background: var(--ink); color: var(--paper);
-  margin: 4vh -4vw; padding: 12vh 4vw 13vh;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 5vw; align-items: start;
+  margin: 0 -4vw; padding: 15vh 4vw;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
+  column-gap: 3.4vw; align-items: center;
 }
-.m-ink .m-stmt { padding: 0; }
-.m-stmt--low { margin-top: 13vh; }
 .m-stmt--ink .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 .m-stmt--ink .m-body { color: rgba(250, 248, 240, .78); }
-/* 4 — the photograph leads, wide, and the statement answers under it */
-.m-stmt--band .m-shot { margin-bottom: 5vh; }
-.m-stmt--band .m-shot img { aspect-ratio: 16 / 9; object-position: center 0%; }
+.m-stmt--ink .m-shot img { border-color: rgba(250, 248, 240, .22); }
 @media (max-width: 980px) {
-  .m-stmt--aside { grid-template-columns: 1fr; grid-template-areas: "claim" "body" "shot"; }
-  /* one column: the offset has nothing to sit against, so it becomes plain vertical room */
-  .m-ink { grid-template-columns: 1fr; padding: 10vh 4vw 10.5vh; }
-  .m-stmt--low { margin-top: 8vh; }
+  .m-stmt--ink { grid-template-columns: 1fr; row-gap: 5vh; padding: 11vh 4vw; }
 }
-/* the claims take the page: with the alternation gone they are what gives the column its
-   scale, so they run wide and ragged right while the paragraphs keep a reading measure
-   underneath. At 24ch they wrapped into a narrow strip and the page read as one thin column. */
+/* ONE SIZE for all five: what changes from one statement to the next is the ground, not the
+   type. Claims that grew as the page descended were a second rhythm running against the first,
+   and in the narrower column of an ink statement the largest of them broke into five lines. */
 .m-claim {
   font-family: var(--display); text-transform: uppercase;
-  line-height: .97; max-width: 34ch;
-  font-size: clamp(1.7rem, 3.2vw, 3rem);
+  line-height: .97; max-width: 30ch;
+  font-size: clamp(2rem, 4vw, 3.8rem);
 }
-/* sized by treatment, not by source order: the black band is a <section>, so counting
-   articles no longer lands on the right statement */
-.m-stmt--open  .m-claim { font-size: clamp(1.9rem, 3.6vw, 3.4rem); }
-.m-stmt--aside .m-claim { font-size: clamp(2rem, 4.2vw, 4rem); }
-.m-stmt--ink   .m-claim { font-size: clamp(1.7rem, 2.7vw, 2.7rem); max-width: 26ch; }
-.m-stmt--band  .m-claim { font-size: clamp(2.3rem, 5.4vw, 5.2rem); }
-@media (max-width: 760px) { .m-stmt { padding: 6vh 0 6.4vh; } }
+.m-stmt--ink .m-claim { max-width: 20ch; }
+@media (max-width: 760px) { .m-stmt:not(.m-stmt--ink) { padding: 8vh 0 8.5vh; } }
 /* the explanation follows its claim immediately, in the quiet voice and on a reading
    measure — it is the same block, said second, not an aside across the page */
 .m-body {
-  grid-area: body;
   font-family: var(--serif); font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.48;
   color: var(--grey); width: min(52ch, 100%);
-  margin: 2.6vh 0 0;
+  margin: 3vh 0 0;
 }
-.m-stmt--aside .m-body { margin-top: 0; }
 /* the closing line stands alone, full measure */
 .m-legacy { padding: 12vh 4vw 16vh; }
 .m-legacy-title {
@@ -2058,7 +2032,9 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 @media (max-width: 620px) { .m-legacy-title { white-space: normal; } }
 @media (max-width: 900px) {
-  .m-stmt { padding: 6vh 0; }
+  /* :not() so the generic padding does not strip the ink band of its 4vw and let the words
+     run to the very edge of the screen — same specificity, and this rule comes later */
+  .m-stmt:not(.m-stmt--ink) { padding: 8vh 0; }
   .m-body { width: 100%; margin-top: 22px; }
 }
 @media (max-width: 900px) {
