@@ -743,24 +743,32 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .member-photo img[src*="marie"], .team-slide img[src*="marie"] { object-position: center 30%; }
 .member-photo img[src*="arthur"], .team-slide img[src*="arthur"] { object-position: center 28%; }
 /* the presentation arrives over the portrait, verbatim from sistafund.com */
+/* SET AS LARGE AS THE PORTRAIT ALLOWS. The binding constraint is the longest bio, which has
+   to stay inside its own frame — so the room was taken back from the panel rather than from
+   the pictures: a little less padding, a little less leading, a slightly tighter gap. The
+   type then goes from 3.15cqw to 3.6cqw (+14 %) and the longest bio still keeps two lines of
+   headroom. Measured: it overflows at 4.0cqw, so 3.6 is not a guess. */
 .member-bio {
   position: absolute; inset: 0;
   background: rgba(16, 16, 16, .92); color: var(--paper);
-  padding: 6%; display: flex; flex-direction: column; justify-content: center; gap: .75em;
+  padding: 5%; display: flex; flex-direction: column; justify-content: center; gap: .6em;
   opacity: 0; transition: opacity .5s var(--ease);
-  font-family: var(--serif); font-size: clamp(.74rem, 1.05vw, .98rem); line-height: 1.55;
+  font-family: var(--serif); font-size: clamp(.8rem, 1.05vw, 1.15rem); line-height: 1.45;
 }
 /* the presentation is set against the width of its own portrait, not the window:
    three to a row makes a narrower picture, and the text has to follow it down */
 @supports (container-type: inline-size) {
   .team-gallery .member-photo { container-type: inline-size; }
-  .member-bio { font-size: clamp(.66rem, 3.15cqw, .95rem); }
+  .member-bio { font-size: clamp(.8rem, 3.6cqw, 1.15rem); }
 }
 .member:hover .member-bio, .member.open .member-bio { opacity: 1; }
+/* no rule above the About line: it is already set apart by being yellow, in display capitals,
+   against a serif paragraph — the filet was a third way of saying the same thing, inside a
+   panel that is itself a frame over a portrait. The space stays; only the line goes. */
 .member-fun {
   color: var(--yellow); font-family: var(--display); text-transform: uppercase;
   font-size: .72rem; letter-spacing: .08em; line-height: 1.45;
-  border-top: 1px solid var(--line-light); padding-top: .9em; margin-top: .1em;
+  margin-top: .55em;
 }
 .member-in {
   align-self: flex-start;
@@ -1433,6 +1441,38 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   filter: grayscale(1) contrast(1.05);
   transition: transform .5s var(--ease);
 }
+/* EACH FACE IS PLACED, not left to one blanket value. The square crop of a standing
+   photograph drops a third of its height, so a single `center 20%` put some faces at the
+   top of the frame and cut others off at the chin. Every position below is measured:
+   Vision finds the face, and the crop is solved so its centre lands 42 % down the frame —
+   the same place in all twenty-seven. */
+.lp-photo img[src*="adrien-nussenbaum"] { object-position: center 19%; }
+.lp-photo img[src*="alice-default"] { object-position: center 68%; }
+.lp-photo img[src*="alix-de-sagazan"] { object-position: center 38%; }
+.lp-photo img[src*="amelie-berthier"] { object-position: center 41%; }
+.lp-photo img[src*="cedric-sellin"] { object-position: center 14%; }
+.lp-photo img[src*="celine-lazorthes"] { object-position: center 41%; }
+.lp-photo img[src*="clement-buyse"] { object-position: center 49%; }
+.lp-photo img[src*="constance-nevoret"] { object-position: center 6%; }
+.lp-photo img[src*="fabien-grenier"] { object-position: center 64%; }
+.lp-photo img[src*="frank-zorn"] { object-position: center 10%; }
+.lp-photo img[src*="jd-guyot"] { object-position: center 46%; }
+.lp-photo img[src*="jon-benhamou"] { object-position: center 24%; }
+.lp-photo img[src*="laurent-delaporte"] { object-position: center 36%; }
+.lp-photo img[src*="marine-de-waziers"] { object-position: center 0%; }
+.lp-photo img[src*="michael-chekroun"] { object-position: center 0%; }
+.lp-photo img[src*="nathalie-balla"] { object-position: center 0%; }
+.lp-photo img[src*="nicolas-chartier"] { object-position: center 28%; }
+.lp-photo img[src*="nicolas-hernandez"] { object-position: center 26%; }
+.lp-photo img[src*="nicolas-reboud"] { object-position: center 34%; }
+.lp-photo img[src*="phillippe-oddo"] { object-position: center 33%; }
+.lp-photo img[src*="remi-aubert"] { object-position: center 46%; }
+.lp-photo img[src*="stephane-pallez"] { object-position: center 60%; }
+.lp-photo img[src*="steve-anavi"] { object-position: center 17%; }
+.lp-photo img[src*="valentine-de-lasteyrie"] { object-position: center 44%; }
+.lp-photo img[src*="xavier-durand"] { object-position: center 14%; }
+.lp-photo img[src*="xavier-niel"] { object-position: center 37%; }
+.lp-photo img[src*="xavier-zeitoun"] { object-position: center 59%; }
 .lp:hover .lp-photo img { transform: scale(1.06); }
 .lp:hover .lp-photo { border-color: var(--ink); }
 .lp-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.05rem, 1.25vw, 1.25rem); line-height: 1.05; display: block; }
@@ -1685,7 +1725,11 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    entry place. Positions are in % of the block, so the travel is a plain
    transition on left / top / width. */
 .pcascade { position: relative; aspect-ratio: 1000 / 688; }
-.page-open .pcascade { aspect-ratio: 1000 / 860; }
+/* A SQUARE FRAME for a mixed set. These piles hold pictures running from 0.56 to 1.50, and a
+   letterbox kept only 57 % of a standing photograph — heads and feet went. Square costs every
+   picture roughly the same and singles none out. (Team and Portfolio reach the same shape from
+   the other direction: there the column's height sets it, so the halves can close together.) */
+.page-open .pcascade { aspect-ratio: 1 / 1; }
 /* PRINTS LAID ONE ON ANOTHER. Not a book with arrows: a pile of photographs being laid
    down. The one in hand covers the frame; the ones already seen stay under it, shifted up
    and to the right so the pile shows its edges, and they hold back in black and white.
@@ -1726,6 +1770,19 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 /* the team photograph holds its own frame beside the title, cropped to a band.
    Its column is stretched to the height of the cascade and the frame takes what the
    title leaves, so it lands on the same line as the lowest picture on the right. */
+/* THE TWO HALVES CLOSE ON THE SAME LINE. The fixed photograph's foot and the row of marks
+   under the pile used to end 70 px apart, because the text column stretched while the pile
+   was centred in the row. The pile now takes the height the column leaves, less the room the
+   marks need — so the opening shuts on one line, and the frame comes out near square, which
+   is far kinder to a set of pictures running from 0.56 to 1.50: nothing is squeezed into a
+   letterbox any more. */
+.page-open--anchor { align-items: stretch; }
+.page-open--anchor .pcascade {
+  aspect-ratio: auto;
+  /* 16 px of marks less the 7 px of hit area that sits under their rule: what has to land on
+     the photograph's foot is the RULE, not the bottom of the button it is drawn in */
+  height: calc(100% - 2.6vh - 9px);
+}
 .page-open--anchor .page-open-text { align-self: stretch; display: flex; flex-direction: column; }
 .pcf-wide { width: 100%; flex: 0 0 auto; margin-top: 5vh; }
 .pcf-wide .pcf-frame { aspect-ratio: 1066 / 969; height: auto; }
@@ -1742,19 +1799,24 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
   opacity: 0; transition: opacity 1.4s var(--ease), filter 1.2s var(--ease);
 }
 .pcf-frame img.on { opacity: 1; }
-/* framing: each picture keeps its own subject inside its frame */
-.pcf-frame img[src*="team-podium"]   { object-position: center 60%; }
-.pcf-frame img[src*="team-talk"]     { object-position: center 58%; }
-.pcf-frame img[src*="team-cafe"]     { object-position: 46% 50%; }
-.pcf-frame img[src*="comm-fans"]     { object-position: center 40%; }
-.pcf-frame img[src*="comm-cocktail"] { object-position: center 32%; }
-.pcf-frame img[src*="comm-poilane"]  { object-position: center 42%; }
-.pcf-frame img[src*="comm-daylight"] { object-position: center 60%; }
-.pcf-frame img[src*="comm-talking"]  { object-position: 58% 50%; }
-.pcf-frame img[src*="pf-founders"]   { object-position: center 55%; }
-.pcf-frame img[src*="pf-laughing"]   { object-position: center 40%; }
-.pcf-frame img[src*="pf-circle"]     { object-position: center 52%; }
-.pcf-frame img[src*="pf-pitch"]      { object-position: center 45%; }
+/* FRAMING SOLVED, NOT GUESSED. The frame changed shape, so every one of these was re-measured:
+   Vision reads the faces, and the crop is the window that keeps ALL of them inside while
+   sitting as near as it can to the group at 40 % down. Twelve of the thirteen hold every face;
+   only comm-poilane cannot — ten people across a landscape shot will not fit a square, so it
+   centres the group instead. */
+.pcf-frame img[src*="team-cafe"]     { object-position: 28% center; }
+.pcf-frame img[src*="team-talk"]     { object-position: center 79%; }
+.pcf-frame img[src*="team-vivatech"] { object-position: 50% center; }
+.pcf-frame img[src*="team-podium"]   { object-position: center 100%; }
+.pcf-frame img[src*="comm-cocktail"] { object-position: center 30%; }
+.pcf-frame img[src*="comm-daylight"] { object-position: center 97%; }
+.pcf-frame img[src*="comm-fans"]     { object-position: center 9%; }
+.pcf-frame img[src*="comm-poilane"]  { object-position: 51% center; }
+.pcf-frame img[src*="comm-talking"]  { object-position: 77% center; }
+.pcf-frame img[src*="pf-dinner"]     { object-position: 62% center; }
+.pcf-frame img[src*="pf-circle"]     { object-position: center 63%; }
+.pcf-frame img[src*="pf-laughing"]   { object-position: center 44%; }
+.pcf-frame img[src*="pf-pitch"]      { object-position: center 46%; }
 /* only the picture standing in the large place carries its colour */
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
 .pcq.is-top .pcf-frame img   { filter: grayscale(0) contrast(1.02); }
