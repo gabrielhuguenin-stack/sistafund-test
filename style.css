@@ -2003,8 +2003,24 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-stmt--ink .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 .m-stmt--ink .m-body { color: rgba(250, 248, 240, .78); }
 .m-stmt--ink .m-shot img { border-color: rgba(250, 248, 240, .22); }
+/* the one place two statements share a slot: what the fund IS and what founders are OWED are
+   the two halves of a single declaration, so they are read side by side rather than a page
+   apart. The second is hung lower, the offset pair the community's two pictures make on the
+   home — and because it starts lower it also finishes the block, so the empty corner falls
+   under the first rather than trailing beneath both. */
+.m-pair {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3.4vw; align-items: start;
+  padding: 11vh 0 11.5vh;
+}
+.m-pair .m-stmt { padding: 0; }
+.m-pair .m-claim { max-width: 20ch; }
+.m-stmt--low { margin-top: 13vh; }
 @media (max-width: 980px) {
   .m-stmt--ink { grid-template-columns: 1fr; row-gap: 5vh; padding: 11vh 4vw; }
+  /* one column: the offset has nothing to sit against, so it becomes plain vertical room */
+  .m-pair { grid-template-columns: 1fr; row-gap: 8vh; }
+  .m-stmt--low { margin-top: 0; }
 }
 /* ONE SIZE for all five: what changes from one statement to the next is the ground, not the
    type. Claims that grew as the page descended were a second rhythm running against the first,
