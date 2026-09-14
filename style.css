@@ -1821,6 +1821,8 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    it. Anchored to the TOP, so the heads are never the thing that goes. */
 .pcf-wide .pcf-frame { aspect-ratio: 5 / 3; height: auto; }
 .pcf-wide img { object-position: center 0%; }
+/* the group portrait sits a touch lower in its file than the founders do in theirs */
+.pcf-wide img[src*="hero"] { object-position: center 5%; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
   width: 100%; height: 100%;
@@ -1838,9 +1840,13 @@ body.subpage-dark .pcf-frame { border-color: var(--paper); }
    sitting as near as it can to the group at 40 % down. Twelve of the thirteen hold every face;
    only comm-poilane cannot — ten people across a landscape shot will not fit a square, so it
    centres the group instead. */
-.pcf-frame img[src*="team-cafe"]     { object-position: 28% center; }
-.pcf-frame img[src*="team-talk"]     { object-position: center 79%; }
+.pcf-frame img[src*="team-moment"]   { object-position: center 99%; }
+.pcf-frame img[src*="team-cafe"]     { object-position: 26% center; }
+.pcf-frame img[src*="pitch-marie"]   { object-position: center 60%; }
+.pcf-frame img[src*="team-talk"]     { object-position: center 77%; }
+.pcf-frame img[src*="pitch-natacha"] { object-position: center 36%; }
 .pcf-frame img[src*="team-vivatech"] { object-position: 50% center; }
+.pcf-frame img[src*="pitch-arthur"]  { object-position: center 67%; }
 .pcf-frame img[src*="team-podium"]   { object-position: center 100%; }
 .pcf-frame img[src*="comm-cocktail"] { object-position: center 30%; }
 .pcf-frame img[src*="comm-daylight"] { object-position: center 97%; }
