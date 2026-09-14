@@ -1917,15 +1917,10 @@ html.anim [data-reveal="card"] { clip-path: inset(0 0 -10px -10px); }
 @media (prefers-reduced-motion: reduce) {
 }
 
-/* faint column guides in the background, curaclimate-style */
-.col-guides {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  padding: 0 4vw;
-}
-.col-guides span { border-left: 1px solid rgba(16, 16, 16, .035); }
-.col-guides span:last-child { border-right: 1px solid rgba(16, 16, 16, .035); }
-body.subpage-dark .col-guides span { border-color: rgba(250, 248, 240, .04); }
+/* THE FAINT COLUMN GUIDES ARE GONE. On the home they were drowned by the field of clouds, but
+   on the dedicated pages the cream was bare and they were the only thing on it — which read as
+   a grid ruled across the page rather than as a ground. Every page carries the field instead,
+   and it is the field that answers the hand. */
 body > main, body > footer { position: relative; z-index: 1; }
 @media (max-width: 720px) {
   .footer-cols { gap: 40px; } .col-guides { display: none; } }
