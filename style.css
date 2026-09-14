@@ -2040,7 +2040,9 @@ body > main, body > footer { position: relative; z-index: 1; }
   margin: 3vh 0 0;
 }
 /* the closing line stands alone, full measure */
-.m-legacy { padding: 12vh 4vw 16vh; }
+/* the closing line is the one thing on this page that is centred: it belongs to no column and
+   answers to no margin — it is the page signing off, like the mark that closes every page */
+.m-legacy { padding: 12vh 4vw 16vh; text-align: center; }
 .m-legacy-title {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.5rem, 6.1vw, 6.4rem); line-height: .95;
