@@ -27,8 +27,8 @@ window.COMPANIES = {
    filter on community.html. [display name, logo file in img/institutions/].
    A missing file is not a hole: the name is set in display type in its place. */
 window.INSTITUTIONS = [
-  ['Bpifrance', 'bpifrance.png'],
   ['European Investment Fund', 'european-investment-fund.png'],
+  ['Bpifrance', 'bpifrance.png'],
   ['BNP Paribas Développement', 'bnp-paribas.png'],
   ["BOLD, Business Opportunities for L'Oréal Development", 'bold.png'],
   ['FDJ United', 'fdj-united.png'],
