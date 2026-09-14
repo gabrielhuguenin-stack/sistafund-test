@@ -527,6 +527,10 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(16, 16, 16, .74);
   margin-bottom: 5vh;
 }
+/* the two sentences of the thesis UNFOLD, they do not snap. This is the statement the page
+   is built around: the wipe runs at 1.9 s rather than 1.1, and the second sentence waits 1.5 s
+   rather than 0.9, so the pair is read as it arrives instead of appearing all at once. */
+html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
 /* THESIS IS ONE SENTENCE. Four items in a row under four grey labels is what every fund
    site does, ours included until now — and it is exactly what the neighbours do. So the
    thesis is written instead of tabulated: a sentence in Portrait, lower case, with the four
@@ -1824,7 +1828,10 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
 /* it takes the WHOLE column: the 2vw the text column holds back for its own measure is not
    the picture's business, and the frame is a touch taller too (3/2 rather than 5/3). It still
    keeps only 73 % of the file, so the feet are still out. */
-.pcf-wide .pcf-frame { aspect-ratio: 3 / 2; height: auto; }
+/* how far down the picture is shown is a property of the PICTURE, not of the layout: each
+   page sets `--crop` to the tallest frame its own photograph allows before the shoes come
+   back. Below that ratio the cut lands on the ankles, which is the one place it must not. */
+.pcf-wide .pcf-frame { aspect-ratio: var(--crop, 1.5); height: auto; }
 .pcf-wide img { object-position: center 0%; }
 /* the group portrait sits a touch lower in its file than the founders do in theirs */
 .pcf-wide img[src*="hero"] { object-position: center 5%; }
