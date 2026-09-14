@@ -23,6 +23,17 @@ window.COMPANIES = {
   suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026', 'https://suna.health/'],
 };
 
+/* Corporates and institutions backing the fund — shown under the "Corporates & institutions"
+   filter on community.html. [display name, logo file in img/institutions/].
+   A missing file is not a hole: the name is set in display type in its place. */
+window.INSTITUTIONS = [
+  ['Bpifrance', 'bpifrance.png'],
+  ['European Investment Fund', 'european-investment-fund.png'],
+  ['BNP Paribas Développement', 'bnp-paribas.png'],
+  ["BOLD, Business Opportunities for L'Oréal Development", 'bold.png'],
+  ['FDJ United', 'fdj-united.png'],
+];
+
 window.LPS = [
   ['Steve Anavi', 'Qonto', 'steve-anavi.jpg', 'fintech'],
   ['Rémi Aubert', 'AB Tasty', 'remi-aubert.jpg', 'saas'],
