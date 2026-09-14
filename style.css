@@ -1777,16 +1777,24 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    is far kinder to a set of pictures running from 0.56 to 1.50: nothing is squeezed into a
    letterbox any more. */
 .page-open--anchor { align-items: stretch; }
-.page-open--anchor .pcascade {
-  aspect-ratio: auto;
-  /* 16 px of marks less the 7 px of hit area that sits under their rule: what has to land on
-     the photograph's foot is the RULE, not the bottom of the button it is drawn in */
-  height: calc(100% - 2.6vh - 9px);
-}
+/* THE PILE SETS THE HEIGHT, NOT THE COLUMN. It used to take whatever the left column left, so
+   cropping the fixed photograph shorter dragged the pile back into a letterbox and the
+   standing pictures lost half their height again. The pile keeps its square frame, and the
+   left column is stretched to it instead: the photograph falls to the foot of the column and
+   the negative margin is the 16 px of marks less the 7 px of hit area under their rule, so
+   what lands on the photograph's foot is the RULE itself. */
+.page-open--anchor .pcascade { aspect-ratio: 1 / 1; height: auto; align-self: start; }
+.page-open--anchor .pcf-wide { margin-top: auto; margin-bottom: calc(-2.6vh - 9px); }
 .page-open--anchor .page-open-text { align-self: stretch; display: flex; flex-direction: column; }
 .pcf-wide { width: 100%; flex: 0 0 auto; margin-top: 5vh; }
-.pcf-wide .pcf-frame { aspect-ratio: 1066 / 969; height: auto; }
-.pcf-wide img { object-position: center; }
+@media (max-width: 900px) { .page-open--anchor .pcf-wide { margin-top: 5vh; margin-bottom: 0; } }
+/* THE FIXED PHOTOGRAPH IS CROPPED ABOVE THE KNEE. At the file's own ratio (1066/969) the whole
+   body showed, feet and floor included, and the bottom third carried nothing — tiles under the
+   founders, empty steps under the team. A 5/3 frame keeps the top 66 % of the picture: the
+   group, cropped where a portrait is normally cropped, and the page opening gets shorter with
+   it. Anchored to the TOP, so the heads are never the thing that goes. */
+.pcf-wide .pcf-frame { aspect-ratio: 5 / 3; height: auto; }
+.pcf-wide img { object-position: center 0%; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
   width: 100%; height: 100%;
