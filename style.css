@@ -1965,38 +1965,36 @@ body > main, body > footer { position: relative; z-index: 1; }
 
 /* manifesto statements: one steady rhythm, claim left, argument right, no zig-zag */
 .doc-statements { padding: 4vh 4vw 0; }
-/* A manifesto is not a two-column table of headings and paragraphs. Each statement is a
-   declaration that takes the width of the page, with its explanation hanging quietly to
-   the right underneath — and the five of them grow as they go, so the document builds
-   toward its closing line instead of repeating itself five times. */
-/* NO BOX AROUND A STATEMENT. Five cream rectangles each cornered by a rule turned the
-   manifesto into a stack of cards — five frames on a page that is meant to be read straight
-   through. The statements stand on the page itself; what separates them is the space and the
-   alternation, and they still wipe down as they arrive. */
+/* ONE COLUMN, READ STRAIGHT DOWN. The statements used to alternate sides — the claim thrown
+   left, its explanation answering from the far right, the next one the other way round. On a
+   wide screen the eye had to cross the whole page for every sentence and the pairs came apart:
+   a paragraph sat nearer the NEXT claim than its own. A manifesto is read, not scanned.
+   Everything now starts on the left margin, the paragraph sits directly under the claim it
+   belongs to, and the rhythm comes from the claims growing as the page descends.
+   NO BOX either: five cream rectangles each cornered by a rule made a stack of cards. */
 .m-stmt {
   display: block; position: relative;
-  padding: 7vh 0 7.4vh;
+  padding: 6.5vh 0 7vh;
 }
+/* the claims take the page: with the alternation gone they are what gives the column its
+   scale, so they run wide and ragged right while the paragraphs keep a reading measure
+   underneath. At 24ch they wrapped into a narrow strip and the page read as one thin column. */
 .m-claim {
   font-family: var(--display); text-transform: uppercase;
-  line-height: .97; max-width: 24ch;
+  line-height: .97; max-width: 34ch;
   font-size: clamp(1.7rem, 3.2vw, 3rem);
 }
 .m-stmt:nth-of-type(2) .m-claim { font-size: clamp(1.85rem, 3.8vw, 3.6rem); }
 .m-stmt:nth-of-type(3) .m-claim { font-size: clamp(2rem, 4.4vw, 4.2rem); }
 .m-stmt:nth-of-type(4) .m-claim { font-size: clamp(2.15rem, 5vw, 4.8rem); }
-.m-stmt:nth-of-type(5) .m-claim { font-size: clamp(2.3rem, 5.6vw, 5.4rem); max-width: 20ch; }
-/* every other statement is set the other way round, so the eye does not fall into a
-   single column running all the way down the page */
-.m-stmt:nth-of-type(even) { text-align: right; }
-.m-stmt:nth-of-type(even) .m-claim { margin-left: auto; }
-.m-stmt:nth-of-type(even) .m-body { margin: 3vh auto 0 0; text-align: left; }
+.m-stmt:nth-of-type(5) .m-claim { font-size: clamp(2.3rem, 5.6vw, 5.4rem); max-width: 30ch; }
 @media (max-width: 760px) { .m-stmt { padding: 6vh 0 6.4vh; } }
-/* the aside answers from the right, set in the quiet voice */
+/* the explanation follows its claim immediately, in the quiet voice and on a reading
+   measure — it is the same block, said second, not an aside across the page */
 .m-body {
   font-family: var(--serif); font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.48;
-  color: var(--grey); width: min(44ch, 46%);
-  margin: 3vh 0 0 auto;
+  color: var(--grey); width: min(56ch, 100%);
+  margin: 2.4vh 0 0;
 }
 /* the closing line stands alone, full measure */
 .m-legacy { padding: 12vh 4vw 16vh; }

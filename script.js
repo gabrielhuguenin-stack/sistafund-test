@@ -651,8 +651,8 @@ function showCompany(key) {
         ${c[7] ? `<div class="pf-fact"><span class="pf-fact-k">Partnered</span><span class="pf-fact-v">${c[7]}</span></div>` : ''}
       </div>
       <div class="pf-detail-go">${c[8]
-        ? `<a class="btn btn-big" href="${c[8]}" target="_blank" rel="noopener">Visit the website <span class="btn-arrow">&rarr;</span></a>`
-        : `<span class="btn btn-big btn--waiting" aria-disabled="true">Visit the website <span class="btn-arrow">&rarr;</span></span>`}</div>
+        ? `<a class="btn" href="${c[8]}" target="_blank" rel="noopener">More on their website <span class="btn-arrow">&rarr;</span></a>`
+        : `<span class="btn btn--waiting" aria-disabled="true">More on their website <span class="btn-arrow">&rarr;</span></span>`}</div>
     </div>`;
   openOverlay(pfModal);
 }
