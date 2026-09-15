@@ -1,0 +1,959 @@
+{
+  "companies": [
+    {
+      "key": "rebaba",
+      "name": "Rebaba",
+      "sector": "Climate",
+      "logo": "rebaba.png",
+      "description": "Powering the future with circular battery energy storage systems.",
+      "founders": "Paula Runsten, Felix Kruse",
+      "locations": "Stockholm, Sweden",
+      "founded": "2023",
+      "partnered": "2026",
+      "website": "https://rebaba.se/",
+      "founders_photo": "rebaba.jpg"
+    },
+    {
+      "key": "pave",
+      "name": "Pave Space",
+      "sector": "Deeptech",
+      "logo": "pave.png",
+      "description": "Heavy kickstage to unlock orbital logistics.",
+      "founders": "Julie Böhning, Jérémy Marciacq",
+      "locations": "Vaud, Switzerland",
+      "founded": "2023",
+      "partnered": "2026",
+      "website": "https://pave.space/page/homepage",
+      "founders_photo": "pave.jpg"
+    },
+    {
+      "key": "waiv",
+      "name": "Waiv",
+      "sector": "HealthTech",
+      "logo": "waiv.png",
+      "description": "Accelerating AI-enabled precision oncology testing.",
+      "founders": "Meriem Sefta, Lionel Guillou",
+      "locations": "Paris",
+      "founded": "2025",
+      "partnered": "",
+      "website": "https://wearewaiv.com/",
+      "founders_photo": "waiv.jpg"
+    },
+    {
+      "key": "recupere",
+      "name": "Recupere Metals",
+      "sector": "Climate",
+      "logo": "recupere.png",
+      "description": "Patented mechanical process producing electrical-grade copper wire from 100% recycled scrap.",
+      "founders": "Katie Marsh, Julien Vaïssette",
+      "locations": "Paris",
+      "founded": "2025",
+      "partnered": "2025",
+      "website": "",
+      "founders_photo": "recupere.jpg"
+    },
+    {
+      "key": "tec",
+      "name": "The Exploration Company",
+      "sector": "Deeptech",
+      "logo": "tec.png",
+      "description": "Democratizing space exploration, making it affordable, sustainable and open, for space & non-space industries.",
+      "founders": "Hélène Huby, Artur Kopp, Sebastien Reichstadt, Johannes Reijneveld, Pierre Vinet",
+      "locations": "Bordeaux",
+      "founded": "2021",
+      "partnered": "2023",
+      "website": "https://www.exploration.space/",
+      "founders_photo": "tec.jpg"
+    },
+    {
+      "key": "numi",
+      "name": "Nūmi",
+      "sector": "HealthTech",
+      "logo": "numi.png",
+      "description": "Developing in vivo breast milk, in vitro.",
+      "founders": "Eden Banon-Lagrange, Eugénie Pezé-Heidsieck",
+      "locations": "Paris",
+      "founded": "2023",
+      "partnered": "",
+      "website": "https://www.numi.life/",
+      "founders_photo": "numi.jpg"
+    },
+    {
+      "key": "orakl",
+      "name": "Orakl Oncology",
+      "sector": "HealthTech",
+      "logo": "orakl.png",
+      "description": "Accelerating drug discovery in oncology.",
+      "founders": "Fanny Jaulin, Diane-Laure Pagès, Gustave Ronteix",
+      "locations": "Paris",
+      "founded": "2023",
+      "partnered": "",
+      "website": "https://www.orakl-oncology.com/",
+      "founders_photo": "orakl.jpg"
+    },
+    {
+      "key": "femaleinvest",
+      "name": "Female Invest",
+      "sector": "Climate",
+      "logo": "femaleinvest.webp",
+      "description": "On a mission to close the financial gender gap, democratizing investing for everyone, globally.",
+      "founders": "Anna-Sophie Hartvigsen, Camilla Cloëtta Falkenberg, Emma Due Bitz",
+      "locations": "Copenhagen, Denmark London, UK",
+      "founded": "2021",
+      "partnered": "2023",
+      "website": "https://www.femaleinvest.com/",
+      "founders_photo": "femaleinvest.jpg"
+    },
+    {
+      "key": "underdog",
+      "name": "Underdog",
+      "sector": "Climate",
+      "logo": "underdog.png",
+      "description": "By bridging the gap between circularity and industrial efficiency, the company provides a robust solution for the carbon footprint reduction and the emergence of a European industrial sector.",
+      "founders": "Claire Bretton, Laura Chavigny, Mathieu Maure",
+      "locations": "Nantes Paris",
+      "founded": "2022",
+      "partnered": "2022",
+      "website": "https://underdog.shop/",
+      "founders_photo": "underdog.jpg"
+    },
+    {
+      "key": "astran",
+      "name": "Astran",
+      "sector": "AI & Enterprise Software",
+      "logo": "astran.png",
+      "description": "Zero Trust cloud storage solution for sensitive data.",
+      "founders": "Yosra Jarraya, Gilles Seghaier, Yahya Jarraya",
+      "locations": "Paris",
+      "founded": "2021",
+      "partnered": "2023",
+      "website": "https://astran.io/",
+      "founders_photo": "astran.jpg"
+    },
+    {
+      "key": "mallow",
+      "name": "Mallow",
+      "sector": "AI & Enterprise Software",
+      "logo": "mallow.png",
+      "description": "Educational toys for children at the intersection of cognitive science and AI.",
+      "founders": "Flore Cousin, Cédric O",
+      "locations": "Paris",
+      "founded": "2024",
+      "partnered": "",
+      "website": "https://www.mallow.fr/",
+      "founders_photo": "mallow.jpg"
+    },
+    {
+      "key": "vizzia",
+      "name": "Vizzia",
+      "sector": "AI & Enterprise Software",
+      "logo": "vizzia.png",
+      "description": "Leveraging computer vision and AI to detect illegal waste dumping.",
+      "founders": "Katrin de Proyart (Dimitrova), Alexandre Leboucher",
+      "locations": "Paris",
+      "founded": "2022",
+      "partnered": "2021",
+      "website": "https://www.vizzia.fr/",
+      "founders_photo": "vizzia.jpg"
+    },
+    {
+      "key": "optimiz",
+      "name": "Optimiz Construction",
+      "sector": "Climate",
+      "logo": "optimiz.png",
+      "description": "Helping construction firms optimize materials to save time, money and CO₂.",
+      "founders": "Marion Malandain",
+      "locations": "Paris",
+      "founded": "2020",
+      "partnered": "2022",
+      "website": "https://www.optimiz-construction.fr/",
+      "founders_photo": "optimiz.jpg"
+    },
+    {
+      "key": "notom",
+      "name": "NOTOM",
+      "sector": "AI & Enterprise Software",
+      "logo": "notom.png",
+      "description": "Bridge OT & IT through AI-driven reindustrialisation in factories.",
+      "founders": "Paola Fedou, Jean-Philippe Gross",
+      "locations": "Paris",
+      "founded": "2025",
+      "partnered": "",
+      "website": "https://notom.io/",
+      "founders_photo": "notom.jpg"
+    },
+    {
+      "key": "oshen",
+      "name": "Oshen",
+      "sector": "Deeptech",
+      "logo": "oshen.png",
+      "description": "Unlocking ocean intelligence.",
+      "founders": "Anahita Laverack, Ciaran Dowds",
+      "locations": "UK",
+      "founded": "2022",
+      "partnered": "2026",
+      "website": "https://www.oshendata.com/",
+      "founders_photo": "oshen.jpg"
+    },
+    {
+      "key": "suna",
+      "name": "Suna",
+      "sector": "HealthTech",
+      "logo": "suna.png",
+      "description": "Gut health monitoring.",
+      "founders": "",
+      "locations": "UK",
+      "founded": "2026",
+      "partnered": "2026",
+      "website": "https://suna.health/",
+      "founders_photo": "suna.jpg"
+    }
+  ],
+  "institutions": [
+    {
+      "name": "European Investment Fund",
+      "logo": "european-investment-fund.png"
+    },
+    {
+      "name": "Bpifrance",
+      "logo": "bpifrance.png"
+    },
+    {
+      "name": "BNP Paribas Développement",
+      "logo": "bnp-paribas.png"
+    },
+    {
+      "name": "BOLD, Business Opportunities for L'Oréal Development",
+      "logo": "bold.png"
+    },
+    {
+      "name": "FDJ United",
+      "logo": "fdj-united.png"
+    }
+  ],
+  "community": [
+    {
+      "name": "Steve Anavi",
+      "org": "Qonto",
+      "photo": "steve-anavi.jpg",
+      "sector": "fintech"
+    },
+    {
+      "name": "Rémi Aubert",
+      "org": "AB Tasty",
+      "photo": "remi-aubert.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Nathalie Balla",
+      "org": "La Redoute",
+      "photo": "nathalie-balla.jpg",
+      "sector": "consumer"
+    },
+    {
+      "name": "Jonathan Benhamou",
+      "org": "Resilience, PeopleDoc",
+      "photo": "jon-benhamou.jpg",
+      "sector": "health"
+    },
+    {
+      "name": "Amélie Berthier",
+      "org": "Zadig & Voltaire",
+      "photo": "amelie-berthier.jpg",
+      "sector": "consumer"
+    },
+    {
+      "name": "Clément Buyse",
+      "org": "PeopleDoc",
+      "photo": "clement-buyse.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Nicolas Chartier",
+      "org": "Aramis Group",
+      "photo": "nicolas-chartier.jpg",
+      "sector": "consumer"
+    },
+    {
+      "name": "Michael Chekroun",
+      "org": "Carenity",
+      "photo": "michael-chekroun.jpg",
+      "sector": "health"
+    },
+    {
+      "name": "Valentine de Lasteyrie",
+      "org": "Albingia, Fiblac",
+      "photo": "valentine-de-lasteyrie.jpg",
+      "sector": "fintech"
+    },
+    {
+      "name": "Alix de Sagazan",
+      "org": "AB Tasty",
+      "photo": "alix-de-sagazan.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Marine de Waziers",
+      "org": "Pool",
+      "photo": "marine-de-waziers.jpg",
+      "sector": "consumer"
+    },
+    {
+      "name": "Alice Default",
+      "org": "Double",
+      "photo": "alice-default.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Laurent Delaporte",
+      "org": "Qapa, Microsoft",
+      "photo": "laurent-delaporte.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Xavier Durand",
+      "org": "Aircall",
+      "photo": "xavier-durand.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Fabien Grenier",
+      "org": "DataDome",
+      "photo": "fabien-grenier.jpg",
+      "sector": "frontier"
+    },
+    {
+      "name": "Jean-Daniel Guyot",
+      "org": "Memo Bank, Captain Train",
+      "photo": "jd-guyot.jpg",
+      "sector": "fintech"
+    },
+    {
+      "name": "Nicolas Hernandez",
+      "org": "360Learning",
+      "photo": "nicolas-hernandez.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Céline Lazorthes",
+      "org": "Resilience, Leetchi",
+      "photo": "celine-lazorthes.jpg",
+      "sector": "fintech"
+    },
+    {
+      "name": "Constance Nevoret",
+      "org": "LittleBig Connection",
+      "photo": "constance-nevoret.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Xavier Niel",
+      "org": "Free",
+      "photo": "xavier-niel.jpg",
+      "sector": "frontier"
+    },
+    {
+      "name": "Adrien Nussenbaum",
+      "org": "Mirakl",
+      "photo": "adrien-nussenbaum.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Philippe Oddo",
+      "org": "ODDO BHF",
+      "photo": "phillippe-oddo.jpg",
+      "sector": "fintech"
+    },
+    {
+      "name": "Stéphane Pallez",
+      "org": "Française des Jeux",
+      "photo": "stephane-pallez.jpg",
+      "sector": "consumer"
+    },
+    {
+      "name": "Nicolas Reboud",
+      "org": "Shine",
+      "photo": "nicolas-reboud.jpg",
+      "sector": "fintech"
+    },
+    {
+      "name": "Cédric Sellin",
+      "org": "Yogiplay, Oracle",
+      "photo": "cedric-sellin.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Xavier Zeitoun",
+      "org": "Zenchef",
+      "photo": "xavier-zeitoun.jpg",
+      "sector": "saas"
+    },
+    {
+      "name": "Frank Zorn",
+      "org": "Deskeo",
+      "photo": "frank-zorn.jpg",
+      "sector": "consumer"
+    }
+  ],
+  "news": [
+    {
+      "date": "09/09/2026",
+      "source": "Rebaba",
+      "title": "Retired EV batteries still have up to 80% of their useful life remaining. Rebaba gives them a second shot, and just closed a $4.6M round.",
+      "url": "https://rebaba.se/news/rebaba-closes-4-6-million-seed-round",
+      "image": "rebaba-46m.jpg"
+    },
+    {
+      "date": "08/09/2026",
+      "source": "The Exploration Company",
+      "title": "Our first unicorn! The Exploration Company secures $450 million in the largest-ever Series C by a European space company.",
+      "url": "https://www.exploration.space/blog/the-exploration-company-series-c-450-million",
+      "image": "tec-unicorn.jpg"
+    },
+    {
+      "date": "01/09/2026",
+      "source": "LinkedIn",
+      "title": "We can track our sleep, our heart and our steps, but not our gut. Suna Health changes that, and just raised £3M!",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7500891946991648768",
+      "image": "suna-3m.jpg"
+    },
+    {
+      "date": "21/08/2026",
+      "source": "The Times",
+      "title": "The ocean is the world's biggest blind spot. Oshen is closing it, and just raised $5M to accelerate!",
+      "url": "https://www.thetimes.com/business/entrepreneurs/article/uk-start-up-raises-5m-track-russian-subs-royal-navy-vq3pprs5k",
+      "image": "n00.jpg"
+    },
+    {
+      "date": "25/03/2026",
+      "source": "Portfolio",
+      "title": "Redefining the last mile of space: PAVE Space raises $40M!",
+      "url": "https://pave.space/page/homepage",
+      "image": "n01.webp"
+    },
+    {
+      "date": "12/03/2026",
+      "source": "Portfolio",
+      "title": "Waiv secures $33 million to scale AI precision testing",
+      "url": "https://wearewaiv.com/news/waiv-secures-33-million-to-scale-ai-precision-testing",
+      "image": "n02.jpg"
+    },
+    {
+      "date": "02/02/2026",
+      "source": "Maddyness",
+      "title": "When circular industrial tech meets Europe's strategic autonomy: Recupere Metals raises €5m!",
+      "url": "https://www.maddyness.com/2026/01/30/face-a-une-demande-de-cuivre-qui-explose-recupere-metals-leve-5-millions-deuros/",
+      "image": "n03.jpg"
+    },
+    {
+      "date": "21/01/2026",
+      "source": "Maddyness",
+      "title": "When re-industrialisation meets AI: NOTOM raises €2M!",
+      "url": "https://www.maddyness.com/2026/01/21/des-ex-dinnovafeed-levent-2-millions-deuros-pour-mettre-de-lia-dans-les-usines/",
+      "image": "n04.jpg"
+    },
+    {
+      "date": "14/01/2026",
+      "source": "Scientific Reports",
+      "title": "A major scientific milestone for Nūmi®",
+      "url": "https://www.nature.com/articles/s41598-025-33232-y",
+      "image": "n05.jpeg"
+    },
+    {
+      "date": "09/12/2025",
+      "source": "LinkedIn",
+      "title": "Happy birthday SISTA!",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7406631404983250944",
+      "image": "n06.jpeg"
+    },
+    {
+      "date": "03/12/2025",
+      "source": "LinkedIn",
+      "title": "Underdog at the Élysée as 40/120 Impact Index laureate",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7401893064530763776",
+      "image": "n07.jpeg"
+    },
+    {
+      "date": "15/10/2025",
+      "source": "LinkedIn",
+      "title": "Run & Breakfast with Auxxo, Fund F and Pitch in Motion during unlock VC",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7381227283875004418",
+      "image": "n08.jpeg"
+    },
+    {
+      "date": "14/10/2025",
+      "source": "LinkedIn",
+      "title": "100 Women in Tech: Exclusive Dinner!",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7383757707515805696",
+      "image": "n09.jpeg"
+    },
+    {
+      "date": "10/10/2025",
+      "source": "Sifted",
+      "title": "100 Women in Tech Europe 2025 by SISTAFUND, Sifted & Station F",
+      "url": "https://sifted.eu/list/100-women-in-tech-2025",
+      "image": "n10.jpeg"
+    },
+    {
+      "date": "10/10/2025",
+      "source": "Challenges",
+      "title": "Astran wins the Innovation Award at Monaco's 2025 Cybersecurity Conference",
+      "url": "https://www.challenges.fr/la-verticale-cyber/la-pepite-francaise-astran-qui-permet-aux-entreprises-de-fonctionner-malgre-une-cyberattaque-recompensee-a-monaco_627188",
+      "image": "n11.jpeg"
+    },
+    {
+      "date": "08/10/2025",
+      "source": "LinkedIn",
+      "title": "The Exploration Company lit up the Nasdaq Tower in Times Square",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7381580404551680000",
+      "image": "n12.jpeg"
+    },
+    {
+      "date": "17/09/2025",
+      "source": "LinkedIn",
+      "title": "Vizzia raised their €16M Series A",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7374009611219001345",
+      "image": "n13.jpeg"
+    },
+    {
+      "date": "01/07/2025",
+      "source": "B Smart",
+      "title": "Sanofi and Astran announce a strategic partnership",
+      "url": "https://www.bsmart.fr/video/29295-smart-tech-30-juin-2025",
+      "image": "n14.jpeg"
+    },
+    {
+      "date": "19/06/2025",
+      "source": "Philomag",
+      "title": "Does our future depend on technology? Philosophy Baccalaureate 2025",
+      "url": "https://www.philomag.com/articles/corriges-du-bac-philo-filiere-generale-notre-avenir-depend-il-de-la-technique",
+      "image": "n15.jpeg"
+    },
+    {
+      "date": "17/06/2025",
+      "source": "LinkedIn",
+      "title": "VivaTech 2025 wrap up",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7340637829795897344",
+      "image": "n16.jpeg"
+    },
+    {
+      "date": "04/06/2025",
+      "source": "YouTube",
+      "title": "The backstages of Underdog with Mathieu Maure",
+      "url": "https://www.youtube.com/watch?v=XnhUlaoPuv8",
+      "image": "n17.jpeg"
+    },
+    {
+      "date": "02/10/2024",
+      "source": "Ouest France",
+      "title": "Underdog wins the Special Jury Prize for Start-up of the Year in the French West region!",
+      "url": "https://www.ouest-france.fr/economie/prix-ey-de-lentrepreneur-de-lannee-2024-six-entreprises-de-louest-primees-b97eb1be-7a5a-11ef-822e-4d3ac9af3b93",
+      "image": "n18.png"
+    },
+    {
+      "date": "27/09/2024",
+      "source": "Alliancy",
+      "title": "Astran completely rethinks data security",
+      "url": "https://www.alliancy.fr/whats-next-cio-astran-repense-integralement-la-securisation-des-donnees",
+      "image": "n19.jpg"
+    },
+    {
+      "date": "11/09/2024",
+      "source": "Cash Confidences",
+      "title": "Tatiana Jama on the Cash Confidences podcast",
+      "url": "https://podcast.ausha.co/cash-confidences/tatiana-jama",
+      "image": "n20.jpeg"
+    },
+    {
+      "date": "29/07/2024",
+      "source": "Business Insider",
+      "title": "Female Invest raised their Series A",
+      "url": "https://www.businessinsider.com/fintech-startup-female-invest-raises-equity-plots-us-growth-2024-7",
+      "image": "n21.jpg"
+    },
+    {
+      "date": "17/07/2024",
+      "source": "Les Echos",
+      "title": "Bikini, the capsule of The Exploration Company, made it to space",
+      "url": "https://www.lesechos.fr/start-up/ecosysteme/french-tech-the-exploration-company-va-tester-sa-capsule-miniature-sur-ariane-6-2106613",
+      "image": "n22.webp"
+    },
+    {
+      "date": "10/07/2024",
+      "source": "Forbes",
+      "title": "Tatiana Jama featured in Forbes' 2024 « 40 Women to Watch » edition!",
+      "url": "https://boutique.forbes.fr/",
+      "image": "n23.jpeg"
+    },
+    {
+      "date": "20/06/2024",
+      "source": "European Women in VC",
+      "title": "European Women in VC report 2024: « Beyond Returns »",
+      "url": "https://drive.google.com/file/d/1NIT9fyQn24Fndi4foAw9-lI1oFBGLe-6/view",
+      "image": "n24.png"
+    },
+    {
+      "date": "31/05/2024",
+      "source": "European Spaceflight",
+      "title": "Starlab contracts The Exploration Company for 3 cargo missions",
+      "url": "https://europeanspaceflight.com/starlab-contracts-the-exploration-company-for-3-cargo-missions/",
+      "image": "n25.jpeg"
+    },
+    {
+      "date": "22/05/2024",
+      "source": "ESA",
+      "title": "ESA signs contracts for commercial space cargo return service",
+      "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ESA_signs_contracts_for_commercial_space_cargo_return_service",
+      "image": "n26.jpg"
+    },
+    {
+      "date": "17/05/2024",
+      "source": "Le Revenu",
+      "title": "Tatiana Jama: « Diversity in management creates performance »",
+      "url": "https://www.lerevenu.com/les-grands-entretiens/la-diversite-dans-le-management-dune-entreprise-cree-de-la-performance/",
+      "image": "n27.png"
+    },
+    {
+      "date": "14/05/2024",
+      "source": "Yahoo Finance",
+      "title": "Hourglass in City highlights 'painfully' slow progress closing the gender investment gap",
+      "url": "https://uk.finance.yahoo.com/news/hourglass-city-highlights-painfully-slow-160704539.html",
+      "image": "n28.jpeg"
+    },
+    {
+      "date": "08/05/2024",
+      "source": "Les Glorieuses",
+      "title": "L'argent est-il sexiste?",
+      "url": "https://lesglorieuses.fr/largent-est-il-sexiste/",
+      "image": "n29.png"
+    },
+    {
+      "date": "07/05/2024",
+      "source": "Radio Classique",
+      "title": "Tatiana Jama, author of « L'entrepreneuriat, un nouveau féminisme »",
+      "url": "https://podcast.ausha.co/les-voix-de-l-economie/tatiana-jama-auteure-de-l-entrepreneuriat-un-nouveau-feminisme-aux-editions-de-l-observatoire",
+      "image": "n30.png"
+    },
+    {
+      "date": "24/04/2024",
+      "source": "Éditions de l'Observatoire",
+      "title": "L'entrepreneuriat, un nouveau féminisme — Tatiana Jama",
+      "url": "https://editions-observatoire.com/livre/L%27entrepreneuriat%2C-un-nouveau-feminisme/529",
+      "image": "n31.png"
+    },
+    {
+      "date": "08/04/2024",
+      "source": "Maddyness",
+      "title": "Investing in gender-balanced teams to drive performance: a profile of SISTAFUND",
+      "url": "https://www.maddyness.com/uk/2024/04/08/investing-in-gender-balanced-teams-to-drive-perfromance-a-profile-of-sistafund/",
+      "image": "n32.webp"
+    },
+    {
+      "date": "22/03/2024",
+      "source": "Astran",
+      "title": "Astran is Europe's most promising cyber security solution",
+      "url": "https://www.astran.io/news/most-promising-cyber-security-solution",
+      "image": "n33.jpg"
+    },
+    {
+      "date": "19/03/2024",
+      "source": "Astran",
+      "title": "Astran selected by the government, ANSSI and Bpifrance for the SecNumCloud acceleration program",
+      "url": "https://www.astran.io/blog/astran-is-now-officially-selected-by-the-government-the-anssi-and-bpifrance-for-the-secnumcloud-acceleration-program",
+      "image": "n34.jpeg"
+    },
+    {
+      "date": "08/03/2024",
+      "source": "SISTAFUND",
+      "title": "Opinion: Gender Equality — Towards Truly Gender-Equal Investment",
+      "url": "https://sistafund.com/news/451/",
+      "image": "n35.webp"
+    },
+    {
+      "date": "07/03/2024",
+      "source": "Challenges",
+      "title": "Underdog builds an industrial refurbishment supply chain",
+      "url": "https://www.challenges.fr/club-entrepreneurs/underdog-developpe-une-filiere-industrielle-du-reconditionnement_885450",
+      "image": "n36.jpg"
+    },
+    {
+      "date": "23/01/2024",
+      "source": "The Standard",
+      "title": "Female Invest co-founder Anna-Sophie Hartvigsen on changing your financial fortunes",
+      "url": "https://www.standard.co.uk/lifestyle/finance-tips-how-to-invest-make-more-money-2024-b1130378.html",
+      "image": "n37.png"
+    },
+    {
+      "date": "14/11/2023",
+      "source": "Maddyness",
+      "title": "Isabelle Drault Gallo (SISTAFUND): « I want to show that diversity drives performance »",
+      "url": "https://www.maddyness.com/2023/11/14/isabelle-drault-gallo-sista-fund-je-veux-montrer-que-la-diversite-est-un-gage-de-performance/",
+      "image": "n38.webp"
+    },
+    {
+      "date": "13/10/2023",
+      "source": "SISTAFUND",
+      "title": "Brunch with SISTAFUND's Tatiana Jama: 'I want to have real impact'",
+      "url": "https://sistafund.com/news/brunch-with-sistafunds-tatiana-jama-i-want-to-have-real-impact/",
+      "image": "n39.png"
+    },
+    {
+      "date": "03/10/2023",
+      "source": "SISTAFUND",
+      "title": "Financial literacy as key leverage to women's empowerment",
+      "url": "https://sistafund.com/news/from-the-funding-gap-to-the-financial-gender-gap-financial-literacy-as-key-leverage-to-womens-empowerment/",
+      "image": "n40.webp"
+    },
+    {
+      "date": "27/09/2023",
+      "source": "Les Echos",
+      "title": "Claire Bretton, taking on large household appliances",
+      "url": "https://www.lesechos.fr/industrie-services/conso-distribution/claire-bretton-a-lassaut-du-gros-electromenager-1981899",
+      "image": "n41.webp"
+    },
+    {
+      "date": "17/07/2023",
+      "source": "BFM Business",
+      "title": "Vizzia wants to help cities tackle illegal dumping with autonomous cameras",
+      "url": "https://www.bfmtv.com/economie/replay-emissions/tech-and-co/alexandre-leboucher-vizzia-vizzia-veut-aider-les-villes-a-se-debarrasser-des-depots-sauvages-avec-des-cameras-autonomes-17-07_VN-202307170707.html",
+      "image": "n42.png"
+    },
+    {
+      "date": "04/07/2023",
+      "source": "SISTAFUND",
+      "title": "Reconciling economic and ecological performance: backing Optimiz Construction!",
+      "url": "https://sistafund.com/news/helping-construction-companies-reconcile-economic-and-ecological-performance-backing-optimiz-construction/",
+      "image": "n43.jpeg"
+    },
+    {
+      "date": "12/06/2023",
+      "source": "SISTAFUND",
+      "title": "Ensuring data security while upholding digital sovereignty: backing Astran!",
+      "url": "https://sistafund.com/news/ensuring-data-security-while-upholding-digital-sovereignty-backing-astran/",
+      "image": "n44.jpg"
+    },
+    {
+      "date": "31/05/2023",
+      "source": "SISTAFUND",
+      "title": "Unleashing the power of AI to make the world cleaner: backing Vizzia!",
+      "url": "https://sistafund.com/news/backing-the-cleantech-vizzia/",
+      "image": "n45.webp"
+    },
+    {
+      "date": "30/05/2023",
+      "source": "Les Echos",
+      "title": "Vizzia, the start-up that wants to end street waste in cities",
+      "url": "https://www.lesechos.fr/start-up/deals/vizzia-la-start-up-qui-veut-mettre-fin-aux-dechets-dans-les-rues-des-villes-1947448",
+      "image": "n46.webp"
+    },
+    {
+      "date": "04/04/2023",
+      "source": "SISTAFUND",
+      "title": "Making second life the first choice: backing Underdog",
+      "url": "https://sistafund.com/news/making-second-life-the-first-choice-backing-underdog/",
+      "image": "n47.png"
+    },
+    {
+      "date": "01/02/2023",
+      "source": "tech.eu",
+      "title": "SISTAFUND's first investment: The Exploration Company lands €40.5 million",
+      "url": "https://tech.eu/2023/02/01/in-no-way-boring-spacetech-startup-the-exploration-company-lands-eur405-million/",
+      "image": "n48.webp"
+    },
+    {
+      "date": "18/11/2022",
+      "source": "BFM TV",
+      "title": "BFM with Fred Mazzella: trading the lawyer's robe for entrepreneurship",
+      "url": "https://www.bfmtv.com/economie/replay-emissions/les-pionniers-chez-fred-mazzella/tete-a-tete-troquer-la-robe-d-avocat-pour-l-entrepreneuriat-18-11_VN-202211180828.html",
+      "image": "n49.png"
+    },
+    {
+      "date": "07/11/2022",
+      "source": "Maddyness",
+      "title": "Maddyness: the profile of SISTAFUND",
+      "url": "https://www.maddyness.com/2022/11/07/que-font-les-fonds-sistafund/",
+      "image": "n50.jpg"
+    },
+    {
+      "date": "24/10/2022",
+      "source": "Décideurs Magazine",
+      "title": "« Women entrepreneurs are underfunded in the world of venture capital »",
+      "url": "https://www.decideurs-magazine.com/finance/53239-t-jama-sista-les-femmes-entrepreneures-sont-sous-financees-dans-le-monde-du-venture-capital.html",
+      "image": "n51.png"
+    },
+    {
+      "date": "17/10/2022",
+      "source": "Informelles",
+      "title": "What is SISTAFUND, announced by SISTA and 50Partners?",
+      "url": "https://www.informelles.media/money-news-sista-annonce-son-premier-fonds-dinvestissement/",
+      "image": "n52.jpg"
+    },
+    {
+      "date": "14/10/2022",
+      "source": "Private Equity Magazine",
+      "title": "SISTAFUND seeds mixed and female entrepreneurship",
+      "url": "https://www.pemagazine.fr/NzY5NA/sistafund-amorce-lentrepreneuriat-mixte-ou-feminin",
+      "image": "n53.jpg"
+    },
+    {
+      "date": "13/10/2022",
+      "source": "Madame Figaro",
+      "title": "« In the coming years, several unicorns will be led by women and we will finance them »",
+      "url": "https://madame.lefigaro.fr/business/actu-business/tatiana-jama-du-collectif-sista-dans-les-prochaines-annees-plusieurs-licornes-seront-dirigees-par-des-femmes-et-nous-allons-les-financer-20221013",
+      "image": "n54.png"
+    },
+    {
+      "date": "11/10/2022",
+      "source": "Fashion Network",
+      "title": "SISTA to finance female entrepreneurship with a €100 million fund",
+      "url": "https://fr.fashionnetwork.com/news/Sista-veut-financer-l-entrepreneuriat-feminin-en-creant-son-fonds-de-100-millions-d-euros,1445777.html",
+      "image": "n55.png"
+    },
+    {
+      "date": "04/10/2022",
+      "source": "Les Echos Capital Finance",
+      "title": "SISTA launches a €100M fund for start-ups founded by women",
+      "url": "https://capitalfinance.lesechos.fr/fonds/levees/sista-lance-un-fonds-de-100-m-pour-les-start-up-creees-par-des-femmes-1866316",
+      "image": "n56.webp"
+    },
+    {
+      "date": "04/10/2022",
+      "source": "Les Echos",
+      "title": "The SISTA collective launches a fund to finance women entrepreneurs",
+      "url": "https://www.lesechos.fr/start-up/deals/le-collectif-sista-lance-un-fonds-pour-financer-les-femmes-entrepreneures-1865779",
+      "image": "n57.jpg"
+    },
+    {
+      "date": "04/10/2022",
+      "source": "Sifted",
+      "title": "France's SISTA announces first close of €100m VC fund",
+      "url": "https://sifted.eu/articles/sista-vc-fund-raise-france/",
+      "image": "n58.jpg"
+    },
+    {
+      "date": "24/03/2022",
+      "source": "SISTAFUND",
+      "title": "SISTA x Mirova Forward study: what if we asked women and men the same questions?",
+      "url": "https://sistafund.com/news/et-si-on-posait-les-memes-questions-aux-femmes-et-aux-hommes-etude-sista-x-mirova-forward/",
+      "image": "n59.png"
+    }
+  ],
+  "faq": [
+    {
+      "question": "What is SISTAFUND?",
+      "answer": "Launched in October 2022, SISTAFUND is a European investment fund with €70 million under management, whose mission is to accelerate equality by funding exceptional women founders and gender-balanced teams. Initiated by Tatiana Jama, serial entrepreneur and co-founder of the SISTA collective, SISTAFUND’s DNA is deeply rooted in entrepreneurship since its inception, drawing on the expertise of a unique community of successful French entrepreneurs."
+    },
+    {
+      "question": "How much do you typically invest?",
+      "answer": "We lead pre-seed and seed rounds, partnering with high-conviction founders from day one. We invest early and actively support companies through our community of founders and advisors to help them go further and faster from the very beginning. Our initial investment typically ranges from ~€700k to €3m, with an average ticket of €1.5m, depending on the stage and round dynamics."
+    },
+    {
+      "question": "What is SUNSHINE?",
+      "answer": "SUNSHINE is an asset management company addressing societal challenges through using innovative digital and financial tools. Founded by Tatiana Jama and Isabelle Gallo, SUNSHINE merges entrepreneurial passion with VC expertise to support those who share our vision of changing the world through entrepreneurship. SISTA Fund I is a French Private Equity Professional Fund (FPCI) managed by its Management Company, SUNSHINE, a SAS with a registered office at 81 rue Réaumur, 75002 Paris, RCS Paris n°983 158 023, approved by the Autorité des Marchés Financiers as a portfolio management company under the number GP-20240015 since July 23rd, 2024."
+    },
+    {
+      "question": "What are the links between SISTAFUND and SISTA?",
+      "answer": "SISTAFUND is deeply connected to the SISTA NGO, first of all through Tatiana, who was the initiator of both SISTA and SISTAFUND. Since 2018, SISTA has been on a mission to bring forth a generation of diverse leaders by reducing the funding gap between female and male entrepreneurs. Some of SISTA's actions consist of supporting and federating entrepreneurs, but also of producing data to shed light on the reasons for this funding gap. The creation of SISTAFUND marks a further step in SISTA’s mission - after reflecting, data structuring, and bringing entrepreneurs together, SISTAFUND goes further to participate directly in the reduction of this funding gap by financing bold entrepreneurs. Both SISTAFUND and SISTA share the same vision, mission and ecosystem. A percentage of the profits generated by SISTAFUND will be allocated to SISTA NGO, ensuring its long-term viability but also towards non-profit organizations that promote and accelerate equality."
+    },
+    {
+      "question": "Why was SISTAFUND created?",
+      "answer": "SISTAFUND was created because the game is changing. Gender equality is fueling discussions everywhere, yet it is not enough. Today, we take a stand to answer female entrepreneurs’ calls and raise Europe’s largest fund dedicated to supporting female and gender-balanced teams. We take action to further prove what studies have already shown: an egalitarian investing approach is linked to better financial performance. Precisely, companies with a female founder performed 63% better than those with all-male founding teams. What we also noticed is that entrepreneurs who raised a pre-seed, seed or later stage rounds now want to have a committed fund on their side. We are this mission driven fund. On the other hand, LPs, entrepreneurs, C-Levels but also corporates want to invest in impact and gender equality. We are the ones doing it. It is for all these reasons that SISTAFUND was created. To help write new stories and create value."
+    },
+    {
+      "question": "How do you ensure your criteria are met?",
+      "answer": "Few funds, including SISTAFUND, have a quantified gender balance criteria. SISTAFUND will systematically analyze the captable and will only select companies with at least 30% of founders' shares owned by women in the cap table (at pre-seed stage). The 30% figure matters as this 30% threshold moves from tokenism to critical mass in a gender-balanced approach. It is unlikely that having 1% of a captable held by a woman will result in a fair and equitable decision-making process during a board meeting. Furthermore, it would not provide the better representation that we seek and work for. However, 30% is not a magic number above which you get a gender diversity dividend and below which you get nothing. 30% is a number that allows us to quantify gender dynamics."
+    },
+    {
+      "question": "Can an exogenous criterion really have an influence on performance?",
+      "answer": "We are firm believers that diversity is a driver of performance. Turns out we are not the only ones. Lot of resources indicate that women-led companies perform better. To name a few, a BCG study (Why women-owned startups are a better bet) shows that while startups founded by women have more difficulty getting funded, they perform better over time, generating 10% more revenue over 5 years ($730,000 compared with $662,000). In concrete terms, start-ups founded or co-founded by women have better returns on investment. For every dollar funded, these start-ups generate 78 cents, compared to only 31 cents for start-ups founded by 100% male teams."
+    },
+    {
+      "question": "What is the type of project you invest in?",
+      "answer": "SISTAFUND invests in companies founded or co-founded by women mainly in France, in the rest of Europe (including the UK), and the United States. While we follow an agnostic approach, we have a few key investment sectors at heart: the future of Healthtech and Wellbeing, Next-generation Finance and Insurance, Sustainability at large and Deep Tech. We have hand-picked those sectors for two reasons: firstly, we all have a particular fondness for these themes; secondly, our community of investors-entrepreneurs as we like to call them also have a wealth of expertise in these areas - and we love nothing more than connect you with like-minded fellow entrepreneurs to exchange best practices and generate sparks! However, if your company’s sector is not listed here, that does not mean we are not willing to discuss and invest if there is a match. So… looking forward to receiving your deck."
+    },
+    {
+      "question": "What does your investment process look like?",
+      "answer": "Our decision-making process is full part of our unique value proposition. We need “4 eyes” within the team (partners & associates) to move forward in the process. Then, we connect the brilliant entrepreneurs we are meeting with our expert entrepreneurs-investors (LPs) to start building bridges and challenge the project of our potential portfolio teams. This brings more meaning and a special something to the traditional mechanic. From there, a more classical process follows between an advisory committee and an internal investment committee. Et voilà!: a collegiate decision is made. And because we see ourselves as a long-term partner, we reserve part of our funds to follow you on your next rounds."
+    },
+    {
+      "question": "How do you work with your portfolio?",
+      "answer": "As entrepreneurs ourselves and as a mission-driven fund, we are committed to supporting the startups in our portfolio, whether we have a board seat or not. In any case, we aim to be the egalitarian companion of the captable. While our community is really part of the “SISTAFUND Product” we offer, we also like to get very hands-on in some areas, usually overlooked by investors: 1. Communications, PR & branding to help you navigate this crowded tech ecosystem and get your voice heard; 2. Public affairs to work together to make the world and our societies a better place by moving further and faster; 3. Sales strategy to help you reach the right person at the right time with the right product. In short, we like to remind that while investment is about financial impact, it is also about societal impact. We will do everything we can do to help you follow that road. That’s what we like to do at SISTAFUND."
+    },
+    {
+      "question": "Who are the investors behind SISTAFUND?",
+      "answer": "We are a team of passionate investors who share the same values and mission: reveal founders who overcome adversity, shake up conventions and summon the future to challenge the present. You can meet the whole team on a dedicated page : https://sistafund.com/#team Furthermore, SISTAFUND relies on a community of exceptional entrepreneurs, experts on each of their themes. Steve Anavi (Qonto) and Jean Daniel Guyot (MemoBank) speak on the Fintech side, Nathalie Balla (La Redoute) and Adrien Nussenbaum (Mirakl) support the Consumer-related start-ups. Clément Buyse (PeopleDoc) and Nicolas Hernandez (360Learning) support entrepreneurs on the SaaS theme, and Céline Lazorthes (Leetchi, Resilience) and Jonathan Benhamou (PeopleDoc, Resilience) lead conversations for the Healthtech portfolio."
+    }
+  ],
+  "team": [
+    {
+      "name": "Tatiana Jama",
+      "role": "Founder & General Manager",
+      "photo": "tatiana.jpg",
+      "paragraphs": [
+        "Serial entrepreneur in the technology industry for the past 15 years. Tatiana co-founded with Lara Rouyres; Dealissime (exit to Amazon in 2011); Selectionnist, and Levia.ai. Since 2011, invested as Business Angel in +30 companies (Resilience.care, Armis, Regaind exited to Apple,...).",
+        "In 2018, Tatiana co-founded SISTA with Céline Lazorthes and Valentine de Lasteyrie to turn digital economy into a business led by a group of diversified leaders. 4 years later, she co-founded SISTAFUND to go one step further.",
+        "Very active in the FrenchTech ecosystem: Member of the French Digital Council (CNNUM), Member of The High Council for Equality between Women and Men (HCE), Member of The General Secretariat for Investment (SGPI), board Member of Eurazeo PME.",
+        "Dual background in business (HEC Paris, New York University) and Law (Paris Bar)."
+      ],
+      "about": "Publicly passionate about entrepreneurship and the GenderFundingGap, openly passionate about theater & champagne :)",
+      "linkedin": "https://www.linkedin.com/in/tatianajama/"
+    },
+    {
+      "name": "Marie Geneste",
+      "role": "Partner",
+      "photo": "marie.jpg",
+      "paragraphs": [
+        "Brings over 15 years of international investing experience across Europe, the UK and the US, backing technology companies from early stage through Series B.",
+        "Prior to SISTAFUND, Marie was an Investment Director at Educapital in Paris and a Principal at Edenred Ventures in London, where she led and supported investments resulting in multiple exits. She has served on numerous boards and partners closely with founders on strategy, scaling and governance.",
+        "Marie holds a Master’s degree in Management from HEC Paris and is a graduate of Sciences Po Lille."
+      ],
+      "about": "Rarely too far from the ocean or a sports field. Women's sports advocate.",
+      "linkedin": "https://www.linkedin.com/in/mariegeneste/"
+    },
+    {
+      "name": "Natacha Brami",
+      "role": "Principal",
+      "photo": "natacha.jpg",
+      "paragraphs": [
+        "Gravitating in the tech ecosystem since 2018: jumped from consumer start-ups to work in VC in both investment and operations at Alliance Ventures, Alven and Target Global (Paris, Berlin). Switched once to the entrepreneurial side at UC Berkeley. Came back to VC in 2022 to back founders at SISTAFUND.",
+        "Graduated from Sciences Po Paris & HEC Paris' double degree X-HEC Entrepreneurs."
+      ],
+      "about": "50% scouting restaurants, 50% watching rockets taking off",
+      "linkedin": "https://www.linkedin.com/in/natacha-brami/"
+    },
+    {
+      "name": "Arthur Hay",
+      "role": "Chief Financial Officer",
+      "photo": "arthur.png",
+      "paragraphs": [
+        "Finance and fund-administration operator with 7+ years across France, Belgium and Luxembourg.",
+        "Prior to SISTAFUND, Arthur was Finance Director at Astanor Ventures, overseeing financial operations across a 40+ entity structure (Luxembourg funds, carry vehicles, feeders, OpCos) and sitting on the Board and Investment Committee. He started his career auditing banking and asset management clients at PwC Luxembourg and co-founded eShares.so in Brussels.",
+        "Graduated from Solvay Brussels School of Economics & Management (MSc Business Engineering, Finance)."
+      ],
+      "about": "happiest on a ski slope, a sunny terrace with house music on.",
+      "linkedin": "https://www.linkedin.com/in/arthurhay/"
+    },
+    {
+      "name": "Timothée Ricour-Dumas",
+      "role": "Analyst",
+      "photo": "timothee.jpg",
+      "paragraphs": [
+        "Brings experience across Healthtech, Deeptech and ClimateTech investing from Seed to Series B through roles at Crédit Mutuel Innovation and BNP Paribas Développement. Prior to venture capital, Timothée worked at Domani, a silver economy startup focused on shared housing for elderly people, where he handled finance and operations.",
+        "Graduated from ESSEC Business School and Bocconi University’s double degree in Finance, he developed a strong attachment to European innovation ecosystems after growing up internationally between France and Italy."
+      ],
+      "about": "outdoor guy, usually juggling between a rugby pitch, running shoes and a sailboat",
+      "linkedin": "https://www.linkedin.com/in/timoth%C3%A9e-ricour-dumas-b4aa331a5/"
+    },
+    {
+      "name": "Gabriel Huguenin",
+      "role": "Analyst",
+      "photo": "gabriel.jpg",
+      "paragraphs": [
+        "Gabriel started out at Via ID, supporting mobility and automotive founders, and running the Moove Lab accelerator program at Station F. He then became Chief of Staff to the CEO of a wine-innovation startup, before moving into VC at SISTAFUND.",
+        "Originally from Marseille, he recently graduated from EDHEC Business School in Lille with an MSc in Entrepreneurship & Innovation."
+      ],
+      "about": "a sports lover always on the judo tatami or training for an upcoming race, but also a fan of literature and cultural discoveries.",
+      "linkedin": "https://www.linkedin.com/in/gabriel-huguenin-95abb3248/"
+    }
+  ]
+}
