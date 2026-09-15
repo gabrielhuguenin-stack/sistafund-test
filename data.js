@@ -12,15 +12,20 @@ window.COMPANIES = {
   tec: ['The Exploration Company', 'Deeptech', 'tec.png', 'Democratizing space exploration, making it affordable, sustainable and open, for space & non-space industries.', 'Hélène Huby, Artur Kopp, Sebastien Reichstadt, Johannes Reijneveld, Pierre Vinet', 'Bordeaux', '2021', '2023', 'https://www.exploration.space/'],
   numi: ['Nūmi', 'HealthTech', 'numi.png', 'Developing in vivo breast milk, in vitro.', 'Eden Banon-Lagrange, Eugénie Pezé-Heidsieck', 'Paris', '2023', '', 'https://www.numi.life/'],
   orakl: ['Orakl Oncology', 'HealthTech', 'orakl.png', 'Accelerating drug discovery in oncology.', 'Fanny Jaulin, Diane-Laure Pagès, Gustave Ronteix', 'Paris', '2023', '', 'https://www.orakl-oncology.com/'],
-  femaleinvest: ['Female Invest', 'Deeptech', 'femaleinvest.webp', 'On a mission to close the financial gender gap, democratizing investing for everyone, globally.', 'Anna-Sophie Hartvigsen, Camilla Cloëtta Falkenberg, Emma Due Bitz', 'Copenhagen, Denmark London, UK', '2021', '2023', 'https://www.femaleinvest.com/'],
+  femaleinvest: ['Female Invest', 'Climate', 'femaleinvest.webp', 'On a mission to close the financial gender gap, democratizing investing for everyone, globally.', 'Anna-Sophie Hartvigsen, Camilla Cloëtta Falkenberg, Emma Due Bitz', 'Copenhagen, Denmark London, UK', '2021', '2023', 'https://www.femaleinvest.com/'],
   underdog: ['Underdog', 'Climate', 'underdog.png', 'By bridging the gap between circularity and industrial efficiency, the company provides a robust solution for the carbon footprint reduction and the emergence of a European industrial sector.', 'Claire Bretton, Laura Chavigny, Mathieu Maure', 'Nantes Paris', '2022', '2022', 'https://underdog.shop/'],
-  astran: ['Astran', 'Deeptech', 'astran.png', 'Zero Trust cloud storage solution for sensitive data.', 'Yosra Jarraya, Gilles Seghaier, Yahya Jarraya', 'Paris', '2021', '2023', 'https://astran.io/'],
-  mallow: ['Mallow', 'Deeptech', 'mallow.png', 'Educational toys for children at the intersection of cognitive science and AI.', 'Flore Cousin, Cédric O', 'Paris', '2024', '', 'https://www.mallow.fr/'],
-  vizzia: ['Vizzia', 'Climate', 'vizzia.png', 'Leveraging computer vision and AI to detect illegal waste dumping.', 'Katrin de Proyart (Dimitrova), Alexandre Leboucher', 'Paris', '2022', '2021', 'https://www.vizzia.fr/'],
+  astran: ['Astran', 'AI & Enterprise Software', 'astran.png', 'Zero Trust cloud storage solution for sensitive data.', 'Yosra Jarraya, Gilles Seghaier, Yahya Jarraya', 'Paris', '2021', '2023', 'https://astran.io/'],
+  mallow: ['Mallow', 'AI & Enterprise Software', 'mallow.png', 'Educational toys for children at the intersection of cognitive science and AI.', 'Flore Cousin, Cédric O', 'Paris', '2024', '', 'https://www.mallow.fr/'],
+  vizzia: ['Vizzia', 'AI & Enterprise Software', 'vizzia.png', 'Leveraging computer vision and AI to detect illegal waste dumping.', 'Katrin de Proyart (Dimitrova), Alexandre Leboucher', 'Paris', '2022', '2021', 'https://www.vizzia.fr/'],
   optimiz: ['Optimiz Construction', 'Climate', 'optimiz.png', 'Helping construction firms optimize materials to save time, money and CO₂.', 'Marion Malandain', 'Paris', '2020', '2022', 'https://www.optimiz-construction.fr/'],
-  notom: ['NOTOM', 'Deeptech', 'notom.png', 'Bridge OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris', '2025', '', 'https://notom.io/'],
+  notom: ['NOTOM', 'AI & Enterprise Software', 'notom.png', 'Bridge OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris', '2025', '', 'https://notom.io/'],
   oshen: ['Oshen', 'Deeptech', 'oshen.png', 'Unlocking ocean intelligence.', 'Anahita Laverack, Ciaran Dowds', 'UK', '2022', '2026', 'https://www.oshendata.com/'],
   suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026', 'https://suna.health/'],
+  /* Trame is not published on sistafund.com yet, so there is no wording to take: it carries
+     its name and its sector and nothing else. The card omits every empty field and the plate
+     falls back to the name in display type, so it takes its place in the sort now and fills
+     in when the copy and the logo arrive. */
+  trame: ['Trame', 'AI & Enterprise Software', 'trame.png', '', '', '', '', '', ''],
 };
 
 /* Corporates and institutions backing the fund — shown under the "Corporates & institutions"

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SISTAFUND | Portfolio</title>
-<meta name="description" content="The SISTAFUND portfolio — companies founded or co-founded by women across Deeptech, HealthTech and Climate.">
+<meta name="description" content="The SISTAFUND portfolio — companies founded or co-founded by women across Deeptech, HealthTech, Climate and AI &amp; Enterprise Software.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
 <link rel="stylesheet" href="style.css?v=327">
 </head>
@@ -15,7 +15,7 @@
   <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="SISTAFUND"></a>
   <nav class="nav-links">
     <a href="manifesto.html">Manifesto</a>
-    <a href="portfolio.html">Portfolio<sup class="nav-count">(16)</sup></a>
+    <a href="portfolio.html">Portfolio<sup class="nav-count">(17)</sup></a>
     <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
     <a href="community.html">Community</a>
     <a href="news.html">News</a>
@@ -25,7 +25,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="manifesto.html">Manifesto</a>
-  <a href="portfolio.html">Portfolio<sup class="nav-count">(16)</sup></a>
+  <a href="portfolio.html">Portfolio<sup class="nav-count">(17)</sup></a>
   <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
   <a href="community.html">Community</a>
   <a href="news.html">News</a>
@@ -77,6 +77,9 @@
       <button class="filter" data-filter="Deeptech">Deeptech</button>
       <button class="filter" data-filter="HealthTech">HealthTech</button>
       <button class="filter" data-filter="Climate">Climate</button>
+      <button class="filter" data-filter="AI &amp; Enterprise Software">AI &amp; Enterprise Software</button>
+      <!-- no mark for the fourth sector yet: there is no drawing for it in img/sectors, and a
+           filter without one simply shows none, exactly as All does -->
       <span class="sec-badge" id="pfBadge" aria-hidden="true">
         <img src="img/sectors/health.png" alt="" data-sec="HealthTech">
         <img src="img/sectors/frontier.png" alt="" data-sec="Deeptech">
@@ -134,7 +137,7 @@
   </div>
 </footer>
 
-<script src="data.js?v=18"></script>
+<script src="data.js?v=19"></script>
 <script>
   // nav + mobile menu
   const nav = document.getElementById('nav');
@@ -185,7 +188,7 @@
       <div class="pf-detail-body">
         <span class="pf-detail-tag">${c[1]}</span>
         <h3>${c[0]}</h3>
-        <p>${c[3]}</p>
+        ${c[3] ? `<p>${c[3]}</p>` : ''}
         <div class="pf-detail-meta">
         ${c[4] ? `<div class="pf-fact"><span class="pf-fact-k">Founder(s)</span><span class="pf-fact-v">${c[4]}</span></div>` : ''}
         ${c[5] ? `<div class="pf-fact"><span class="pf-fact-k">Location(s)</span><span class="pf-fact-v">${c[5]}</span></div>` : ''}

@@ -463,7 +463,12 @@ main section[id] { scroll-margin-top: 60px; }
 .sector > span {
   display: block;
   font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(2.6rem, 7.5vw, 6.8rem); line-height: .95;
+  /* the floor was set when the longest label was HEALTHTECH, 152 px at 2.6rem. AI & ENTERPRISE
+     SOFTWARE is 335 px at the same size, so below about 378 px it no longer fits the row and
+     broke onto a second line — one row of four suddenly half as tall again as its neighbours.
+     The floor therefore follows the width down (11vw is the widest this label can hold on one
+     line), which also keeps the four labels one set at one size. Above 378 px nothing changes. */
+  font-size: clamp(min(2.6rem, 11vw), 7.5vw, 6.8rem); line-height: .95;
   transform: translateY(110%);
   transition: transform .8s var(--ease), letter-spacing .4s var(--ease);
 }

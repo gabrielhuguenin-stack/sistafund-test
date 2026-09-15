@@ -526,7 +526,7 @@ function showCompany(key) {
     <div class="pf-detail-body">
       <span class="pf-detail-tag">${c[1]}</span>
       <h3>${c[0]}</h3>
-      <p>${c[3]}</p>
+      ${c[3] ? `<p>${c[3]}</p>` : ''}
       <div class="pf-detail-meta">
         ${c[4] ? `<div class="pf-fact"><span class="pf-fact-k">Founder(s)</span><span class="pf-fact-v">${c[4]}</span></div>` : ''}
         ${c[5] ? `<div class="pf-fact"><span class="pf-fact-k">Location(s)</span><span class="pf-fact-v">${c[5]}</span></div>` : ''}
