@@ -1,0 +1,92 @@
+# SISTAFUND — Apache configuration for the OVH hosting.
+#
+# The new site is static, so this file is all the server configuration it needs. It does three
+# jobs: it keeps the addresses the current WordPress answers on alive, it keeps the canonical
+# form of the domain, and it sets the caching Vercel used to do on its own.
+#
+# WHY THE REDIRECTS MATTER. The WordPress has far more addresses than this site: about seventy,
+# counting a page per community member, per company, per article, and every filter and taxonomy
+# page. Without these rules they all answer 404 the day the switch is made, which costs the
+# Google ranking and breaks every link already out there — press articles, LinkedIn posts, the
+# mailing. They are written with RedirectMatch and anchored patterns on purpose: plain Redirect
+# appends whatever follows the prefix, so /portfolio/waiv/ would land on /portfolio.htmlwaiv/.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # https only
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # the bare domain is the canonical one — this is what the WordPress already does today
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+DirectoryIndex index.html
+
+<IfModule mod_alias.c>
+  # ---- the pages that have a direct equivalent ----
+  RedirectMatch 301 ^/manifesto/?$                /manifesto.html
+  RedirectMatch 301 ^/team/?$                     /team.html
+  RedirectMatch 301 ^/limited_partners(/.*)?$     /community.html
+
+  # ---- the pages whose content now lives in a section of the home ----
+  RedirectMatch 301 ^/about/?$                    /#about
+  RedirectMatch 301 ^/faq/?$                      /#faq
+
+  # ---- everything the WordPress gave its own page to, and this site shows in place ----
+  # a member is a face in the mosaic, not a page of their own
+  RedirectMatch 301 ^/helpies(/.*)?$              /community.html
+  RedirectMatch 301 ^/cat_helpies(/.*)?$          /community.html
+  # a company opens in a window over the grid
+  RedirectMatch 301 ^/portfolio(/.*)?$            /portfolio.html
+  RedirectMatch 301 ^/cat_portfolio(/.*)?$        /portfolio.html
+  RedirectMatch 301 ^/location(/.*)?$             /portfolio.html
+  RedirectMatch 301 ^/portfolio_status(/.*)?$     /portfolio.html
+  # an article links straight out to its source
+  RedirectMatch 301 ^/news(/.*)?$                 /news.html
+  RedirectMatch 301 ^/cat_news(/.*)?$             /news.html
+
+  # the WordPress RSS feed: anyone subscribed to it lands on the news page rather than nowhere
+  RedirectMatch 301 ^/feed(/.*)?$                 /news.html
+
+  # ---- WordPress leftovers with nothing behind them ----
+  RedirectMatch 301 ^/archives/?$                 /
+  RedirectMatch 301 ^/pied-de-page/?$             /
+  RedirectMatch 301 ^/sistafund-tennis-balls/?$   /
+
+  # ---- TO ADD once the three compliance pages exist on this site ----
+  # They are deliberately NOT redirected yet: sending them to the home would quietly lose
+  # content that is there for legal reasons. Until the pages are built, leave these commented.
+  #   RedirectMatch 301 ^/mentions-legales/?$     /legal.html
+  #   RedirectMatch 301 ^/esg-policy/?$           /esg.html
+  #   RedirectMatch 301 ^/trademark/?$            /trademark.html
+</IfModule>
+
+# Caching. Vercel did this by itself; on OVH it has to be said.
+# The rule the site is built on: every asset is called with a ?v= that is bumped by hand when it
+# changes, so assets may be cached hard and for a long time. The HTML must NOT be — it is what
+# carries the new ?v=, and a cached page would keep pointing at the old stylesheet for a year.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
