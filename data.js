@@ -21,11 +21,6 @@ window.COMPANIES = {
   notom: ['NOTOM', 'AI & Enterprise Software', 'notom.png', 'Bridge OT & IT through AI-driven reindustrialisation in factories.', 'Paola Fedou, Jean-Philippe Gross', 'Paris', '2025', '', 'https://notom.io/'],
   oshen: ['Oshen', 'Deeptech', 'oshen.png', 'Unlocking ocean intelligence.', 'Anahita Laverack, Ciaran Dowds', 'UK', '2022', '2026', 'https://www.oshendata.com/'],
   suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026', 'https://suna.health/'],
-  /* Trame is not published on sistafund.com yet, so there is no wording to take: it carries
-     its name and its sector and nothing else. The card omits every empty field and the plate
-     falls back to the name in display type, so it takes its place in the sort now and fills
-     in when the copy and the logo arrive. */
-  trame: ['Trame', 'AI & Enterprise Software', 'trame.png', '', '', '', '', '', ''],
 };
 
 /* Corporates and institutions backing the fund — shown under the "Corporates & institutions"
