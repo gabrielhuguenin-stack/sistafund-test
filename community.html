@@ -171,17 +171,22 @@
     document.querySelectorAll('#lpFilters .filter').forEach(f => f.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    institutions.hidden = f !== 'institutions';
-    grid.style.display = f === 'institutions' ? 'none' : '';
-    if (f !== 'institutions') {
-      grid.querySelectorAll('.lp').forEach(d => {
-        d.style.display = (f === 'all' || d.dataset.sector === f) ? '' : 'none';
-      });
-    }
+    // the section settles to its new height rather than snapping: twenty-seven faces down to a
+    // handful throws everything below it up the page in a single frame. The whole section is
+    // the box here, since the mosaic and the institutions are two siblings that swap.
+    window.settleHeight(document.getElementById('community'), () => {
+      institutions.hidden = f !== 'institutions';
+      grid.style.display = f === 'institutions' ? 'none' : '';
+      if (f !== 'institutions') {
+        grid.querySelectorAll('.lp').forEach(d => {
+          d.style.display = (f === 'all' || d.dataset.sector === f) ? '' : 'none';
+        });
+      }
+    });
   });
 </script>
 <script src="wall.js?v=1"></script>
-<script src="reveal.js?v=37"></script>
+<script src="reveal.js?v=40"></script>
 
 </body>
 </html>

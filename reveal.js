@@ -354,3 +354,50 @@
   addEventListener('resize', onScroll, { passive: true });
   run();
 })();
+
+/* A FILTERED GRID MUST NOT JUMP.
+   Filtering is done by hiding plates, so the grid changes row count and everything below it —
+   the closing mark, the footer — is thrown down or up in one frame. It went unnoticed while the
+   counts happened to be close; with four areas, three of them land on a single row and Climate,
+   with five companies, is the only one needing a second. Switching between the other three
+   moved nothing and switching to Climate moved the page 224 px, which reads as a glitch rather
+   than as a choice.
+   So the box settles instead of snapping: its height is pinned, the filter applied, and the
+   height run to the new one. Shared by the portfolio and the community, which filter the same
+   way. A hidden tab freezes transitions, so the pin is always released on a timer as well as on
+   transitionend — a box left locked to a pixel height would never grow again. */
+window.settleHeight = function (el, apply) {
+  if (!el) { apply(); return; }
+  if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) { apply(); return; }
+
+  // where the box is RIGHT NOW, mid-flight included: reading it during a transition gives the
+  // current state, not the target, which is exactly what a new run should start from
+  const from = el.getBoundingClientRect().height;
+  // and the previous run is called off first — its timer would otherwise fire a second later
+  // and release this run's pin in mid-air, which is the snap we came here to remove
+  if (el._settleStop) el._settleStop();
+  el.style.transition = ''; el.style.height = ''; el.style.overflow = '';
+
+  // BOTH heights are read FREE, before anything is pinned. Pinning first and then asking for
+  // scrollHeight cannot work: scrollHeight never reports less than the box it is measured in,
+  // so every filter that SHRANK the grid came back "unchanged" and snapped instead.
+  // Nothing is painted between these reads — it is all one synchronous task.
+  apply();
+  const to = el.getBoundingClientRect().height;
+  if (Math.abs(to - from) < 1) return;
+
+  const onEnd = ev => { if (ev.target === el && ev.propertyName === 'height') release(); };
+  let timer = null;
+  const stop = () => { clearTimeout(timer); el.removeEventListener('transitionend', onEnd); el._settleStop = null; };
+  const release = () => { stop(); el.style.transition = ''; el.style.height = ''; el.style.overflow = ''; };
+  el._settleStop = stop;
+
+  el.style.overflow = 'hidden';
+  el.style.height = from + 'px';
+  void el.offsetHeight;                       // the pinned height has to land before it moves
+  el.style.transition = 'height .52s cubic-bezier(.22, 1, .36, 1)';
+  el.style.height = to + 'px';
+  el.addEventListener('transitionend', onEnd);
+  // a hidden tab freezes transitions: never leave the box locked to a pixel height
+  timer = setTimeout(release, 1000);
+};

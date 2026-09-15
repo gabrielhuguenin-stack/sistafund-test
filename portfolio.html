@@ -169,8 +169,12 @@
     document.querySelectorAll('#pfFilters .filter').forEach(f => f.classList.remove('active'));
     btn.classList.add('active');
     const f = btn.dataset.filter;
-    grid.querySelectorAll('.pf-all-card').forEach(card => {
-      card.style.display = (f === 'all' || card.dataset.sector === f) ? '' : 'none';
+    // the grid settles to its new height instead of snapping: three of the four areas fit one
+    // row and Climate needs two, so the page below moved 224 px on that one choice alone
+    window.settleHeight(grid, () => {
+      grid.querySelectorAll('.pf-all-card').forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.sector === f) ? '' : 'none';
+      });
     });
     // the sector mark follows the choice; All has none
     document.querySelectorAll('#pfBadge img').forEach(im => im.classList.toggle('on', im.dataset.sec === f));
@@ -211,7 +215,7 @@
   addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script src="wall.js?v=1"></script>
-<script src="reveal.js?v=37"></script>
+<script src="reveal.js?v=40"></script>
 
 </body>
 </html>
