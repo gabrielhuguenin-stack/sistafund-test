@@ -293,6 +293,18 @@ body.subpage-dark .nav-count { color: var(--yellow); }
    line. The claim already worked this way (fund under gender-lens); the first statement did
    not, and its right edge zigzagged 298 / 908 / 426 / 726. Now both read as one built
    object with the same silhouette. */
+/* THE FLOORS WERE SET FOR A 375 px PHONE, AND THEY STOP THERE. Below that the clamps hold at
+   their floor while the column keeps narrowing, so the mass line goes on running: at 320 px it
+   reached 311 with the 7vw margin at 298, leaving 9 px on the right against 22 on the left —
+   the title read as if it were falling off the screen. One notch down under 345 px, in the
+   same proportion for all four sizes so the block keeps its silhouette. The floors themselves
+   are untouched: everything from 345 px up is exactly as it was. */
+@media (max-width: 345px) {
+  .hstmt .hline.l-kicker { font-size: 1.13rem; }
+  .hstmt .l-md { font-size: 1.8rem; }
+  .hstmt .l-lg { font-size: 2.35rem; }
+  .hstmt .l-xl { font-size: 2.9rem; }
+}
 .hline--in1 { padding-left: 1.3em; }            /* the middle step of the stair */
 /* The closing line is ALIGNED, not indented by a magic number. The statement is only as wide
    as its mass line, so `text-align: right` lands the last line on that edge at every width —
@@ -324,6 +336,13 @@ body.subpage-dark .nav-count { color: var(--yellow); }
 .hstmt--claim::after {
   content: ''; display: block;
   height: calc(clamp(2rem, 6.5vw, 6.7rem) * 1.06 - clamp(2.6rem, 8.96vw, 9.2rem) * .18);
+}
+/* and the reserved line follows the step down under 345 px. IT HAS TO SIT HERE, after the rule
+   it replaces: the two selectors weigh the same, so the one written later wins whatever the
+   media query says — put beside the font sizes above, this was simply ignored and the mass
+   lines drifted 2 px apart. Measured at 320: 23 px puts them back on the same y, to the pixel. */
+@media (max-width: 345px) {
+  .hstmt--claim::after { height: 23px; }
 }
 .hstmt .hmask { display: inline-block; overflow: visible; padding-bottom: .06em; margin-bottom: -.06em; vertical-align: bottom; }
 .hstmt .hln { display: inline-block; font-style: normal; transform: translateY(108%); will-change: transform; }
@@ -547,6 +566,14 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
      broken in two */
   margin: 1.1em 0 0 auto; text-align: right;
 }
+/* THE OFFSET NEEDS ROOM TO BE AN OFFSET. Past this width the 33ch measure is wider than the
+   column, so the block already fills it and there is nowhere to push the sentence to — all
+   `text-align: right` does then is ragged the left edge of a paragraph sitting directly under
+   a flush-left one, which reads as a mistake rather than as an answer. Both start at the
+   margin instead. */
+@media (max-width: 860px) {
+  .thesis-line + .thesis-line { margin-left: 0; text-align: left; }
+}
 /* the facts stay in the voice of the sentence — one font, one size — and it is the yellow
    band under them that tells you they are the facts */
 .thesis-line b {
@@ -752,6 +779,9 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    the pictures: a little less padding, a little less leading, a slightly tighter gap. The
    type then goes from 3.15cqw to 3.6cqw (+14 %) and the longest bio still keeps two lines of
    headroom. Measured: it overflows at 4.0cqw, so 3.6 is not a guess. */
+/* the picture and its presentation share one box, so the panel can be laid over the portrait
+   here and step out from under it on a phone */
+.member-shot { position: relative; }
 .member-bio {
   position: absolute; inset: 0;
   background: rgba(16, 16, 16, .92); color: var(--paper);
@@ -762,7 +792,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 /* the presentation is set against the width of its own portrait, not the window:
    three to a row makes a narrower picture, and the text has to follow it down */
 @supports (container-type: inline-size) {
-  .team-gallery .member-photo { container-type: inline-size; }
+  .team-gallery .member-shot { container-type: inline-size; }
   .member-bio { font-size: clamp(.8rem, 3.6cqw, 1.15rem); }
 }
 .member:hover .member-bio, .member.open .member-bio { opacity: 1; }
@@ -897,6 +927,13 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   /* one column: there is no picture beside the words to hold the foot of the column, so the
      button takes its own room again instead of collapsing onto the sentence */
   .comm-cta { margin-top: 5vh; margin-bottom: 0; }
+}
+/* TWO PRINTS SIDE BY SIDE NEED A SCREEN TO BE SIDE BY SIDE ON. Halved again inside a phone
+   they came to 168 px across — the whole point of this section is that the community is met
+   at full size, and two thumbnails say the opposite. One under the other, each the width of
+   the page. */
+@media (max-width: 700px) {
+  .comm-shots { grid-template-columns: 1fr; gap: 3.5vh; }
 }
 /* the name is written on the photograph itself, not on a plate laid over the face: just
    enough shade rising from the foot of the frame to carry the letters */
@@ -1455,6 +1492,13 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
   display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 30px 24px;
 }
+/* A MOSAIC HAS TO READ AS A MOSAIC. At a 170 px minimum two columns want 364 px and a phone
+   offers 345, so auto-fill dropped to one — and twenty-seven faces became twenty-seven
+   screens, which says the opposite of what this page is for. Counted to two instead: 164 px
+   each at 375, and the page reads as a crowd again. */
+@media (max-width: 560px) {
+  .lp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
+}
 .lp {
   text-align: left;
   opacity: 0; transform: translateY(24px);
@@ -1685,6 +1729,39 @@ body.subpage-dark .sec-badge img { filter: invert(1); }
 @media (max-width: 760px) {
   .team-gallery .team-grid { grid-template-columns: 1fr; gap: 5vh; }
   .team-gallery .member-photo { aspect-ratio: 4 / 4.7; }
+  /* ON A PHONE THE PRESENTATION COMES OUT FROM UNDER THE PORTRAIT. Laid over the picture it
+     was trapped between two limits that pull apart as the screen narrows: the panel's height
+     follows the frame's WIDTH, while the text it has to hold grows as the measure shrinks. At
+     375 px the longest bio already spilled out of its panel, and it was set at 12.8 px — the
+     floor of the clamp — which is below reading size. Every way of keeping it inside failed:
+     smaller type is unreadable, and a frame tall enough to hold 978 characters is a 1:2 slab
+     that crops a landscape headshot to a strip.
+     So on one column the panel is simply set beneath its portrait, at a plain 16 px on the
+     cream. Nothing is hidden, nothing is clipped, the picture keeps its own crop, and the tap
+     that used to raise the panel has nothing left to raise. The overlay stays on wide screens,
+     where it works. */
+  /* and the name comes back BEFORE the presentation. Laid over the picture the panel was out
+     of the flow, so the card read picture, name, role; dropped into the flow it landed between
+     the picture and the name, and you were reading a biography before being told whose it was.
+     The frame hands its two children straight to the card (display: contents) so all four can
+     be ordered together — the container query goes with it, the type here being a plain 16 px. */
+  .team-gallery .member { display: flex; flex-direction: column; }
+  .team-gallery .member-shot { display: contents; container-type: normal; }
+  .team-gallery .member-photo { order: 1; }
+  .team-gallery .member h3 { order: 2; }
+  .team-gallery .member-role { order: 3; }
+  .team-gallery .member-bio {
+    order: 4;
+    position: static; opacity: 1;
+    background: none; color: var(--grey);
+    padding: 18px 0 0; gap: .75em;
+    font-size: 1rem; line-height: 1.6;
+  }
+  /* yellow on cream is 1.05:1 — off the ink panel the About line has to be ink. It is still
+     set apart by the display capitals against the serif. */
+  .team-gallery .member-fun { color: var(--ink); }
+  .team-gallery .member-in { color: var(--ink); border-color: rgba(16, 16, 16, .3); }
+  .team-gallery .member { cursor: default; }
 }
 /* this page has no in-view engine: portraits are shown, reveal.js animates them */
 .team-gallery .member { opacity: 1; transform: none; }
@@ -2134,9 +2211,18 @@ body > main, body > footer { position: relative; z-index: 1; }
   .manifesto-photo { height: 26vh; }
 
   .nav-links, .nav .nav-cta { display: none; }
+  /* the one control every phone visitor has to hit, and it came to 42 x 23. The field around
+     it is opened to 44 x 44 the same way the marks are — an absolute pseudo, out of the flow —
+     rather than by growing the button: the two bars are laid out by the flex column, so a
+     taller box would have pushed the whole bar down with them. */
   .burger {
     display: flex; flex-direction: column; gap: 7px;
-    padding: 6px; z-index: 260;
+    padding: 6px; z-index: 260; position: relative;
+  }
+  .burger::before {
+    content: ''; position: absolute;
+    left: 50%; top: 50%; width: 44px; height: 44px;
+    transform: translate(-50%, -50%);
   }
   .burger span { width: 30px; height: 2px; background: var(--ink); transition: transform .3s; display: block; }
   .burger.open span:first-child { transform: translateY(4.5px) rotate(45deg); }
@@ -2156,6 +2242,37 @@ body > main, body > footer { position: relative; z-index: 1; }
   .about-photo-frame { height: 48vh; }
   .team-grid, .news-grid { grid-template-columns: 1fr; }
   .pf-detail-body { padding: 26px 24px 30px; }
+}
+
+/* ============ Touch: a finger is not a cursor ============ */
+/* Every control here is drawn as a label over a rule, or as a 2 px mark — right for a pointer,
+   and between 16 and 35 px tall, well under the ~44 px a finger needs. NOTHING DRAWN CHANGES.
+   Two ways of giving the room, chosen by what sits next to the control:
+     - where the layout is measured, a transparent field is laid over it out of the flow, so
+       the box keeps the exact height something else is aligned on — the foot of the community
+       column and the page openings are set on the marks' row, and the nav bar on the burger;
+     - where the control has another control stacked directly above or below it, a field would
+       simply cover its neighbour, so the room is taken as real padding instead. */
+@media (hover: none) {
+  /* out of the flow — measured rows */
+  .comm-dot, .pcdot, .filter, .nav-logo { position: relative; }
+  /* the marks sit 14 px apart, so a field may reach 7 px each side without two of them meeting */
+  .comm-dot::after, .pcdot::after {
+    content: ''; position: absolute;
+    left: -7px; right: -7px; top: 50%; height: 44px; transform: translateY(-50%);
+  }
+  /* ::after on these carries the yellow rule, so the field goes on ::before, behind the label */
+  .btn::before, .filter::before {
+    content: ''; position: absolute; z-index: -1;
+    left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%);
+  }
+  .nav-logo::after, .overlay-close::after {
+    content: ''; position: absolute;
+    left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%);
+  }
+  /* in the flow — the footer links are stacked on each other, so they are given real room */
+  .footer-col a, .footer-notes a, .member-in { padding-top: 9px; padding-bottom: 9px; }
+  .footer-col { gap: 0; }
 }
 
 /* ============ Reduced motion ============ */

@@ -6,7 +6,7 @@
 <title>SISTAFUND | The team</title>
 <meta name="description" content="Meet the SISTAFUND team — entrepreneurs, operators and investors backing exceptional female founders and gender-balanced teams across Europe.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
-<link rel="stylesheet" href="style.css?v=326">
+<link rel="stylesheet" href="style.css?v=327">
 </head>
 <body class="loaded nav-ready">
 
@@ -147,8 +147,13 @@
   (window.TEAM || []).forEach(([name, role, file, paras, about, linkedin]) => {
     const g = document.createElement('article');
     g.className = 'member'; g.setAttribute('data-reveal', '');
-    g.innerHTML = `<div class="member-photo">
-        <img src="img/team/${file}" alt="${name}" loading="lazy">
+    // the presentation is a SIBLING of the picture, not a child of it: on a wide screen it is
+    // laid over the portrait, but on a phone it has to come out and sit underneath — and a
+    // child of the frame cannot leave a box that carries an aspect ratio and clips its content.
+    g.innerHTML = `<div class="member-shot">
+        <div class="member-photo">
+          <img src="img/team/${file}" alt="${name}" loading="lazy">
+        </div>
         <div class="member-bio">
           ${paras.map(p => `<p>${p}</p>`).join('')}
           ${about ? `<span class="member-fun">${about}</span>` : ''}
