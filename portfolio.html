@@ -78,12 +78,11 @@
       <button class="filter" data-filter="HealthTech">HealthTech</button>
       <button class="filter" data-filter="Climate">Climate</button>
       <button class="filter" data-filter="AI &amp; Enterprise Software">AI &amp; Enterprise Software</button>
-      <!-- no mark for the fourth sector yet: there is no drawing for it in img/sectors, and a
-           filter without one simply shows none, exactly as All does -->
       <span class="sec-badge" id="pfBadge" aria-hidden="true">
         <img src="img/sectors/health.png" alt="" data-sec="HealthTech">
         <img src="img/sectors/frontier.png" alt="" data-sec="Deeptech">
         <img src="img/sectors/sustain.png" alt="" data-sec="Climate">
+        <img src="img/sectors/ai.png" alt="" data-sec="AI &amp; Enterprise Software">
       </span>
     </div>
     <div class="pf-all-grid" id="pfAllGrid" data-stagger></div>
@@ -212,7 +211,7 @@
   addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 <script src="wall.js?v=1"></script>
-<script src="reveal.js?v=36"></script>
+<script src="reveal.js?v=37"></script>
 
 </body>
 </html>

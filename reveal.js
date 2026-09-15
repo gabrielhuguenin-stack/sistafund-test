@@ -297,7 +297,7 @@
   box.className = 'sec-cursor';
   box.setAttribute('aria-hidden', 'true');
   const marks = {};
-  Object.entries({ health: 'health.png', frontier: 'frontier.png', sustain: 'sustain.png' })
+  Object.entries({ health: 'health.png', frontier: 'frontier.png', sustain: 'sustain.png', ai: 'ai.png' })
     .forEach(([key, file]) => {
       const im = document.createElement('img');
       im.src = 'img/sectors/' + file; im.alt = '';
