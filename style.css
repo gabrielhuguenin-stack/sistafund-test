@@ -1249,11 +1249,22 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 /* no masked rise down here: the lines are simply there. The reveal was keyed on `.cta`
    coming into view, and only the home page runs that observer — on the five other pages
    the question would have stayed hidden under its mask for ever. */
+/* THE E-MAIL STAYS ON THE SENTENCE'S LINE. With flex-wrap the button was the thing that gave
+   way: below about 1200 px it dropped underneath, and the two read as two separate blocks
+   instead of one closing line. It is the SENTENCE that should give way — it has somewhere to
+   go, the button does not. So the row never wraps, the sentence is allowed to shrink and fold
+   inside its own box, and the button keeps its width whatever happens.
+   `last baseline` sets the e-mail on the sentence's LAST line, so a folded sentence still ends
+   level with it; browsers that do not know it fall back to the first baseline. */
 .footer-say {
   text-align: right;
-  display: flex; align-items: baseline; justify-content: flex-end; gap: 3vw;
-  flex-wrap: wrap;
+  display: flex; justify-content: flex-end; gap: 2.2vw;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  align-items: last baseline;
 }
+.footer-say .cta-title { min-width: 0; }
+.footer-say .cta-btn { flex: 0 0 auto; }
 .footer-say .cta-title .line > span { transform: none; }
 .footer-say .cta-title .line { text-align: right; }
 /* in the footer the address is a label, not a button: no rule under it, and it takes the
@@ -1275,7 +1286,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .footer-top {
   display: grid; grid-template-columns: auto minmax(0, 1fr);
   align-items: flex-start;
-  gap: 8vw; margin-bottom: 3.4vh;
+  gap: 5vw; margin-bottom: 3.4vh;
 }
 /* the note runs the full width of the page on its own line: on a 620px measure it stacked
    five lines deep and it was the note, not the columns, that set the height of the footer */
@@ -1288,7 +1299,15 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    stacks deliberately instead of letting the flow decide badly */
 @media (max-width: 900px) {
   .footer-top { grid-template-columns: 1fr; gap: 5vh; }
-  .footer-say { text-align: left; justify-content: flex-start; gap: 2.4vh; }
+  /* and here the e-mail DOES go back under the sentence: the column is the width of the page
+     now, so holding them on one row only squeezed the sentence into four lines against a
+     button that will not shrink. Above this the row is what closes the footer; below it there
+     is nothing left to close. */
+  .footer-say {
+    text-align: left; justify-content: flex-start; gap: 2.4vh;
+    flex-wrap: wrap; align-items: baseline;
+  }
+  .footer-say .cta-title { min-width: 100%; }
   .footer-say .cta-title .line { text-align: left; }
 }
 
@@ -2358,26 +2377,6 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 .doc-sec a:hover { border-color: var(--ink); }
 
-/* ESG is a shelf of documents, so it is built from the ruled row the site uses everywhere —
-   label at one end, arrow at the other, a rule between. Not four "here" links in a paragraph. */
-.doc-files { margin-top: 3vh; }
-.doc-file {
-  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2vw;
-  padding: 3vh 0 2.4vh; border-top: 1.5px solid var(--ink);
-  position: relative; text-decoration: none;
-}
-.doc-files .doc-file:last-child { border-bottom: 1.5px solid var(--ink); }
-.doc-file-name {
-  font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.05rem, 1.55vw, 1.6rem); letter-spacing: .04em; color: var(--ink);
-  display: block;
-}
-.doc-file-say { font-family: var(--serif); font-size: 1rem; color: var(--grey); display: block; margin-top: .7vh; }
-.doc-file-go { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: .92rem; color: var(--ink); white-space: nowrap; }
-/* and the row does not answer at all. It is a list of four documents to click; a label that
-   slides aside is a flourish on a compliance page, which is the one register this site does
-   not want here. */
 @media (max-width: 700px) {
-  .doc-file { grid-template-columns: 1fr; gap: 1.2vh; }
   .doc-sec p, .doc-sec li { font-size: 1rem; }
 }
