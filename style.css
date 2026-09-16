@@ -2449,7 +2449,12 @@ body > main, body > footer { position: relative; z-index: 1; }
   width: 33%; aspect-ratio: 1 / 1;
   -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
 }
-.page-open--duo .pcdots { position: absolute; top: 100%; left: 0; margin-top: 3vh; }
+/* THE MARKS SIT ON THE LEFT PHOTOGRAPH'S LINE. The foot of the cascade already lands on it —
+   both are at 852 — so the row only had to stop hanging 27 px below it. It is CENTRED on that
+   line rather than pushed down from it: translateY(-50%) puts the 2 px rule itself on the line
+   whatever height the clickable boxes around it are given, and those boxes grow to 44 px under
+   a finger without dragging the rule off the alignment. */
+.page-open--duo .pcdots { position: absolute; top: 100%; left: 0; margin-top: 0; transform: translateY(-50%); }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 @media (max-width: 900px) {
@@ -2465,5 +2470,6 @@ body > main, body > footer { position: relative; z-index: 1; }
     position: relative; right: auto; top: auto; width: 62%; margin-left: auto;
     -webkit-mask-image: none; mask-image: none;
   }
-  .page-open--duo .pcdots { position: relative; top: auto; margin-top: 3vh; }
+  /* back in the flow here, so the half-height lift has nothing to align to */
+  .page-open--duo .pcdots { position: relative; top: auto; margin-top: 3vh; transform: none; }
 }
