@@ -2398,9 +2398,8 @@ body > main, body > footer { position: relative; z-index: 1; }
 .page-open--duo .pcascade {
   aspect-ratio: auto; position: relative;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr auto;
-  row-gap: 2.2vh;
+  grid-template-columns: 1fr minmax(0, .52fr);
+  column-gap: 2.2vw;
 }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
 /* THE TWO RIGHT FRAMES CLOSE ON THE LEFT PHOTOGRAPH'S LINE. They were ending 137 px short of
@@ -2416,7 +2415,7 @@ body > main, body > footer { position: relative; z-index: 1; }
    photograph's — which meant any change to the spacing on the left broke the alignment and had
    to be re-tuned by hand. Now the frame simply fills the row, so the two feet cannot come apart
    whatever the left column does. */
-.page-open--duo .pcascade { align-self: stretch; }
+.page-open--duo .pcascade { align-items: end; align-self: stretch; grid-template-rows: 1fr auto; }
 /* AIR BETWEEN THE TITLE AND THE PHOTOGRAPH. There was one pixel between them: the photograph
    carried `margin-top: auto`, which pushed it to the foot of a column exactly as tall as its
    own contents, so it ended up pressed against the title. */
@@ -2426,20 +2425,14 @@ body > main, body > footer { position: relative; z-index: 1; }
    cascade — and here that margin only made it overshoot the two right frames by exactly its own
    32 px. With the right side setting the height, the left has nothing left to reach for. */
 .page-open--duo .pcf-wide { margin-bottom: 0; }
-/* the second picture is a BAND now, lying across the column, and the third sits under it
-   on the right — stacked rather than side by side */
-.page-open--duo .pcwindow--big   { grid-row: 1; aspect-ratio: auto; height: 100%; }
+.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: auto; height: 100%; }
 /* AND THE SMALL ONE HANGS BELOW THAT LINE. Sat on it, all three photographs shared one foot
    and the opening read as a grid rather than as a composition. It drops by the 9vh the home's
    own pair uses between its two prints — the offset is the site's way of saying two frames are
    a pair and not a row. The big frame keeps the line with the left photograph: that is the
    structural alignment, and it is the one that must not move. */
-.page-open--duo .pcwindow--small { grid-row: 2; aspect-ratio: 1 / 1; width: 33%; margin-left: auto; }
-/* THE MARKS HANG BELOW THE BLOCK, out of the height reckoning. Counted as a third row they
-   took their own 40 px out of the column, which pushed the band and the square up and left the
-   third frame ending 20 px short of the left photograph. Out of the flow, the two frames own
-   the whole column and close exactly on the left photograph's line. */
-.page-open--duo .pcdots { position: absolute; top: 100%; left: 0; margin-top: 2.5vh; }
+.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; margin-bottom: -7.5vh; }
+.page-open--duo .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 @media (max-width: 900px) {
