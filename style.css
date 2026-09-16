@@ -2387,3 +2387,33 @@ body > main, body > footer { position: relative; z-index: 1; }
 @media (max-width: 700px) {
   .doc-sec p, .doc-sec li { font-size: 1rem; }
 }
+
+/* ============ A pair of frames on an opening, as the home has ============ */
+/* The home's community section is TWO windows onto the same set of pictures, side by side, the
+   second hung lower, with one row of marks under both. That pair is what makes a series felt
+   there — not a pile, not a sliver of the next picture, not anything drawn. So an opening that
+   needs the same thing takes the same construction.
+   Deliberately NOT Index Ventures, which this resembles at a glance and differs from on every
+   point that matters: their cards RECEDE in size (480 → 232 → 180, which is perspective, and
+   this site has no depth anywhere), their pagination is round dots (this site chose straight
+   rules on purpose), and theirs plays by itself (nothing here moves unasked). Two frames of the
+   SAME size, turned by hand, marked by rules, is a pair — not a carousel. */
+.page-open--pair .pcascade {
+  aspect-ratio: auto;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2.4vw; align-items: start;
+}
+/* in the pair the window is in the flow and carries the frame's proportion itself — the same
+   4 / 5.3 the home's two prints have */
+.page-open--pair .pcwindow { position: relative; inset: auto; aspect-ratio: 4 / 5.3; }
+/* the second hangs lower, the offset the home's pair makes */
+.page-open--pair .pcwindow + .pcwindow { margin-top: 9vh; }
+/* one row of marks for the set, under both frames */
+.page-open--pair .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
+@media (max-width: 1000px) {
+  .page-open--pair .pcwindow + .pcwindow { margin-top: 0; }
+}
+@media (max-width: 700px) {
+  /* two frames in a phone's width are two thumbnails: one under the other, full width */
+  .page-open--pair .pcascade { grid-template-columns: 1fr; row-gap: 3.5vh; }
+}
