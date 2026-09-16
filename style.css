@@ -2398,7 +2398,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 .page-open--duo .pcascade {
   aspect-ratio: auto; position: relative;
   display: grid;
-  grid-template-columns: 1fr minmax(0, .42fr);
+  grid-template-columns: 1fr minmax(0, .52fr);
   column-gap: 2.2vw;
 }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
@@ -2431,7 +2431,7 @@ body > main, body > footer { position: relative; z-index: 1; }
    own pair uses between its two prints — the offset is the site's way of saying two frames are
    a pair and not a row. The big frame keeps the line with the left photograph: that is the
    structural alignment, and it is the one that must not move. */
-.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; margin-bottom: -9vh; }
+.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; margin-bottom: -7.5vh; }
 .page-open--duo .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
