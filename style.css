@@ -28,6 +28,13 @@
      of the way in, while the outermost 19 px still dissolves. Shortening the distance would
      only have brought the abrupt edge back; this takes the veil off without doing that. */
   --fade: 120px;
+  /* the same veil, on the right edge only — for a picture that leaves the page sideways */
+  --fade-r: linear-gradient(to right,
+    #000 calc(100% - var(--fade)),
+    rgba(0, 0, 0, .95) calc(100% - var(--fade) * .58),
+    rgba(0, 0, 0, .82) calc(100% - var(--fade) * .33),
+    rgba(0, 0, 0, .5) calc(100% - var(--fade) * .16),
+    transparent 100%);
   --fade-x: linear-gradient(to right,
     transparent 0,
     rgba(0, 0, 0, .5) calc(var(--fade) * .16),
@@ -2395,12 +2402,15 @@ body > main, body > footer { position: relative; z-index: 1; }
    The risk is named and left to the eye: a SIZE DIFFERENCE is what reads as recession on the
    site this is meant not to resemble. Two boxes that do not touch and do not shrink in series
    are a composition; the moment a third is added they become a queue. */
-.page-open--duo .pcascade {
-  aspect-ratio: auto; position: relative;
-  display: grid;
-  grid-template-columns: 1fr minmax(0, .52fr);
-  column-gap: 2.2vw;
-}
+/* WIDER AND LESS TALL, CROPPED FROM THE TOP, and the third let out past the margin instead of
+   squeezing the second. A band across the column was tried and taken back: measured on the
+   eight pictures of the set, a 1.52 ratio kept only 44 % of the three standing ones against
+   67 % in the square — it served two photographs out of eight. The frame stays standing here,
+   simply less tall and much wider: 518 x 560 against 401 x 654.
+   The third then has nowhere left inside the column, so it goes past it and FADES OUT — the
+   same veil the portfolio rows leave the screen with on the home, and for the same reason: a
+   picture should leave the page rather than be cut off by it. */
+.page-open--duo .pcascade { aspect-ratio: auto; position: relative; display: block; }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
 /* THE TWO RIGHT FRAMES CLOSE ON THE LEFT PHOTOGRAPH'S LINE. They were ending 137 px short of
    it — the big one square at 429 and the small one hanging to 652, against a left photograph
@@ -2415,7 +2425,7 @@ body > main, body > footer { position: relative; z-index: 1; }
    photograph's — which meant any change to the spacing on the left broke the alignment and had
    to be re-tuned by hand. Now the frame simply fills the row, so the two feet cannot come apart
    whatever the left column does. */
-.page-open--duo .pcascade { align-items: end; align-self: stretch; grid-template-rows: 1fr auto; }
+.page-open--duo .pcascade { align-self: stretch; }
 /* AIR BETWEEN THE TITLE AND THE PHOTOGRAPH. There was one pixel between them: the photograph
    carried `margin-top: auto`, which pushed it to the foot of a column exactly as tall as its
    own contents, so it ended up pressed against the title. */
@@ -2425,22 +2435,35 @@ body > main, body > footer { position: relative; z-index: 1; }
    cascade — and here that margin only made it overshoot the two right frames by exactly its own
    32 px. With the right side setting the height, the left has nothing left to reach for. */
 .page-open--duo .pcf-wide { margin-bottom: 0; }
-.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: auto; height: 100%; }
+/* top level with the title, so nothing is left hollow above it */
+.page-open--duo .pcwindow--big   { width: 81%; aspect-ratio: 518 / 560; }
 /* AND THE SMALL ONE HANGS BELOW THAT LINE. Sat on it, all three photographs shared one foot
    and the opening read as a grid rather than as a composition. It drops by the 9vh the home's
    own pair uses between its two prints — the offset is the site's way of saying two frames are
    a pair and not a row. The big frame keeps the line with the left photograph: that is the
    structural alignment, and it is the one that must not move. */
-.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; margin-bottom: -7.5vh; }
-.page-open--duo .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
+.page-open--duo .pcwindow--small {
+  /* far enough out that it never sits ON the big frame: the two overlapped by 32 px, which is
+     the one thing this whole arrangement exists to avoid. It clears it, then leaves the page. */
+  position: absolute; right: -18%; top: 58%;
+  width: 33%; aspect-ratio: 1 / 1;
+  -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
+}
+.page-open--duo .pcdots { position: absolute; top: 100%; left: 0; margin-top: 3vh; }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 @media (max-width: 900px) {
   /* in a narrow column a 42 % frame is a stamp: the two go one under the other, full width */
-  .page-open--duo .pcascade { grid-template-columns: 1fr; grid-template-rows: none; row-gap: 3vh; }
-  .page-open--duo .pcwindow--big, .page-open--duo .pcwindow--small { grid-column: 1; }
+  .page-open--duo .pcascade { display: grid; grid-template-columns: 1fr; row-gap: 3vh; }
   /* the big frame takes its proportion back here: in one column there is no row for it to
      fill, so `height: 100%` resolved against nothing and collapsed it to zero */
-  .page-open--duo .pcwindow--big { aspect-ratio: 1 / 1; height: auto; }
-  .page-open--duo .pcwindow--small { align-self: auto; margin-bottom: 0; width: 62%; margin-left: auto; }
+  /* and it takes the whole width back: the 81 % it keeps on a wide screen is there to leave
+     room for the third frame beside it, and on a phone there is nothing beside it */
+  .page-open--duo .pcwindow--big { width: 100%; aspect-ratio: 1 / 1; height: auto; }
+  /* nothing leaves the page sideways on a phone: there is no room to spare for it */
+  .page-open--duo .pcwindow--small {
+    position: relative; right: auto; top: auto; width: 62%; margin-left: auto;
+    -webkit-mask-image: none; mask-image: none;
+  }
+  .page-open--duo .pcdots { position: relative; top: auto; margin-top: 3vh; }
 }
