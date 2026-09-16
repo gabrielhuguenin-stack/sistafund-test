@@ -1873,6 +1873,13 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    picture roughly the same and singles none out. (Team and Portfolio reach the same shape from
    the other direction: there the column's height sets it, so the halves can close together.) */
 .page-open .pcascade { aspect-ratio: 1 / 1; }
+/* Window geometry: slot = print + gutter, so what shows of the next one is peek - gutter.
+   THE PEEK IS A SHARE OF THE FRAME, not a fixed width: at 64 px it took 10 % of a 641 px frame
+   on a desktop and 19 % of a 330 px one on a phone — a fifth of the photograph given away so a
+   sliver could show. As a percentage it costs every screen the same. The gutter closes up on a
+   phone so the sliver stays legible rather than being eaten by it. */
+.pcascade { --pc-peek: 10%; --pc-gap: 14px; }
+@media (max-width: 760px) { .pcascade { --pc-gap: 8px; } }
 /* PRINTS LAID ONE ON ANOTHER. Not a book with arrows: a pile of photographs being laid
    down. The one in hand covers the frame; the ones already seen stay under it, shifted up
    and to the right so the pile shows its edges, and they hold back in black and white.
@@ -1881,17 +1888,23 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    No arrow, no dot: a rule under the frame fills as the next print approaches, and the
    pointer resting on the picture holds everything where it is. */
 .pcascade { position: relative; aspect-ratio: 1000 / 725; }
-/* ONE PRINT, FILLING ITS FRAME. It used to be held 51 px down and in from the top right,
-   because three more prints sat behind it and the whole pile had to finish on the page
-   margin. With the pile gone there is nothing to make room for, so the picture takes the
-   whole frame — and it is bigger for it. */
+/* A SERIES CUT BY ITS FRAME, not a pile. The prints are laid side by side on one line and the
+   frame is a window onto it: the one in hand fills it, and the NEXT ONE SHOWS ITS EDGE at the
+   right — enough to say another photograph is there, cut off, waiting. Turning a mark slides
+   the line across.
+   Why this and not the pile it replaces: a pile fakes thickness, and nothing else on this site
+   has any. A series running past the edge of its frame is the site's own idea — it is exactly
+   what the portfolio rows do on the home, where the plates are cut by the screen. Flat, and
+   already in the vocabulary.
+   The sliver holds back in black and white, as every print out of hand does: the colour says
+   which one is being looked at. */
+.pcascade { overflow: hidden; }
 .pcq {
-  position: absolute; inset: 0;
-  transition: opacity .9s var(--ease);
+  position: absolute; top: 0; bottom: 0; left: 0;
+  width: calc(100% - var(--pc-peek));
+  transition: transform .85s var(--ease);
 }
-.pcq.is-top { z-index: 9; opacity: 1; }
-/* every other print waits out of sight until its mark is asked for */
-.pcq.is-far { z-index: 0; opacity: 0; }
+.pcq.is-top { z-index: 9; }
 /* the offset of a print in the pile is written from the driver: a `calc()` that multiplies
    a custom property by a length is dropped inside `translate()` on this engine, while the
    same calc holds for `z-index` — so the pixels are computed where they can be trusted */

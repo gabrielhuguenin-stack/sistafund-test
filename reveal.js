@@ -218,7 +218,7 @@
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'pcdot';
       b.setAttribute('aria-label', 'Picture ' + (i + 1) + ' of ' + steps);
-      b.addEventListener('click', () => lay(i, true));
+      b.addEventListener('click', () => lay(i, false));
       marks.appendChild(b);
       return b;
     }) : [];
@@ -227,18 +227,23 @@
        edges under it; anything deeper waits out of the pile. */
     const lay = (step, wipe) => {
       k = (step + steps) % steps;
+      const gap = parseFloat(getComputedStyle(cascade).getPropertyValue('--pc-gap')) || 0;
+      const slot = queue[0].getBoundingClientRect().width + gap;
       queue.forEach((el, i) => {
-        const p = (k - i + steps) % steps;
-        // ONE PRINT IN THE FRAME, nothing behind it. There used to be a pile: the prints
-        // already seen stayed under this one, shifted up and to the right so their edges
-        // showed. It was the only object on the site that pretended to have a thickness —
-        // everything else here is flat and frontal, no rounded corner, no shadow, the yellow
-        // band itself an offset rectangle rather than a cast shadow. A pile is a depth
-        // metaphor, so it read as foreign. The row of rules below says how many there are.
+        // THE PRINTS SIT ON ONE LINE and the frame is a window onto it. Each one is moved
+        // by its distance from the one in hand, so the next always shows its edge at the
+        // right — cut off, waiting — and the ones already seen have gone out to the left.
+        // Signed, not wrapped: the series has a beginning and an end, and running out of
+        // edge on the last print is the honest way to say so.
+        // THE SLOT IS MEASURED IN PIXELS, not written as a calc. `translateX(calc(n * (100% +
+        // var(--gap))))` is dropped by this engine — the same trap the pile hit before, where a
+        // calc multiplying a custom property by a length vanished inside translate(). Every
+        // print stayed at zero and the series never moved. Read the width, add the gutter,
+        // write the pixels.
+        const d = i - k;
         el.classList.remove('is-top', 'is-back', 'is-far', 'laying');
-        el.classList.add(p === 0 ? 'is-top' : 'is-far');
-        el.style.setProperty('--p', p);
-        el.style.transform = 'none';
+        el.classList.toggle('is-top', d === 0);
+        el.style.transform = `translateX(${(d * slot).toFixed(1)}px)`;
       });
       if (wipe) {
         const top = queue[k];
@@ -267,6 +272,8 @@
        rule wins: the marks are the control, and a picture stays until someone turns it. */
 
     lay(0, false);
+    // the slot is a measured width, so it has to be measured again when the window changes
+    addEventListener('resize', () => lay(k, false), { passive: true });
   });
 })();
 
