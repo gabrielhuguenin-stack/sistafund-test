@@ -1898,7 +1898,11 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    already in the vocabulary.
    The sliver holds back in black and white, as every print out of hand does: the colour says
    which one is being looked at. */
-.pcascade { overflow: hidden; }
+/* THE WINDOW CLIPS, NOT THE WHOLE BLOCK. `overflow: hidden` first went on .pcascade — which
+   holds the row of marks as well as the prints, and the marks sit just BELOW the frame. They
+   were cut away: still in the page, invisible on screen. The clip belongs to an inner box that
+   covers the frame and nothing else, so the marks stay outside it. */
+.pcwindow { position: absolute; inset: 0; overflow: hidden; }
 .pcq {
   position: absolute; top: 0; bottom: 0; left: 0;
   width: calc(100% - var(--pc-peek));
