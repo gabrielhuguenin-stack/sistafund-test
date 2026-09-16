@@ -2410,13 +2410,22 @@ body > main, body > footer { position: relative; z-index: 1; }
    generous than the square it replaces, and it still starts level with the title at the top.
    The small one keeps its square and sits on the same line, so it reads as lower-right of the
    big one without breaking the foot. */
-.page-open--duo .pcascade { align-items: end; }
+/* THE LEFT COLUMN SETS THE HEIGHT AND THE BIG FRAME FOLLOWS IT. It was the other way round —
+   the big frame carried a hand-tuned 4/5.52 so that its foot happened to land on the left
+   photograph's — which meant any change to the spacing on the left broke the alignment and had
+   to be re-tuned by hand. Now the frame simply fills the row, so the two feet cannot come apart
+   whatever the left column does. */
+.page-open--duo .pcascade { align-items: end; align-self: stretch; grid-template-rows: 1fr auto; }
+/* AIR BETWEEN THE TITLE AND THE PHOTOGRAPH. There was one pixel between them: the photograph
+   carried `margin-top: auto`, which pushed it to the foot of a column exactly as tall as its
+   own contents, so it ended up pressed against the title. */
+.page-open--duo .pcf-wide { margin-top: 7vh; }
 /* and the left photograph closes on the same line. It carries a negative bottom margin from the
    arrangement this replaces — it used to reach down to meet the row of marks under a square
    cascade — and here that margin only made it overshoot the two right frames by exactly its own
    32 px. With the right side setting the height, the left has nothing left to reach for. */
 .page-open--duo .pcf-wide { margin-bottom: 0; }
-.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: 4 / 5.52; }
+.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: auto; height: 100%; }
 /* AND THE SMALL ONE HANGS BELOW THAT LINE. Sat on it, all three photographs shared one foot
    and the opening read as a grid rather than as a composition. It drops by the 9vh the home's
    own pair uses between its two prints — the offset is the site's way of saying two frames are
@@ -2428,7 +2437,10 @@ body > main, body > footer { position: relative; z-index: 1; }
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 @media (max-width: 900px) {
   /* in a narrow column a 42 % frame is a stamp: the two go one under the other, full width */
-  .page-open--duo .pcascade { grid-template-columns: 1fr; row-gap: 3vh; }
+  .page-open--duo .pcascade { grid-template-columns: 1fr; grid-template-rows: none; row-gap: 3vh; }
   .page-open--duo .pcwindow--big, .page-open--duo .pcwindow--small { grid-column: 1; }
+  /* the big frame takes its proportion back here: in one column there is no row for it to
+     fill, so `height: 100%` resolved against nothing and collapsed it to zero */
+  .page-open--duo .pcwindow--big { aspect-ratio: 1 / 1; height: auto; }
   .page-open--duo .pcwindow--small { align-self: auto; margin-bottom: 0; width: 62%; margin-left: auto; }
 }
