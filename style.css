@@ -1250,7 +1250,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    coming into view, and only the home page runs that observer — on the five other pages
    the question would have stayed hidden under its mask for ever. */
 .footer-say {
-  margin-left: auto; text-align: right;
+  text-align: right;
   display: flex; align-items: baseline; justify-content: flex-end; gap: 3vw;
   flex-wrap: wrap;
 }
@@ -1262,16 +1262,20 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .footer-say .cta-btn { border-bottom: 0; padding-bottom: 0; }
 .footer-say .cta-btn::after { display: none; }
 .footer-say .cta-btn:hover { color: var(--yellow); }
-@media (max-width: 900px) {
-  .footer-say { text-align: left; margin-left: 0; justify-content: flex-start; gap: 2.4vh; }
-  .footer-say .cta-title .line { text-align: left; }
-}
 
 /* ============ Footer ============ */
 .footer { background: var(--ink); color: var(--paper); padding: 7vh 4vw 30px; }
+/* TWO COLUMNS THAT NEVER HALF-BREAK. This was a flex row with flex-wrap, and the sentence is
+   a long one: below about 1390 px the whole block dropped onto a second line, still aligned
+   right, leaving 837 px of emptiness beside the three columns and making the footer 44 % taller
+   (326 px to 471). A window that is not full screen on a Mac is nearly always in that range.
+   A grid instead: the sentence gets the room that is left and WRAPS INSIDE its column rather
+   than pushing itself onto a line of its own. The two halves stay side by side all the way
+   down to the point where they genuinely cannot, and there it becomes one column, on purpose. */
 .footer-top {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  gap: 8vw; flex-wrap: wrap; margin-bottom: 3.4vh;
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  align-items: flex-start;
+  gap: 8vw; margin-bottom: 3.4vh;
 }
 /* the note runs the full width of the page on its own line: on a 620px measure it stacked
    five lines deep and it was the note, not the columns, that set the height of the footer */
@@ -1280,6 +1284,14 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   margin-bottom: 3vh;
 }
 .footer-cols { display: flex; gap: 5vw; flex-wrap: wrap; align-items: flex-start; }
+/* one column below this: the three columns and the sentence no longer coexist, so the footer
+   stacks deliberately instead of letting the flow decide badly */
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr; gap: 5vh; }
+  .footer-say { text-align: left; justify-content: flex-start; gap: 2.4vh; }
+  .footer-say .cta-title .line { text-align: left; }
+}
+
 .footer-col { display: flex; flex-direction: column; gap: 6px; }
 .footer-head {
   font-family: var(--display); text-transform: uppercase;
@@ -2358,14 +2370,13 @@ body > main, body > footer { position: relative; z-index: 1; }
 .doc-file-name {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.05rem, 1.55vw, 1.6rem); letter-spacing: .04em; color: var(--ink);
-  display: block; transition: transform .42s var(--ease);
+  display: block;
 }
 .doc-file-say { font-family: var(--serif); font-size: 1rem; color: var(--grey); display: block; margin-top: .7vh; }
 .doc-file-go { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: .92rem; color: var(--ink); white-space: nowrap; }
-.doc-file .btn-arrow { display: inline-block; transition: transform .3s var(--ease); }
-/* the row answers in ink, not in yellow: the label steps aside and the arrow travels */
-.doc-file:hover .doc-file-name { transform: translateX(20px); }
-.doc-file:hover .btn-arrow { transform: translateX(7px); }
+/* and the row does not answer at all. It is a list of four documents to click; a label that
+   slides aside is a flourish on a compliance page, which is the one register this site does
+   not want here. */
 @media (max-width: 700px) {
   .doc-file { grid-template-columns: 1fr; gap: 1.2vh; }
   .doc-sec p, .doc-sec li { font-size: 1rem; }
