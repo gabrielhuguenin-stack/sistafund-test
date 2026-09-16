@@ -2462,9 +2462,13 @@ body > main, body > footer { position: relative; z-index: 1; }
    a pair and not a row. The big frame keeps the line with the left photograph: that is the
    structural alignment, and it is the one that must not move. */
 .page-open--duo .pcwindow--small {
-  /* far enough out that it never sits ON the big frame: the two overlapped by 32 px, which is
-     the one thing this whole arrangement exists to avoid. It clears it, then leaves the page. */
-  position: absolute; right: -8%; top: 58%;
+  /* HUNG OFF THE BIG FRAME'S FOOT, NOT OFF THE COLUMN. `top: 58 %` measured the column, and the
+     column is as tall as whatever the left side happens to be: a title over a photograph on Team
+     and Portfolio, text alone on Community. The same 58 % that dropped the small frame 70 px past
+     the big one's foot on two pages left it 25 px SHORT of it on the third. Kept in the flow, its
+     offset is read from the frame above it, and the three openings compose alike whatever stands
+     on their left. The overlap is the same 140 px the absolute placement produced. */
+  margin-left: auto; margin-right: -8%; margin-top: -20%;
   /* 30 % of a box that now runs to the screen edge, which is the same picture as before the
      column was pulled out — the percentage had to follow the wider box or the two frames came
      within 7 px of touching */
@@ -2487,7 +2491,7 @@ body > main, body > footer { position: relative; z-index: 1; }
      room for the third frame beside it, and on a phone there is nothing beside it */
   .page-open--duo .pcwindow--big { width: 100%; aspect-ratio: 1 / 1; height: auto; }
   /* nothing leaves the page sideways on a phone: there is no room to spare for it */
-  .page-open--duo .pcwindow--small { position: relative; right: auto; top: auto; width: 62%; margin-left: auto; }
+  .page-open--duo .pcwindow--small { width: 62%; margin-left: auto; margin-right: 0; margin-top: 0; }
   /* and the column comes back inside the margin: the pull-out exists to let the mask reach the
      screen edge, and there is no mask here */
   .page-open--duo .pcascade { -webkit-mask-image: none; mask-image: none; margin-right: 0; }
