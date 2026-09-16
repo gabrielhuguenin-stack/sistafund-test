@@ -2421,6 +2421,11 @@ body > main, body > footer { position: relative; z-index: 1; }
    a plate leaves the screen on the home. */
 .page-open--duo .pcascade {
   aspect-ratio: auto; position: relative; display: block;
+  /* AND THE VEIL IS A SHARE OF THE COLUMN, not a fixed width. 120 px is 8 % of the page-wide
+     containers it veils on the home; on a 640 px column the same 120 px is 19 %, so the fade
+     was more than twice as heavy here as the thing it copies. As a percentage it costs this
+     column exactly what it costs the home's rows. */
+  --fade: 8%;
   -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
 }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
