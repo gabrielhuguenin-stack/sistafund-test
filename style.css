@@ -2417,7 +2417,12 @@ body > main, body > footer { position: relative; z-index: 1; }
    32 px. With the right side setting the height, the left has nothing left to reach for. */
 .page-open--duo .pcf-wide { margin-bottom: 0; }
 .page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: 4 / 5.52; }
-.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; }
+/* AND THE SMALL ONE HANGS BELOW THAT LINE. Sat on it, all three photographs shared one foot
+   and the opening read as a grid rather than as a composition. It drops by the 9vh the home's
+   own pair uses between its two prints — the offset is the site's way of saying two frames are
+   a pair and not a row. The big frame keeps the line with the left photograph: that is the
+   structural alignment, and it is the one that must not move. */
+.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; margin-bottom: -9vh; }
 .page-open--duo .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
