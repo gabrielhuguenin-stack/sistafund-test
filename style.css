@@ -2402,9 +2402,22 @@ body > main, body > footer { position: relative; z-index: 1; }
   column-gap: 2.2vw;
 }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
-.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: 1 / 1; }
-/* the small one hangs below the big one's middle, at the far right of the column */
-.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; align-self: end; margin-bottom: -14%; }
+/* THE TWO RIGHT FRAMES CLOSE ON THE LEFT PHOTOGRAPH'S LINE. They were ending 137 px short of
+   it — the big one square at 429 and the small one hanging to 652, against a left photograph
+   reaching 789 — so the opening had no foot. Both now sit on one baseline, and that baseline is
+   the left photograph's own.
+   The big frame stops being square for it: 4/5.52 makes it 428 x 591, which is taller and more
+   generous than the square it replaces, and it still starts level with the title at the top.
+   The small one keeps its square and sits on the same line, so it reads as lower-right of the
+   big one without breaking the foot. */
+.page-open--duo .pcascade { align-items: end; }
+/* and the left photograph closes on the same line. It carries a negative bottom margin from the
+   arrangement this replaces — it used to reach down to meet the row of marks under a square
+   cascade — and here that margin only made it overshoot the two right frames by exactly its own
+   32 px. With the right side setting the height, the left has nothing left to reach for. */
+.page-open--duo .pcf-wide { margin-bottom: 0; }
+.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: 4 / 5.52; }
+.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; }
 .page-open--duo .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
