@@ -2410,7 +2410,19 @@ body > main, body > footer { position: relative; z-index: 1; }
    The third then has nowhere left inside the column, so it goes past it and FADES OUT — the
    same veil the portfolio rows leave the screen with on the home, and for the same reason: a
    picture should leave the page rather than be cut off by it. */
-.page-open--duo .pcascade { aspect-ratio: auto; position: relative; display: block; }
+/* THE MASK GOES ON THE COLUMN, NOT ON THE PHOTOGRAPH — which is how the home does it, and the
+   difference is not a detail. `--fade` is 120 px: on the home it is laid over `.pf-rows` and
+   `.news-run`, containers as wide as the page, so it veils 8 % of the width and a plate has room
+   to dissolve. Laid over a 211 px photograph it covers 57 % of it, and since the photograph runs
+   past the screen the visible part was CUT at 0.90 opacity — the same number, the opposite
+   effect, a hard edge instead of a veil.
+   On the column the fade zone is the last 120 px before the margin. The big frame stops just
+   short of it and is untouched; the third one crosses it and dissolves into the ground, the way
+   a plate leaves the screen on the home. */
+.page-open--duo .pcascade {
+  aspect-ratio: auto; position: relative; display: block;
+  -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
+}
 .page-open--duo .pcwindow { position: relative; inset: auto; }
 /* THE TWO RIGHT FRAMES CLOSE ON THE LEFT PHOTOGRAPH'S LINE. They were ending 137 px short of
    it — the big one square at 429 and the small one hanging to 652, against a left photograph
@@ -2447,7 +2459,6 @@ body > main, body > footer { position: relative; z-index: 1; }
      the one thing this whole arrangement exists to avoid. It clears it, then leaves the page. */
   position: absolute; right: -18%; top: 58%;
   width: 33%; aspect-ratio: 1 / 1;
-  -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
 }
 /* THE MARKS SIT ON THE LEFT PHOTOGRAPH'S LINE. The foot of the cascade already lands on it —
    both are at 852 — so the row only had to stop hanging 27 px below it. It is CENTRED on that
@@ -2466,10 +2477,8 @@ body > main, body > footer { position: relative; z-index: 1; }
      room for the third frame beside it, and on a phone there is nothing beside it */
   .page-open--duo .pcwindow--big { width: 100%; aspect-ratio: 1 / 1; height: auto; }
   /* nothing leaves the page sideways on a phone: there is no room to spare for it */
-  .page-open--duo .pcwindow--small {
-    position: relative; right: auto; top: auto; width: 62%; margin-left: auto;
-    -webkit-mask-image: none; mask-image: none;
-  }
+  .page-open--duo .pcwindow--small { position: relative; right: auto; top: auto; width: 62%; margin-left: auto; }
+  .page-open--duo .pcascade { -webkit-mask-image: none; mask-image: none; }
   /* back in the flow here, so the half-height lift has nothing to align to */
   .page-open--duo .pcdots { position: relative; top: auto; margin-top: 3vh; transform: none; }
 }
