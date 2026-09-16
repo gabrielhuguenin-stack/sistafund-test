@@ -57,12 +57,19 @@ DirectoryIndex index.html
   RedirectMatch 301 ^/pied-de-page/?$             /
   RedirectMatch 301 ^/sistafund-tennis-balls/?$   /
 
-  # ---- TO ADD once the three compliance pages exist on this site ----
-  # They are deliberately NOT redirected yet: sending them to the home would quietly lose
-  # content that is there for legal reasons. Until the pages are built, leave these commented.
-  #   RedirectMatch 301 ^/mentions-legales/?$     /legal.html
-  #   RedirectMatch 301 ^/esg-policy/?$           /esg.html
+  # ---- the compliance pages ----
+  RedirectMatch 301 ^/mentions-legales/?$         /legal.html
+  RedirectMatch 301 ^/esg-policy/?$               /esg.html
+  # /trademark/ is NOT redirected: on sistafund.com that page says "Coming soon" and nothing
+  # else, so there is nothing to carry over. Add the line the day the page has content.
   #   RedirectMatch 301 ^/trademark/?$            /trademark.html
+
+  # the four regulatory documents were served by the WordPress and would have died with it.
+  # They now live in docs/ — these keep any link already circulating alive.
+  RedirectMatch 301 ^/wp-content/uploads/.*responsible-investment-policy.*\.pdf$  /docs/responsible-investment-policy.pdf
+  RedirectMatch 301 ^/wp-content/uploads/.*declarationsfdr-article10\.pdf$        /docs/sfdr-article-10.pdf
+  RedirectMatch 301 ^/wp-content/uploads/.*pai-statement-sunshine\.pdf$           /docs/pai-statement.pdf
+  RedirectMatch 301 ^/wp-content/uploads/.*rapportlec29-sunshine\.pdf$            /docs/reporting-lec-29.pdf
 </IfModule>
 
 # Caching. Vercel did this by itself; on OVH it has to be said.

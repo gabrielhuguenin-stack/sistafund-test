@@ -2285,3 +2285,92 @@ body > main, body > footer { position: relative; z-index: 1; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ============ Legal and ESG: the site as a document ============ */
+/* These two pages are not composed, they are READ: a long ruled text with numbered clauses.
+   So they take the dedicated pages' opening — title at 22vh, the field of clouds underneath,
+   the mark closing the page — and nothing else. No photograph, no stack of prints: there is
+   nothing to illustrate, and a picture over a legal notice would be decoration.
+   The whole of the legal text is FRENCH while the rest of the site is English. That is how it
+   stands on sistafund.com, it is quoted prose, and it is not ours to translate. */
+.doc-body { padding: 2vh 4vw 6vh; }
+.doc-sec { padding: 5.5vh 0 0; }
+.doc-sec:first-child { padding-top: 2vh; }
+/* the clause number and its title share the label register of the site: display capitals,
+   spaced, the same voice as THESIS or the footer headings */
+.doc-sec h2 {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.45vw, 1.45rem); letter-spacing: .12em;
+  line-height: 1.25; max-width: 40ch;
+}
+/* a part heading — the source has one, "2. Informations réglementaires" */
+.doc-part {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.6rem, 3vw, 3rem); line-height: 1;
+  margin-top: 12vh; padding-bottom: 3vh;
+  border-bottom: 1.5px solid var(--ink);
+}
+/* the reading measure lives on the paragraph, never on the container */
+.doc-sec p {
+  font-family: var(--serif); font-size: clamp(1rem, 1.18vw, 1.18rem);
+  line-height: 1.62; color: var(--grey);
+  max-width: 78ch; margin-top: 1.5vh;
+}
+.doc-sec ul { list-style: none; max-width: 78ch; margin-top: 1.5vh; }
+.doc-sec li {
+  font-family: var(--serif); font-size: clamp(1rem, 1.18vw, 1.18rem);
+  line-height: 1.62; color: var(--grey);
+  padding-left: 1.1em; position: relative; margin-top: .5vh;
+}
+/* a rule, not a bullet: the site has no dots between words and none in front of them either */
+.doc-sec li::before {
+  content: ''; position: absolute; left: 0; top: .82em;
+  width: .6em; height: 1.5px; background: var(--ink); opacity: .45;
+}
+/* yellow on cream is 1.05:1, so a link cannot BE yellow here. It is ink with a rule under it,
+   and the rule becomes the house band under the hand — the same seven pixels as everywhere. */
+.doc-sec a {
+  color: var(--ink); position: relative;
+  border-bottom: 1.5px solid rgba(16, 16, 16, .38);
+  transition: border-color .3s var(--ease);
+}
+.doc-sec a::after {
+  content: ''; position: absolute; left: 0; right: 0; top: calc(100% + 1.5px);
+  height: var(--band); background: var(--yellow);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .38s var(--ease);
+}
+.doc-sec a:hover { border-color: var(--ink); }
+.doc-sec a:hover::after { transform: scaleX(1); }
+
+/* ESG is a shelf of documents, so it is built from the ruled row the site uses everywhere —
+   label at one end, arrow at the other, a rule between. Not four "here" links in a paragraph. */
+.doc-files { margin-top: 3vh; max-width: 78ch; }
+.doc-file {
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2vw;
+  padding: 3vh 0 2.4vh; border-top: 1.5px solid var(--ink);
+  position: relative; text-decoration: none;
+}
+.doc-files .doc-file:last-child { border-bottom: 1.5px solid var(--ink); }
+.doc-file-name {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.05rem, 1.55vw, 1.6rem); letter-spacing: .04em; color: var(--ink);
+}
+.doc-file-say { font-family: var(--serif); font-size: 1rem; color: var(--grey); display: block; margin-top: .7vh; }
+.doc-file-go { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: .92rem; color: var(--ink); white-space: nowrap; }
+.doc-file .btn-arrow { display: inline-block; transition: transform .3s var(--ease); }
+/* the row answers the way every ruled row on the site does: the band rises at its foot and the
+   label steps aside. No yellow slab — this ground already lights up under the pointer. */
+.doc-file::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -1.5px; height: var(--band);
+  background: var(--yellow); transform: scaleX(0); transform-origin: left;
+  transition: transform .42s var(--ease);
+}
+.doc-file:hover::after { transform: scaleX(1); }
+.doc-file:hover .doc-file-name { transform: translateX(20px); }
+.doc-file-name { display: block; transition: transform .42s var(--ease); }
+.doc-file:hover .btn-arrow { transform: translateX(7px); }
+@media (max-width: 700px) {
+  .doc-file { grid-template-columns: 1fr; gap: 1.2vh; }
+  .doc-sec p, .doc-sec li { font-size: 1rem; }
+}

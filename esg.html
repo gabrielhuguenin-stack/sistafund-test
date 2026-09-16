@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SISTAFUND | News</title>
-<meta name="description" content="The latest from SISTAFUND and our portfolio companies — funding rounds, milestones and press.">
+<title>SISTAFUND | ESG / Sustainability</title>
+<meta name="description" content="SISTAFUND's responsible investment policy, Article 10 SFDR disclosure, PAI statement and Article 29 Energy-Climate Law reporting.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23FFF868'/><text x='50' y='76' font-size='72' font-family='Georgia,serif' text-anchor='middle' fill='%23101010'>S</text></svg>">
 <link rel="stylesheet" href="style.css?v=328">
 </head>
-<body class="loaded nav-ready">
+<body class="loaded nav-ready doc-page">
 
 <!-- ======== NAV ======== -->
 <header class="nav" id="nav">
@@ -24,7 +24,7 @@
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-    <a href="manifesto.html">Manifesto</a>
+  <a href="manifesto.html">Manifesto</a>
   <a href="portfolio.html">Portfolio<sup class="nav-count">(16)</sup></a>
   <a href="team.html">Team<sup class="nav-count">(6)</sup></a>
   <a href="community.html">Community</a>
@@ -34,23 +34,56 @@
 <main class="page">
   <div class="ground">
     <div class="hero-wall ground-wall" aria-hidden="true"></div>
-  <header class="page-hero subpage-hero">
-    <h1 class="page-hero-title" data-reveal="mask">The <span class="yw">latest</span></h1>
-    <p class="page-hero-sub page-hero-sub--wide" data-reveal>SISTAFUND and our portfolio companies in the media. Funding rounds, milestones and coverage.</p>
+
+  <header class="doc-hero">
+    <h1 class="doc-title" data-reveal="mask">ESG / <span class="yw">Sustainability</span></h1>
   </header>
 
-  <section class="subpage-grid" id="news">
-    <div class="news-cards" id="newsList" data-stagger></div>
-    <div class="news-fold" id="newsFold"><div class="news-fold-inner">
-      <div class="news-cards" id="newsListMore"></div>
-    </div></div>
-    <div class="faq-fold-cta">
-      <button class="btn btn-big" id="newsToggle" aria-expanded="false">
-        <span class="news-toggle-label">Show all news</span>
-        <span class="btn-arrow" aria-hidden="true">&darr;</span>
-      </button>
+  <!-- Four regulatory documents, word for word from sistafund.com/esg-policy — the headings and
+       the sentence under each are the source's. They are set as the ruled rows the site uses
+       everywhere rather than as four "here" links buried in paragraphs.
+       The files themselves now live in docs/ : hosted by the WordPress until today, they would
+       have died with it. -->
+  <section class="doc-body">
+    <div class="doc-sec">
+      <div class="doc-files" data-stagger>
+
+        <a class="doc-file" href="docs/responsible-investment-policy.pdf" target="_blank" rel="noopener" data-reveal="card">
+          <span>
+            <span class="doc-file-name">A. SISTAFUND Responsible Investment Policy</span>
+            <span class="doc-file-say">Consult our Responsible Investment Policy here</span>
+          </span>
+          <span class="doc-file-go">PDF <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+        <a class="doc-file" href="docs/sfdr-article-10.pdf" target="_blank" rel="noopener" data-reveal="card">
+          <span>
+            <span class="doc-file-name">B. Article 10 SFDR Disclosure</span>
+            <span class="doc-file-say">Consult our Article 10 SFDR Disclosure here (in French)</span>
+          </span>
+          <span class="doc-file-go">PDF <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+        <a class="doc-file" href="docs/pai-statement.pdf" target="_blank" rel="noopener" data-reveal="card">
+          <span>
+            <span class="doc-file-name">C. PAI Statement</span>
+            <span class="doc-file-say">Consult our PAI Statement here (in French)</span>
+          </span>
+          <span class="doc-file-go">PDF <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+        <a class="doc-file" href="docs/reporting-lec-29.pdf" target="_blank" rel="noopener" data-reveal="card">
+          <span>
+            <span class="doc-file-name">D. Reporting under Article 29 of the Energy-Climate Law</span>
+            <span class="doc-file-say">Consult our Reporting LEC 29 here (in French)</span>
+          </span>
+          <span class="doc-file-go">PDF <span class="btn-arrow">&rarr;</span></span>
+        </a>
+
+      </div>
     </div>
   </section>
+
   <!-- ======== the mark closes the page, above the footer ======== -->
   <section class="cta">
     <div class="cta-brand" aria-hidden="true"><img src="img/logo.svg" alt=""></div>
@@ -93,46 +126,12 @@
   </div>
 </footer>
 
-<script src="data.js?v=20"></script>
 <script>
   const nav = document.getElementById('nav');
   addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), { passive: true });
   const burger = document.getElementById('burger'), mm = document.getElementById('mobileMenu');
   burger.addEventListener('click', () => { burger.classList.toggle('open'); mm.classList.toggle('open'); });
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { burger.classList.remove('open'); mm.classList.remove('open'); }));
-
-  // this page's job is to show the press, not to page through it: everything is here,
-  // the first two dozen up front and the rest behind the fold
-  const VISIBLE = 24;
-  const list = document.getElementById('newsList');
-  const listMore = document.getElementById('newsListMore');
-  const IMGS = window.NEWS_IMG || [];
-  (window.NEWS || []).forEach(([date, source, title, url], i) => {
-    const a = document.createElement('a');
-    a.className = 'nmc';
-    if (i < VISIBLE) a.setAttribute('data-reveal', '');
-    a.href = url; a.target = '_blank'; a.rel = 'noopener';
-    if (i === 0) a.classList.add('nmc--lead');
-    a.innerHTML = `<span class="nmc-photo"><img src="${IMGS[i] ? 'img/news/' + IMGS[i] : 'img/logo.svg'}" alt="" loading="lazy"></span>` +
-      `<span class="nmc-body">` +
-        `<span class="nmc-meta"><b>${source}</b><i>${date}</i></span>` +
-        `<span class="nmc-title">${title}</span>` +
-      `</span>`;
-    (i < VISIBLE ? list : listMore).appendChild(a);
-  });
-
-  // fold toggle, same pattern as the FAQ
-  const newsFold = document.getElementById('newsFold');
-  const newsToggle = document.getElementById('newsToggle');
-  const newsLabel = newsToggle.querySelector('.news-toggle-label');
-  newsToggle.addEventListener('click', () => {
-    const open = newsFold.classList.toggle('open');
-    newsToggle.classList.toggle('open', open);
-    newsToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    newsLabel.textContent = open ? 'Show fewer news' : 'Show all news';
-    const arrow = newsToggle.querySelector('.btn-arrow');
-    if (arrow) arrow.innerHTML = open ? '&uarr;' : '&darr;';
-  });
 </script>
 <script src="wall.js?v=1"></script>
 <script src="reveal.js?v=40"></script>
