@@ -902,14 +902,15 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   grid-column: 1 / -1;
   margin-top: 4.5vh; padding-left: var(--shot-edge);
 }
-.community { --mark-off: rgba(250, 248, 240, .32); --mark-hover: rgba(250, 248, 240, .62); --mark-on: var(--yellow); }
-/* AND THE TWO GROUNDS ARE SET TO THE SAME CONTRAST, not to the same number. The off state was
-   .32 cream on ink and .2 ink on cream, which looks like a matched pair written down and is not
-   one: cream at .32 reads 2.8:1 against the ink, ink at .2 reads 1.49:1 against the cream. The
-   same component was half as visible on the pages that stand on the light ground, which is where
-   it was hard to see. .42 puts it back at 2.76:1, and the hover follows the ink side's .62 —
-   at .45 it would now have sat a hair above the off state and the mark would answer to nothing. */
-.page-open { --mark-off: rgba(16, 16, 16, .42); --mark-hover: rgba(16, 16, 16, .62); --mark-on: var(--ink); }
+/* THE TWO GROUNDS ARE SET TO THE SAME CONTRAST, not to the same number, and the number they are
+   set to is the one that can be SEEN. The off state used to be .32 cream on ink and .2 ink on
+   cream — a matched pair on paper that is not one in the eye: 2.8:1 and 1.49:1. A mark waiting to
+   be clicked was reading as a smudge in the ground, and on the light pages barely as that.
+   Both are taken to 4.1:1, which is the tone at which an unlit rule states there is something
+   there. The hovers keep their distance above it, and the live mark is untouched at full strength:
+   what tells the current picture apart was never the faintness of the others. */
+.community { --mark-off: rgba(250, 248, 240, .43); --mark-hover: rgba(250, 248, 240, .72); --mark-on: var(--yellow); }
+.page-open { --mark-off: rgba(16, 16, 16, .55); --mark-hover: rgba(16, 16, 16, .78); --mark-on: var(--ink); }
 .comm-dot, .pcdot {
   display: flex; align-items: center;
   width: 18px; height: 16px; padding: 0; border: 0; border-radius: 0;
