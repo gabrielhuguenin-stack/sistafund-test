@@ -2421,11 +2421,13 @@ body > main, body > footer { position: relative; z-index: 1; }
    a plate leaves the screen on the home. */
 .page-open--duo .pcascade {
   aspect-ratio: auto; position: relative; display: block;
-  /* AND THE VEIL IS A SHARE OF THE COLUMN, not a fixed width. 120 px is 8 % of the page-wide
-     containers it veils on the home; on a 640 px column the same 120 px is 19 %, so the fade
-     was more than twice as heavy here as the thing it copies. As a percentage it costs this
-     column exactly what it costs the home's rows. */
-  --fade: 8%;
+  /* AND THE VEIL REACHES THE EDGE OF THE SCREEN, which is the whole point of it. Masked on the
+     column, the fade finished on the page margin and left 58 px of bare cream after it: the
+     photograph evaporated in mid-air instead of leaving the page. On the home the masked boxes
+     — `.pf-rows`, `.news-run` — run to the screen edge, so a plate dissolves AS it goes over.
+     The column is pulled out to the edge for the mask and padded back in, exactly the trick
+     `.news-run` uses, and the fade keeps the home's own 120 px. */
+  margin-right: -4vw;
   -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
 }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
@@ -2453,7 +2455,7 @@ body > main, body > footer { position: relative; z-index: 1; }
    32 px. With the right side setting the height, the left has nothing left to reach for. */
 .page-open--duo .pcf-wide { margin-bottom: 0; }
 /* top level with the title, so nothing is left hollow above it */
-.page-open--duo .pcwindow--big   { width: 81%; aspect-ratio: 518 / 560; }
+.page-open--duo .pcwindow--big   { width: 74%; aspect-ratio: 518 / 560; }
 /* AND THE SMALL ONE HANGS BELOW THAT LINE. Sat on it, all three photographs shared one foot
    and the opening read as a grid rather than as a composition. It drops by the 9vh the home's
    own pair uses between its two prints — the offset is the site's way of saying two frames are
@@ -2462,8 +2464,11 @@ body > main, body > footer { position: relative; z-index: 1; }
 .page-open--duo .pcwindow--small {
   /* far enough out that it never sits ON the big frame: the two overlapped by 32 px, which is
      the one thing this whole arrangement exists to avoid. It clears it, then leaves the page. */
-  position: absolute; right: -18%; top: 58%;
-  width: 33%; aspect-ratio: 1 / 1;
+  position: absolute; right: -8%; top: 58%;
+  /* 30 % of a box that now runs to the screen edge, which is the same picture as before the
+     column was pulled out — the percentage had to follow the wider box or the two frames came
+     within 7 px of touching */
+  width: 30%; aspect-ratio: 1 / 1;
 }
 /* THE MARKS SIT ON THE LEFT PHOTOGRAPH'S LINE. The foot of the cascade already lands on it —
    both are at 852 — so the row only had to stop hanging 27 px below it. It is CENTRED on that
@@ -2483,7 +2488,9 @@ body > main, body > footer { position: relative; z-index: 1; }
   .page-open--duo .pcwindow--big { width: 100%; aspect-ratio: 1 / 1; height: auto; }
   /* nothing leaves the page sideways on a phone: there is no room to spare for it */
   .page-open--duo .pcwindow--small { position: relative; right: auto; top: auto; width: 62%; margin-left: auto; }
-  .page-open--duo .pcascade { -webkit-mask-image: none; mask-image: none; }
+  /* and the column comes back inside the margin: the pull-out exists to let the mask reach the
+     screen edge, and there is no mask here */
+  .page-open--duo .pcascade { -webkit-mask-image: none; mask-image: none; margin-right: 0; }
   /* back in the flow here, so the half-height lift has nothing to align to */
   .page-open--duo .pcdots { position: relative; top: auto; margin-top: 3vh; transform: none; }
 }
