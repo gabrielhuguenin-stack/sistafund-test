@@ -218,7 +218,7 @@
       const b = document.createElement('button');
       b.type = 'button'; b.className = 'pcdot';
       b.setAttribute('aria-label', 'Picture ' + (i + 1) + ' of ' + steps);
-      b.addEventListener('click', () => { lay(i, true); restart(); });
+      b.addEventListener('click', () => lay(i, true));
       marks.appendChild(b);
       return b;
     }) : [];
@@ -229,11 +229,16 @@
       k = (step + steps) % steps;
       queue.forEach((el, i) => {
         const p = (k - i + steps) % steps;
+        // ONE PRINT IN THE FRAME, nothing behind it. There used to be a pile: the prints
+        // already seen stayed under this one, shifted up and to the right so their edges
+        // showed. It was the only object on the site that pretended to have a thickness —
+        // everything else here is flat and frontal, no rounded corner, no shadow, the yellow
+        // band itself an offset rectangle rather than a cast shadow. A pile is a depth
+        // metaphor, so it read as foreign. The row of rules below says how many there are.
         el.classList.remove('is-top', 'is-back', 'is-far', 'laying');
-        el.classList.add(p === 0 ? 'is-top' : p <= 3 ? 'is-back' : 'is-far');
+        el.classList.add(p === 0 ? 'is-top' : 'is-far');
         el.style.setProperty('--p', p);
-        const off = p === 0 ? 0 : Math.min(p, 4) * 17;
-        el.style.transform = off ? `translate(${off}px, ${-off}px)` : 'none';
+        el.style.transform = 'none';
       });
       if (wipe) {
         const top = queue[k];
@@ -256,32 +261,12 @@
       }
     };
 
-    /* A PLAIN TIMER is the clock now. It used to be the filling rule's own animation — one
-       clock, and pausing the rule paused the pile. With the rule gone there is nothing left
-       to keep in sync, and an animation that paints nothing is optimised away by the engine:
-       it never fires a single iteration. A hand on the picture clears the timer, leaving it
-       clears it again and starts a fresh 5.6 s, and turning a print by hand does the same —
-       so a print never lands a moment after you chose it. `setTimeout`, not rAF: a hidden
-       tab suspends rAF and the pile would stop for good. */
-    let timer = null;
-    const stop = () => { if (timer) { clearTimeout(timer); timer = null; } };
-    const restart = () => {
-      stop();
-      if (reduced) return;
-      timer = setTimeout(() => {
-        timer = null;
-        const r = cascade.getBoundingClientRect();
-        if (!document.hidden && r.bottom > 0 && r.top < innerHeight) lay(k + 1, true);
-        restart();
-      }, 5600);
-    };
+    /* NOTHING TURNS ON ITS OWN. The pile used to lay a new print every 5.6 s, while the
+       community on the home — built from the SAME row of marks — changes only when it is
+       asked to. One component, two opposite rules, met twice on the same site. The home's
+       rule wins: the marks are the control, and a picture stays until someone turns it. */
 
     lay(0, false);
-    restart();
-    cascade.addEventListener('mouseenter', stop);
-    cascade.addEventListener('mouseleave', restart);
-    cascade.addEventListener('focusin', stop);
-    cascade.addEventListener('focusout', restart);
   });
 })();
 

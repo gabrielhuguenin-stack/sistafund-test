@@ -1881,17 +1881,16 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    No arrow, no dot: a rule under the frame fills as the next print approaches, and the
    pointer resting on the picture holds everything where it is. */
 .pcascade { position: relative; aspect-ratio: 1000 / 725; }
-/* the print in hand is held 51px down and in from the top right corner — three steps of
-   the pile — so the whole pile finishes exactly on the page margin instead of hanging
-   past it */
+/* ONE PRINT, FILLING ITS FRAME. It used to be held 51 px down and in from the top right,
+   because three more prints sat behind it and the whole pile had to finish on the page
+   margin. With the pile gone there is nothing to make room for, so the picture takes the
+   whole frame — and it is bigger for it. */
 .pcq {
-  position: absolute; inset: 51px 51px 0 0;
-  transition: transform 1s var(--ease), opacity .9s var(--ease);
+  position: absolute; inset: 0;
+  transition: opacity .9s var(--ease);
 }
-/* the print in hand carries nothing but itself: no yellow block behind the frame */
-.pcq.is-top { z-index: 9; transform: none; }
-.pcq.is-back { z-index: calc(9 - var(--p)); opacity: 1; }
-/* beyond the third, a print is out of the pile: it waits there for its turn to be laid */
+.pcq.is-top { z-index: 9; opacity: 1; }
+/* every other print waits out of sight until its mark is asked for */
 .pcq.is-far { z-index: 0; opacity: 0; }
 /* the offset of a print in the pile is written from the driver: a `calc()` that multiplies
    a custom property by a length is dropped inside `translate()` on this engine, while the
