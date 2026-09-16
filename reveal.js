@@ -227,23 +227,12 @@
        edges under it; anything deeper waits out of the pile. */
     const lay = (step, wipe) => {
       k = (step + steps) % steps;
-      const gap = parseFloat(getComputedStyle(cascade).getPropertyValue('--pc-gap')) || 0;
-      const slot = queue[0].getBoundingClientRect().width + gap;
       queue.forEach((el, i) => {
-        // THE PRINTS SIT ON ONE LINE and the frame is a window onto it. Each one is moved
-        // by its distance from the one in hand, so the next always shows its edge at the
-        // right — cut off, waiting — and the ones already seen have gone out to the left.
-        // Signed, not wrapped: the series has a beginning and an end, and running out of
-        // edge on the last print is the honest way to say so.
-        // THE SLOT IS MEASURED IN PIXELS, not written as a calc. `translateX(calc(n * (100% +
-        // var(--gap))))` is dropped by this engine — the same trap the pile hit before, where a
-        // calc multiplying a custom property by a length vanished inside translate(). Every
-        // print stayed at zero and the series never moved. Read the width, add the gutter,
-        // write the pixels.
-        const d = i - k;
+        // ONE PRINT SHOWING, dissolving into the next — the home's own mechanism. Nothing
+        // is moved and nothing is stacked: the class carries the whole change, and the row
+        // of marks below says how many there are, which is all the home says either.
         el.classList.remove('is-top', 'is-back', 'is-far', 'laying');
-        el.classList.toggle('is-top', d === 0);
-        el.style.transform = `translateX(${(d * slot).toFixed(1)}px)`;
+        el.classList.toggle('is-top', i === k);
       });
       if (wipe) {
         const top = queue[k];
@@ -272,8 +261,6 @@
        rule wins: the marks are the control, and a picture stays until someone turns it. */
 
     lay(0, false);
-    // the slot is a measured width, so it has to be measured again when the window changes
-    addEventListener('resize', () => lay(k, false), { passive: true });
   });
 })();
 

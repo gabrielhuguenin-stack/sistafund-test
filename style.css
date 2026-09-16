@@ -1873,13 +1873,6 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    picture roughly the same and singles none out. (Team and Portfolio reach the same shape from
    the other direction: there the column's height sets it, so the halves can close together.) */
 .page-open .pcascade { aspect-ratio: 1 / 1; }
-/* Window geometry: slot = print + gutter, so what shows of the next one is peek - gutter.
-   THE PEEK IS A SHARE OF THE FRAME, not a fixed width: at 64 px it took 10 % of a 641 px frame
-   on a desktop and 19 % of a 330 px one on a phone — a fifth of the photograph given away so a
-   sliver could show. As a percentage it costs every screen the same. The gutter closes up on a
-   phone so the sliver stays legible rather than being eaten by it. */
-.pcascade { --pc-peek: 10%; --pc-gap: 14px; }
-@media (max-width: 760px) { .pcascade { --pc-gap: 8px; } }
 /* PRINTS LAID ONE ON ANOTHER. Not a book with arrows: a pile of photographs being laid
    down. The one in hand covers the frame; the ones already seen stay under it, shifted up
    and to the right so the pile shows its edges, and they hold back in black and white.
@@ -1888,27 +1881,25 @@ body.subpage-dark .page-hero-sub { color: rgba(250, 248, 240, .72); }
    No arrow, no dot: a rule under the frame fills as the next print approaches, and the
    pointer resting on the picture holds everything where it is. */
 .pcascade { position: relative; aspect-ratio: 1000 / 725; }
-/* A SERIES CUT BY ITS FRAME, not a pile. The prints are laid side by side on one line and the
-   frame is a window onto it: the one in hand fills it, and the NEXT ONE SHOWS ITS EDGE at the
-   right — enough to say another photograph is there, cut off, waiting. Turning a mark slides
-   the line across.
-   Why this and not the pile it replaces: a pile fakes thickness, and nothing else on this site
-   has any. A series running past the edge of its frame is the site's own idea — it is exactly
-   what the portfolio rows do on the home, where the plates are cut by the screen. Flat, and
-   already in the vocabulary.
-   The sliver holds back in black and white, as every print out of hand does: the colour says
-   which one is being looked at. */
-/* THE WINDOW CLIPS, NOT THE WHOLE BLOCK. `overflow: hidden` first went on .pcascade — which
-   holds the row of marks as well as the prints, and the marks sit just BELOW the frame. They
-   were cut away: still in the page, invisible on screen. The clip belongs to an inner box that
-   covers the frame and nothing else, so the marks stay outside it. */
+/* ONE PRINT, AND IT DISSOLVES INTO THE NEXT — the home's mechanism, copied exactly. Over on
+   the home the community photographs change by a cross-fade between two layers, 0.55 s, and
+   the row of marks is the ONLY thing that says how many there are. No pile, no peek, nothing
+   drawn to suggest a series.
+   Both were tried here and both were wrong. The pile faked a thickness the site does not have
+   anywhere. The next print showing its edge at the right was flat, but it was still a device
+   the home does not use, so it read as a different site.
+   The answer was not a third invention: it was to stop inventing. If a single frame ever feels
+   too quiet, the lever is TWO frames side by side — which is what the home has — not another
+   object added to one.
+   The window still clips: it is the box the frame occupies and nothing else. `overflow: hidden`
+   first went on .pcascade, which also holds the row of marks just below the frame, and cut them
+   away — present in the page, invisible on screen, on all three openings. */
 .pcwindow { position: absolute; inset: 0; overflow: hidden; }
 .pcq {
-  position: absolute; top: 0; bottom: 0; left: 0;
-  width: calc(100% - var(--pc-peek));
-  transition: transform .85s var(--ease);
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity .55s var(--ease);
 }
-.pcq.is-top { z-index: 9; }
+.pcq.is-top { z-index: 9; opacity: 1; }
 /* the offset of a print in the pile is written from the driver: a `calc()` that multiplies
    a custom property by a length is dropped inside `translate()` on this engine, while the
    same calc holds for `z-index` — so the pixels are computed where they can be trusted */
