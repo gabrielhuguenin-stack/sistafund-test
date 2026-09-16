@@ -2387,3 +2387,30 @@ body > main, body > footer { position: relative; z-index: 1; }
 @media (max-width: 700px) {
   .doc-sec p, .doc-sec li { font-size: 1rem; }
 }
+
+/* ============ An opening with a big frame and a smaller one ============ */
+/* Asked for directly: a second, smaller picture set below and to the right of the big one, the
+   large fixed photograph still holding the left. Two sizes, not three, and no overlap — the
+   frames are laid out as a composition, not as a file of cards receding into the distance.
+   The risk is named and left to the eye: a SIZE DIFFERENCE is what reads as recession on the
+   site this is meant not to resemble. Two boxes that do not touch and do not shrink in series
+   are a composition; the moment a third is added they become a queue. */
+.page-open--duo .pcascade {
+  aspect-ratio: auto; position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, .42fr);
+  column-gap: 2.2vw;
+}
+.page-open--duo .pcwindow { position: relative; inset: auto; }
+.page-open--duo .pcwindow--big   { grid-column: 1; aspect-ratio: 1 / 1; }
+/* the small one hangs below the big one's middle, at the far right of the column */
+.page-open--duo .pcwindow--small { grid-column: 2; aspect-ratio: 1 / 1; align-self: end; margin-bottom: -14%; }
+.page-open--duo .pcdots { grid-column: 1 / -1; margin-top: 4.5vh; }
+/* the small frame is a second look, not a second subject: it stays in black and white */
+.page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
+@media (max-width: 900px) {
+  /* in a narrow column a 42 % frame is a stamp: the two go one under the other, full width */
+  .page-open--duo .pcascade { grid-template-columns: 1fr; row-gap: 3vh; }
+  .page-open--duo .pcwindow--big, .page-open--duo .pcwindow--small { grid-column: 1; }
+  .page-open--duo .pcwindow--small { align-self: auto; margin-bottom: 0; width: 62%; margin-left: auto; }
+}

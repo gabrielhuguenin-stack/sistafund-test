@@ -202,7 +202,12 @@
   }
 
   document.querySelectorAll('.pcascade').forEach(cascade => {
-    const queue = [...cascade.querySelectorAll('.pcq')];
+    // one window or several: window w holds the picture w steps ahead of the one in hand,
+    // so a second frame shows what comes next rather than repeating what is shown
+    const windows = [...cascade.querySelectorAll('.pcwindow')];
+    const sets = windows.length ? windows.map(w => [...w.querySelectorAll('.pcq')])
+                                : [[...cascade.querySelectorAll('.pcq')]];
+    const queue = sets[0];
     const open = cascade.closest('.page-open') || cascade.parentElement;
     const marks = cascade.querySelector('.pcdots');
     const steps = queue.length;
@@ -227,13 +232,13 @@
        edges under it; anything deeper waits out of the pile. */
     const lay = (step, wipe) => {
       k = (step + steps) % steps;
-      queue.forEach((el, i) => {
-        // ONE PRINT SHOWING, dissolving into the next — the home's own mechanism. Nothing
-        // is moved and nothing is stacked: the class carries the whole change, and the row
-        // of marks below says how many there are, which is all the home says either.
+      sets.forEach((set, w) => set.forEach((el, i) => {
+        // ONE PRINT SHOWING PER WINDOW, dissolving into the next — the home's own mechanism.
+        // Nothing is moved and nothing is stacked: the class carries the whole change, and
+        // the row of marks counts the SET, not the frames.
         el.classList.remove('is-top', 'is-back', 'is-far', 'laying');
-        el.classList.toggle('is-top', i === k);
-      });
+        el.classList.toggle('is-top', i === (k + w) % steps);
+      }));
       if (wipe) {
         const top = queue[k];
         top.classList.add('laying');
