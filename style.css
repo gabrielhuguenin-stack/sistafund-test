@@ -2010,21 +2010,25 @@ body > main, body > footer { position: relative; z-index: 1; }
   color: var(--grey); width: min(52ch, 100%);
   margin: 3vh 0 0;
 }
-/* ---- the SISTA coda: two columns like the ink statement, words left and film right, but on
-   the cream so a second dark block never lands against the last ink one ---- */
+/* ---- the SISTA coda on its own BLACK band: words left, film right, the same ink treatment as
+   the statements that carry a picture. The statement above it is turned back to cream so this
+   is the one dark band at the foot of the page, never a second one against another. ---- */
 .m-band {
+  background: var(--ink); color: var(--paper);
+  margin: 0 -4vw; padding: 14vh 4vw;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
   column-gap: 3.4vw; align-items: start;
-  padding: 4vh 0 6vh;
 }
-.m-band .m-claim { max-width: 20ch; }
+.m-band .m-claim { max-width: 20ch; margin-top: -.2em; }
+.m-band .m-claim .yw { color: var(--yellow); -webkit-text-stroke: 0; }
+.m-band .m-body { color: rgba(250, 248, 240, .78); }
 /* the still is ours until the reader asks for the film. The player is written in on the click,
    so nothing from YouTube loads before that — the site's own control, not an embed sitting
    live on the page. */
 .m-film { margin: 0; }
 .m-plate {
   position: relative; overflow: hidden;
-  border: 1.5px solid var(--ink); aspect-ratio: 16 / 9; background: var(--ink);
+  border: 1.5px solid rgba(250, 248, 240, .22); aspect-ratio: 16 / 9; background: #000;
 }
 .m-plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .m-play {
@@ -2039,15 +2043,16 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-play:hover .btn-arrow { transform: translateX(7px); }
 .m-plate.is-playing img, .m-plate.is-playing .m-play { display: none; }
 .m-plate iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-/* the film is someone else's campaign: it is named and credited under its own frame */
+/* the film is someone else's campaign: it is named and credited under its own frame, in the
+   light voice the ink ground asks for */
 .m-film-cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3em 1.5em; margin-top: 2.1vh; }
-.m-film-title { font-family: var(--serif); font-size: 1.06rem; color: var(--ink); }
+.m-film-title { font-family: var(--serif); font-size: 1.06rem; color: rgba(250, 248, 240, .9); }
 .m-film-credit {
   font-family: var(--display); text-transform: uppercase;
-  font-size: .74rem; letter-spacing: .14em; color: rgba(16, 16, 16, .55);
+  font-size: .74rem; letter-spacing: .14em; color: rgba(250, 248, 240, .5);
 }
 @media (max-width: 980px) {
-  .m-band { grid-template-columns: 1fr; row-gap: 4.5vh; padding: 2vh 0 6vh; }
+  .m-band { grid-template-columns: 1fr; row-gap: 4.5vh; padding: 11vh 4vw; }
 }
 
 /* the closing line stands alone, full measure */
