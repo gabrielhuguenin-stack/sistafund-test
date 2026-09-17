@@ -2010,6 +2010,18 @@ body > main, body > footer { position: relative; z-index: 1; }
   color: var(--grey); width: min(52ch, 100%);
   margin: 3vh 0 0;
 }
+/* a statement that keeps its photograph but on the cream: words left, picture right — the ink
+   band's own two columns without the ink ground, so the page can carry a photo here without a
+   second dark band against the film below. */
+.m-stmt--duo {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
+  column-gap: 3.4vw; align-items: start;
+}
+.m-stmt--duo .m-claim { max-width: 20ch; margin-top: -.2em; }
+@media (max-width: 980px) {
+  .m-stmt--duo { grid-template-columns: 1fr; row-gap: 5vh; }
+}
+
 /* ---- the SISTA coda on its own BLACK band: words left, film right, the same ink treatment as
    the statements that carry a picture. The statement above it is turned back to cream so this
    is the one dark band at the foot of the page, never a second one against another. ---- */
