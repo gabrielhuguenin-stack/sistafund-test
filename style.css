@@ -657,11 +657,7 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
   display: flex; align-items: center; justify-content: center;
   border-bottom: 1.5px solid var(--ink); padding: 20px;
 }
-/* HARMONISED BY HEIGHT, NOT BY WIDTH. Capped at 62 % width, every mark was pinned to the same
-   110 px and a wide wordmark came out 19 px tall next to a square one at 62 — the same logo read
-   half the size. Now they share a height and a wide mark is let out toward the card's own width,
-   so Mallow, Numi and Recupere Metals stand at the scale of the rest. */
-.pf-logo img { max-height: 62px; max-width: 100%; object-fit: contain; }
+.pf-logo img { max-height: 62px; max-width: 62%; object-fit: contain; }
 /* a logo that has not arrived yet: the name stands in its place, in the house display */
 .pf-logo--word {
   font-family: var(--display); text-transform: uppercase;
@@ -754,8 +750,10 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    reads at the same distance. Tatiana needed the larger step, Natacha only a touch. The base
    scale is set per portrait AND the hover step is redeclared for each, or the shared
    `.member:hover` rule (more specific than a bare src match) would pull the zoom back to 1.05. */
-.member-photo img[src*="tatiana"] { --sc: 1.2; object-position: center 12%; }
-.member:hover .member-photo img[src*="tatiana"] { --sc: 1.25; }
+/* zoomed in further, and dropped so the crown of the head keeps some air above it:
+   --py 0 undoes the shared -8 % lift and object-position holds the frame near the top */
+.member-photo img[src*="tatiana"] { --sc: 1.32; --py: 0%; object-position: center 4%; }
+.member:hover .member-photo img[src*="tatiana"] { --sc: 1.37; }
 .member-photo img[src*="natacha"] { --sc: 1.08; object-position: center 14%; }
 .member:hover .member-photo img[src*="natacha"] { --sc: 1.13; }
 /* the presentation arrives over the portrait, verbatim from sistafund.com */
@@ -1404,8 +1402,15 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   width: 100%; height: auto; aspect-ratio: 1.6; background: var(--paper);
   display: flex; align-items: center; justify-content: center; padding: 32px;
 }
-.pf-all-card .pf-logo img { max-height: 64px; max-width: 100%; object-fit: contain; }
-
+.pf-all-card .pf-logo img { max-height: 64px; max-width: 66%; object-fit: contain; }
+/* THREE MARKS, NOT ALL OF THEM. Numi, Recupere Metals and The Exploration Company sit small in
+   their own files, so only these three are let out further than the shared cap — every other logo
+   keeps 62 % on the home row and 66 % in the grid. Placed after the grid rule so the source order
+   settles the tie and these win in both places. tec's artwork is nearly square and low-res, so it
+   is given height as well as width. */
+.pf-logo img[src*="numi"]     { max-width: 84%; max-height: 72px; }
+.pf-logo img[src*="recupere"] { max-width: 88%; max-height: 72px; }
+.pf-logo img[src*="tec"]      { max-width: 80%; max-height: 72px; }
 
 .lp-institutions { max-width: none; }
 .lp-institutions p { font-size: clamp(1.25rem, 1.85vw, 1.85rem); line-height: 1.4; color: var(--grey); max-width: 46ch; }
