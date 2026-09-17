@@ -657,7 +657,11 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
   display: flex; align-items: center; justify-content: center;
   border-bottom: 1.5px solid var(--ink); padding: 20px;
 }
-.pf-logo img { max-height: 62px; max-width: 62%; object-fit: contain; }
+/* HARMONISED BY HEIGHT, NOT BY WIDTH. Capped at 62 % width, every mark was pinned to the same
+   110 px and a wide wordmark came out 19 px tall next to a square one at 62 — the same logo read
+   half the size. Now they share a height and a wide mark is let out toward the card's own width,
+   so Mallow, Numi and Recupere Metals stand at the scale of the rest. */
+.pf-logo img { max-height: 62px; max-width: 100%; object-fit: contain; }
 /* a logo that has not arrived yet: the name stands in its place, in the house display */
 .pf-logo--word {
   font-family: var(--display); text-transform: uppercase;
@@ -746,6 +750,14 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 /* per-portrait framing tweaks (also applied in the home carousel) */
 .member-photo img[src*="marie"] { object-position: center 30%; }
 .member-photo img[src*="arthur"] { object-position: center 28%; }
+/* two faces sat further back in their frame than the rest — brought forward so every head
+   reads at the same distance. Tatiana needed the larger step, Natacha only a touch. The base
+   scale is set per portrait AND the hover step is redeclared for each, or the shared
+   `.member:hover` rule (more specific than a bare src match) would pull the zoom back to 1.05. */
+.member-photo img[src*="tatiana"] { --sc: 1.2; object-position: center 12%; }
+.member:hover .member-photo img[src*="tatiana"] { --sc: 1.25; }
+.member-photo img[src*="natacha"] { --sc: 1.08; object-position: center 14%; }
+.member:hover .member-photo img[src*="natacha"] { --sc: 1.13; }
 /* the presentation arrives over the portrait, verbatim from sistafund.com */
 /* SET AS LARGE AS THE PORTRAIT ALLOWS. The binding constraint is the longest bio, which has
    to stay inside its own frame — so the room was taken back from the panel rather than from
@@ -1392,7 +1404,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   width: 100%; height: auto; aspect-ratio: 1.6; background: var(--paper);
   display: flex; align-items: center; justify-content: center; padding: 32px;
 }
-.pf-all-card .pf-logo img { max-height: 64px; max-width: 66%; object-fit: contain; }
+.pf-all-card .pf-logo img { max-height: 64px; max-width: 100%; object-fit: contain; }
 
 
 .lp-institutions { max-width: none; }
@@ -1849,10 +1861,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 /* ============ Scroll reveals (dedicated pages) ============ */
 /* Hidden states are armed only once reveal.js runs, so content can never get stuck. */
 html.anim [data-reveal]:not(.shown) {
-  opacity: 0; transform: translateY(28px);
+  opacity: 0; transform: translateY(22px);
 }
+/* a shade longer and a shorter rise than before: the face settles in rather than snapping,
+   which is what read as abrupt when a row arrived together */
 html.anim [data-reveal] {
-  transition: opacity .9s var(--ease) var(--rd, 0ms), transform .9s var(--ease) var(--rd, 0ms),
+  transition: opacity 1.05s var(--ease) var(--rd, 0ms), transform 1.05s var(--ease) var(--rd, 0ms),
               clip-path 1.1s var(--ease) var(--rd, 0ms);
 }
 /* headline wipe: the type is uncovered from the top down */
@@ -1996,6 +2010,46 @@ body > main, body > footer { position: relative; z-index: 1; }
   color: var(--grey); width: min(52ch, 100%);
   margin: 3vh 0 0;
 }
+/* ---- the SISTA coda: two columns like the ink statement, words left and film right, but on
+   the cream so a second dark block never lands against the last ink one ---- */
+.m-band {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
+  column-gap: 3.4vw; align-items: start;
+  padding: 4vh 0 6vh;
+}
+.m-band .m-claim { max-width: 20ch; }
+/* the still is ours until the reader asks for the film. The player is written in on the click,
+   so nothing from YouTube loads before that — the site's own control, not an embed sitting
+   live on the page. */
+.m-film { margin: 0; }
+.m-plate {
+  position: relative; overflow: hidden;
+  border: 1.5px solid var(--ink); aspect-ratio: 16 / 9; background: var(--ink);
+}
+.m-plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.m-play {
+  position: absolute; left: 1.6vw; bottom: 1.4vw; z-index: 2;
+  background: none; border: 0; border-bottom: 2px solid var(--yellow); cursor: pointer;
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(.9rem, 1.05vw, 1.02rem); letter-spacing: .06em; color: var(--yellow);
+  -webkit-text-stroke: 1.6px var(--ink); paint-order: stroke fill;
+  display: inline-flex; gap: 1.3em; align-items: baseline; padding: 0 0 .35em;
+}
+.m-play .btn-arrow { -webkit-text-stroke: 0; transition: transform .3s var(--ease); }
+.m-play:hover .btn-arrow { transform: translateX(7px); }
+.m-plate.is-playing img, .m-plate.is-playing .m-play { display: none; }
+.m-plate iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* the film is someone else's campaign: it is named and credited under its own frame */
+.m-film-cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3em 1.5em; margin-top: 2.1vh; }
+.m-film-title { font-family: var(--serif); font-size: 1.06rem; color: var(--ink); }
+.m-film-credit {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: .74rem; letter-spacing: .14em; color: rgba(16, 16, 16, .55);
+}
+@media (max-width: 980px) {
+  .m-band { grid-template-columns: 1fr; row-gap: 4.5vh; padding: 2vh 0 6vh; }
+}
+
 /* the closing line stands alone, full measure */
 /* the closing line is the one thing on this page that is centred: it belongs to no column and
    answers to no margin — it is the page signing off, like the mark that closes every page */

@@ -6,6 +6,11 @@
 (function () {
   if (matchMedia('(pointer: coarse)').matches) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  // this engine IS the smoothing on desktop: leaving CSS scroll-behavior:smooth on as well ran
+  // two easings over one gesture — most visible on an anchor jump, where the native smooth
+  // scroll and the wheel inertia fought and the page stuttered. Native stays smooth on touch,
+  // where this engine bows out.
+  document.documentElement.style.scrollBehavior = 'auto';
   const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
   let target = scrollY, current = scrollY, raf = null;
   const loop = () => {
@@ -109,12 +114,21 @@
   const targets = [...document.querySelectorAll('[data-reveal]')];
   if (!targets.length || reduced) return;
 
-  // stagger children of a [data-stagger] container
+  // Stagger children of a [data-stagger] container as a DIAGONAL WAVE, not a flat queue.
+  // A flat index*80ms capped at 8 meant that on a 27-face grid everything past the eighth
+  // shared one 640ms delay: a whole row landed in the same frame, and it read as a slam.
+  // Read from the grid's own columns, each cell now follows the one on its left and the one
+  // above it, and the row part wraps every third row so a tall grid never builds a long lag —
+  // so no two neighbours arrive together and each row sweeps in left to right.
   targets.forEach(el => {
     const parent = el.closest('[data-stagger]');
     if (!parent) return;
-    const i = [...parent.querySelectorAll('[data-reveal]')].indexOf(el);
-    if (i > 0) el.style.setProperty('--rd', Math.min(i, 8) * 80 + 'ms');
+    const items = [...parent.querySelectorAll('[data-reveal]')];
+    const i = items.indexOf(el);
+    if (i <= 0) return;
+    const cols = getComputedStyle(parent).gridTemplateColumns.split(' ').filter(Boolean).length || 1;
+    const col = i % cols, row = (i / cols) | 0;
+    el.style.setProperty('--rd', (col * 70 + (row % 3) * 60) + 'ms');
   });
 
   // Only animate a page the user is actually looking at: a backgrounded tab freezes
@@ -329,3 +343,24 @@ window.settleHeight = function (el, apply) {
   // a hidden tab freezes transitions: never leave the box locked to a pixel height
   timer = setTimeout(release, 1000);
 };
+
+
+/* A film on a document page: the still is ours until the reader asks for the film, then the
+   player is written in. Nothing from YouTube loads before that click, so the page carries no
+   third-party embed at rest. No-op on every page that has no [data-video]. */
+(function () {
+  document.querySelectorAll('[data-video]').forEach(fig => {
+    const id = (fig.dataset.video || '').trim();
+    const btn = fig.querySelector('.m-play');
+    if (!id || !btn) return;
+    btn.addEventListener('click', () => {
+      const f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?autoplay=1&rel=0';
+      f.title = 'SISTAFUND';
+      f.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      fig.appendChild(f);
+      fig.classList.add('is-playing');
+    }, { once: true });
+  });
+})();

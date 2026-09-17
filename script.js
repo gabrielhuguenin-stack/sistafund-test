@@ -478,8 +478,19 @@ function onScroll() {
 
   sweepMissed(vh);
 }
-window.addEventListener('scroll', onScroll, { passive: true });
-window.addEventListener('resize', onScroll, { passive: true });
+// Coalesced to one run per frame. onScroll reads layout (getBoundingClientRect on the hero
+// pin, the growing photo, every portfolio row and drifting photo) and writes transforms back
+// in the same pass; fired raw, it ran that read-then-write several times per frame — the
+// inertial engine alone scrolls once per animation frame — and the forced reflow was what made
+// the home stutter. Gated on rAF it runs once, aligned with paint.
+let scrollScheduled = false;
+function onScrollFrame() {
+  if (scrollScheduled) return;
+  scrollScheduled = true;
+  requestAnimationFrame(() => { scrollScheduled = false; onScroll(); });
+}
+window.addEventListener('scroll', onScrollFrame, { passive: true });
+window.addEventListener('resize', onScrollFrame, { passive: true });
 addEventListener('load', onScroll);
 onScroll();
 
