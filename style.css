@@ -750,10 +750,13 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    reads at the same distance. Tatiana needed the larger step, Natacha only a touch. The base
    scale is set per portrait AND the hover step is redeclared for each, or the shared
    `.member:hover` rule (more specific than a bare src match) would pull the zoom back to 1.05. */
-/* zoomed in further, and dropped so the crown of the head keeps some air above it:
-   --py 0 undoes the shared -8 % lift and object-position holds the frame near the top */
-.member-photo img[src*="tatiana"] { --sc: 1.32; --py: 0%; object-position: center 4%; }
+/* zoomed in, and the face dropped further so the head sits lower with more air above it. The
+   team gallery pins --py to 0 for every portrait (see .team-gallery .member-photo img below), a
+   rule that out-specifies a bare src match — so the push-down is re-set there at a specificity
+   that clears it. */
+.member-photo img[src*="tatiana"] { --sc: 1.32; object-position: center 4%; }
 .member:hover .member-photo img[src*="tatiana"] { --sc: 1.37; }
+.team-gallery .member-photo img[src*="tatiana"] { --py: 8%; }
 .member-photo img[src*="natacha"] { --sc: 1.08; object-position: center 14%; }
 .member:hover .member-photo img[src*="natacha"] { --sc: 1.13; }
 /* the presentation arrives over the portrait, verbatim from sistafund.com */
@@ -1408,9 +1411,10 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
    keeps 62 % on the home row and 66 % in the grid. Placed after the grid rule so the source order
    settles the tie and these win in both places. tec's artwork is nearly square and low-res, so it
    is given height as well as width. */
-.pf-logo img[src*="numi"]     { max-width: 84%; max-height: 72px; }
-.pf-logo img[src*="recupere"] { max-width: 88%; max-height: 72px; }
-.pf-logo img[src*="tec"]      { max-width: 80%; max-height: 72px; }
+.pf-logo img[src*="numi"]     { max-width: 90%; max-height: 78px; }
+.pf-logo img[src*="recupere"] { max-width: 94%; max-height: 78px; }
+.pf-logo img[src*="tec"]      { max-width: 86%; max-height: 78px; }
+.pf-logo img[src*="mallow"]   { max-width: 96%; max-height: 78px; }
 
 .lp-institutions { max-width: none; }
 .lp-institutions p { font-size: clamp(1.25rem, 1.85vw, 1.85rem); line-height: 1.4; color: var(--grey); max-width: 46ch; }
