@@ -174,16 +174,9 @@ document.querySelectorAll('.sec-head h2').forEach(h2 => {
 });
 
 const watched = [];
-document.querySelectorAll('.about-photo, .about-head, .cta, .sec-head, .sector, .comm-word')
+document.querySelectorAll('.cta, .sec-head, .sector, .comm-word')
   .forEach(el => { io.observe(el); watched.push(el); });
-// the fund band: each term arrives just after the one to its left
-document.querySelectorAll('.stat-item').forEach((el, i) => {
-  el.style.transitionDelay = (i * 0.11) + 's';
-  io.observe(el); watched.push(el);
-});
 document.querySelectorAll('.member').forEach(el => { el.dataset.grp = 'member'; io.observe(el); watched.push(el); });
-document.querySelectorAll('.about-col').forEach(el => { el.dataset.grp = 'about-col'; io.observe(el); watched.push(el); });
-document.querySelectorAll('.news-card').forEach(el => { el.dataset.grp = 'news-card'; io.observe(el); watched.push(el); });
 
 // Fallback: elements jumped past (fast scroll, anchor links) still reveal
 function sweepMissed(vh) {
@@ -339,7 +332,7 @@ const growFrame = document.getElementById('growFrame');
 const growImg = document.getElementById('growImg');
 const growDim = document.getElementById('growDim');
 const growCopy = document.getElementById('growCopy');
-const parPhotos = [...document.querySelectorAll('.member-photo img, .news-img img')];
+const parPhotos = [...document.querySelectorAll('.member-photo img')];
 const communitySec = document.getElementById('community');
 // the hero's ground, carried across two screens: the first shows units 0-100, the photo
 // section the next hundred, so a column cut at the join carries straight on

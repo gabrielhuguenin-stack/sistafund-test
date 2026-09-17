@@ -153,54 +153,11 @@
   setTimeout(() => { if (targets.some(el => !el.classList.contains('shown'))) sweep(); }, 2500);
 })();
 
-/* Team stack: each card dims as the next print slides over it
-   (no scale change: every print keeps exactly the same size) */
-(function () {
-  const cards = [...document.querySelectorAll('.tcard')];
-  if (!cards.length) return;
-  let ticking = false;
-  const run = () => {
-    cards.forEach((c, i) => {
-      const next = cards[i + 1];
-      if (!next) { c.style.filter = ''; return; }
-      const r = next.getBoundingClientRect();
-      const p = Math.min(Math.max((innerHeight - r.top) / (innerHeight * 0.85), 0), 1);
-      c.style.filter = `brightness(${(1 - p * 0.09).toFixed(3)})`;
-    });
-    ticking = false;
-  };
-  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } };
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll, { passive: true });
-  run();
-})();
-
 /* Page opening cascade
    The frames leave the screen at their own pace, and the pictures form a queue:
    each step promotes every one of them a place up in size, so a small picture
    travels into the large frame while the one leaving shrinks back to the entry. */
 (function () {
-  const frames = [...document.querySelectorAll('[data-drift]')];
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (frames.length && !reduced) {
-    let ticking = false;
-    const run = () => {
-      const vh = innerHeight;
-      frames.forEach(el => {
-        const r = el.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > vh) return;
-        const p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
-        el.style.transform = `translateY(${((p - 0.5) * +el.dataset.drift).toFixed(2)}vh)`;
-      });
-      ticking = false;
-    };
-    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } };
-    addEventListener('scroll', onScroll, { passive: true });
-    addEventListener('resize', onScroll, { passive: true });
-    run();
-  }
-
   document.querySelectorAll('.pcascade').forEach(cascade => {
     // one window or several: window w holds the picture w steps ahead of the one in hand,
     // so a second frame shows what comes next rather than repeating what is shown
@@ -213,7 +170,6 @@
     const steps = queue.length;
     if (steps < 2) return;
 
-    const lead = open.querySelector('[data-cascade-lead]');
     let k = 0;
 
     /* The same row of marks the community carries on the home: one rule per picture, the one
@@ -246,18 +202,6 @@
         top.classList.remove('laying');
       }
       dots.forEach((d, i) => d.classList.toggle('on', i === k));
-      // the headline belongs to whichever picture is now in hand
-      if (lead && queue[k].dataset.title) {
-        const d = queue[k].dataset;
-        lead.querySelector('b').textContent = d.source;
-        lead.querySelector('i').textContent = d.date;
-        const a = lead.querySelector('a');
-        a.textContent = d.title;
-        a.href = d.url;
-        lead.classList.remove('turning');
-        void lead.offsetWidth;
-        lead.classList.add('turning');
-      }
     };
 
     /* NOTHING TURNS ON ITS OWN. The pile used to lay a new print every 5.6 s, while the
