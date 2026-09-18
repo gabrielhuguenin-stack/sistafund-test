@@ -4,3 +4,8 @@ scratchpad/
 img/NOUVELLES-PHOTOS/
 
 _migration/claude-md-fragments-recuperes.txt
+
+# local Claude / MCP config — never part of the website (contain machine-local settings and keys)
+.claude/
+CLAUDE.md
+.mcp.json
