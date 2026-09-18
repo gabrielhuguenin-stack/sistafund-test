@@ -2328,18 +2328,16 @@ body > main, body > footer { position: relative; z-index: 1; }
 /* the small frame is a second look, not a second subject: it stays in black and white */
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 @media (max-width: 900px) {
-  /* in a narrow column a 42 % frame is a stamp: the two go one under the other, full width */
-  .page-open--duo .pcascade { display: grid; grid-template-columns: 1fr; row-gap: 3vh; }
-  /* the big frame takes its proportion back here: in one column there is no row for it to
-     fill, so `height: 100%` resolved against nothing and collapsed it to zero */
-  /* and it takes the whole width back: the 81 % it keeps on a wide screen is there to leave
-     room for the third frame beside it, and on a phone there is nothing beside it */
-  .page-open--duo .pcwindow--big { width: 100%; aspect-ratio: 1 / 1; height: auto; }
-  /* nothing leaves the page sideways on a phone: there is no room to spare for it */
-  .page-open--duo .pcwindow--small { width: 62%; margin-left: auto; margin-right: 0; margin-top: 0; }
-  /* and the column comes back inside the margin: the pull-out exists to let the mask reach the
-     screen edge, and there is no mask here */
+  /* KEEP THE COMPOSITION, JUST SMALLER. Stacked full-width, the big and small frames became two
+     enormous photographs one under the other, on top of the fixed one — three giant pictures to
+     scroll past before the page even begins. The overlapping arrangement is held instead: the
+     big frame at 70 % with the small one lower-right of it, so the whole opening is read at a
+     glance in a fraction of the height. Only the mask and its pull-out are dropped — they exist
+     to carry the fade to the screen edge, and there is no fade here. */
   .page-open--duo .pcascade { -webkit-mask-image: none; mask-image: none; margin-right: 0; }
-  /* back in the flow here, so the half-height lift has nothing to align to */
-  .page-open--duo .pcdots { position: relative; top: auto; margin-top: 3vh; transform: none; }
+  .page-open--duo .pcwindow--big { width: 70%; }
+  .page-open--duo .pcwindow--small { width: 36%; margin-right: 0; }
+  /* the marks drop clear of the composition here: on the foot line they crossed the small
+     frame, which reaches that line once the two are scaled down together */
+  .page-open--duo .pcdots { position: relative; top: auto; margin-top: 2.5vh; transform: none; }
 }
