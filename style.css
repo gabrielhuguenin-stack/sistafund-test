@@ -383,8 +383,8 @@ main section[id] { scroll-margin-top: 60px; }
 /* the portfolio's figures, a line under the invitation. The company count is written by the
    script from the data, so it climbs on its own the day a company is added. */
 .sec-stat {
-  margin-top: 12px; font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(.82rem, 1vw, .95rem); letter-spacing: .1em; color: var(--ink);
+  margin-top: 16px; font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem); letter-spacing: .08em; color: var(--ink);
 }
 
 /* ============ About ============ */
@@ -429,7 +429,7 @@ main section[id] { scroll-margin-top: 60px; }
 .sectors-lead {
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(1.5rem, 3vw, 2.9rem); line-height: 1.3; letter-spacing: -.01em;
-  color: var(--paper); max-width: 24ch; margin: 0 0 8vh;
+  color: var(--paper); max-width: none; margin: 0 0 8vh;
 }
 .sector {
   border-top: 1.5px solid var(--paper);
@@ -549,8 +549,9 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
 }
 .thesis-line + .thesis-line {
   /* the second answers from the right: set at the same place it read as one paragraph
-     broken in two */
-  margin: 1.1em 0 0 auto; text-align: right;
+     broken in two. It carries a wider measure than the first because it is a longer sentence
+     — at 33ch it fell onto three lines; 42ch holds it to two, matching the first line's rhythm. */
+  margin: 1.1em 0 0 auto; text-align: right; max-width: 42ch;
 }
 /* THE OFFSET NEEDS ROOM TO BE AN OFFSET. Past this width the 33ch measure is wider than the
    column, so the block already fills it and there is nowhere to push the sentence to — all
