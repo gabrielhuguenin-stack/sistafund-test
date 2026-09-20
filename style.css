@@ -433,8 +433,12 @@ main section[id] { scroll-margin-top: 60px; }
 .sectors-lead {
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(1.5rem, 3vw, 2.9rem); line-height: 1.32; letter-spacing: -.01em;
-  color: var(--paper); max-width: 34ch; margin: 0 0 7vh;
+  color: var(--paper); max-width: none; margin: 0 0 7vh;
 }
+/* the five subjects carry the yellow, so the full-width line reads as a designed statement and
+   not a run-on. On the ink the word is plain yellow — no ink outline, which is only there to
+   hold yellow up on the cream. */
+.sectors-lead .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 /* the criteria say what we look for; this labels WHERE — it gives the four ruled rows their own
    head back (lost when the section's kicker became 'What we look for') so they no longer appear
    out of nowhere under the serif. It reads as the header of the ruled list right below it. */
