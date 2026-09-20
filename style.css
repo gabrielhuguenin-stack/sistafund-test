@@ -383,8 +383,8 @@ main section[id] { scroll-margin-top: 60px; }
 /* the portfolio's figures, a line under the invitation. The company count is written by the
    script from the data, so it climbs on its own the day a company is added. */
 .sec-stat {
-  margin-top: 16px; font-family: var(--display); text-transform: uppercase;
-  font-size: clamp(1.15rem, 1.7vw, 1.6rem); letter-spacing: .08em; color: var(--ink);
+  margin-top: 14px; font-family: var(--serif);
+  font-size: clamp(1.3rem, 1.9vw, 1.8rem); line-height: 1.3; color: var(--ink);
 }
 
 /* ============ About ============ */
@@ -424,12 +424,13 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: clamp(1.1rem, 1.55vw, 1.6rem); letter-spacing: .16em;
   margin-bottom: 4vh;
 }
-/* the lead sets out what we look for in a founder and a company, then the four areas below say
-   in which markets — the serif voice the thesis uses, in the light tone the ink ground asks for */
-.sectors-lead {
-  font-family: var(--serif); font-weight: 400;
-  font-size: clamp(1.5rem, 3vw, 2.9rem); line-height: 1.3; letter-spacing: -.01em;
-  color: var(--paper); max-width: none; margin: 0 0 8vh;
+/* what we look for in a founder and a company, one line each so the five criteria read as a
+   considered list and not a run-on sentence. Kept plain — serif, no rules — so they contrast
+   with the ruled display rows of the four areas below rather than blurring into them. */
+.sectors-crit {
+  list-style: none; margin: 0 0 9vh; padding: 0;
+  font-family: var(--serif); color: var(--paper);
+  font-size: clamp(1.5rem, 3vw, 2.8rem); line-height: 1.42; letter-spacing: -.01em;
 }
 .sector {
   border-top: 1.5px solid var(--paper);
@@ -2032,17 +2033,6 @@ body > main, body > footer { position: relative; z-index: 1; }
   font-family: var(--serif); font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.48;
   color: var(--grey); width: min(52ch, 100%);
   margin: 3vh 0 0;
-}
-/* a statement that keeps its photograph but on the cream: words left, picture right — the ink
-   band's own two columns without the ink ground, so the page can carry a photo here without a
-   second dark band against the film below. */
-.m-stmt--duo {
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
-  column-gap: 3.4vw; align-items: start;
-}
-.m-stmt--duo .m-claim { max-width: 20ch; margin-top: -.2em; }
-@media (max-width: 980px) {
-  .m-stmt--duo { grid-template-columns: 1fr; row-gap: 5vh; }
 }
 
 /* ---- the SISTA coda on its own BLACK band: words left, film right, the same ink treatment as
