@@ -225,6 +225,13 @@ if (aboutIntro) {
    middle of the screen and none is stuck at an edge. It used to be 0.36 of the DOUBLED track,
    which came to 976 px for the six-plate row: more movement than this, and yet the first and
    last plates never arrived. Measured on the real set it is 636 px — calmer and complete. */
+// the portfolio's company count is read from the data, so it keeps itself right when a company
+// is added — no second place to update
+(() => {
+  const el = document.querySelector('[data-pf-count]');
+  if (el && window.COMPANIES) el.textContent = Object.keys(window.COMPANIES).length;
+})();
+
 const PF_TRAVEL = 1;
 const NEWS_TRAVEL = 0.72; // a share of the run's overflow: calm, and it still shows most of itself
 let newsRun;
