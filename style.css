@@ -433,8 +433,12 @@ main section[id] { scroll-margin-top: 60px; }
 .sectors-lead {
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(1.5rem, 3vw, 2.9rem); line-height: 1.32; letter-spacing: -.01em;
-  color: var(--paper); max-width: 34ch; margin: 0 0 9vh;
+  color: var(--paper); max-width: 34ch; margin: 0 0 7vh;
 }
+/* the criteria say what we look for; this labels WHERE — it gives the four ruled rows their own
+   head back (lost when the section's kicker became 'What we look for') so they no longer appear
+   out of nowhere under the serif. It reads as the header of the ruled list right below it. */
+.sectors-kicker--areas { margin-bottom: 3vh; }
 .sector {
   border-top: 1.5px solid var(--paper);
   /* the band was too tall, not too wide: the names stay centred on the full measure and
