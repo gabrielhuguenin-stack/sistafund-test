@@ -252,7 +252,10 @@ em { font-style: normal; }
   content: ''; position: absolute; inset: 0;
   background: var(--yellow);
   opacity: var(--k, 0);
-  transition: opacity .45s var(--ease);
+  /* the glow used to fade in over .45s, so it trailed the pointer by nearly half a second and
+     read as sluggish. Cut to .18s: it lights under the hand almost at once, still eased so the
+     field of clouds never snaps on. */
+  transition: opacity .18s var(--ease);
 }
 
 
