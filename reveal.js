@@ -105,6 +105,16 @@
   });
 })();
 
+/* The menu counts — Portfolio (n) and Team (n) — are read from the data on every page, so a
+   company or a team member added in data.js updates them everywhere at once. Runs on all pages:
+   data.js is loaded before this script on each of the eight. */
+(function () {
+  const set = (n, count) =>
+    document.querySelectorAll(`a[href="${n}"] .nav-count`).forEach(e => { e.textContent = `(${count})`; });
+  if (window.COMPANIES) set('portfolio.html', Object.keys(window.COMPANIES).length);
+  if (window.TEAM) set('team.html', window.TEAM.length);
+})();
+
 /* Scroll reveal engine for the dedicated pages
    Elements are visible by default; the hidden state is only armed once this
    script runs (html.anim), and three safety nets guarantee nothing stays hidden. */

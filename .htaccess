@@ -94,6 +94,20 @@ DirectoryIndex index.html
   </FilesMatch>
 </IfModule>
 
+# data.js is the exception among the scripts: it is the CONTENT (companies, team, news,
+# community), edited far more often than the code, and it must go live the moment it changes.
+# So it is treated like the HTML — never cached — which is what lets an editor add a company or
+# a news item by editing data.js alone, with no ?v= to bump. The real code (style.css,
+# script.js, reveal.js, wall.js) keeps its one-year cache and its ?v=, bumped when it changes.
+<FilesMatch "^data\.js$">
+  <IfModule mod_expires.c>
+    ExpiresActive Off
+  </IfModule>
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, must-revalidate"
+  </IfModule>
+</FilesMatch>
+
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
 </IfModule>

@@ -232,6 +232,39 @@ if (aboutIntro) {
   if (el && window.COMPANIES) el.textContent = Object.keys(window.COMPANIES).length;
 })();
 
+// The home's portfolio plates are built from the data, in data.js order, split into three
+// balanced rows — so adding a company is done in data.js alone, nothing to touch here. The
+// order on the home follows the order in COMPANIES: to move a company, move it in data.js.
+(() => {
+  const host = document.getElementById('pfRows');
+  if (!host || !window.COMPANIES) return;
+  const cta = host.querySelector('.pf-all-cta');
+  const keys = Object.keys(window.COMPANIES);
+  const ROWS = 3;
+  const base = Math.floor(keys.length / ROWS), extra = keys.length % ROWS;
+  let i = 0;
+  for (let r = 0; r < ROWS; r++) {
+    const size = base + (r < extra ? 1 : 0);
+    if (size <= 0) continue;
+    const row = document.createElement('div'); row.className = 'pf-row';
+    const track = document.createElement('div'); track.className = 'pf-track';
+    for (let k = 0; k < size; k++, i++) {
+      const key = keys[i], c = window.COMPANIES[key], name = c[0];
+      const btn = document.createElement('button');
+      btn.className = 'pf-card'; btn.dataset.co = key;
+      // a missing logo becomes the name set in type; a missing founders photo just drops out
+      btn.innerHTML =
+        `<span class="pf-logo"><img src="img/logos/${c[2]}" alt="${name}" ` +
+          `onerror="this.parentElement.classList.add('pf-logo--word');this.parentElement.textContent='${name.replace(/'/g, "\\'")}'"></span>` +
+        `<span class="pf-shot"><img src="img/founders/${key}.jpg" alt="Founders of ${name}" loading="lazy" ` +
+          `onerror="this.closest('.pf-shot').remove()"></span>`;
+      track.appendChild(btn);
+    }
+    row.appendChild(track);
+    host.insertBefore(row, cta);
+  }
+})();
+
 const PF_TRAVEL = 1;
 const NEWS_TRAVEL = 0.72; // a share of the run's overflow: calm, and it still shows most of itself
 let newsRun;
