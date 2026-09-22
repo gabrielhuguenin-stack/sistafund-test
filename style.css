@@ -235,7 +235,7 @@ em { font-style: normal; }
 }
 .hline--in1 { padding-left: 1.3em; }
 
-.hline--in2, .hline--close { text-align: left; padding-left: 1.8em; }
+.hline--in2, .hline--close { text-align: right; padding-left: 0; margin-right: -2vw; }
 
 .hstmt .l-serif-lc {
   font-family: var(--serif); text-transform: none;
