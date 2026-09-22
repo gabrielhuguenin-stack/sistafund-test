@@ -1,10 +1,7 @@
-/* SISTAFUND — shared data (portfolio companies + community LPs)
-   Loaded by index.html, portfolio.html and community.html. */
+
 
 window.COMPANIES = {
-  /* [name, sector, logo, description, founders, location, founded, partnered, website]
-     wording taken verbatim from sistafund.com. An empty website still gets its button,
-     shown waiting rather than hidden, so the card keeps its final shape. */
+
   rebaba: ['Rebaba', 'Climate', 'rebaba.png', 'Powering the future with circular battery energy storage systems.', 'Paula Runsten, Felix Kruse', 'Stockholm, Sweden', '2023', '2026', 'https://rebaba.se/'],
   pave: ['Pave Space', 'Deeptech', 'pave.png', 'Heavy kickstage to unlock orbital logistics.', 'Julie Böhning, Jérémy Marciacq', 'Vaud, Switzerland', '2023', '2026', 'https://pave.space/page/homepage'],
   waiv: ['Waiv', 'HealthTech', 'waiv.png', 'Accelerating AI-enabled precision oncology testing.', 'Meriem Sefta, Lionel Guillou', 'Paris', '2025', '', 'https://wearewaiv.com/'],
@@ -23,9 +20,6 @@ window.COMPANIES = {
   suna: ['Suna', 'HealthTech', 'suna.png', 'Gut health monitoring.', '', 'UK', '2026', '2026', 'https://suna.health/'],
 };
 
-/* Corporates and institutions backing the fund — shown under the "Corporates & institutions"
-   filter on community.html. [display name, logo file in img/institutions/].
-   A missing file is not a hole: the name is set in display type in its place. */
 window.INSTITUTIONS = [
   ['European Investment Fund', 'european-investment-fund.png'],
   ['Bpifrance', 'bpifrance.png'],
@@ -64,7 +58,6 @@ window.LPS = [
   ['Frank Zorn', 'Deskeo', 'frank-zorn.jpg', 'consumer'],
 ];
 
-/* Press & news — [date, source, title, url], newest first */
 window.NEWS = [
   ["09/09/2026", "Rebaba", "Retired EV batteries still have up to 80% of their useful life remaining. Rebaba gives them a second shot, and just closed a $4.6M round.", "https://rebaba.se/news/rebaba-closes-4-6-million-seed-round"],
   ["08/09/2026", "The Exploration Company", "Our first unicorn! The Exploration Company secures $450 million in the largest-ever Series C by a European space company.", "https://www.exploration.space/blog/the-exploration-company-series-c-450-million"],
@@ -131,12 +124,9 @@ window.NEWS = [
   ["24/03/2022", "SISTAFUND", "SISTA x Mirova Forward study: what if we asked women and men the same questions?", "https://sistafund.com/news/et-si-on-posait-les-memes-questions-aux-femmes-et-aux-hommes-etude-sista-x-mirova-forward/"],
 ];
 
-/* per-article thumbnails pulled from sistafund.com/news, same order as NEWS */
 window.NEWS_IMG = [
   "rebaba-46m.jpg", "tec-unicorn.jpg", "suna-3m.jpg","oshen.jpg", "n01.webp", "n02.jpg", "n03.jpg", "n04.jpg", "n05.jpeg", "n06.jpeg", "n07.jpeg", "n08.jpeg", "n09.jpeg", "n10.jpeg", "n11.jpeg", "n12.jpeg", "n13.jpeg", "n14.jpeg", "n15.jpeg", "n16.jpeg", "n17.jpeg", "n18.png", "n19.jpg", "n20.jpeg", "n21.jpg", "n22.webp", "n23.jpeg", "n24.png", "n25.jpeg", "n26.jpg", "n27.png", "n28.jpeg", "n29.png", "n30.png", "n31.png", "n32.webp", "n33.jpg", "n34.jpeg", "n35.webp", "n36.jpg", "n37.png", "n38.webp", "n39.png", "n40.webp", "n41.webp", "n42.png", "n43.jpeg", "n44.jpg", "n45.webp", "n46.webp", "n47.png", "n48.webp", "n49.png", "n50.jpg", "n51.png", "n52.jpg", "n53.jpg", "n54.png", "n55.png", "n56.webp", "n57.jpg", "n58.jpg", "n59.png"];
 
-
-/* FAQ — questions and answers copied verbatim from sistafund.com/faq */
 window.FAQ = [
   ["What is SISTAFUND?", "Launched in October 2022, SISTAFUND is a European investment fund with €70 million under management, whose mission is to accelerate equality by funding exceptional women founders and gender-balanced teams. Initiated by Tatiana Jama, serial entrepreneur and co-founder of the SISTA collective, SISTAFUND’s DNA is deeply rooted in entrepreneurship since its inception, drawing on the expertise of a unique community of successful French entrepreneurs."],
   ["How much do you typically invest?", "We lead pre-seed and seed rounds, partnering with high-conviction founders from day one. We invest early and actively support companies through our community of founders and advisors to help them go further and faster from the very beginning. Our initial investment typically ranges from ~€700k to €3m, with an average ticket of €1.5m, depending on the stage and round dynamics."],
@@ -151,7 +141,6 @@ window.FAQ = [
   ["Who are the investors behind SISTAFUND?", "We are a team of passionate investors who share the same values and mission: reveal founders who overcome adversity, shake up conventions and summon the future to challenge the present. You can meet the whole team on a dedicated page : https://sistafund.com/#team Furthermore, SISTAFUND relies on a community of exceptional entrepreneurs, experts on each of their themes. Steve Anavi (Qonto) and Jean Daniel Guyot (MemoBank) speak on the Fintech side, Nathalie Balla (La Redoute) and Adrien Nussenbaum (Mirakl) support the Consumer-related start-ups. Clément Buyse (PeopleDoc) and Nicolas Hernandez (360Learning) support entrepreneurs on the SaaS theme, and Céline Lazorthes (Leetchi, Resilience) and Jonathan Benhamou (PeopleDoc, Resilience) lead conversations for the Healthtech portfolio."],
 ];
 
-/* Team bios — verbatim from sistafund.com/team: [name, role, photo, [paragraphs], about, linkedin] */
 window.TEAM = [
   ["Tatiana Jama", "Founder & General Manager", "tatiana.jpg", ["Serial entrepreneur in the technology industry for the past 15 years. Tatiana co-founded with Lara Rouyres; Dealissime (exit to Amazon in 2011); Selectionnist, and Levia.ai. Since 2011, invested as Business Angel in +30 companies (Resilience.care, Armis, Regaind exited to Apple,...).", "In 2018, Tatiana co-founded SISTA with Céline Lazorthes and Valentine de Lasteyrie to turn digital economy into a business led by a group of diversified leaders. 4 years later, she co-founded SISTAFUND to go one step further.", "Very active in the FrenchTech ecosystem: Member of the French Digital Council (CNNUM), Member of The High Council for Equality between Women and Men (HCE), Member of The General Secretariat for Investment (SGPI), board Member of Eurazeo PME.", "Dual background in business (HEC Paris, New York University) and Law (Paris Bar)."], "Publicly passionate about entrepreneurship and the GenderFundingGap, openly passionate about theater & champagne :)", "https://www.linkedin.com/in/tatianajama/"],
   ["Marie Geneste", "Partner", "marie.jpg", ["Brings over 15 years of international investing experience across Europe, the UK and the US, backing technology companies from early stage through Series B.", "Prior to SISTAFUND, Marie was an Investment Director at Educapital in Paris and a Principal at Edenred Ventures in London, where she led and supported investments resulting in multiple exits. She has served on numerous boards and partners closely with founders on strategy, scaling and governance.", "Marie holds a Master’s degree in Management from HEC Paris and is a graduate of Sciences Po Lille."], "Rarely too far from the ocean or a sports field. Women's sports advocate.", "https://www.linkedin.com/in/mariegeneste/"],

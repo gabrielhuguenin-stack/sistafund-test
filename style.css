@@ -1,7 +1,4 @@
-/* ============================================================
-   SISTAFUND — brand: #FFF868 (yellow) · near-black · warm paper
-   Fonts: RightGrotesk Narrow (display) · Portrait (serif) ONLY
-   ============================================================ */
+
 
 @font-face {
   font-family: 'RightGrotesk';
@@ -17,18 +14,9 @@
 }
 
 :root {
-  /* ONE LATERAL FADE, written once, and ONE DISTANCE: 120 px, in pixels so it does not
-     change with the width of the block. Tuning it per block (132 for the plates, 48 for the
-     press) was a mistake: a short fade is not a soft one — it is an abrupt one, and on a
-     photograph it read harder than the long fade on the pale plates. Same distance for all,
-     same gesture.
-     What DOES change is the PROFILE. A straight ramp dims the whole 120 px evenly, so on the
-     press photographs a sixth of the picture sat under a veil. The ramp is eased instead:
-     50 % at 19 px, 82 % at 40 px, 95 % at 70 px — so the picture is essentially clear a third
-     of the way in, while the outermost 19 px still dissolves. Shortening the distance would
-     only have brought the abrupt edge back; this takes the veil off without doing that. */
+
   --fade: 120px;
-  /* the same veil, on the right edge only — for a picture that leaves the page sideways */
+
   --fade-r: linear-gradient(to right,
     #000 calc(100% - var(--fade)),
     rgba(0, 0, 0, .95) calc(100% - var(--fade) * .58),
@@ -82,33 +70,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: normal; text-transform: u
 
 em { font-style: normal; }
 
-/* yellow marker highlight */
-/* word set directly in brand yellow (thin ink stroke keeps it readable on light bg) */
-/* THE YELLOW GOES UNDER THE WORD, NEVER BEHIND IT. A yellow solid behind type was a plate,
-   and with the field of clouds now running under the whole page it read as one plate too
-   many. The word keeps the colour of its ground and stands on the house band — the same
-   eight pixels every frame of the site wears. One treatment, whatever the ground: no more
-   solid on cream, outline on black, marker in body text. */
-/* The word is set IN the yellow, not on a band under it: at these sizes the yellow is the
-   only colour a title carries, and a rule under the word read as a correction mark rather
-   than as the brand. What went with the field of clouds are the yellow SOLIDS behind
-   words — the plate behind a nav link, the block behind a filter — not the yellow type. */
 .yw {
   color: var(--yellow);
   -webkit-text-stroke: 2px var(--ink);
   paint-order: stroke fill;
 }
-/* on the black the word is simply set in the yellow: an outlined word read as unfinished,
-   and yellow on ink needs no help to be legible */
+
 .community .yw { color: var(--yellow); -webkit-text-stroke: 0; }
-/* On a flat black ground the word becomes a drawing rather than a solid: the fill takes
-   the ground and the yellow is left as the outline. paint-order paints the stroke behind
-   the fill, so half of the 3px shows — a hairline at these sizes.
-   Only on flat black: over a photograph the hollow letters read as dark smudges, so the
-   statement on the opened picture keeps the solid yellow and its thin ink stroke. */
 
-
-/* ============ Intro (logo on yellow) ============ */
 .intro {
   position: fixed; inset: 0; z-index: 300;
   background: var(--yellow);
@@ -117,7 +86,7 @@ em { font-style: normal; }
   transition: opacity .9s ease, transform 1.05s var(--ease);
   will-change: transform, opacity;
 }
-/* on exit the whole screen rushes toward the viewer — you fall into the hero */
+
 .intro.done { opacity: 0; transform: scale(4.2); pointer-events: none; }
 .intro-inner { text-align: center; padding: 0 6vw; }
 .intro-logo img {
@@ -129,8 +98,6 @@ em { font-style: normal; }
 @keyframes introWipe { to { clip-path: inset(-5% 0 -5% 0); } }
 @keyframes introFade { to { opacity: 1; } }
 
-
-/* ============ Nav ============ */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
@@ -156,10 +123,7 @@ em { font-style: normal; }
   transition: transform .35s var(--ease);
 }
 .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-/* count as a parenthesised superscript, in brand yellow with a hairline so it
-   stays legible on paper, on the yellow hero and on the dark pages alike */
-/* pure yellow disappears on the yellow hero and on paper, so the count is inked
-   on light backgrounds and yellow where the page is dark */
+
 .nav-count {
   font-family: var(--display); font-size: .58em; letter-spacing: .02em;
   margin-left: .16em; top: -.5em; position: relative;
@@ -167,12 +131,6 @@ em { font-style: normal; }
 }
 .mobile-menu .nav-count { font-size: .5em; }
 
-/* ---- the button ---- */
-/* A slab with a label in it belongs to no one. This site is built of ruled lines — the
-   sector rows, the thesis cells, the FAQ, the LinkedIn link under a bio — so its call to
-   action is a ruled line too: label at one end, arrow at the other, the rule between them.
-   Under the pointer the yellow rises off the rule and the letters turn to ink, the same
-   inversion the sector rows already do. */
 .btn {
   position: relative; isolation: isolate;
   font-family: var(--display); text-transform: uppercase;
@@ -183,8 +141,7 @@ em { font-style: normal; }
   background: transparent; padding: 0 0 .62em;
   transition: color .3s var(--ease);
 }
-/* no fill and no slab: on hover the rule gains the house band at its foot, the same
-   seven pixels of yellow every frame on the site wears */
+
 .btn::after {
   content: ''; position: absolute;
   left: 0; right: 0; top: calc(100% + 2px); height: var(--band);
@@ -200,8 +157,7 @@ em { font-style: normal; }
   margin: 10vh 0 0; padding-bottom: .5em;
 }
 .btn-light { color: var(--paper); margin-top: 28px; }
-/* over a photograph a cream rule disappears into whatever is behind it: the label takes
-   the same treatment a yellow word takes on a picture, and the rule turns yellow with it */
+
 .btn--onphoto {
   color: var(--yellow);
   -webkit-text-stroke: 1.6px var(--ink); paint-order: stroke fill;
@@ -211,26 +167,18 @@ em { font-style: normal; }
 .burger { display: none; }
 .mobile-menu { display: none; }
 
-/* ============ Hero (yellow, split-flap board) ============ */
-/* tall wrapper: its scroll length drives the hero animation */
 .hero-pin { position: relative; height: 280vh; }
 .hero {
   position: sticky; top: 0;
   background: var(--yellow);
   height: 100vh; overflow: hidden;
 }
-/* A wall of lit panels, the way a stage backdrop is built: hard-edged vertical columns of
-   different widths, grouped into blocks at different heights, each column a tone of the
-   house yellow. Nothing drifts — the wall stands still and answers the hand: every panel
-   lights as the pointer comes near it and fades as it leaves. And it leaves the middle
-   clear, so the sentence sits in a clearing the panels surround. No blur anywhere. */
+
 .hero-wall {
   position: absolute; inset: 0; z-index: 0; overflow: visible; pointer-events: none;
 }
 .hero-wall > * { will-change: opacity; }
-/* the panels are blurred into clouds: the ground stops being a grid of edges and becomes
-   a field of colour. The inner layer overshoots its frame so the blur's own soft edge is
-   clipped away instead of reading as a vignette. */
+
 .hero-wall {
   filter: blur(22px);
 }
@@ -241,25 +189,18 @@ em { font-style: normal; }
   position: absolute;
   background: var(--tone);
 }
-/* the wall carries on under the group photograph, so the ground does not stop dead at the
-   foot of the hero */
+
 .grow-wall { z-index: 0; }
 .grow-frame, .grow-copy { z-index: 1; }
-/* the lit state of a panel, carried by its own overlay so only one number has to change.
-   The panel saturates **up to the house yellow and no further**: #FFF868 is the ceiling,
-   never a step toward something deeper. */
+
 .hero-bar::after {
   content: ''; position: absolute; inset: 0;
   background: var(--yellow);
   opacity: var(--k, 0);
-  /* the glow used to fade in over .45s, so it trailed the pointer by nearly half a second and
-     read as sluggish. Cut to .18s: it lights under the hand almost at once, still eased so the
-     field of clouds never snaps on. */
+
   transition: opacity .18s var(--ease);
 }
 
-
-/* full-screen statements — scroll decrypts each one, left-aligned like a terminal poster */
 .hero-stack {
   position: absolute; inset: 0; z-index: 2;
   display: grid; align-items: center; justify-items: start;
@@ -273,12 +214,9 @@ em { font-style: normal; }
   font-weight: 400; line-height: .88; letter-spacing: -.03em;
   pointer-events: none;
 }
-/* Composed rather than set flat: each line carries its own scale and indent,
-   so the statement reads as a built object instead of a uniform block. */
+
 .hline { display: block; white-space: nowrap; }
-/* the opening line is set in Portrait, sentence case: the serif reads naturally
-   lowercase, where uppercase made it stiff */
-/* .hline in the selector so this step wins over the .l-md / .l-lg one below */
+
 .hstmt .hline.l-kicker {
   letter-spacing: .01em; line-height: 1.02;
   font-size: clamp(1.32rem, 3.2vw, 3.32rem);
@@ -287,67 +225,37 @@ em { font-style: normal; }
 .hstmt .l-md { font-size: clamp(2rem, 6.5vw, 6.7rem); }
 .hstmt .l-lg { font-size: clamp(2.6rem, 8.96vw, 9.2rem); }
 .hstmt .l-xl { font-size: clamp(3.2rem, 12.3vw, 12.8rem); }
-.hstmt .l-kicker { margin-bottom: .3em; }         /* the kicker breathes above the mass */
-/* ONE GRAMMAR FOR BOTH STATEMENTS: the block opens flush left on its first two lines, then
-   the tail steps right and the LAST line closes exactly under the right end of the mass
-   line. The claim already worked this way (fund under gender-lens); the first statement did
-   not, and its right edge zigzagged 298 / 908 / 426 / 726. Now both read as one built
-   object with the same silhouette. */
-/* THE FLOORS WERE SET FOR A 375 px PHONE, AND THEY STOP THERE. Below that the clamps hold at
-   their floor while the column keeps narrowing, so the mass line goes on running: at 320 px it
-   reached 311 with the 7vw margin at 298, leaving 9 px on the right against 22 on the left —
-   the title read as if it were falling off the screen. One notch down under 345 px, in the
-   same proportion for all four sizes so the block keeps its silhouette. The floors themselves
-   are untouched: everything from 345 px up is exactly as it was. */
+.hstmt .l-kicker { margin-bottom: .3em; }
+
 @media (max-width: 345px) {
   .hstmt .hline.l-kicker { font-size: 1.13rem; }
   .hstmt .l-md { font-size: 1.8rem; }
   .hstmt .l-lg { font-size: 2.35rem; }
   .hstmt .l-xl { font-size: 2.9rem; }
 }
-.hline--in1 { padding-left: 1.3em; }            /* the middle step of the stair */
-/* The closing line is ALIGNED, not indented by a magic number. The statement is only as wide
-   as its mass line, so `text-align: right` lands the last line on that edge at every width —
-   where a fixed em was exact on one screen and drifted on the others (the clamp floors reach
-   the small sizes at different rates, so on a phone the tail ran past the mass line). */
+.hline--in1 { padding-left: 1.3em; }
+
 .hline--in2, .hline--close { text-align: right; padding-left: 0; }
-/* Portrait carries the connecting lines: its texture against the narrow display
-   is what gives the statement character — the load-bearing words stay display. */
-/* Portrait appears once, lowercase, on the closing word: uppercase serif reads
-   badly, but a single lowercase serif word against the display face has poise. */
+
 .hstmt .l-serif-lc {
   font-family: var(--serif); text-transform: none;
   letter-spacing: 0; line-height: 1.06;
 }
 .hstmt .l-serif-lc .hmask { padding-bottom: .24em; margin-bottom: -.24em; }
 
-/* The two statements share one skeleton: same left origin, same kicker, same mass on the
-   second line, same stepped serif on the third. The exchange is then a substitution inside
-   a fixed frame — the block keeps its silhouette while the words change — which is what
-   ties the two phrases together. Nothing is laid behind the type to bind them: the twelve
-   European stars turned slowly back there, and nothing else on the site rotates. */
 .hstmt--claim { position: relative; }
-/* THE MASS LINE DOES NOT MOVE. Both statements are centred in the same cell, but the first
-   has four lines and the claim three — so the block the eye locks onto, the big second line,
-   landed 31 px lower on the claim and the exchange read as a drop. The claim therefore
-   RESERVES the line it does not use: the height of the missing l-md line, less the extra
-   leading its own closing line already carries (1.06 against .88). Both blocks are then the
-   same height, so centring puts their mass lines at exactly the same y, at every width. */
+
 .hstmt--claim::after {
   content: ''; display: block;
   height: calc(clamp(2rem, 6.5vw, 6.7rem) * 1.06 - clamp(2.6rem, 8.96vw, 9.2rem) * .18);
 }
-/* and the reserved line follows the step down under 345 px. IT HAS TO SIT HERE, after the rule
-   it replaces: the two selectors weigh the same, so the one written later wins whatever the
-   media query says — put beside the font sizes above, this was simply ignored and the mass
-   lines drifted 2 px apart. Measured at 320: 23 px puts them back on the same y, to the pixel. */
+
 @media (max-width: 345px) {
   .hstmt--claim::after { height: 23px; }
 }
 .hstmt .hmask { display: inline-block; overflow: visible; padding-bottom: .06em; margin-bottom: -.06em; vertical-align: bottom; }
 .hstmt .hln { display: inline-block; font-style: normal; transform: translateY(108%); will-change: transform; }
 
-/* discreet scroll cue: a thin line drawing downward, fades out as you scroll */
 .hero-cue {
   position: absolute; left: 50%; bottom: 4vh;
   width: 2px; height: 9vh;
@@ -368,7 +276,6 @@ body.loaded .hero-cue { opacity: 1; }
   100% { transform: scaleY(1); opacity: 0; }
 }
 
-/* ============ Section commons ============ */
 main section[id] { scroll-margin-top: 60px; }
 .sec-head { padding: 7vh 0 8vh; position: relative; }
 .sec-head h2 {
@@ -383,21 +290,16 @@ main section[id] { scroll-margin-top: 60px; }
 .sec-head.in-view h2 > span.rl { transform: translateY(0); }
 .sec-head.in-view h2 > span.rl:nth-child(2) { transition-delay: .1s; }
 .sec-sub { max-width: 34ch; margin-top: 26px; font-size: clamp(1.15rem, 1.6vw, 1.62rem); line-height: 1.4; color: var(--grey); }
-/* the portfolio's figures, a line under the invitation. The company count is written by the
-   script from the data, so it climbs on its own the day a company is added. */
+
 .sec-stat {
   margin-top: 14px; font-family: var(--serif);
   font-size: clamp(1.3rem, 1.9vw, 1.8rem); line-height: 1.3; color: var(--ink);
 }
 
-/* ============ About ============ */
-/* the intro closes into the growing photo, the sectors pick up after it */
 .about { padding: 20vh 4vw 14vh; }
 .about--sectors { padding: 14vh 4vw 16vh; }
 .about-head { max-width: 1250px; }
-/* word-by-word masked rise, triggered once when the block enters view */
 
-/* full-bleed group photo: fills the entire viewport */
 .about-photo { margin: 10vh -4vw; }
 
 .about-col {
@@ -411,15 +313,10 @@ main section[id] { scroll-margin-top: 60px; }
 .about-col p { color: var(--grey); font-size: clamp(1.02rem, 1.3vw, 1.3rem); }
 .about-col:hover p { color: var(--ink); }
 
-/* the rules were three times the width of the word they carried, which read as a very
-   wide, very empty band: the measure is cut back and the names sit at its left edge */
 .sectors { margin-top: 11vh; }
 
-/* the black now belongs to the areas of interest, which answer the thesis above */
 .about--sectors { background: var(--ink); color: var(--paper); padding: 11vh 4vw 12vh; }
-/* every gap between two sections of the home comes to the same 26vh: the bottom of one,
-   the top of the next, plus the 7vh a section head carries above its title. They ran from
-   20vh to 39vh, which read as an accident. */
+
 .about--sectors .sectors { margin-top: 0; }
 .about--sectors .sectors-kicker { color: rgba(250, 248, 240, .74); }
 .sectors-kicker {
@@ -427,26 +324,19 @@ main section[id] { scroll-margin-top: 60px; }
   font-size: clamp(1.1rem, 1.55vw, 1.6rem); letter-spacing: .16em;
   margin-bottom: 4vh;
 }
-/* what we look for, in the SAME voice as the two thesis sentences on the cream above — Portrait
-   serif, the same size and weight — so the criteria read as a third statement of the same kind,
-   only on the ink. It answers the kicker and leads into the four ruled areas beneath it. */
+
 .sectors-lead {
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(1.5rem, 3vw, 2.9rem); line-height: 1.32; letter-spacing: -.01em;
   color: var(--paper); max-width: none; margin: 0 0 7vh;
 }
-/* the five subjects carry the yellow, so the full-width line reads as a designed statement and
-   not a run-on. On the ink the word is plain yellow — no ink outline, which is only there to
-   hold yellow up on the cream. */
+
 .sectors-lead .yw { color: var(--yellow); -webkit-text-stroke: 0; }
-/* the criteria say what we look for; this labels WHERE — it gives the four ruled rows their own
-   head back (lost when the section's kicker became 'What we look for') so they no longer appear
-   out of nowhere under the serif. It reads as the header of the ruled list right below it. */
+
 .sectors-kicker--areas { margin-bottom: 3vh; }
 .sector {
   border-top: 1.5px solid var(--paper);
-  /* the band was too tall, not too wide: the names stay centred on the full measure and
-     the rows are cut back from 4.5vh of padding to 2.4vh */
+
   padding: 2.4vh 0;
   text-align: center;
   cursor: default; overflow: hidden;
@@ -456,11 +346,7 @@ main section[id] { scroll-margin-top: 60px; }
 .sector > span {
   display: block;
   font-family: var(--display); text-transform: uppercase;
-  /* the floor was set when the longest label was HEALTHTECH, 152 px at 2.6rem. AI & ENTERPRISE
-     SOFTWARE is 335 px at the same size, so below about 378 px it no longer fits the row and
-     broke onto a second line — one row of four suddenly half as tall again as its neighbours.
-     The floor therefore follows the width down (11vw is the widest this label can hold on one
-     line), which also keeps the four labels one set at one size. Above 378 px nothing changes. */
+
   font-size: clamp(min(2.6rem, 11vw), 7.5vw, 6.8rem); line-height: .95;
   transform: translateY(110%);
   transition: transform .8s var(--ease), letter-spacing .4s var(--ease);
@@ -469,10 +355,6 @@ main section[id] { scroll-margin-top: 60px; }
 .sector:hover { background: var(--yellow); color: var(--ink); }
 .sector:hover > span { letter-spacing: .04em; }
 
-
-/* ============ Growing photo (curaclimate-style opening) ============ */
-/* The frame opens from a small rectangle to the full screen as you scroll,
-   then dims and hands the screen over to the statement + manifesto link. */
 .grow-pin { position: relative; height: 320vh; }
 .grow {
   position: sticky; top: 0; height: 100vh; overflow: hidden;
@@ -486,7 +368,7 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .grow-frame img {
   width: 100%; height: 100%; object-fit: cover; object-position: center 20%;
-  /* matches the first frame the driver paints: the picture starts low, on the faces */
+
   transform: translateY(22%) scale(1.18); will-change: transform;
 }
 .grow-dim { position: absolute; inset: 0; background: var(--ink); opacity: 0; }
@@ -498,31 +380,24 @@ main section[id] { scroll-margin-top: 60px; }
   color: var(--paper); opacity: 0; pointer-events: none;
 }
 .grow-copy.on { pointer-events: auto; }
-/* the statement of the photograph is said in the other voice: Portrait, lower case, the
-   hero's voice — it is a sentence, not a heading, and the display caps made it a placard */
+
 .grow-title {
   font-family: var(--serif); font-weight: 400;
-  /* h2 is display and uppercase by default, and Portrait is never set in capitals */
+
   text-transform: none;
   font-size: clamp(1.7rem, 4vw, 4.2rem); line-height: 1.05; letter-spacing: -.02em;
-  /* its measure stays inside the measure of the paragraph beside it: the statement led
-     the eye off to the right of the page while the answer stopped short */
+
   max-width: 9em;
 }
 
 .grow-side p {
   font-family: var(--serif); font-size: clamp(1.05rem, 1.55vw, 1.55rem); line-height: 1.5;
   color: rgba(250, 248, 240, .88); max-width: 46ch;
-  /* the two fonts park their glyphs differently inside the line: this trim puts the
-     first line's ascender exactly on the cap-top of the title, at every width */
-  /* the two fonts park their glyphs differently: this trim puts the first line's
-     ascender on the cap-top of the statement, now that the statement is Portrait */
+
   padding-top: calc(.10 * clamp(1.85rem, 4.5vw, 4.7rem) - .361em);
 }
 .grow-side p + p { margin-top: 1.1em; }
-/* the two halves end on the same line: the column is stretched to the height the statement
-   sets, and the link falls to its foot. Otherwise the left block ran a good sixty pixels
-   deeper than the right one. */
+
 .grow-side { align-self: stretch; display: flex; flex-direction: column; }
 .grow-side .btn { margin-top: auto; }
 .grow-btn { margin-top: 3.4vh; }
@@ -532,11 +407,6 @@ main section[id] { scroll-margin-top: 60px; }
   .grow-frame { clip-path: inset(24% 8% 24% 8%); }
 }
 
-/* ============ The fund at a glance (black band) ============ */
-/* Four terms read across a single ruled band — the fund's card, not a stack of
-   counting figures. It carries straight on from the four sector lines above. */
-/* the thesis takes the yellow: cream left it too quiet, and a saturated ground is what
-   makes the four terms carry without having to enlarge them */
 .stats { background: var(--paper); color: var(--ink); padding: 15vh 4vw 14vh; }
 .stats-kicker {
   font-family: var(--display); text-transform: uppercase;
@@ -544,94 +414,45 @@ main section[id] { scroll-margin-top: 60px; }
   color: rgba(16, 16, 16, .74);
   margin-bottom: 5vh;
 }
-/* the two sentences of the thesis UNFOLD, they do not snap. This is the statement the page
-   is built around: the wipe runs at 1.9 s rather than 1.1, and the second sentence waits 1.5 s
-   rather than 0.9, so the pair is read as it arrives instead of appearing all at once. */
+
 html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
-/* THESIS IS ONE SENTENCE. Four items in a row under four grey labels is what every fund
-   site does, ours included until now — and it is exactly what the neighbours do. So the
-   thesis is written instead of tabulated: a sentence in Portrait, lower case, with the four
-   facts standing inside it in display caps, each on the house yellow band. The facts are
-   still read at a glance, being the only thing in the paragraph that carries weight, and
-   the connective words say what a grey label used to have to explain. */
+
 .thesis-line {
   font-family: var(--serif); font-weight: 400;
   font-size: clamp(1.9rem, 4.5vw, 4.8rem); line-height: 1.26; letter-spacing: -.012em;
   color: var(--ink); max-width: 33ch; margin-top: 2vh;
 }
 .thesis-line + .thesis-line {
-  /* the second answers from the right: set at the same place it read as one paragraph
-     broken in two. It carries a wider measure than the first because it is a longer sentence
-     — at 33ch it fell onto three lines; 42ch holds it to two, matching the first line's rhythm. */
+
   margin: 1.1em 0 0 auto; text-align: right; max-width: 42ch;
 }
-/* THE OFFSET NEEDS ROOM TO BE AN OFFSET. Past this width the 33ch measure is wider than the
-   column, so the block already fills it and there is nowhere to push the sentence to — all
-   `text-align: right` does then is ragged the left edge of a paragraph sitting directly under
-   a flush-left one, which reads as a mistake rather than as an answer. Both start at the
-   margin instead. */
+
 @media (max-width: 860px) {
   .thesis-line + .thesis-line { margin-left: 0; text-align: left; }
 }
-/* the facts stay in the voice of the sentence — one font, one size — and it is the yellow
-   band under them that tells you they are the facts */
+
 .thesis-line b {
   font-weight: 400;
   border-bottom: var(--band) solid var(--yellow);
   padding-bottom: .02em;
   white-space: nowrap;
 }
-/* Thesis stands on the same field of clouds as the hero, lit by the same code. The section
-   clips it: generated past its edges for the blur, the field would otherwise smudge the
-   hard edge of the black band below. */
+
 .stats { position: relative; overflow: hidden; }
 .stats-wall { z-index: 0; }
 .stats > :not(.stats-wall) { position: relative; z-index: 1; }
-/* a closed card shows only its spine, and the label reads down it */
 
-
-/* The other section heads stand on the same field of clouds as the hero and Thesis, so the
-   ground of the page is continuous and the hand brings the yellow out wherever it goes.
-   Kept almost invisible at rest: it is a ground, not a decoration. */
 .portfolio, .team, .news, .faq { position: relative; }
-/* ONE GROUND PER STRETCH OF CREAM, edge to edge. A field per section head meant a
-   junction between every band and the next, and fading their edges only turned a line into
-   a fading line — still something to see. So the whole cream run (portfolio + team, then
-   news + FAQ) stands on a single field: it begins where the black band above it ends and
-   stops where the next one starts, so there is no cream-to-field edge anywhere.
-   The grain is coarser than the hero's (`grain` in `makeWall`): over three thousand pixels
-   the hero's fine columns would have read as stripes, and a wall that tall at that grain
-   costs four hundred panels to light on every pointer pass. */
-/* The wrapper is what clips the field, and it must: the panels are generated 9 % past
-   every edge for the blur to have material, so without this the clouds spilled 285 px
-   into the black band above and the black section below. The wall itself stays
-   `overflow: visible` — the clip has to happen on the ancestor, after the filter. */
+
 .ground { position: relative; overflow: hidden; }
 .ground > :not(.ground-wall) { position: relative; z-index: 1; }
 .ground-wall { z-index: 0; }
 .pf-rows { position: relative; }
 .portfolio > :not(.head-wall), .team > :not(.head-wall),
 .news > :not(.head-wall), .faq > :not(.head-wall) { position: relative; z-index: 1; }
-/* the field is generated past its edges for the blur, so the section clips it */
+
 .portfolio, .team, .news, .faq { overflow: hidden; }
 
-/* ---- the house band ---- */
-/* A frame that carries a subject stands on a thin yellow band: down its left side and
-   along its foot, the block being the size of the frame and simply offset. Used by the
-   open page of a cascade, the fixed picture under a page title, and the company boxes.
-   Not by the repeated thumbnails — eight pixels on forty tiles is noise, not emphasis. */
-/* NO BAND UNDER THE POINTER. A photograph answers by showing what it holds — the founders
-   behind a logo, the name over a face, the presentation over a portrait — and that is the
-   whole answer. The band stays where it belongs: on the frames that wear it permanently —
-   the print in hand of a page opening, the company card, the manifesto plate — never as a
-   hover state. */
-/* in a grid with no gutters the band would slide under the next tile */
-
-/* ---- who is behind the mark ---- */
-/* Under the pointer the plate turns over: the logo goes and the founders take its place,
-   on the same beat as the band. The photographs are cut to one trim, centred on the faces
-   Vision found in each one, and read in black and white — fifteen pictures shot in fifteen
-   different rooms only hold together stripped of their colour. */
 .pf-card, .pf-all-card { position: relative; overflow: hidden; }
 .pf-shot {
   position: absolute; inset: 0; overflow: hidden;
@@ -649,11 +470,8 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
 .pf-logo { transition: opacity .32s var(--ease); }
 .pf-card:hover .pf-logo, .pf-all-card:hover .pf-logo { opacity: 0; }
 
-/* ============ Portfolio ============ */
 .portfolio { padding: 7vh 4vw 0; }
-/* generous vertical room: the rows cross over a longer stretch of scroll */
-/* the rows are masked into the ground at the sides rather than cut by it: a plate leaves
-   the page the way a portrait leaves the community's stage */
+
 .pf-rows {
   padding: 4vh 0 5vh; overflow: hidden;
   -webkit-mask-image: var(--fade-x);
@@ -667,8 +485,7 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
   will-change: transform;
   padding: 8px 0;
 }
-/* on the home rows the mark stands alone: the logo already says the name, and the
-   sector is the business of the portfolio page, where it can be filtered */
+
 .pf-card {
   display: flex;
   width: clamp(240px, 24vw, 320px);
@@ -684,18 +501,13 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
   border-bottom: 1.5px solid var(--ink); padding: 20px;
 }
 .pf-logo img { max-height: 62px; max-width: 62%; object-fit: contain; }
-/* a logo that has not arrived yet: the name stands in its place, in the house display */
+
 .pf-logo--word {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.1rem, 1.5vw, 1.6rem); letter-spacing: .02em; color: var(--ink);
   text-align: center; line-height: 1.05;
 }
 
-/* ============ Team ============ */
-/* The home's gallery is a composition, not a line: two portraits at the top left, three
-   stepping down to the bottom right, and the two cells that remain carry the words — the
-   sentence facing the first pair, the button under the last. Nothing is auto-placed: each
-   cell is named, so the source order of the tiles does not matter. */
 .team-row {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1.4vw; margin: 5vh 0 0;
@@ -719,16 +531,14 @@ html.anim .thesis-line[data-reveal="card"] { transition-duration: 1.9s; }
   filter: grayscale(1) contrast(1.04);
   transition: filter .6s var(--ease), transform .6s var(--ease);
 }
-/* the settled clip-path of an image reveal is inset(0 0 0 0), and a clip-path cuts the
-   box-shadow too: the band would be shaved off. Leave it the room it needs. */
+
 html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .team-face:hover img { filter: grayscale(.15) contrast(1.02); }
 .team-face .pcf-tag { padding: 3.4em 1em .9em; }
 .team-face .pcf-tag b { font-size: clamp(.86rem, 1.02vw, 1.02rem); }
 .team-face .pcf-tag i { font-size: clamp(.9rem, 1.05vw, 1.05rem); }
 .team-face:hover .pcf-tag { opacity: 1; transform: none; }
-/* narrow: the composition gives way to a plain grid, the sentence above and the button
-   below. `order` is what places them, auto-placement having no named cells to follow. */
+
 @media (max-width: 1100px) {
   .team-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .team-face:nth-of-type(1), .team-face:nth-of-type(2), .team-face:nth-of-type(3),
@@ -740,14 +550,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 @media (max-width: 520px) { .team-row { grid-template-columns: 1fr; } }
 .team { padding: 14vh 4vw 24vh; }
 
-/* home: the text names whoever stands in the large frame, the queue is on the right */
 .team .sec-head { padding-bottom: 5vh; }
 .team-intro-sub {
   font-family: var(--serif); font-size: clamp(1.15rem, 1.75vw, 1.75rem); line-height: 1.4;
   color: var(--ink); max-width: 34ch; margin: 0;
 }
 
-/* dedicated team.html: classic grid, modest cards */
 .team-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
   max-width: 1060px;
@@ -769,30 +577,16 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: transform .28s var(--ease);
 }
 .member:hover .member-photo img { --sc: 1.05; }
-/* per-portrait framing tweaks (also applied in the home carousel) */
+
 .member-photo img[src*="marie"] { object-position: center 30%; }
 .member-photo img[src*="arthur"] { object-position: center 28%; }
-/* two faces sat further back in their frame than the rest — brought forward so every head
-   reads at the same distance. Tatiana needed the larger step, Natacha only a touch. The base
-   scale is set per portrait AND the hover step is redeclared for each, or the shared
-   `.member:hover` rule (more specific than a bare src match) would pull the zoom back to 1.05. */
-/* zoomed in, and the face dropped further so the head sits lower with more air above it. The
-   team gallery pins --py to 0 for every portrait (see .team-gallery .member-photo img below), a
-   rule that out-specifies a bare src match — so the push-down is re-set there at a specificity
-   that clears it. */
+
 .member-photo img[src*="tatiana"] { --sc: 1.32; object-position: center 4%; }
 .member:hover .member-photo img[src*="tatiana"] { --sc: 1.37; }
 .team-gallery .member-photo img[src*="tatiana"] { --py: 8%; }
 .member-photo img[src*="natacha"] { --sc: 1.08; object-position: center 14%; }
 .member:hover .member-photo img[src*="natacha"] { --sc: 1.13; }
-/* the presentation arrives over the portrait, verbatim from sistafund.com */
-/* SET AS LARGE AS THE PORTRAIT ALLOWS. The binding constraint is the longest bio, which has
-   to stay inside its own frame — so the room was taken back from the panel rather than from
-   the pictures: a little less padding, a little less leading, a slightly tighter gap. The
-   type then goes from 3.15cqw to 3.6cqw (+14 %) and the longest bio still keeps two lines of
-   headroom. Measured: it overflows at 4.0cqw, so 3.6 is not a guess. */
-/* the picture and its presentation share one box, so the panel can be laid over the portrait
-   here and step out from under it on a phone */
+
 .member-shot { position: relative; }
 .member-bio {
   position: absolute; inset: 0;
@@ -801,16 +595,13 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   opacity: 0; transition: opacity .5s var(--ease);
   font-family: var(--serif); font-size: clamp(.8rem, 1.05vw, 1.15rem); line-height: 1.45;
 }
-/* the presentation is set against the width of its own portrait, not the window:
-   three to a row makes a narrower picture, and the text has to follow it down */
+
 @supports (container-type: inline-size) {
   .team-gallery .member-shot { container-type: inline-size; }
   .member-bio { font-size: clamp(.8rem, 3.6cqw, 1.15rem); }
 }
 .member:hover .member-bio, .member.open .member-bio { opacity: 1; }
-/* no rule above the About line: it is already set apart by being yellow, in display capitals,
-   against a serif paragraph — the filet was a third way of saying the same thing, inside a
-   panel that is itself a frame over a portrait. The space stays; only the line goes. */
+
 .member-fun {
   color: var(--yellow); font-family: var(--display); text-transform: uppercase;
   font-size: .72rem; letter-spacing: .08em; line-height: 1.45;
@@ -827,43 +618,22 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .member h3 { font-size: clamp(1.3rem, 1.65vw, 1.65rem); margin: 14px 0 3px; }
 .member-role { color: var(--grey); font-size: clamp(.95rem, 1.15vw, 1.15rem); }
 
-/* ============ Community (a ruled grid that fills as you come onto it) ============ */
-/* The grid is drawn first and empty: the gaps are the rules, the cells are the ground.
-   Portraits then drop in one by one along the diagonal as the section crosses the
-   screen. The words sit inside the grid as a tile of their own, so the sentence is part
-   of the structure rather than floating over it. */
-/* THE COMMUNITY AS IT IS MET. Not a list, not a band of portraits travelling, not a field
-   of names: the two informal pictures of the community, large, beside the words. They keep
-   their colour — the rule that holds portraits to black and white is about portraits, and on
-   the ink it is the colour of these that lights the section. One is hung lower than the
-   other, so the pair reads as two prints laid down rather than as a pair of slots.
-   The gap before the band is taken on the CREAM side (the team's own bottom margin): the eye
-   measures the cream it crosses, not the padding inside the black. */
 .community { background: var(--ink); color: var(--paper); padding: 12vh 4vw 14vh; --shot-edge: 1.5px; }
-/* THE COLUMN IS HELD AT BOTH ENDS, like the team's composition and like the group photo.
-   The words used to float, centred against the pictures: the title started 133 px below the
-   top of the first frame and the button ended nowhere in particular. Now the column is
-   stretched to the height of the pictures — the title opens on the same line as the first
-   frame, and the button falls to the foot (`margin-top: auto`), so the section closes on ONE
-   ruled line: the button's rule at the left, the row of marks under the frames at the right. */
+
 .comm-top {
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
   gap: 3.4vw; align-items: stretch;
 }
 .comm-words { display: flex; flex-direction: column; }
-/* aligned on the CAPS, not on the text box: display type carries 0.2 em of leading above its
-   capitals, so flush with the frame the title sat 20 px low against a hard edge */
+
 .comm-head { padding: 0 0 1vh; }
 .comm-head h2 { margin-top: -.2em; }
 .comm-note  { margin-top: 3.5vh; }
-/* the marks are drawn in the middle of a 16 px hit area, so the button's own rule drops by
-   the same amount to land on their line */
-/* flex, so the button is not an inline box: as a line box it carried 18 px of leading under
-   its own rule and the foot of the column was not the foot of the rule */
+
 .comm-cta   { margin-top: auto; margin-bottom: 7px; display: flex; align-items: flex-end; }
 .comm-note p { color: rgba(250, 248, 240, .78); font-size: clamp(1.15rem, 1.5vw, 1.5rem); line-height: 1.45; max-width: 40ch; }
 .comm-cta .btn { white-space: nowrap; margin: 0; }
-/* the words rise as they arrive, the same gesture as every other section head */
+
 .comm-word > * { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .comm-word.in-view > * { opacity: 1; transform: none; }
 
@@ -871,8 +641,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4vw;
   align-items: start;
 }
-/* the frame is the control: it is asked for the next picture, so there is no arrow and no
-   gauge anywhere near it */
+
 .comm-shot {
   position: relative; margin: 0; overflow: hidden;
   aspect-ratio: 4 / 5.3;
@@ -881,20 +650,10 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: border-color .3s var(--ease);
 }
 .comm-shot:hover, .comm-shot:focus-visible { border-color: rgba(250, 248, 240, .58); outline: none; }
-/* No stack of edges under the frame: a false print showing its corner is a drawn object,
-   not a photograph. The row of rules below says how many there are. */
+
 .comm-pile { position: relative; }
 .comm-pile--low { margin-top: 9vh; }
-/* how many there are and where you are: one rule per picture, the one in view long, the
-   others short. Rules, not rounded bars — the site is made of straight lines. The button
-   keeps a clickable height and the rule is drawn inside it.
-   ONE COMPONENT, two homes: the community here and the page openings of Team, Portfolio and
-   Community, which used to carry a filling gauge. The two tones come from the context, since
-   yellow on cream is 1.05:1 and would not be seen — on the ink the live mark is yellow, on
-   the cream it is ink.
-   The row starts on the PHOTOGRAPH, not on its frame: the frame carries a 1.5 px border, so
-   flush with the frame box the first rule began a hair left of the picture above it, and at
-   any magnification that reads as a miss. */
+
 .comm-dots, .pcdots {
   display: flex; align-items: center; gap: 14px;
 }
@@ -902,13 +661,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   grid-column: 1 / -1;
   margin-top: 4.5vh; padding-left: var(--shot-edge);
 }
-/* THE TWO GROUNDS ARE SET TO THE SAME CONTRAST, not to the same number, and the number they are
-   set to is the one that can be SEEN. The off state used to be .32 cream on ink and .2 ink on
-   cream — a matched pair on paper that is not one in the eye: 2.8:1 and 1.49:1. A mark waiting to
-   be clicked was reading as a smudge in the ground, and on the light pages barely as that.
-   Both are taken to 4.1:1, which is the tone at which an unlit rule states there is something
-   there. The hovers keep their distance above it, and the live mark is untouched at full strength:
-   what tells the current picture apart was never the faintness of the others. */
+
 .community { --mark-off: rgba(250, 248, 240, .43); --mark-hover: rgba(250, 248, 240, .72); --mark-on: var(--yellow); }
 .page-open { --mark-off: rgba(16, 16, 16, .55); --mark-hover: rgba(16, 16, 16, .78); --mark-on: var(--ink); }
 .comm-dot, .pcdot {
@@ -930,32 +683,25 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 32%;
   filter: contrast(1.02);
-  /* two layers, one on top of the other: a change is a dissolve between them. Setting a new
-     source on a visible image blanks it for a frame — that was the flash. */
+
   opacity: 0; transition: opacity .55s var(--ease);
 }
 .comm-shot img.on { opacity: 1; }
-/* framing: two of these were taken in landscape and are cut to a standing frame, so each
-   one says where its own subject is */
+
 .comm-shot img[src*="comm-talking"] { object-position: center 38%; }
 .comm-shot img[src*="comm-poilane"] { object-position: center 52%; }
 .comm-shot img[src*="comm-fans"]    { object-position: center 28%; }
 @media (max-width: 1000px) {
   .comm-top { grid-template-columns: 1fr; gap: 6vh; }
   .comm-pile--low { margin-top: 0; }
-  /* one column: there is no picture beside the words to hold the foot of the column, so the
-     button takes its own room again instead of collapsing onto the sentence */
+
   .comm-cta { margin-top: 5vh; margin-bottom: 0; }
 }
-/* TWO PRINTS SIDE BY SIDE NEED A SCREEN TO BE SIDE BY SIDE ON. Halved again inside a phone
-   they came to 168 px across — the whole point of this section is that the community is met
-   at full size, and two thumbnails say the opposite. One under the other, each the width of
-   the page. */
+
 @media (max-width: 700px) {
   .comm-shots { grid-template-columns: 1fr; gap: 3.5vh; }
 }
-/* the name is written on the photograph itself, not on a plate laid over the face: just
-   enough shade rising from the foot of the frame to carry the letters */
+
 .pcf-tag {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
   padding: 3.2em .8em .75em;
@@ -964,7 +710,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   opacity: 0; transform: translateY(10px);
   transition: opacity .34s var(--ease), transform .46s var(--ease);
 }
-/* the portraits of the home page's team queue are named the same way */
+
 .pcf-tag { padding: 3.4em 1.4em 1.1em; z-index: 4; }
 .pcq.is-top:hover .pcf-tag { opacity: 1; transform: none; }
 .pcf-tag b { font-size: clamp(1.05rem, 1.3vw, 1.3rem); letter-spacing: .04em; }
@@ -979,7 +725,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   font-size: .82rem; color: rgba(250, 248, 240, .82);
 }
 
-/* ============ FAQ ============ */
 .faq { padding: 14vh 4vw 16vh; position: relative; }
 .faq-list { }
 .faq-item { border-top: 1.5px solid var(--ink); }
@@ -993,11 +738,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: background .3s, padding .3s;
 }
 .faq-item summary::-webkit-details-marker { display: none; }
-/* NO YELLOW SLAB ON THE CREAM. The FAQ sits on the cloud field, which already lights under
-   the hand: filling the whole row with yellow on top of that is two answers to one gesture.
-   The row answers like every other ruled line here — the yellow rises at its foot, the label
-   steps in. The slab stays on the SECTOR rows, which are on black and have no field beneath
-   them, so there the inversion is the only thing that happens. */
+
 .faq-item summary { position: relative; }
 .faq-item summary::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--band);
@@ -1014,39 +755,19 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .faq-item p {
   padding: 0 6px 34px;
   color: var(--grey); font-size: clamp(1.05rem, 1.35vw, 1.35rem);
-  /* the answer takes the whole width of its row: what matters here is the height of the
-     block, not the length of the line — on a reading measure it stood four lines deep and
-     left half the page empty. The interline is opened a little to compensate: on a long
-     measure it is what lets the eye find the start of the next line. */
+
   max-width: none; line-height: 1.68;
 }
-/* extra questions stay folded until "Show all"; height animates via grid-rows */
+
 .faq-more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
 .faq-more.open { grid-template-rows: 1fr; }
 .faq-more-inner { overflow: hidden; min-height: 0; }
-/* "Show all questions" is a BUTTON, not a row of the list. As a full-width ruled line with a
-   plus sign it read as a sixth question; it is the site's ordinary button now — label at one
-   end, arrow at the other, rule between — and the arrow points the way the fold moves. */
+
 .faq-fold-cta { margin-top: 5vh; }
 .faq-fold-cta .btn { margin: 0; }
 
-/* ============ News ============ */
 .news { padding: 9vh 4vw 12vh; }
 
-/* ---- the home's press: the same queue the dedicated pages open on ---- */
-/* the heading keeps the full width above; underneath, the naming column takes only the
-   room it needs so the pictures can have the rest. One shell for both queues. */
-
-/* ---- the press index ---- */
-/* A press page reads as a list. The stories are ruled rows, exactly like the sector
-   lines, and each one inverts to yellow under the pointer — that is where the colour
-   comes into this section. The frame beside them holds whichever story you are on, so
-   the pictures are never cropped differently from one another. */
-/* THE HOME'S PRESS: a front page and a run. The newest story takes a large picture and a
-   title at fifty; the ones behind it pass under it in a track that travels with the scroll,
-   masked into the ground at the sides like the portfolio rows. A column of ruled rows gave
-   the newest no more weight than the oldest and made the section twice as deep as any
-   other on the page. */
 .news-top { margin-top: 6vh; }
 .ncard { display: block; }
 .ncard--lead {
@@ -1061,7 +782,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: box-shadow .3s var(--ease);
 }
 .ncard--lead .ncard-shot { margin: 0; aspect-ratio: 4 / 3; }
-/* a story whose picture has not arrived keeps its size, on one column */
+
 .ncard--lead.ncard--nofoto { grid-template-columns: minmax(0, 1fr); }
 .ncard-shot img {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -1082,20 +803,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   font-size: clamp(1.3rem, 1.85vw, 1.9rem); line-height: 1.24; margin-top: 1.4vh;
 }
 .ncard--lead .ncard-title { font-size: clamp(1.8rem, 3vw, 3.1rem); line-height: 1.16; }
-/* the link is said as a rule, like every other on the site, and it lifts with the card */
-/* the same button as everywhere else on the site: label at one end, arrow at the other,
-   rule between, and the band rising at its foot under the hand */
+
 .ncard-go { margin-top: 3vh; }
 .ncard-go .btn-arrow { font-style: normal; }
 .ncard:hover .ncard-go::after { transform: scaleX(1); }
-/* the ones behind the front page pass under it, and are masked into the ground at the
-   sides exactly as the portfolio rows are */
-/* THE FADE BELONGS AT THE SCREEN EDGE, not at the reading margin. Both runs carry the same
-   gradient, but the portfolio rows are a full-width block (they sit outside the padded
-   section) while this one was inside the 4vw padding: its fade therefore fell on the first
-   card, at the very line where every other element on the page starts crisply, and read far
-   harder than the portfolio's for that reason alone. The run is pulled out to the full width
-   and the track is padded back in, so the cards still line up with the margin. */
+
 .news-run {
   margin: 7vh -4vw 0; overflow: hidden;
   -webkit-mask-image: var(--fade-x);
@@ -1110,31 +822,27 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 @media (max-width: 900px) {
   .ncard--lead { grid-template-columns: 1fr; gap: 2.4vh; }
 }
-/* every press picture is landscape, so the block is shallower and each place with it */
 
-/* the headline turns over with the picture */
 @keyframes leadIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 @media (max-width: 900px) {
     .team-intro-sub { max-width: none; }
 }
 
-/* ---- press cards, three to a row ---- */
 .news-cards {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 5vh 26px; align-items: start;
 }
 .nmc { display: flex; flex-direction: column; min-width: 0; }
-/* the wrapper is invisible on an ordinary card and becomes the column beside the picture
-   on the one that leads the page */
+
 .nmc-body { display: contents; }
-/* the latest story arrives first and at its own size, the way a paper leads its front */
+
 .nmc--lead {
   grid-column: 1 / -1; flex-direction: row; align-items: stretch;
   gap: 2.6vw; margin-bottom: 3vh;
 }
 .nmc--lead .nmc-photo { flex: 0 0 54%; aspect-ratio: 16 / 10; }
 .nmc--lead .nmc-body {
-  /* the headline starts on the top edge of the picture, it is not centred on its height */
+
   display: flex; flex-direction: column; justify-content: flex-start; gap: 1.4vh;
   min-width: 0;
 }
@@ -1167,8 +875,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: block;
 }
 .nmc:hover .nmc-title { color: var(--grey); }
-/* the home's control sits in the flow: needs to out-specify .pcnav, declared further
-   down and absolute for the picture cascades */
 
 @media (max-width: 980px) { .news-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .news-cards { grid-template-columns: 1fr; } }
@@ -1191,10 +897,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .news-card:hover .news-img img { --sc: 1.05; filter: grayscale(0); }
 .news-card h3 { font-size: clamp(1.35rem, 1.85vw, 1.85rem); line-height: 1.06; flex: 1; }
 
-/* ============ CTA (yellow) ============ */
-/* The closing screen holds nothing but the mark. It carries no field of its own: it sits
-   INSIDE the second ground (news + FAQ + this), because two cream fields meeting make a
-   junction — the very line this page is not supposed to have anywhere. */
 .cta {
   position: relative;
   color: var(--ink);
@@ -1208,8 +910,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   pointer-events: none;
 }
 .cta-brand img { width: 100%; }
-/* said in the other voice, Portrait lower case: it is a question put to the reader, not a
-   headline. h2 is display and uppercase by default, hence the reset. */
+
 .cta-title {
   position: relative; font-family: var(--serif); text-transform: none;
   font-size: clamp(1.25rem, 1.85vw, 1.95rem); line-height: 1.12; letter-spacing: -.02em;
@@ -1222,18 +923,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .cta.in-view .cta-title .line:nth-child(1) > span { transform: translateY(0); transition-delay: .05s; }
 .cta.in-view .cta-title .line:nth-child(2) > span { transform: translateY(0); transition-delay: .15s; }
 .cta.in-view .cta-title .line:nth-child(3) > span { transform: translateY(0); transition-delay: .25s; }
-/* the question closes the footer from the right: the three columns take the room they
-   need on the left and this takes the rest */
-/* no masked rise down here: the lines are simply there. The reveal was keyed on `.cta`
-   coming into view, and only the home page runs that observer — on the five other pages
-   the question would have stayed hidden under its mask for ever. */
-/* THE E-MAIL STAYS ON THE SENTENCE'S LINE. With flex-wrap the button was the thing that gave
-   way: below about 1200 px it dropped underneath, and the two read as two separate blocks
-   instead of one closing line. It is the SENTENCE that should give way — it has somewhere to
-   go, the button does not. So the row never wraps, the sentence is allowed to shrink and fold
-   inside its own box, and the button keeps its width whatever happens.
-   `last baseline` sets the e-mail on the sentence's LAST line, so a folded sentence still ends
-   level with it; browsers that do not know it fall back to the first baseline. */
+
 .footer-say {
   text-align: right;
   display: flex; justify-content: flex-end; gap: 2.2vw;
@@ -1245,42 +935,29 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .footer-say .cta-btn { flex: 0 0 auto; }
 .footer-say .cta-title .line > span { transform: none; }
 .footer-say .cta-title .line { text-align: right; }
-/* in the footer the address is a label, not a button: no rule under it, and it takes the
-   yellow under the hand like every other link down here */
+
 .cta-btn { margin: 0; flex: 0 0 auto; font-size: clamp(1rem, 1.18vw, 1.25rem); }
 .footer-say .cta-btn { border-bottom: 0; padding-bottom: 0; }
 .footer-say .cta-btn::after { display: none; }
 .footer-say .cta-btn:hover { color: var(--yellow); }
 
-/* ============ Footer ============ */
 .footer { background: var(--ink); color: var(--paper); padding: 7vh 4vw 30px; }
-/* TWO COLUMNS THAT NEVER HALF-BREAK. This was a flex row with flex-wrap, and the sentence is
-   a long one: below about 1390 px the whole block dropped onto a second line, still aligned
-   right, leaving 837 px of emptiness beside the three columns and making the footer 44 % taller
-   (326 px to 471). A window that is not full screen on a Mac is nearly always in that range.
-   A grid instead: the sentence gets the room that is left and WRAPS INSIDE its column rather
-   than pushing itself onto a line of its own. The two halves stay side by side all the way
-   down to the point where they genuinely cannot, and there it becomes one column, on purpose. */
+
 .footer-top {
   display: grid; grid-template-columns: auto minmax(0, 1fr);
   align-items: flex-start;
   gap: 5vw; margin-bottom: 3.4vh;
 }
-/* the note runs the full width of the page on its own line: on a 620px measure it stacked
-   five lines deep and it was the note, not the columns, that set the height of the footer */
+
 .footer-legal-block {
   display: flex; flex-direction: column; gap: 12px;
   margin-bottom: 3vh;
 }
 .footer-cols { display: flex; gap: 5vw; flex-wrap: wrap; align-items: flex-start; }
-/* one column below this: the three columns and the sentence no longer coexist, so the footer
-   stacks deliberately instead of letting the flow decide badly */
+
 @media (max-width: 900px) {
   .footer-top { grid-template-columns: 1fr; gap: 5vh; }
-  /* and here the e-mail DOES go back under the sentence: the column is the width of the page
-     now, so holding them on one row only squeezed the sentence into four lines against a
-     button that will not shrink. Above this the row is what closes the footer; below it there
-     is nothing left to close. */
+
   .footer-say {
     text-align: left; justify-content: flex-start; gap: 2.4vh;
     flex-wrap: wrap; align-items: baseline;
@@ -1296,7 +973,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   margin-bottom: 6px;
 }
 .footer-col a:hover { color: var(--yellow); }
-/* the NGO is its own destination, so it reads as a link rather than a list */
+
 .footer-col--go { position: relative; padding-bottom: 10px; }
 .footer-go {
   font-family: var(--display); text-transform: uppercase;
@@ -1312,8 +989,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transition: transform .4s var(--ease);
 }
 .footer-col--go:hover::after { transform: scaleX(1); }
-/* the legal note is there to be read: at .8rem and 45 % it was a grey texture. There is
-   room in that column, so it takes it. */
+
 .footer-legal {
   font-size: clamp(.92rem, 1.02vw, 1.05rem); color: rgba(250, 248, 240, .72);
   line-height: 1.5;
@@ -1322,8 +998,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   font-family: var(--display); text-transform: uppercase;
   letter-spacing: .08em; font-size: .8rem; color: rgba(250, 248, 240, .82);
 }
-/* one closing line: the copyright at one end, the three notes at the other, and the rule
-   above them both — nothing hangs below it */
+
 .footer-bottom {
   display: flex; align-items: baseline; justify-content: space-between;
   flex-wrap: wrap; gap: 16px 28px;
@@ -1334,7 +1009,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .footer-notes { display: flex; gap: 28px; flex-wrap: wrap; }
 .footer-bottom a:hover { color: var(--yellow); }
 
-/* ============ Overlays ============ */
 .overlay {
   position: fixed; inset: 0; z-index: 250;
   background: var(--ink); color: var(--paper);
@@ -1344,7 +1018,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   overflow-y: auto;
 }
 .overlay.open { opacity: 1; visibility: visible; }
-/* not a plate: a label on a rule, like every other button on the site */
+
 .overlay-close {
   position: fixed; top: 26px; right: 4vw; z-index: 5;
   font-family: var(--display); text-transform: uppercase;
@@ -1357,11 +1031,8 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 
 .manifesto { padding: 9vh 4vw 6vh; width: 100%; }
 
-
-/* overlay filters */
 .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 6vh; }
 
-/* the sector mark, sistafund.com's own picto, at the head of the filter row */
 .sec-badge {
   position: relative; flex: 0 0 auto; margin-left: auto;
   width: 66px; aspect-ratio: 810 / 820;
@@ -1373,7 +1044,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .sec-badge img.on { opacity: 1; transform: none; }
 
-/* the same marks, summoned at the pointer over the areas of interest */
 .sec-cursor {
   position: fixed; top: 0; left: 0; z-index: 90;
   width: clamp(64px, 7vw, 102px); aspect-ratio: 810 / 820;
@@ -1387,11 +1057,9 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   opacity: 0; transition: opacity .25s var(--ease);
 }
 .sec-cursor img.on { opacity: 1; }
-/* the line turns black under the pointer, so the mark turns over with it */
+
 .sec-cursor.inv img { filter: invert(1); }
-/* A filter is a label, not a box. Four bordered plates in a row is a widget, and the site
-   has none: the choice is said the way the nav says it, with the yellow rising under the
-   word. The one in force keeps its band. */
+
 .filter {
   position: relative; z-index: 1;
   font-family: var(--display); text-transform: uppercase;
@@ -1411,9 +1079,6 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .filter.active::after { transform: scaleX(1); }
 .filters { gap: 2.2vw; }
 
-/* full portfolio grid (overlay) */
-/* Four to a row, counted — not `auto-fill`, which fitted five on a wide screen and made
-   every plate small. The number of columns is a decision, not a consequence of the width. */
 .pf-all-grid {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 30px;
@@ -1432,11 +1097,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: flex; align-items: center; justify-content: center; padding: 32px;
 }
 .pf-all-card .pf-logo img { max-height: 64px; max-width: 66%; object-fit: contain; }
-/* THREE MARKS, NOT ALL OF THEM. Numi, Recupere Metals and The Exploration Company sit small in
-   their own files, so only these three are let out further than the shared cap — every other logo
-   keeps 62 % on the home row and 66 % in the grid. Placed after the grid rule so the source order
-   settles the tie and these win in both places. tec's artwork is nearly square and low-res, so it
-   is given height as well as width. */
+
 .pf-logo img[src*="numi"]     { max-width: 90%; max-height: 78px; }
 .pf-logo img[src*="recupere"] { max-width: 94%; max-height: 78px; }
 .pf-logo img[src*="tec"]      { max-width: 86%; max-height: 78px; }
@@ -1444,11 +1105,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 
 .lp-institutions { max-width: none; }
 .lp-institutions p { font-size: clamp(1.25rem, 1.85vw, 1.85rem); line-height: 1.4; color: var(--grey); max-width: 46ch; }
-/* THE BACKERS WEAR THE SAME PLATE THE COMPANIES DO. A logo is a logo: the frame, the 1.5 px
-   ink edge and the cream ground are the site's one treatment for a mark, so the institutions
-   read as peers of the portfolio rather than as a second vocabulary.
-   Nothing happens on hover: these plates open nothing, and the house band is reserved for the
-   frames that lead somewhere. */
+
 .inst-grid {
   margin-top: 6vh;
   display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -1460,10 +1117,9 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   border: 1.5px solid var(--ink); background: var(--paper);
   padding: 7% 11%;
 }
-/* the wordmarks run from 2.2 to 4.8 wide, so the cap is on BOTH sides: the long ones stop on
-   the width, the compact ones on the height, and none ends up twice the presence of another */
+
 .inst-card img { max-width: 100%; max-height: 74%; object-fit: contain; display: block; }
-/* a logo that has not arrived yet: the name in display type, exactly as a company plate does */
+
 .inst-card--word {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1rem, 1.5vw, 1.5rem); letter-spacing: .02em; line-height: 1.05;
@@ -1474,10 +1130,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
   gap: 30px 24px;
 }
-/* A MOSAIC HAS TO READ AS A MOSAIC. At a 170 px minimum two columns want 364 px and a phone
-   offers 345, so auto-fill dropped to one — and twenty-seven faces became twenty-seven
-   screens, which says the opposite of what this page is for. Counted to two instead: 164 px
-   each at 375, and the page reads as a crowd again. */
+
 @media (max-width: 560px) {
   .lp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
 }
@@ -1497,11 +1150,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   filter: grayscale(1) contrast(1.05);
   transition: transform .5s var(--ease);
 }
-/* EACH FACE IS PLACED, not left to one blanket value. The square crop of a standing
-   photograph drops a third of its height, so a single `center 20%` put some faces at the
-   top of the frame and cut others off at the chin. Every position below is measured:
-   Vision finds the face, and the crop is solved so its centre lands 42 % down the frame —
-   the same place in all twenty-seven. */
+
 .lp-photo img[src*="adrien-nussenbaum"] { object-position: center 19%; }
 .lp-photo img[src*="alice-default"] { object-position: center 68%; }
 .lp-photo img[src*="alix-de-sagazan"] { object-position: center 38%; }
@@ -1534,12 +1183,8 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .lp-name { font-family: var(--display); text-transform: uppercase; font-size: clamp(1.05rem, 1.25vw, 1.25rem); line-height: 1.05; display: block; }
 .lp-org { color: var(--grey); font-size: clamp(1rem, 1.18vw, 1.18rem); }
 
-/* Portfolio modal */
 .overlay-modal { background: rgba(16, 16, 16, .55); }
-/* The card is the company's own page for a moment: the founders large on the left, what
-   they do and the four facts on the right. The logo does not come back — it is the plate
-   that was just clicked, and repeating it says nothing. No yellow plate for the sector
-   either: it takes the label register the whole site uses, small caps and letterspaced. */
+
 .pf-detail {
   display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1fr);
   background: var(--paper); color: var(--ink);
@@ -1569,7 +1214,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   display: block; margin-bottom: 18px;
 }
 .pf-detail-body h3 { font-size: clamp(2.2rem, 3vw, 3rem); margin-bottom: 14px; }
-/* narrow: the photograph takes the top and keeps a readable format */
+
 @media (max-width: 820px) {
   .pf-detail { grid-template-columns: 1fr; }
   .pfd-shot {
@@ -1579,11 +1224,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   .pf-detail-body { padding: 28px 26px 32px; }
 }
 .pf-detail-body > p { color: var(--grey); font-size: clamp(1.1rem, 1.35vw, 1.35rem); line-height: 1.5; }
-/* NO RULES INSIDE THE CARD. The four facts were a ruled table — a line above the block and
-   a line under every row, five rules in a window that already has a frame and a band. They
-   are a BLOCK OF FACTS instead: two columns of two, each one its label in the site's label
-   register with the answer under it. What separates them is the space, and the label is what
-   names them — a rule was doing a job the small caps already do. */
+
 .pf-detail-meta {
   margin-top: 34px;
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1600,18 +1241,16 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   font-size: clamp(1rem, 1.18vw, 1.18rem); line-height: 1.35; color: var(--ink);
 }
 @media (max-width: 560px) { .pf-detail-meta { grid-template-columns: 1fr; gap: 20px; } }
-/* the way out of the card: the site's ordinary button, at the foot of what it describes */
+
 .pf-detail-go { margin-top: 34px; }
 .pf-detail-go .btn { margin: 0; }
-/* a company whose link has not arrived yet still shows its button, so the card keeps the
-   shape it will have — held back rather than hidden, and nothing happens on it */
+
 .btn--waiting {
   color: rgba(16, 16, 16, .34); cursor: default;
   pointer-events: none;
 }
 .btn--waiting::after { content: none; }
 
-/* ============ Sub-page (team.html) ============ */
 .page-hero { padding: 22vh 4vw 6vh; }
 .page-hero-title {
   font-family: var(--display); text-transform: uppercase;
@@ -1622,12 +1261,11 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   font-family: var(--serif); font-size: clamp(1.2rem, 1.95vw, 1.95rem); line-height: 1.42;
   max-width: 70ch; margin-top: 4vh; color: var(--ink);
 }
-/* ============ Team page: a stack of prints you leaf through ============ */
+
 .tcard {
   position: sticky; top: calc(11vh + var(--i) * 14px);
   display: grid; grid-template-columns: .8fr 1.2fr;
-  /* fixed, not min-: otherwise a tall portrait (Timothée's is 350×601) stretches
-     its own card and it lands larger than the ones before it */
+
   height: 78vh; margin-bottom: 10vh;
   background: var(--paper); border: 1.5px solid var(--ink);
   box-shadow: 0 -22px 40px rgba(16, 16, 16, .07);
@@ -1635,46 +1273,25 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   transform-origin: center top;
   will-change: transform;
 }
-/* the role is what people scan for: give it the display face and room */
-/* full bio: several paragraphs, so it is set smaller and given the room to breathe */
-/* the closing "About" line, marked in brand yellow, label kept */
+
 @media (max-width: 860px) {
   .tcard { grid-template-columns: 1fr; height: auto; top: calc(12vh + var(--i) * 10px); }
     }
 
-/* the gallery carries the team page: six large portraits, each holding its own
-   presentation, which comes up over the picture as you arrive on it */
 .team-gallery { padding: 2vh 4vw 18vh; }
 .team-gallery .team-grid { max-width: none; grid-template-columns: repeat(3, 1fr); gap: 2.9vw 3.2vw; }
-/* taller than the default frame: three to a row leaves less width, and the presentation
-   still has to fit inside the picture. Brought down from 4/5.5 with a wider gutter — the
-   portraits held the page a little too hard; the tallest bio still keeps ~120px of slack. */
+
 .team-gallery .member-photo { aspect-ratio: 4 / 5.15; }
 .team-gallery .member { cursor: pointer; }
-/* three to a row needs the width for it: below this, two */
+
 @media (max-width: 1300px) {
   .team-gallery .team-grid { grid-template-columns: repeat(2, 1fr); }
 }
-/* below this a column is too narrow for a presentation to fit its portrait */
+
 @media (max-width: 760px) {
   .team-gallery .team-grid { grid-template-columns: 1fr; gap: 5vh; }
   .team-gallery .member-photo { aspect-ratio: 4 / 4.7; }
-  /* ON A PHONE THE PRESENTATION COMES OUT FROM UNDER THE PORTRAIT. Laid over the picture it
-     was trapped between two limits that pull apart as the screen narrows: the panel's height
-     follows the frame's WIDTH, while the text it has to hold grows as the measure shrinks. At
-     375 px the longest bio already spilled out of its panel, and it was set at 12.8 px — the
-     floor of the clamp — which is below reading size. Every way of keeping it inside failed:
-     smaller type is unreadable, and a frame tall enough to hold 978 characters is a 1:2 slab
-     that crops a landscape headshot to a strip.
-     So on one column the panel is simply set beneath its portrait, at a plain 16 px on the
-     cream. Nothing is hidden, nothing is clipped, the picture keeps its own crop, and the tap
-     that used to raise the panel has nothing left to raise. The overlay stays on wide screens,
-     where it works. */
-  /* and the name comes back BEFORE the presentation. Laid over the picture the panel was out
-     of the flow, so the card read picture, name, role; dropped into the flow it landed between
-     the picture and the name, and you were reading a biography before being told whose it was.
-     The frame hands its two children straight to the card (display: contents) so all four can
-     be ordered together — the container query goes with it, the type here being a plain 16 px. */
+
   .team-gallery .member { display: flex; flex-direction: column; }
   .team-gallery .member-shot { display: contents; container-type: normal; }
   .team-gallery .member-photo { order: 1; }
@@ -1687,39 +1304,25 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
     padding: 18px 0 0; gap: .75em;
     font-size: 1rem; line-height: 1.6;
   }
-  /* yellow on cream is 1.05:1 — off the ink panel the About line has to be ink. It is still
-     set apart by the display capitals against the serif. */
+
   .team-gallery .member-fun { color: var(--ink); }
   .team-gallery .member-in { color: var(--ink); border-color: rgba(16, 16, 16, .3); }
   .team-gallery .member { cursor: default; }
 }
-/* this page has no in-view engine: portraits are shown, reveal.js animates them */
+
 .team-gallery .member { opacity: 1; transform: none; }
 .team-gallery .member-photo { clip-path: inset(0 0 -10px -10px); }
-/* each portrait warms into colour as it comes into view */
-/* the picture fills its frame exactly: the 118% height and the -8% lift were left over
-   from a parallax this gallery does not run, and they were shaving the headroom off the
-   portraits whose source is wider than the frame (Marie's and Arthur's above all) */
+
 .team-gallery .member-photo img { height: 100%; --py: 0%; }
 .team-gallery .member-photo img { transition: filter 1.1s var(--ease), transform .6s var(--ease); }
 .team-gallery .member.shown .member-photo img { filter: grayscale(0) contrast(1.02); }
 
-/* portraits visible by default on the dedicated page (no scroll-reveal gate) */
-
-
-/* dark sub-pages (portfolio.html, community.html) reuse the overlay card styling */
-
-/* full editorial header for the dedicated dark pages */
 .subpage-hero { padding: 22vh 4vw 7vh; display: flex; flex-direction: column; gap: 16px; }
 .subpage-hero .page-hero-title { margin: 0; }
 .subpage-hero .page-hero-sub { margin: 12px 0 0; max-width: 70ch; }
 .page-hero-sub--second { font-size: 1.15rem; opacity: .82; }
 .subpage-grid { padding: 0 4vw 15vh; }
 
-/* ============ Page opening: the title beside a cascade of photographs ============ */
-/* The dedicated pages no longer start on their gallery. One large frame holds the
-   room, two smaller ones step down past its shoulder and run off the right edge.
-   The text column stays on the same left edge as the grid further down. */
 .page-open {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -1728,109 +1331,46 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 }
 .page-open-text { padding-right: 2vw; align-self: start; }
 
-/* THE SAME READING SIZE AS THE HOME. This paragraph is the dedicated pages' ordinary text,
-   so it takes the home's own scale (the one `.sec-sub` uses) — at 1440 it was running 19 px
-   against the home's 23 px, and the two read as different sites. */
 .page-open .page-hero-sub {
   font-family: var(--serif); font-size: clamp(1.15rem, 1.6vw, 1.62rem); line-height: 1.5;
-  margin-top: 3.6vh; max-width: none;   /* the column is the measure: no early breaks */
+  margin-top: 3.6vh; max-width: none;
 }
-/* no size of its own: it is the same paragraph, said second. `font-size: inherit` here took
-   the CONTAINER's size, not the first paragraph's, and left it at 16 px */
+
 .page-open .page-hero-sub--second { margin-top: 1.15em; opacity: .8; }
 
-/* The pictures form a queue rather than a set of fixed frames: three places are
-   visible, and every step promotes each picture one place up in size, so a small
-   one travels into the large frame while the one leaving shrinks back down to the
-   entry place. Positions are in % of the block, so the travel is a plain
-   transition on left / top / width. */
 .pcascade { position: relative; aspect-ratio: 1000 / 688; }
-/* A SQUARE FRAME for a mixed set. These piles hold pictures running from 0.56 to 1.50, and a
-   letterbox kept only 57 % of a standing photograph — heads and feet went. Square costs every
-   picture roughly the same and singles none out. (Team and Portfolio reach the same shape from
-   the other direction: there the column's height sets it, so the halves can close together.) */
+
 .page-open .pcascade { aspect-ratio: 1 / 1; }
-/* PRINTS LAID ONE ON ANOTHER. Not a book with arrows: a pile of photographs being laid
-   down. The one in hand covers the frame; the ones already seen stay under it, shifted up
-   and to the right so the pile shows its edges, and they hold back in black and white.
-   Every few seconds the next print is laid — it wipes up from the foot of the frame, the
-   same gesture every picture on the site arrives with — and the pile deepens.
-   No arrow, no dot: a rule under the frame fills as the next print approaches, and the
-   pointer resting on the picture holds everything where it is. */
+
 .pcascade { position: relative; aspect-ratio: 1000 / 725; }
-/* ONE PRINT, AND IT DISSOLVES INTO THE NEXT — the home's mechanism, copied exactly. Over on
-   the home the community photographs change by a cross-fade between two layers, 0.55 s, and
-   the row of marks is the ONLY thing that says how many there are. No pile, no peek, nothing
-   drawn to suggest a series.
-   Both were tried here and both were wrong. The pile faked a thickness the site does not have
-   anywhere. The next print showing its edge at the right was flat, but it was still a device
-   the home does not use, so it read as a different site.
-   The answer was not a third invention: it was to stop inventing. If a single frame ever feels
-   too quiet, the lever is TWO frames side by side — which is what the home has — not another
-   object added to one.
-   The window still clips: it is the box the frame occupies and nothing else. `overflow: hidden`
-   first went on .pcascade, which also holds the row of marks just below the frame, and cut them
-   away — present in the page, invisible on screen, on all three openings. */
+
 .pcwindow { position: absolute; inset: 0; overflow: hidden; }
 .pcq {
   position: absolute; inset: 0;
   opacity: 0; transition: opacity .55s var(--ease);
 }
 .pcq.is-top { z-index: 9; opacity: 1; }
-/* the offset of a print in the pile is written from the driver: a `calc()` that multiplies
-   a custom property by a length is dropped inside `translate()` on this engine, while the
-   same calc holds for `z-index` — so the pixels are computed where they can be trusted */
-/* the print being laid wipes up from the foot of the frame */
+
 .pcq.is-top .pcf-frame { clip-path: inset(0 0 -10px -10px); transition: clip-path 1.05s var(--ease); }
 .pcq.laying .pcf-frame { clip-path: inset(100% 0 0 0); transition: none; }
 
-/* the rule that says a print is coming: it fills, it does not count */
-/* The row of marks stands where the gauge used to be. A filling bar is a progress indicator
-   and the site has none anywhere else — the marks say how many there are and which one is in
-   hand, which is all the reader needs. The clock is a timer in reveal.js, and a hand on the
-   picture holds the pile where it is. */
 .pcdots {
   position: absolute; top: 100%; left: 0;
   margin-top: 2.6vh;
 }
 
-/* the team photograph holds its own frame beside the title, cropped to a band.
-   Its column is stretched to the height of the cascade and the frame takes what the
-   title leaves, so it lands on the same line as the lowest picture on the right. */
-/* THE TWO HALVES CLOSE ON THE SAME LINE. The fixed photograph's foot and the row of marks
-   under the pile used to end 70 px apart, because the text column stretched while the pile
-   was centred in the row. The pile now takes the height the column leaves, less the room the
-   marks need — so the opening shuts on one line, and the frame comes out near square, which
-   is far kinder to a set of pictures running from 0.56 to 1.50: nothing is squeezed into a
-   letterbox any more. */
 .page-open--anchor { align-items: stretch; }
-/* THE PILE SETS THE HEIGHT, NOT THE COLUMN. It used to take whatever the left column left, so
-   cropping the fixed photograph shorter dragged the pile back into a letterbox and the
-   standing pictures lost half their height again. The pile keeps its square frame, and the
-   left column is stretched to it instead: the photograph falls to the foot of the column and
-   the negative margin is the 16 px of marks less the 7 px of hit area under their rule, so
-   what lands on the photograph's foot is the RULE itself. */
+
 .page-open--anchor .pcascade { aspect-ratio: 1 / 1; height: auto; align-self: start; }
 .page-open--anchor .pcf-wide { margin-top: auto; margin-bottom: calc(-2.6vh - 9px); }
 .page-open--anchor .page-open-text { align-self: stretch; display: flex; flex-direction: column; }
-/* the picture takes the whole column: `width: 100%` pinned it to the text column's own
-   measure, so a negative margin alone could not widen it */
+
 .pcf-wide { width: calc(100% + 2vw); flex: 0 0 auto; margin-top: 5vh; }
 @media (max-width: 900px) { .page-open--anchor .pcf-wide { margin-top: 5vh; margin-bottom: 0; } }
-/* THE FIXED PHOTOGRAPH IS CROPPED ABOVE THE KNEE. At the file's own ratio (1066/969) the whole
-   body showed, feet and floor included, and the bottom third carried nothing — tiles under the
-   founders, empty steps under the team. A 5/3 frame keeps the top 66 % of the picture: the
-   group, cropped where a portrait is normally cropped, and the page opening gets shorter with
-   it. Anchored to the TOP, so the heads are never the thing that goes. */
-/* it takes the WHOLE column: the 2vw the text column holds back for its own measure is not
-   the picture's business, and the frame is a touch taller too (3/2 rather than 5/3). It still
-   keeps only 73 % of the file, so the feet are still out. */
-/* how far down the picture is shown is a property of the PICTURE, not of the layout: each
-   page sets `--crop` to the tallest frame its own photograph allows before the shoes come
-   back. Below that ratio the cut lands on the ankles, which is the one place it must not. */
+
 .pcf-wide .pcf-frame { aspect-ratio: var(--crop, 1.5); height: auto; }
 .pcf-wide img { object-position: center 0%; }
-/* the group portrait sits a touch lower in its file than the founders do in theirs */
+
 .pcf-wide img[src*="hero"] { object-position: center 5%; }
 .pcf-frame {
   display: block; position: relative; overflow: hidden;
@@ -1843,11 +1383,7 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   opacity: 0; transition: opacity 1.4s var(--ease), filter 1.2s var(--ease);
 }
 .pcf-frame img.on { opacity: 1; }
-/* FRAMING SOLVED, NOT GUESSED. The frame changed shape, so every one of these was re-measured:
-   Vision reads the faces, and the crop is the window that keeps ALL of them inside while
-   sitting as near as it can to the group at 40 % down. Twelve of the thirteen hold every face;
-   only comm-poilane cannot — ten people across a landscape shot will not fit a square, so it
-   centres the group instead. */
+
 .pcf-frame img[src*="team-moment"]   { object-position: center 99%; }
 .pcf-frame img[src*="team-cafe"]     { object-position: 26% center; }
 .pcf-frame img[src*="pitch-marie"]   { object-position: center 60%; }
@@ -1865,14 +1401,12 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
 .pcf-frame img[src*="pf-circle"]     { object-position: center 63%; }
 .pcf-frame img[src*="pf-laughing"]   { object-position: center 44%; }
 .pcf-frame img[src*="pf-pitch"]      { object-position: center 46%; }
-/* only the picture standing in the large place carries its colour */
+
 .pcq .pcf-frame img          { filter: grayscale(1) contrast(1.06); }
 .pcq.is-top .pcf-frame img   { filter: grayscale(0) contrast(1.02); }
-/* two of them carry a colour the palette has no room for: a wall of blue type and a
-   magenta stage. They take their turn in colour like the others, held back a little. */
+
 .pcq[data-soft].is-top .pcf-frame img { filter: saturate(.6) contrast(1.03); }
-/* the fixed picture under the title carries its colour: it is the one that sets the
-   tone of the page, and in black and white it did not hold */
+
 .pcf-wide .pcf-frame img { filter: grayscale(0) contrast(1.02); }
 
 @media (max-width: 900px) {
@@ -1882,63 +1416,50 @@ html.anim .team-face[data-reveal] { clip-path: inset(0 0 -10px -10px); }
   .pcascade { aspect-ratio: 1000 / 775; }
 }
 
-/* everything past row 5 folds away until asked for, FAQ-style */
 .news-fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .65s var(--ease); }
 .news-fold.open { grid-template-rows: 1fr; }
 .news-fold-inner { overflow: hidden; min-height: 0; }
 .news-fold .news-cards { padding-top: 5vh; }
 
-/* keeps the standfirst on a single line across desktop widths
-   (needs to out-specify `.subpage-hero .page-hero-sub`) */
 .subpage-hero .page-hero-sub--wide,
 .page-hero-sub--wide { max-width: none; font-size: clamp(1.15rem, 1.6vw, 1.62rem); }
 
-/* ============ Scroll reveals (dedicated pages) ============ */
-/* Hidden states are armed only once reveal.js runs, so content can never get stuck. */
 html.anim [data-reveal]:not(.shown) {
   opacity: 0; transform: translateY(22px);
 }
-/* a shade longer and a shorter rise than before: the face settles in rather than snapping,
-   which is what read as abrupt when a row arrived together */
+
 html.anim [data-reveal] {
   transition: opacity 1.05s var(--ease) var(--rd, 0ms), transform 1.05s var(--ease) var(--rd, 0ms),
               clip-path 1.1s var(--ease) var(--rd, 0ms);
 }
-/* headline wipe: the type is uncovered from the top down */
+
 html.anim [data-reveal="mask"]:not(.shown) {
   opacity: 1; transform: translateY(.12em);
   clip-path: inset(-.16em 0 100% 0);
 }
 html.anim [data-reveal="mask"] { clip-path: inset(-.16em 0 -.16em 0); }
-/* image reveal: frame opens while the picture eases back from a slight zoom */
+
 html.anim [data-reveal="image"]:not(.shown) { opacity: 1; transform: none; clip-path: inset(0 0 100% 0); }
 html.anim [data-reveal="image"] { clip-path: inset(0 0 0 0); }
 html.anim [data-reveal="image"] img { transition: transform 1.4s var(--ease) var(--rd, 0ms); }
 html.anim [data-reveal="image"]:not(.shown) img { transform: scale(1.14); }
-/* a card opens downwards from its top edge; the clip reaches past the frame so the band
-   at its foot survives (a clip-path cuts the shadow too) */
+
 html.anim [data-reveal="card"]:not(.shown) { opacity: 1; transform: none; clip-path: inset(0 0 100% 0); }
 html.anim [data-reveal="card"] { clip-path: inset(0 0 -10px -10px); }
-/* parallax drift set by reveal.js */
+
 [data-parallax] { overflow: hidden; }
 [data-parallax] img { transform: translateY(var(--py, 0)); }
 
 .about-photo { position: relative; }
-/* small, straddling the bottom edge of the frame rather than landing on someone */
+
 .faq { position: relative; }
 @media (prefers-reduced-motion: reduce) {
 }
 
-/* THE FAINT COLUMN GUIDES ARE GONE. On the home they were drowned by the field of clouds, but
-   on the dedicated pages the cream was bare and they were the only thing on it — which read as
-   a grid ruled across the page rather than as a ground. Every page carries the field instead,
-   and it is the field that answers the hand. */
 body > main, body > footer { position: relative; z-index: 1; }
 @media (max-width: 720px) {
   .footer-cols { gap: 40px; } }
 
-/* ============ Doc pages (about.html, manifesto.html) ============ */
-/* these pages have no scroll-reveal engine: show gated home components by default */
 .doc-page .stat-item { opacity: 1; transform: none; }
 .doc-page .sector > span { transform: none; }
 .doc-hero { padding: 22vh 4vw 11vh; }
@@ -1946,42 +1467,21 @@ body > main, body > footer { position: relative; z-index: 1; }
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(2.6rem, 6.8vw, 6.4rem); line-height: .92;
 }
-/* at body size a yellow outline is unreadable: mark the words instead */
+
 .m-stmt p .yw {
   color: var(--ink); background: var(--yellow);
   -webkit-text-stroke: 0; padding: 0 .14em;
 }
-/* THE PHOTOGRAPH IS SET TO ONE SIDE. Full width under the title it read as a poster band,
-   the only full-bleed picture on any dedicated page. It now starts well inside the page and
-   runs to the right margin, so the title keeps the air beneath it and the opening is read as
-   a composition rather than a banner. It stops AT the margin: the frame carries the house
-   1.5 px edge, and a picture bleeding off the screen would lose that edge on one side, which
-   reads as an accident rather than a decision. */
+
 .doc-photo { padding: 0 4vw 0 30vw; }
 .doc-photo img { width: 100%; height: 58vh; object-fit: cover; object-position: center 42%; border: 1.5px solid var(--ink); }
 @media (max-width: 900px) { .doc-photo { padding: 0 4vw 0 12vw; } }
 .doc-body { padding: 7vh 4vw; }
-/* hero: statement left, standfirst set to the right so the line fills the page */
+
 .doc-hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 5vw; align-items: end; }
 
-/* manifesto statements: one steady rhythm, claim left, argument right, no zig-zag */
 .doc-statements { padding: 0 4vw 0; }
-/* ONE COLUMN, READ STRAIGHT DOWN. The statements used to alternate sides — the claim thrown
-   left, its explanation answering from the far right, the next one the other way round. On a
-   wide screen the eye had to cross the whole page for every sentence and the pairs came apart:
-   a paragraph sat nearer the NEXT claim than its own. A manifesto is read, not scanned.
-   Everything now starts on the left margin, the paragraph sits directly under the claim it
-   belongs to, and the rhythm comes from the claims growing as the page descends.
-   NO BOX either: five cream rectangles each cornered by a rule made a stack of cards. */
-/* ONE RULE, NOT FIVE IDEAS. The page was drifting: every statement had been given its own
-   arrangement, so nothing carried over from one to the next and the placements read as
-   decisions taken one at a time. The manifesto is built from the home's own grammar instead:
-   THE GROUND ALTERNATES, and the ground is what says what a statement carries.
-     on the cream — words alone, claim at the left margin, paragraph under it;
-     on the ink   — the statement comes with its photograph, words left and picture right,
-                    which is exactly how the community section is built on the home.
-   Cream, ink, cream, ink, cream. The reader feels the alternation without being told, the two
-   photographs land where the ground turns over, and the order of the statements is untouched. */
+
 .m-stmt {
   display: block; position: relative;
   padding: 11vh 0 11.5vh;
@@ -1990,30 +1490,21 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-shot img {
   display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover;
   border: 1.5px solid var(--ink);
-  object-position: center 0%;           /* solved on the faces: both keep all of theirs */
+  object-position: center 0%;
 }
-/* the ink statement: the same two columns the community uses on the home, and the same
-   proportion — the words narrower than the picture. The word is written IN the yellow here;
-   on ink it needs no outline. */
+
 .m-stmt--ink {
   background: var(--ink); color: var(--paper);
   margin: 0 -4vw; padding: 15vh 4vw;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.68fr);
   column-gap: 3.4vw; align-items: start;
 }
-/* the words START AT THE TOP OF THE PHOTOGRAPH, they are not centred against it — and aligned
-   on the CAPITALS, not on the text box: the display face carries leading above its caps, so
-   flush with the frame the title sat low against a hard edge. Same calage as the community
-   section on the home. */
+
 .m-stmt--ink .m-claim { margin-top: -.2em; }
 .m-stmt--ink .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 .m-stmt--ink .m-body { color: rgba(250, 248, 240, .78); }
 .m-stmt--ink .m-shot img { border-color: rgba(250, 248, 240, .22); }
-/* the one place two statements share a slot: what the fund IS and what founders are OWED are
-   the two halves of a single declaration, so they are read side by side rather than a page
-   apart. The second is hung lower, the offset pair the community's two pictures make on the
-   home — and because it starts lower it also finishes the block, so the empty corner falls
-   under the first rather than trailing beneath both. */
+
 .m-pair {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 3.4vw; align-items: start;
@@ -2024,13 +1515,11 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-stmt--low { margin-top: 13vh; }
 @media (max-width: 980px) {
   .m-stmt--ink { grid-template-columns: 1fr; row-gap: 5vh; padding: 11vh 4vw; }
-  /* one column: the offset has nothing to sit against, so it becomes plain vertical room */
+
   .m-pair { grid-template-columns: 1fr; row-gap: 8vh; }
   .m-stmt--low { margin-top: 0; }
 }
-/* ONE SIZE for all five: what changes from one statement to the next is the ground, not the
-   type. Claims that grew as the page descended were a second rhythm running against the first,
-   and in the narrower column of an ink statement the largest of them broke into five lines. */
+
 .m-claim {
   font-family: var(--display); text-transform: uppercase;
   line-height: .97; max-width: 30ch;
@@ -2038,20 +1527,15 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 .m-stmt--ink .m-claim { max-width: 20ch; }
 @media (max-width: 760px) { .m-stmt:not(.m-stmt--ink) { padding: 8vh 0 8.5vh; } }
-/* the explanation follows its claim immediately, in the quiet voice and on a reading
-   measure — it is the same block, said second, not an aside across the page */
+
 .m-body {
   font-family: var(--serif); font-size: clamp(1.1rem, 1.55vw, 1.55rem); line-height: 1.48;
   color: var(--grey); width: min(52ch, 100%);
   margin: 3vh 0 0;
 }
-/* the standalone 'ambition' statement runs wider than the others: two sentences that read
-   as one line of thought, given the room to breathe across the page */
+
 .m-stmt--wide .m-body { width: min(78ch, 100%); }
 
-/* ---- the SISTA coda on its own BLACK band: words left, film right, the same ink treatment as
-   the statements that carry a picture. The statement above it is turned back to cream so this
-   is the one dark band at the foot of the page, never a second one against another. ---- */
 .m-band {
   background: var(--ink); color: var(--paper);
   margin: 0 -4vw; padding: 14vh 4vw;
@@ -2061,9 +1545,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-band .m-claim { max-width: 20ch; margin-top: -.2em; }
 .m-band .m-claim .yw { color: var(--yellow); -webkit-text-stroke: 0; }
 .m-band .m-body { color: rgba(250, 248, 240, .78); }
-/* the still is ours until the reader asks for the film. The player is written in on the click,
-   so nothing from YouTube loads before that — the site's own control, not an embed sitting
-   live on the page. */
+
 .m-film { margin: 0; }
 .m-plate {
   position: relative; overflow: hidden;
@@ -2082,8 +1564,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 .m-play:hover .btn-arrow { transform: translateX(7px); }
 .m-plate.is-playing img, .m-plate.is-playing .m-play { display: none; }
 .m-plate iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-/* the film is someone else's campaign: it is named and credited under its own frame, in the
-   light voice the ink ground asks for */
+
 .m-film-cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3em 1.5em; margin-top: 2.1vh; }
 .m-film-title { font-family: var(--serif); font-size: 1.06rem; color: rgba(250, 248, 240, .9); }
 .m-film-credit {
@@ -2094,19 +1575,15 @@ body > main, body > footer { position: relative; z-index: 1; }
   .m-band { grid-template-columns: 1fr; row-gap: 4.5vh; padding: 11vh 4vw; }
 }
 
-/* the closing line stands alone, full measure */
-/* the closing line is the one thing on this page that is centred: it belongs to no column and
-   answers to no margin — it is the page signing off, like the mark that closes every page */
 .m-legacy { padding: 12vh 4vw 16vh; text-align: center; }
 .m-legacy-title {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.5rem, 6.1vw, 6.4rem); line-height: .95;
-  white-space: nowrap;                    /* the closing line holds together */
+  white-space: nowrap;
 }
 @media (max-width: 620px) { .m-legacy-title { white-space: normal; } }
 @media (max-width: 900px) {
-  /* :not() so the generic padding does not strip the ink band of its 4vw and let the words
-     run to the very edge of the screen — same specificity, and this rule comes later */
+
   .m-stmt:not(.m-stmt--ink) { padding: 8vh 0; }
   .m-body { width: 100%; margin-top: 22px; }
 }
@@ -2114,22 +1591,18 @@ body > main, body > footer { position: relative; z-index: 1; }
   .doc-hero { grid-template-columns: 1fr; align-items: start; }
     }
 @media (max-width: 640px) { }
-/* on the dedicated page LP portraits are visible by default (no scroll-reveal gate) */
+
 .subpage-grid .lp { opacity: 1; transform: none; }
 
-/* ============ Responsive ============ */
 @media (max-width: 1024px) {
   .team-grid { grid-template-columns: repeat(2, 1fr); }
             .about-col { border-right: none; border-bottom: 1.5px solid var(--ink); }
   .about-col:last-child { border-bottom: none; }
 }
 @media (max-width: 720px) {
-    
+
   .nav-links { display: none; }
-  /* the one control every phone visitor has to hit, and it came to 42 x 23. The field around
-     it is opened to 44 x 44 the same way the marks are — an absolute pseudo, out of the flow —
-     rather than by growing the button: the two bars are laid out by the flex column, so a
-     taller box would have pushed the whole bar down with them. */
+
   .burger {
     display: flex; flex-direction: column; gap: 7px;
     padding: 6px; z-index: 260; position: relative;
@@ -2157,24 +1630,15 @@ body > main, body > footer { position: relative; z-index: 1; }
   .pf-detail-body { padding: 26px 24px 30px; }
 }
 
-/* ============ Touch: a finger is not a cursor ============ */
-/* Every control here is drawn as a label over a rule, or as a 2 px mark — right for a pointer,
-   and between 16 and 35 px tall, well under the ~44 px a finger needs. NOTHING DRAWN CHANGES.
-   Two ways of giving the room, chosen by what sits next to the control:
-     - where the layout is measured, a transparent field is laid over it out of the flow, so
-       the box keeps the exact height something else is aligned on — the foot of the community
-       column and the page openings are set on the marks' row, and the nav bar on the burger;
-     - where the control has another control stacked directly above or below it, a field would
-       simply cover its neighbour, so the room is taken as real padding instead. */
 @media (hover: none) {
-  /* out of the flow — measured rows */
+
   .comm-dot, .pcdot, .filter, .nav-logo { position: relative; }
-  /* the marks sit 14 px apart, so a field may reach 7 px each side without two of them meeting */
+
   .comm-dot::after, .pcdot::after {
     content: ''; position: absolute;
     left: -7px; right: -7px; top: 50%; height: 44px; transform: translateY(-50%);
   }
-  /* ::after on these carries the yellow rule, so the field goes on ::before, behind the label */
+
   .btn::before, .filter::before {
     content: ''; position: absolute; z-index: -1;
     left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%);
@@ -2183,53 +1647,32 @@ body > main, body > footer { position: relative; z-index: 1; }
     content: ''; position: absolute;
     left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%);
   }
-  /* in the flow — the footer links are stacked on each other, so they are given real room */
+
   .footer-col a, .footer-notes a, .member-in { padding-top: 9px; padding-bottom: 9px; }
   .footer-col { gap: 0; }
 }
 
-/* ============ Reduced motion ============ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
 }
 
-/* ============ Legal and ESG: the site as a document ============ */
-/* These two pages are not composed, they are READ: a long ruled text with numbered clauses.
-   They take the dedicated pages' opening — title at 22vh, the mark closing the page — and
-   nothing else. No photograph: there is nothing to illustrate, and a picture over a legal
-   notice would be decoration.
-   NO FIELD OF CLOUDS AND NO YELLOW, ANYWHERE. Every other page of this site lights up under
-   the hand; these two do not. They are the pages a regulator, a lawyer or an investor reads,
-   and a ground that glows yellow behind a compliance clause reads as decoration on a document
-   that should carry none. The answer under the pointer is therefore in INK here — the rule
-   under a link darkens instead of gaining the house band. It is the only place on the site
-   where the yellow is dropped on purpose.
-   The whole of the legal text is FRENCH while the rest of the site is English. That is how it
-   stands on sistafund.com, it is quoted prose, and it is not ours to translate. */
 .doc-body { padding: 2vh 4vw 6vh; }
 .doc-sec { padding: 5.5vh 0 0; }
 .doc-sec:first-child { padding-top: 2vh; }
-/* the clause number and its title share the label register of the site: display capitals,
-   spaced, the same voice as THESIS or the footer headings */
+
 .doc-sec h2 {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.05rem, 1.45vw, 1.45rem); letter-spacing: .12em;
   line-height: 1.25; max-width: 40ch;
 }
-/* a part heading — the source has one, "2. Informations reglementaires".
-   NO RULE UNDER IT: a full-width line across a page that is already a stack of clauses is one
-   more horizontal bar in a document that does not need dividing. The space says it. */
+
 .doc-part {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.6rem, 3vw, 3rem); line-height: 1;
   margin-top: 12vh; padding-bottom: 1vh;
 }
-/* THE TEXT TAKES THE WHOLE WIDTH, like the FAQ answers and for the same reason: on a document
-   of this length what matters is the HEIGHT of the block, not the length of the line. On a
-   reading measure the clauses ran down the left half of the screen and made the page twice as
-   long for no gain. The leading is opened to 1.68 to compensate — on a long line, that is what
-   lets the eye find the next one. */
+
 .doc-sec p {
   font-family: var(--serif); font-size: clamp(1rem, 1.18vw, 1.18rem);
   line-height: 1.68; color: var(--grey);
@@ -2241,12 +1684,12 @@ body > main, body > footer { position: relative; z-index: 1; }
   line-height: 1.68; color: var(--grey);
   padding-left: 1.1em; position: relative; margin-top: .5vh;
 }
-/* a rule, not a bullet: the site has no dots between words and none in front of them either */
+
 .doc-sec li::before {
   content: ''; position: absolute; left: 0; top: .86em;
   width: .6em; height: 1.5px; background: var(--ink); opacity: .45;
 }
-/* a link is ink on a ruled underline, and the rule simply firms up under the hand */
+
 .doc-sec a {
   color: var(--ink);
   border-bottom: 1.5px solid rgba(16, 16, 16, .34);
@@ -2258,104 +1701,37 @@ body > main, body > footer { position: relative; z-index: 1; }
   .doc-sec p, .doc-sec li { font-size: 1rem; }
 }
 
-/* ============ An opening with a big frame and a smaller one ============ */
-/* Asked for directly: a second, smaller picture set below and to the right of the big one, the
-   large fixed photograph still holding the left. Two sizes, not three, and no overlap — the
-   frames are laid out as a composition, not as a file of cards receding into the distance.
-   The risk is named and left to the eye: a SIZE DIFFERENCE is what reads as recession on the
-   site this is meant not to resemble. Two boxes that do not touch and do not shrink in series
-   are a composition; the moment a third is added they become a queue. */
-/* WIDER AND LESS TALL, CROPPED FROM THE TOP, and the third let out past the margin instead of
-   squeezing the second. A band across the column was tried and taken back: measured on the
-   eight pictures of the set, a 1.52 ratio kept only 44 % of the three standing ones against
-   67 % in the square — it served two photographs out of eight. The frame stays standing here,
-   simply less tall and much wider: 518 x 560 against 401 x 654.
-   The third then has nowhere left inside the column, so it goes past it and FADES OUT — the
-   same veil the portfolio rows leave the screen with on the home, and for the same reason: a
-   picture should leave the page rather than be cut off by it. */
-/* THE MASK GOES ON THE COLUMN, NOT ON THE PHOTOGRAPH — which is how the home does it, and the
-   difference is not a detail. `--fade` is 120 px: on the home it is laid over `.pf-rows` and
-   `.news-run`, containers as wide as the page, so it veils 8 % of the width and a plate has room
-   to dissolve. Laid over a 211 px photograph it covers 57 % of it, and since the photograph runs
-   past the screen the visible part was CUT at 0.90 opacity — the same number, the opposite
-   effect, a hard edge instead of a veil.
-   On the column the fade zone is the last 120 px before the margin. The big frame stops just
-   short of it and is untouched; the third one crosses it and dissolves into the ground, the way
-   a plate leaves the screen on the home. */
 .page-open--duo .pcascade {
   aspect-ratio: auto; position: relative; display: block;
-  /* AND THE VEIL REACHES THE EDGE OF THE SCREEN, which is the whole point of it. Masked on the
-     column, the fade finished on the page margin and left 58 px of bare cream after it: the
-     photograph evaporated in mid-air instead of leaving the page. On the home the masked boxes
-     — `.pf-rows`, `.news-run` — run to the screen edge, so a plate dissolves AS it goes over.
-     The column is pulled out to the edge for the mask and padded back in, exactly the trick
-     `.news-run` uses, and the fade keeps the home's own 120 px. */
+
   margin-right: -4vw;
   -webkit-mask-image: var(--fade-r); mask-image: var(--fade-r);
 }
 .page-open--duo .pcwindow { position: relative; inset: auto; }
-/* THE TWO RIGHT FRAMES CLOSE ON THE LEFT PHOTOGRAPH'S LINE. They were ending 137 px short of
-   it — the big one square at 429 and the small one hanging to 652, against a left photograph
-   reaching 789 — so the opening had no foot. Both now sit on one baseline, and that baseline is
-   the left photograph's own.
-   The big frame stops being square for it: 4/5.52 makes it 428 x 591, which is taller and more
-   generous than the square it replaces, and it still starts level with the title at the top.
-   The small one keeps its square and sits on the same line, so it reads as lower-right of the
-   big one without breaking the foot. */
-/* THE LEFT COLUMN SETS THE HEIGHT AND THE BIG FRAME FOLLOWS IT. It was the other way round —
-   the big frame carried a hand-tuned 4/5.52 so that its foot happened to land on the left
-   photograph's — which meant any change to the spacing on the left broke the alignment and had
-   to be re-tuned by hand. Now the frame simply fills the row, so the two feet cannot come apart
-   whatever the left column does. */
+
 .page-open--duo .pcascade { align-self: stretch; }
-/* AIR BETWEEN THE TITLE AND THE PHOTOGRAPH. There was one pixel between them: the photograph
-   carried `margin-top: auto`, which pushed it to the foot of a column exactly as tall as its
-   own contents, so it ended up pressed against the title. */
+
 .page-open--duo .pcf-wide { margin-top: 7vh; }
-/* and the left photograph closes on the same line. It carries a negative bottom margin from the
-   arrangement this replaces — it used to reach down to meet the row of marks under a square
-   cascade — and here that margin only made it overshoot the two right frames by exactly its own
-   32 px. With the right side setting the height, the left has nothing left to reach for. */
+
 .page-open--duo .pcf-wide { margin-bottom: 0; }
-/* top level with the title, so nothing is left hollow above it */
+
 .page-open--duo .pcwindow--big   { width: 74%; aspect-ratio: 518 / 560; }
-/* AND THE SMALL ONE HANGS BELOW THAT LINE. Sat on it, all three photographs shared one foot
-   and the opening read as a grid rather than as a composition. It drops by the 9vh the home's
-   own pair uses between its two prints — the offset is the site's way of saying two frames are
-   a pair and not a row. The big frame keeps the line with the left photograph: that is the
-   structural alignment, and it is the one that must not move. */
+
 .page-open--duo .pcwindow--small {
-  /* HUNG OFF THE BIG FRAME'S FOOT, NOT OFF THE COLUMN. `top: 58 %` measured the column, and the
-     column is as tall as whatever the left side happens to be: a title over a photograph on Team
-     and Portfolio, text alone on Community. The same 58 % that dropped the small frame 70 px past
-     the big one's foot on two pages left it 25 px SHORT of it on the third. Kept in the flow, its
-     offset is read from the frame above it, and the three openings compose alike whatever stands
-     on their left. The overlap is the same 140 px the absolute placement produced. */
+
   margin-left: auto; margin-right: -8%; margin-top: -20%;
-  /* 30 % of a box that now runs to the screen edge, which is the same picture as before the
-     column was pulled out — the percentage had to follow the wider box or the two frames came
-     within 7 px of touching */
+
   width: 30%; aspect-ratio: 1 / 1;
 }
-/* THE MARKS SIT ON THE LEFT PHOTOGRAPH'S LINE. The foot of the cascade already lands on it —
-   both are at 852 — so the row only had to stop hanging 27 px below it. It is CENTRED on that
-   line rather than pushed down from it: translateY(-50%) puts the 2 px rule itself on the line
-   whatever height the clickable boxes around it are given, and those boxes grow to 44 px under
-   a finger without dragging the rule off the alignment. */
+
 .page-open--duo .pcdots { position: absolute; top: 100%; left: 0; margin-top: 0; transform: translateY(-50%); }
-/* the small frame is a second look, not a second subject: it stays in black and white */
+
 .page-open--duo .pcwindow--small .pcq.is-top .pcf-frame img { filter: grayscale(1) contrast(1.06); }
 @media (max-width: 900px) {
-  /* KEEP THE COMPOSITION, JUST SMALLER. Stacked full-width, the big and small frames became two
-     enormous photographs one under the other, on top of the fixed one — three giant pictures to
-     scroll past before the page even begins. The overlapping arrangement is held instead: the
-     big frame at 70 % with the small one lower-right of it, so the whole opening is read at a
-     glance in a fraction of the height. Only the mask and its pull-out are dropped — they exist
-     to carry the fade to the screen edge, and there is no fade here. */
+
   .page-open--duo .pcascade { -webkit-mask-image: none; mask-image: none; margin-right: 0; }
   .page-open--duo .pcwindow--big { width: 70%; }
   .page-open--duo .pcwindow--small { width: 36%; margin-right: 0; }
-  /* the marks drop clear of the composition here: on the foot line they crossed the small
-     frame, which reaches that line once the two are scaled down together */
+
   .page-open--duo .pcdots { position: relative; top: auto; margin-top: 2.5vh; transform: none; }
 }
