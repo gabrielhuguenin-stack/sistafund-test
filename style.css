@@ -2045,6 +2045,9 @@ body > main, body > footer { position: relative; z-index: 1; }
   color: var(--grey); width: min(52ch, 100%);
   margin: 3vh 0 0;
 }
+/* the standalone 'ambition' statement runs wider than the others: two sentences that read
+   as one line of thought, given the room to breathe across the page */
+.m-stmt--wide .m-body { width: min(78ch, 100%); }
 
 /* ---- the SISTA coda on its own BLACK band: words left, film right, the same ink treatment as
    the statements that carry a picture. The statement above it is turned back to cream so this
