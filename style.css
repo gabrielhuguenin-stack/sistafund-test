@@ -211,7 +211,7 @@ em { font-style: normal; }
   position: relative; margin: 0;
   text-align: left;
   font-family: var(--serif); text-transform: none;
-  font-weight: 400; line-height: .88; letter-spacing: -.03em;
+  font-weight: 400; line-height: .98; letter-spacing: -.03em;
   pointer-events: none;
 }
 
@@ -235,7 +235,7 @@ em { font-style: normal; }
 }
 .hline--in1 { padding-left: 1.3em; }
 
-.hline--in2, .hline--close { text-align: right; padding-left: 0; }
+.hline--in2, .hline--close { text-align: left; padding-left: 1.8em; }
 
 .hstmt .l-serif-lc {
   font-family: var(--serif); text-transform: none;
