@@ -281,7 +281,7 @@ em { font-style: normal; }
 /* .hline in the selector so this step wins over the .l-md / .l-lg one below */
 .hstmt .hline.l-kicker {
   letter-spacing: .01em; line-height: 1.02;
-  font-size: clamp(1.25rem, 3.02vw, 3.14rem);
+  font-size: clamp(1.32rem, 3.2vw, 3.32rem);
 }
 .hstmt .l-kicker .hmask { padding-bottom: .2em; margin-bottom: -.2em; }
 .hstmt .l-md { font-size: clamp(2rem, 6.5vw, 6.7rem); }
@@ -1941,7 +1941,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 /* these pages have no scroll-reveal engine: show gated home components by default */
 .doc-page .stat-item { opacity: 1; transform: none; }
 .doc-page .sector > span { transform: none; }
-.doc-hero { padding: 22vh 4vw 5vh; }
+.doc-hero { padding: 22vh 4vw 11vh; }
 .doc-title {
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(2.6rem, 6.8vw, 6.4rem); line-height: .92;
@@ -1965,7 +1965,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 .doc-hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 5vw; align-items: end; }
 
 /* manifesto statements: one steady rhythm, claim left, argument right, no zig-zag */
-.doc-statements { padding: 4vh 4vw 0; }
+.doc-statements { padding: 0 4vw 0; }
 /* ONE COLUMN, READ STRAIGHT DOWN. The statements used to alternate sides — the claim thrown
    left, its explanation answering from the far right, the next one the other way round. On a
    wide screen the eye had to cross the whole page for every sentence and the pairs came apart:
