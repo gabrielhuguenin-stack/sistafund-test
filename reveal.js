@@ -77,7 +77,7 @@
   window.TEAM.slice(0, n).forEach(([name, role, file], i) => {
     const a = document.createElement('a');
     a.className = 'team-face';
-    a.href = 'team.html';
+    a.href = '/team';
     a.setAttribute('data-reveal', 'image');
     a.style.setProperty('--rd', (i * 90) + 'ms');
     a.innerHTML = `<img src="img/team/${file}" alt="${name}"${i > 2 ? ' loading="lazy"' : ''}>` +
@@ -89,8 +89,8 @@
 (function () {
   const set = (n, count) =>
     document.querySelectorAll(`a[href="${n}"] .nav-count`).forEach(e => { e.textContent = `(${count})`; });
-  if (window.COMPANIES) set('portfolio.html', Object.keys(window.COMPANIES).length);
-  if (window.TEAM) set('team.html', window.TEAM.length);
+  if (window.COMPANIES) set('/portfolio', Object.keys(window.COMPANIES).length);
+  if (window.TEAM) set('/team', window.TEAM.length);
 })();
 
 (function () {
