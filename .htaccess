@@ -10,7 +10,7 @@
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-  # old WordPress URLs -> new pages
+  # legacy URLs -> new pages
   RewriteRule ^limited_partners(/.*)?$    /community [R=301,L]
   RewriteRule ^helpies(/.*)?$             /community [R=301,L]
   RewriteRule ^cat_helpies(/.*)?$         /community [R=301,L]
