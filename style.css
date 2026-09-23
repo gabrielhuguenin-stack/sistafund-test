@@ -225,7 +225,7 @@ em { font-style: normal; }
 .hstmt .l-md { font-size: clamp(2rem, 6.5vw, 6.7rem); }
 .hstmt .l-lg { font-size: clamp(2.6rem, 8.96vw, 9.2rem); }
 .hstmt .l-xl { font-size: clamp(3.2rem, 12.3vw, 12.8rem); }
-.hstmt .l-kicker { margin-bottom: .3em; }
+.hstmt .l-kicker { margin-bottom: .3em; padding-left: 8vw; }
 
 @media (max-width: 345px) {
   .hstmt .hline.l-kicker { font-size: 1.13rem; }
