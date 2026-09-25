@@ -1,4 +1,39 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/limited_partners", "destination": "/community", "permanent": true },
+    { "source": "/limited_partners/:path*", "destination": "/community", "permanent": true },
+    { "source": "/helpies", "destination": "/community", "permanent": true },
+    { "source": "/helpies/:path*", "destination": "/community", "permanent": true },
+    { "source": "/cat_helpies", "destination": "/community", "permanent": true },
+    { "source": "/cat_helpies/:path*", "destination": "/community", "permanent": true },
+    { "source": "/portfolio/:path+", "destination": "/portfolio", "permanent": true },
+    { "source": "/cat_portfolio", "destination": "/portfolio", "permanent": true },
+    { "source": "/cat_portfolio/:path*", "destination": "/portfolio", "permanent": true },
+    { "source": "/location", "destination": "/portfolio", "permanent": true },
+    { "source": "/location/:path*", "destination": "/portfolio", "permanent": true },
+    { "source": "/portfolio_status", "destination": "/portfolio", "permanent": true },
+    { "source": "/portfolio_status/:path*", "destination": "/portfolio", "permanent": true },
+    { "source": "/news/:path+", "destination": "/news", "permanent": true },
+    { "source": "/cat_news", "destination": "/news", "permanent": true },
+    { "source": "/cat_news/:path*", "destination": "/news", "permanent": true },
+    { "source": "/feed", "destination": "/news", "permanent": true },
+    { "source": "/feed/:path*", "destination": "/news", "permanent": true },
+    { "source": "/about", "destination": "/#about", "permanent": true },
+    { "source": "/faq", "destination": "/#faq", "permanent": true },
+    { "source": "/archives", "destination": "/", "permanent": true },
+    { "source": "/pied-de-page", "destination": "/", "permanent": true },
+    { "source": "/sistafund-tennis-balls", "destination": "/", "permanent": true },
+    { "source": "/wp-content/uploads/(.*)responsible-investment-policy(.*).pdf", "destination": "/docs/responsible-investment-policy.pdf", "permanent": true },
+    { "source": "/wp-content/uploads/(.*)declarationsfdr-article10.pdf", "destination": "/docs/sfdr-article-10.pdf", "permanent": true },
+    { "source": "/wp-content/uploads/(.*)pai-statement-sunshine.pdf", "destination": "/docs/pai-statement.pdf", "permanent": true },
+    { "source": "/wp-content/uploads/(.*)rapportlec29-sunshine.pdf", "destination": "/docs/reporting-lec-29.pdf", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/data.js",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache, must-revalidate" }]
+    }
+  ]
 }
