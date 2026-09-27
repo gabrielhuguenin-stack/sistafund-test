@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /img/reserve/
 
 Sitemap: https://sistafund.com/sitemap.xml
