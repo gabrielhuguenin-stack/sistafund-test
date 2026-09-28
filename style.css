@@ -49,7 +49,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 .m-shot img, .doc-photo img, .m-plate, .ncard-shot, .pf-logo, .pf-all-card,
 .pcf-frame img, .lp-photo img, .team-face img, .inst-card img,
-.grow-frame, .comm-pile img { border-radius: 1px; }
+.grow-frame, .comm-pile img { border-radius: 3px; }
 
 html { scroll-behavior: smooth; }
 
