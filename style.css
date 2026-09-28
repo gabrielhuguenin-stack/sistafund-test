@@ -1575,7 +1575,8 @@ body > main, body > footer { position: relative; z-index: 1; }
 }
 
 .m-stmt--wide .m-body { width: min(78ch, 100%); }
-.m-stmt--intro { padding-bottom: 2vh; }
+.m-stmt--intro { grid-template-columns: 1fr; }
+.m-stmt--intro .m-body { width: min(78ch, 100%); }
 
 .m-band {
   background: var(--ink); color: var(--paper);
