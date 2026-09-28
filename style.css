@@ -1576,6 +1576,7 @@ body > main, body > footer { position: relative; z-index: 1; }
 
 .m-stmt--wide .m-body { width: min(78ch, 100%); }
 .m-stmt--intro { grid-template-columns: 1fr; }
+.m-stmt--intro .m-claim { max-width: none; white-space: nowrap; }
 .m-stmt--intro .m-body { width: min(78ch, 100%); }
 
 .m-band {
@@ -1622,6 +1623,15 @@ body > main, body > footer { position: relative; z-index: 1; }
   font-family: var(--display); text-transform: uppercase;
   font-size: clamp(1.5rem, 6.1vw, 6.4rem); line-height: .95;
   white-space: nowrap;
+}
+.m-legacy-body {
+  font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.8rem); line-height: 1.45;
+  color: var(--grey); margin: 4vh auto 0; max-width: 52ch;
+}
+.m-legacy-cta {
+  font-family: var(--display); text-transform: uppercase;
+  font-size: clamp(.95rem, 1.4vw, 1.3rem); letter-spacing: .08em;
+  color: var(--ink); margin-top: 5vh;
 }
 @media (max-width: 620px) { .m-legacy-title { white-space: normal; } }
 @media (max-width: 900px) {
