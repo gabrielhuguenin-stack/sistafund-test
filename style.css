@@ -47,9 +47,10 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-.m-shot img, .doc-photo img, .m-plate, .ncard-shot, .pf-logo, .pf-all-card,
-.pcf-frame img, .lp-photo img, .team-face img, .inst-card img,
-.grow-frame, .comm-pile img { border-radius: 6px; }
+.m-shot, .m-shot img, .doc-photo, .doc-photo img, .m-plate, .ncard-shot, .ncard-shot img,
+.pf-logo, .pf-card, .pf-all-card, .pcf-frame, .pcf-frame img,
+.lp-photo, .lp-photo img, .team-face, .team-face img, .inst-card, .inst-card img,
+.grow-frame, .comm-pile img, .comm-shot { border-radius: 6px; overflow: hidden; }
 
 html { scroll-behavior: smooth; }
 
