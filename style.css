@@ -50,7 +50,7 @@
 .m-shot, .m-shot img, .doc-photo, .doc-photo img, .m-plate, .ncard-shot, .ncard-shot img,
 .pf-logo, .pf-card, .pf-all-card, .pcf-frame, .pcf-frame img,
 .lp-photo, .lp-photo img, .team-face, .team-face img, .inst-card, .inst-card img,
-.grow-frame, .comm-pile img, .comm-shot { border-radius: 6px; overflow: hidden; }
+.grow-frame, .comm-pile img, .comm-shot { border-radius: 3px; overflow: hidden; }
 
 html { scroll-behavior: smooth; }
 
@@ -372,7 +372,7 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .grow-frame {
   position: absolute; inset: 0;
-  clip-path: inset(30% 27% 30% 27% round 6px);
+  clip-path: inset(30% 27% 30% 27% round 3px);
   will-change: clip-path;
 }
 .grow-frame img {
@@ -413,7 +413,7 @@ main section[id] { scroll-margin-top: 60px; }
 @media (max-width: 900px) {
   .grow-pin { height: 260vh; }
   .grow-copy { grid-template-columns: 1fr; gap: 3vh; }
-  .grow-frame { clip-path: inset(24% 8% 24% 8% round 6px); }
+  .grow-frame { clip-path: inset(24% 8% 24% 8% round 3px); }
   .grow-side .btn { margin-top: 3.2vh; }
 }
 
