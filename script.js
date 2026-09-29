@@ -388,7 +388,7 @@ function onScroll() {
 
     const open = ease(clamp(p / 0.52, 0, 1));
     const iv = (1 - open) * 30, ih = (1 - open) * 27;
-    growFrame.style.clipPath = `inset(${iv.toFixed(2)}% ${ih.toFixed(2)}%)`;
+    growFrame.style.clipPath = `inset(${iv.toFixed(2)}% ${ih.toFixed(2)}% round 6px)`;
     const ride = (1 - open) * 22;
     growImg.style.transform = `translateY(${ride.toFixed(2)}%) scale(${(1.18 - open * 0.18).toFixed(3)})`;
 

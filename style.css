@@ -372,7 +372,7 @@ main section[id] { scroll-margin-top: 60px; }
 }
 .grow-frame {
   position: absolute; inset: 0;
-  clip-path: inset(30% 27% 30% 27%);
+  clip-path: inset(30% 27% 30% 27% round 6px);
   will-change: clip-path;
 }
 .grow-frame img {
@@ -413,7 +413,7 @@ main section[id] { scroll-margin-top: 60px; }
 @media (max-width: 900px) {
   .grow-pin { height: 260vh; }
   .grow-copy { grid-template-columns: 1fr; gap: 3vh; }
-  .grow-frame { clip-path: inset(24% 8% 24% 8%); }
+  .grow-frame { clip-path: inset(24% 8% 24% 8% round 6px); }
   .grow-side .btn { margin-top: 3.2vh; }
 }
 
