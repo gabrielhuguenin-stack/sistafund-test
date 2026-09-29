@@ -47,10 +47,10 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-.m-shot, .m-shot img, .doc-photo, .doc-photo img, .m-plate, .ncard-shot, .ncard-shot img,
-.pf-logo, .pf-card, .pf-all-card, .pcf-frame, .pcf-frame img,
-.lp-photo, .lp-photo img, .team-face, .team-face img, .inst-card, .inst-card img,
-.grow-frame, .comm-pile img, .comm-shot { border-radius: 3px; overflow: hidden; }
+.m-shot, .doc-photo, .m-plate, .ncard-shot,
+.pf-logo, .pf-card, .pf-all-card, .pcf-frame,
+.lp-photo, .team-face, .inst-card,
+.grow-frame, .comm-shot { border-radius: 3px; overflow: hidden; }
 
 html { scroll-behavior: smooth; }
 
