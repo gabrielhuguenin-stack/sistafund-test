@@ -28,7 +28,17 @@
     { "source": "/wp-content/uploads/(.*)responsible-investment-policy(.*).pdf", "destination": "/docs/responsible-investment-policy.pdf", "permanent": true },
     { "source": "/wp-content/uploads/(.*)declarationsfdr-article10.pdf", "destination": "/docs/sfdr-article-10.pdf", "permanent": true },
     { "source": "/wp-content/uploads/(.*)pai-statement-sunshine.pdf", "destination": "/docs/pai-statement.pdf", "permanent": true },
-    { "source": "/wp-content/uploads/(.*)rapportlec29-sunshine.pdf", "destination": "/docs/reporting-lec-29.pdf", "permanent": true }
+    { "source": "/wp-content/uploads/(.*)rapportlec29-sunshine.pdf", "destination": "/docs/reporting-lec-29.pdf", "permanent": true },
+    { "source": "/author/:path*", "destination": "/", "permanent": true },
+    { "source": "/wp-admin/:path*", "destination": "/", "permanent": true },
+    { "source": "/wp-login.php", "destination": "/", "permanent": true },
+    { "source": "/wp-content/:path*", "destination": "/", "permanent": true },
+    { "source": "/wp-includes/:path*", "destination": "/", "permanent": true },
+    { "source": "/wp-json/:path*", "destination": "/", "permanent": true },
+    { "source": "/xmlrpc.php", "destination": "/", "permanent": true },
+    { "source": "/category/:path*", "destination": "/news", "permanent": true },
+    { "source": "/tag/:path*", "destination": "/news", "permanent": true },
+    { "source": "/page/:path*", "destination": "/", "permanent": true }
   ],
   "headers": [
     {
